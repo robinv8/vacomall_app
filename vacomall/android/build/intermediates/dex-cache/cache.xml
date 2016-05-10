@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="0d5d69b03cb7d68b81543f6483ed04ccb0e2235b">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-28088d60a93b021b0e753cd3c163ac1a78cd6f52.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-749c924fca22e00a1c9b539f7e1d61e35a2eb5d4.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/okio-1.6.0-4d09730374be4175817d4d05245b503028944c04.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/jsr305-3.0.0-6813d4da8fb61022b89fee362891ef8401bc836a.jar" />
+    </item>
+    <item
+        jar="/usr/local/Cellar/android-sdk/24.4.1_1/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/support-annotations-23.0.1-51eb24e91ddbee4e2b0a209158e2ad356590715c.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.24.1/jars/libs/infer-annotations-1.5.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="50bae83a0680cb90776a4d36bb6aa4911a84fd8b">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/infer-annotations-1.5-751c75661f8275fb9de7e1eb0acc48c4dffd0c4f.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-ws/2.5.0/e9753b7dcae5deca92e871c5c759067070b07bc/okhttp-ws-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="0e9753b7dcae5deca92e871c5c759067070b07bc">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/okhttp-ws-2.5.0-3903a9ff4ac131e507ca01cee24030971b672509.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="3836ecca4e31e18ea8fbae8e822d49777b0db4f7">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-b93f9d9f1f3e5da8b71c4c1a92544e126338cac2.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="9178570a3a28c95fabd3bc746cd68efe99ad2b47">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-355eefa8eb64b9b5df74f6e6d211bae3ac2d1c1a.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.24.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d12931c7b260dda5ba99b8c89cd6ec2a104abed3">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-9a4e7fc6cbc74ac2985d3b86fc99131474446585.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="845a5b3a624946b2068963ba656c117fc453701c">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-a4c64ca0d06047ef5c9cd7163dcb0d1b4ca5e78f.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-update/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="db38a841920595a9058053e181f505e68f765627">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-ef1808f63b41aab2e2ce0d708ee98473491164a4.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.2.3/1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14/jackson-core-2.2.3.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/jackson-core-2.2.3-c8e9a4e031b4c1a494493108b27b3319ef7e1dd9.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4af24c040b21980e0a80a505816c648e36705bd9">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-c5b213d6209faa1de260cc9ad349a48c2ff138d3.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-09de8dfd607171f39b6ef723e078f9eac52305c8.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-22ad0aae58e61cf7218e5194907102838882e588.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/bolts-android-1.1.4-0c835ab1a701c2f396fc99a80c9ef252891f0246.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/library-2.4.0-685d6350f00c8fa4088ad5575927789d37c4e23d.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-01b7d2d04a76f78cd53af79c739eb1d2306e4b62.jar" />
+    </item>
+    <item
+        jar="/Users/renyubin/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.5.0/4de2b4ed3445c37ec1720a7d214712e845a24636/okhttp-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
+        <dex dex="/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/pre-dexed/release/okhttp-2.5.0-cf0a94c3331e6825a1f5e115dc58281e7bae5224.jar" />
+    </item>
+
+</items>
