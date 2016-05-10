@@ -1,0 +1,19 @@
+{
+  "name": "vacomall",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react": "^0.14.8",
+    "react-native": "^0.24.1",
+    "react-native-gifted-listview": "0.0.14",
+    "react-native-html-render": "^1.0.3",
+    "react-native-htmlview": "^0.4.2",
+    "react-native-storage": "0.0.16",
+    "react-native-store": "^0.4.1",
+    "react-native-swiper2": "^2.0.5",
+    "react-native-update": "^1.0.4"
+  }
+}
