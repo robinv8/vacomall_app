@@ -24,7 +24,6 @@ import MenuButton from './HomePage/MenuButton';
 import HomeHeader from './HomePage/HomeHeader';
 import GoodsDetail from './GoodsDetail';
 import API from './util/api';
-import globalObj from './util/globalObj';
 import * as NetService from './util/NetService';
 
 export default class HomePage extends Component {

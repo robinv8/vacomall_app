@@ -9,6 +9,7 @@ import React,{
     Navigator,
 }from 'react-native';
 import HomePage from './app/HomePage';
+
 export default class MainPage extends Component {
     render() {
         let defaultName = 'HomePage';
