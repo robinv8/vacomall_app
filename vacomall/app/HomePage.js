@@ -23,6 +23,7 @@ import Swiper from 'react-native-swiper2';
 import MenuButton from './HomePage/MenuButton';
 import HomeHeader from './HomePage/HomeHeader';
 import GoodsDetail from './GoodsDetail';
+import ListPage from './ListPage';
 import API from './util/api';
 import * as NetService from './util/NetService';
 
@@ -52,11 +53,6 @@ export default class HomePage extends Component {
         const {navigator} = this.props;
         const routers = navigator.getCurrentRoutes();
         if (routers.length > 1) {
-            //if(routers[routers.length-1]['params']['result']['Id']!==""){
-            //    navigator.popToTop();
-            //}else{
-            //
-            //}
             navigator.pop();
             return true;
         }
@@ -69,17 +65,64 @@ export default class HomePage extends Component {
             BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));
         }
     }
+    _selectGoodsList(id){
+        const {navigator}=this.props;
+        if(navigator){
+            navigator.push({
+                component:ListPage,
+                sceneConfig:Navigator.SceneConfigs.FloatFromRight,
+                params:{id:id}
 
+            })
+        }
+    }
+    historyOnSubmit(text) {
+        if (text === "") {
+            return;
+        }
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: ListPage,
+                params: {
+                    text: text,
+                    id: null
+                }
+            })
+        }
+    }
     _callback(result) {
         var index_img = result['INDEX_IMAGE']['DataValue'];
         var imgArray = [];
+        var _this=this;
         JSON.parse(index_img).map(function (data, index) {
-            imgArray.push(<TouchableWithoutFeedback key={index}>
-                    <View style={styles.wrapper}>
-                        <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
-                    </View>
-                </TouchableWithoutFeedback>
-            );
+            switch (data['Type']){
+                case 1:
+                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.toDetails(data['ItemId'])}>
+                            <View style={styles.wrapper}>
+                                <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    );
+                    break;
+                case 2:
+                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this._selectGoodsList(data['Cid'])}>
+                            <View style={styles.wrapper}>
+                                <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    );
+                    break;
+                case 3:
+                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.historyOnSubmit(data['keywords'])}>
+                            <View style={styles.wrapper}>
+                                <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    );
+                    break;
+            }
+
         })
         this.setState({
             swiper: <Swiper autoplay={false} height={150} paginationStyle={{bottom: 5}}>
