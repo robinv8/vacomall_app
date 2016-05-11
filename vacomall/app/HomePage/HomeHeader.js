@@ -64,14 +64,10 @@ export default class HomeHeader extends Component {
             } else {
                 this.quitAlert();
             }
-            this.setState({
-                status:false
-            });
+            this.state.status=false;
         }
         NetService.postFetchData(API.LOGINSTATE, '', _callback.bind(this));
-        this.setState({
-            status:true
-        });
+        this.state.status=true;
 
     }
 

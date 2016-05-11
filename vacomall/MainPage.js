@@ -9,11 +9,11 @@ import React,{
     Navigator,
 }from 'react-native';
 import HomePage from './app/HomePage';
-
+import Test from './app/Test';
 export default class MainPage extends Component {
     render() {
-        let defaultName = 'HomePage';
-        let defaultComponent = HomePage;
+        let defaultName = 'Test';
+        let defaultComponent = Test;
         return (
             <Navigator
                 initialRoute={{ name: defaultName, component: defaultComponent }}
