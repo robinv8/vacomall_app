@@ -244,6 +244,9 @@
     <string name="catalyst_settings_title" project="catalyst" translatable="false">Catalyst Dev Settings</string>
     <string name="catalyst_start_profile" project="catalyst" translatable="false">Start Profile</string>
     <string name="catalyst_stop_profile" project="catalyst" translatable="false">Stop Profile</string>
+    <!-- From: file:/Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey"/>
     <!-- From: file:/Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
     <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>

@@ -125,7 +125,7 @@ export default class HomePage extends Component {
 
         })
         this.setState({
-            swiper: <Swiper autoplay={false} height={150} paginationStyle={{bottom: 5}}>
+            swiper: <Swiper autoplay={true} height={150} paginationStyle={{bottom: 5}}>
                 {imgArray}
             </Swiper>
         });
@@ -233,7 +233,6 @@ export default class HomePage extends Component {
                         <Text style={{fontSize:16,color:'#c1c1c1'}}>/推荐热卖/</Text>
                     </View>
                     <ListView
-                        initialListSize={14}
                         dataSource={this.state.dataSource}
                         renderRow={(gList)=>this.renderGList(gList)}
                         contentContainerStyle={styles.listview}></ListView>

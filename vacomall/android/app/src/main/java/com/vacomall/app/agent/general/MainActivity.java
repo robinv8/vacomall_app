@@ -1,13 +1,12 @@
 package com.vacomall.app.agent.general;
 
 import com.facebook.react.ReactActivity;
-import cn.reactnative.modules.update.UpdatePackage;
+import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
-import cn.reactnative.modules.update.UpdateContext;
 public class MainActivity extends ReactActivity {
 
     /**
@@ -29,7 +28,7 @@ public class MainActivity extends ReactActivity {
     }
     @Override
     protected String getJSBundleFile() {
-        return UpdateContext.getBundleUrl(this);
+        return CodePush.getBundleUrl();
     }
     /**
      * A list of packages used by the app. If the app uses additional views
@@ -39,7 +38,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-            new UpdatePackage()
+            new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG)
         );
     }
 }

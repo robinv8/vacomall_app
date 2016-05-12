@@ -29,6 +29,7 @@ import _updateConfig from '../update.json';
 const {appKey} = _updateConfig[Platform.OS];
 
 export default class Test extends Component {
+
     componentWillMount(){
         if (isFirstTime) {
             Alert.alert('提示', '这是当前版本第一次启动,是否要模拟启动失败?失败将回滚到上一版本', [
@@ -39,7 +40,7 @@ export default class Test extends Component {
             Alert.alert('提示', '刚刚更新失败了,版本被回滚.');
         }
     }
-    doUpdate = info => {
+    doUpdate(info){
         downloadUpdate(info).then(hash => {
             Alert.alert('提示', '下载完毕,是否重启应用?', [
                 {text: '是', onPress: ()=>{switchVersion(hash);}},
@@ -50,7 +51,7 @@ export default class Test extends Component {
             Alert.alert('提示', '更新失败.');
         });
     };
-    checkUpdate = () => {
+    checkUpdate(){
         checkUpdate(appKey).then(info => {
             if (info.expired) {
                 Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
@@ -79,7 +80,7 @@ export default class Test extends Component {
                     当前包版本号: {packageVersion}{'\n'}
                     当前版本Hash: {currentVersion||'(空)'}{'\n'}
                 </Text>
-                <TouchableOpacity onPress={this.checkUpdate}>
+                <TouchableOpacity onPress={()=>this.checkUpdate()}>
                     <Text style={styles.instructions}>
                         点击这里检查更新
                     </Text>

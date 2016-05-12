@@ -1,19 +1,25 @@
 /**
  * Created by renyubin on 16/4/23.
  */
-'use strict';
+"use strict";
+
 import React,{
     Component,
     View,
     Text,
     Navigator,
+    AppState,
 }from 'react-native';
 import HomePage from './app/HomePage';
-import Test from './app/Test';
+import codePush from "react-native-code-push";
+//import Test from './app/Test';
 export default class MainPage extends Component {
+    componentDidMount() {
+        codePush.sync();
+    }
     render() {
-        let defaultName = 'Test';
-        let defaultComponent = Test;
+        let defaultName = 'HomePage';
+        let defaultComponent = HomePage;
         return (
             <Navigator
                 initialRoute={{ name: defaultName, component: defaultComponent }}

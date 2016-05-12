@@ -17,6 +17,7 @@ ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/Andr
 		ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:1:11-69
 uses-permission#android.permission.INTERNET
 ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:6:5-66
+MERGED from [vacomall:react-native-code-push:unspecified] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-code-push/unspecified/AndroidManifest.xml:11:5-67
 	android:name
 		ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:6:22-64
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
@@ -27,7 +28,9 @@ MERGED from [com.facebook.react:react-native:0.24.1] /Users/renyubin/reactProjec
 		ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:7:22-75
 uses-sdk
 ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:9:5-11:44
-MERGED from [vacomall:react-native-update:unspecified] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-update/unspecified/AndroidManifest.xml:7:5-9:41
+MERGED from [vacomall:react-native-code-push:unspecified] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-code-push/unspecified/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:23.0.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.0.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/AndroidManifest.xml:20:5-43
 MERGED from [com.facebook.react:react-native:0.24.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.24.1/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.fresco:fresco:0.8.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.8.1/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:imagepipeline:0.8.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.8.1/AndroidManifest.xml:5:5-7:41
@@ -76,6 +79,9 @@ MERGED from [com.android.support:support-v4:23.0.1] /Users/renyubin/reactProject
 		INJECTED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml
 application
 ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:13:5-29:19
+MERGED from [vacomall:react-native-code-push:unspecified] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-code-push/unspecified/AndroidManifest.xml:13:5-17:19
+MERGED from [com.android.support:appcompat-v7:23.0.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.0.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.facebook.react:react-native:0.24.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.24.1/AndroidManifest.xml:13:5-20
 MERGED from [org.webkit:android-jsc:r174650] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/org.webkit/android-jsc/r174650/AndroidManifest.xml:2:3-17
 MERGED from [com.android.support:support-v4:23.0.1] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/AndroidManifest.xml:22:5-20
@@ -122,6 +128,7 @@ ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/Andr
 		ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:25:27-74
 activity#com.facebook.react.devsupport.DevSettingsActivity
 ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:28:9-85
+MERGED from [vacomall:react-native-code-push:unspecified] /Users/renyubin/reactProject/trunk/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-code-push/unspecified/AndroidManifest.xml:16:9-86
 	android:name
 		ADDED from /Users/renyubin/reactProject/trunk/vacomall/android/app/src/main/AndroidManifest.xml:28:19-83
 android:uses-permission#android.permission.WRITE_EXTERNAL_STORAGE

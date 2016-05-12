@@ -2046,6 +2046,7 @@ containing a value of this type.
         public static final int catalyst_settings_title=0x7f070019;
         public static final int catalyst_start_profile=0x7f070025;
         public static final int catalyst_stop_profile=0x7f070026;
+        public static final int reactNativeCodePush_androidDeploymentKey=0x7f070027;
         public static final int status_bar_notification_info_overflow=0x7f070011;
     }
     public static final class style {

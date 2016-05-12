@@ -8,11 +8,8 @@
   "dependencies": {
     "react": "^0.14.8",
     "react-native": "^0.24.1",
-    "react-native-gifted-listview": "0.0.14",
-    "react-native-html-render": "^1.0.3",
-    "react-native-htmlview": "^0.4.2",
+    "react-native-code-push": "^1.10.6-beta",
     "react-native-storage": "0.0.16",
-    "react-native-store": "^0.4.1",
     "react-native-swiper2": "^2.0.5",
     "react-native-update": "^1.0.4"
   }

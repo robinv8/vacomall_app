@@ -75,31 +75,14 @@ export default class GoodsDetail extends Component {
             </View>)
         })
         this.setState({
-            swiper: <Swiper height={353} autoplay={false} paginationStyle={{bottom: 5}}>{imagesArray}</Swiper>
+            swiper: <Swiper height={353} autoplay={true} paginationStyle={{bottom: 5}}>{imagesArray}</Swiper>
         })
     }
 
     setDetails(data) {
         this.setState({
-            details: <View>
-                <View><Text style={{color:'#2F2F2F'}}>{data['GoodsItemTitle']}</Text></View>
-                <View style={styles.price_con}>
-                    <Text style={[styles.price]}>￥</Text>
-                    <Text style={[styles.price,{fontSize: 18,marginTop:-4}]}>{data['GoodsItemSalePrice']}</Text>
-                </View>
-                <View style={styles.price_con}>
-                    <Text style={styles.bef_text}>原价</Text>
-                    <Text style={[styles.bef_text,styles.bef_price]}>￥{data['GoodsItemTagPrice']}</Text>
-
-                </View>
-                <View style={styles.sales}>
-                    <View style={styles.freight}><Text
-                        style={{fontSize:12,color:'#C9C9C9'}}>快递:0.00</Text></View>
-                    <View style={styles.freight}><Text
-                        style={{fontSize:12,color:'#C9C9C9'}}>月销{data['GoodsItemSales']}笔</Text></View>
-                </View>
-            </View>,
-            price: data['GoodsItemSalePrice']
+            price: data['GoodsItemSalePrice'],
+            details: data,
         })
     }
 
@@ -118,7 +101,7 @@ export default class GoodsDetail extends Component {
                     <Text style={{fontSize:12,color:'#2F2F2F'}}>{data['SpecificationName']}</Text><Text
                     style={{fontSize:12,marginLeft:3,color:'#F08100',marginTop:1}}></Text>
                 </View>
-                <View style={{flexDirection:'row'}}>
+                <View style={{flex:1,flexDirection:'row',flexWrap:'wrap'}}>
                     {specvueArray}
                 </View>
             </View>)
@@ -189,9 +172,6 @@ export default class GoodsDetail extends Component {
             })
         }
     }
-    endTest(e){
-        console.log(e.nativeEvent)
-    }
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -200,13 +180,29 @@ export default class GoodsDetail extends Component {
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
                 <View style={{flex:1}}>
                     <ScrollView
-                        onMomentumScrollEnd={this.endTest}
                         style={{flex:1}}>
                         <View style={{height:353}}>
                             {this.state.swiper}
                         </View>
                         <View style={{backgroundColor:'white',padding:5}}>
-                            {this.state.details}
+                            <View>
+                                <View><Text style={{color:'#2F2F2F'}}>{this.state.details['GoodsItemTitle']}</Text></View>
+                                <View style={styles.price_con}>
+                                    <Text style={[styles.price]}>￥</Text>
+                                    <Text style={[styles.price,{fontSize: 18,marginTop:-4}]}>{this.state.price}</Text>
+                                </View>
+                                <View style={styles.price_con}>
+                                    <Text style={styles.bef_text}>原价</Text>
+                                    <Text style={[styles.bef_text,styles.bef_price]}>￥{this.state.details['GoodsItemTagPrice']}</Text>
+
+                                </View>
+                                <View style={styles.sales}>
+                                    <View style={styles.freight}><Text
+                                        style={{fontSize:12,color:'#C9C9C9'}}>快递:0.00</Text></View>
+                                    <View style={styles.freight}><Text
+                                        style={{fontSize:12,color:'#C9C9C9'}}>月销{this.state.details['GoodsItemSales']}笔</Text></View>
+                                </View>
+                            </View>
                             <View style={{flexDirection:'row',marginBottom:0}}>
                                 <View style={{flexDirection:'row',flex:1,justifyContent:'flex-start'}}>
                                     <Image source={require('../../images/detail/right.png')}
@@ -314,9 +310,8 @@ export default class GoodsDetail extends Component {
     }
 
     _specSelect(obj) {
-        var _this = this;
         if (obj !== undefined) {
-            _this.setState({
+            this.setState({
                 price: obj['GoodsSalePrice'],
                 id: obj['Id'],
             })
@@ -452,7 +447,8 @@ const styles = StyleSheet.create({
         paddingTop: 3,
         paddingBottom: 3,
         borderWidth: 1,
-        marginRight: 5
+        marginRight: 5,
+        marginBottom:5
     },
     specVueText: {
         fontSize: 12,
