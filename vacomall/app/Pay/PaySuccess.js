@@ -14,7 +14,7 @@ import React, {
 }from 'react-native'
 
 var cartThis = [];
-export default class OrderPage extends Component {
+export default class paySuccess extends Component {
     // 构造
     constructor(props) {
         super(props);

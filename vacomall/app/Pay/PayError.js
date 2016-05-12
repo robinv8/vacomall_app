@@ -14,7 +14,7 @@ import React, {
 }from 'react-native'
 
 var cartThis = [];
-export default class OrderPage extends Component {
+export default class payError extends Component {
     _back() {
         const {navigator}=this.props;
         if (navigator) {

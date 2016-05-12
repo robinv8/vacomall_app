@@ -53,7 +53,12 @@ export default class HomePage extends Component {
         const {navigator} = this.props;
         const routers = navigator.getCurrentRoutes();
         if (routers.length > 1) {
-            navigator.pop();
+            var displayName=routers[routers.length-1]['component']['displayName'];
+            if(displayName==='paySuccess'){
+                navigator.popToTop();
+            }else{
+                navigator.pop();
+            }
             return true;
         }
         return false;
