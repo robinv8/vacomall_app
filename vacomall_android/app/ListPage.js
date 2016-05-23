@@ -22,7 +22,6 @@ import ListHeader from './ListPage/ListHeader';
 import GoodsDetail from './GoodsDetail';
 import API from './util/api';
 import * as NetService from './util/NetService';
-var GiftedListView = require('react-native-gifted-listview');
 export default class ListPage extends Component {
     // 构造
     constructor(props) {
