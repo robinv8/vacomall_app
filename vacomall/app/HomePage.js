@@ -235,7 +235,7 @@ export default class HomePage extends Component {
                     </View>
                     <View
                         style={{backgroundColor:'white',alignItems:'center',marginTop:10,height:40,justifyContent:'center'}}>
-                        <Text style={{fontSize:16,color:'#c1c1c1'}}>/推荐热卖/</Text>
+                        <Text style={{fontSize:16,color:'#c1c1c1'}}>/推荐热卖--/</Text>
                     </View>
                     <ListView
                         dataSource={this.state.dataSource}

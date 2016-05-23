@@ -12,7 +12,8 @@ import React, {
     TouchableWithoutFeedback,
     Navigator,
     ToastAndroid,
-    Alert
+    Alert,
+    Dimensions
 }from 'react-native';
 var PPI = PixelRatio.get();
 import SearchPage from '../SearchPage';
@@ -20,6 +21,7 @@ import CartPage from '../CartPage';
 import Login from '../Login';
 import API from '../util/api';
 import * as NetService from '../util/NetService';
+var {height, width} = Dimensions.get('window');
 export default class HomeHeader extends Component {
     // 构造
     constructor(props) {
@@ -55,7 +57,10 @@ export default class HomeHeader extends Component {
             })
         }
     }
-å
+
+    componentDidMount() {
+        console.log('width:'+width+"-height:"+height)
+    }
     updateState() {
 
         var _callback = function (result) {

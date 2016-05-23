@@ -4,7 +4,7 @@ import com.facebook.react.ReactActivity;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-
+import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import java.util.Arrays;
 import java.util.List;
 public class MainActivity extends ReactActivity {
@@ -38,7 +38,8 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-            new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG)
+            new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG),
+             new WebViewBridgePackage()
         );
     }
 }

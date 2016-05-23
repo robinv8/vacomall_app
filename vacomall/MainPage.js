@@ -12,7 +12,7 @@ import React,{
 }from 'react-native';
 import HomePage from './app/HomePage';
 import codePush from "react-native-code-push";
-//import Test from './app/Test';
+import funcTest from './app/funcTest';
 export default class MainPage extends Component {
     componentDidMount() {
         codePush.sync();

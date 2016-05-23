@@ -10,9 +10,10 @@ import React, {
     TouchableWithoutFeedback,
     StyleSheet,
     StatusBar,
-    Image
+    Image,
+    PixelRatio
 }from 'react-native'
-
+var PPI = PixelRatio.get();
 var cartThis = [];
 export default class paySuccess extends Component {
     // 构造
