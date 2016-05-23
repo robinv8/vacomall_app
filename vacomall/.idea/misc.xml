@@ -14,6 +14,22 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="http://code.taobao.org/svn/vacomall_app/trunk" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="http://code.taobao.org/svn/vacomall_app/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
 </project>
