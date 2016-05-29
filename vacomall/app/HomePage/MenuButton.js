@@ -40,8 +40,8 @@ export default class MenuButton extends React.Component {
                 <View style={{alignItems:'center',flex:1}}>
                     <View
                         style={{width:50,height:50,backgroundColor:this.props.color,borderRadius:50,justifyContent:'center',alignItems:'center'}}>
-                        <Text style={[styles.showText]}>{this.props.showText }</Text>
                     </View>
+                    <Text style={[styles.showText]}>{this.props.showText }</Text>
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
         marginBottom: 2
     },
     showText: {
-        fontSize: 14,
-        color: 'white',
+        fontSize: 12,
+        color: '#696969',
         fontWeight: 'bold',
     }
 });

@@ -40,7 +40,7 @@ export default class HomePage extends Component {
                 rowHasChanged: (row1, row2)=>row1 !== row2,
             }),
             loaded: false,
-            content:''
+            content: ''
         };
     }
 
@@ -49,14 +49,15 @@ export default class HomePage extends Component {
             BackAndroid.removeEventListener('hardwareBackPress', ()=>this.onBackAndroid());
         }
     }
-    onBackAndroid(){
+
+    onBackAndroid() {
         const {navigator} = this.props;
         const routers = navigator.getCurrentRoutes();
         if (routers.length > 1) {
-            var displayName=routers[routers.length-1]['component']['displayName'];
-            if(displayName==='paySuccess'){
+            var displayName = routers[routers.length - 1]['component']['displayName'];
+            if (displayName === 'paySuccess') {
                 navigator.popToTop();
-            }else{
+            } else {
                 navigator.pop();
             }
             return true;
@@ -65,43 +66,21 @@ export default class HomePage extends Component {
     };
 
     componentDidMount() {
+        /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_IMAGE,INDEX_CAT_DATA,INDEX_HOT_GOODS,INDEX_NOTE', (result)=>this._callback(result));
+
         if (Platform.OS === 'android') {
             BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));
         }
     }
-    _selectGoodsList(id){
-        const {navigator}=this.props;
-        if(navigator){
-            navigator.push({
-                component:ListPage,
-                sceneConfig:Navigator.SceneConfigs.FloatFromRight,
-                params:{id:id}
 
-            })
-        }
-    }
-    historyOnSubmit(text) {
-        if (text === "") {
-            return;
-        }
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.push({
-                component: ListPage,
-                params: {
-                    text: text,
-                    id: null
-                }
-            })
-        }
-    }
+    /*异步请求后的回调*/
     _callback(result) {
         var index_img = result['INDEX_IMAGE']['DataValue'];
         var imgArray = [];
-        var _this=this;
+        var _this = this;
         JSON.parse(index_img).map(function (data, index) {
-            switch (data['Type']){
+            switch (data['Type']) {
                 case 1:
                     imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.toDetails(data['ItemId'])}>
                             <View style={styles.wrapper}>
@@ -111,7 +90,8 @@ export default class HomePage extends Component {
                     );
                     break;
                 case 2:
-                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this._selectGoodsList(data['Cid'])}>
+                    imgArray.push(<TouchableWithoutFeedback key={index}
+                                                            onPress={()=>_this._selectGoodsList(data['Cid'])}>
                             <View style={styles.wrapper}>
                                 <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
                             </View>
@@ -119,7 +99,8 @@ export default class HomePage extends Component {
                     );
                     break;
                 case 3:
-                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.historyOnSubmit(data['keywords'])}>
+                    imgArray.push(<TouchableWithoutFeedback key={index}
+                                                            onPress={()=>_this.historyOnSubmit(data['keywords'])}>
                             <View style={styles.wrapper}>
                                 <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
                             </View>
@@ -128,9 +109,9 @@ export default class HomePage extends Component {
                     break;
             }
 
-        })
+        });
         this.setState({
-            swiper: <Swiper autoplay={true} height={150} paginationStyle={{bottom: 5}}>
+            swiper: <Swiper autoplay={true} height={170} paginationStyle={{bottom: 5}}>
                 {imgArray}
             </Swiper>
         });
@@ -140,13 +121,13 @@ export default class HomePage extends Component {
         var _this = this;
         var catArray1 = [], catArray2 = []
         JSON.parse(index_cat_data).map(function (data, index) {
-            if (index < 5) {
+            if (index < 4) {
                 catArray1.push(<MenuButton key={index}
                                            id={data['Id']}
                                            color={data['BgColor']}
                                            showText={data['Title']}
                                            navigator={_this.props.navigator}/>)
-            } else {
+            } else if (index < 8) {
                 catArray2.push(<MenuButton key={index}
                                            id={data['Id']}
                                            color={data['BgColor']}
@@ -163,11 +144,40 @@ export default class HomePage extends Component {
             dataSource: this.state.dataSource.cloneWithRows(JSON.parse(index_hot_data))
         });
 
-        var index_note=result['INDEX_NOTE']['DataValue'];
+        var index_note = result['INDEX_NOTE']['DataValue'];
         this.setState({
-            content:JSON.parse(index_note)['Note']
+            content: JSON.parse(index_note)['Note']
         });
     }
+
+    _selectGoodsList(id) {
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: ListPage,
+                sceneConfig: Navigator.SceneConfigs.FloatFromRight,
+                params: {id: id}
+
+            })
+        }
+    }
+
+    historyOnSubmit(text) {
+        if (text === "") {
+            return;
+        }
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: ListPage,
+                params: {
+                    text: text,
+                    id: null
+                }
+            })
+        }
+    }
+
 
     toDetails(id) {
         const {navigator}=this.props;
@@ -217,25 +227,88 @@ export default class HomePage extends Component {
     render() {
         return (
             <View style={{flex:1}}>
-               <HomeHeader navigator={this.props.navigator}/>
-                <ScrollView style={{backgroundColor:'#f4f4f4'}}>
-                    <View style={{height:150}}>
+                <HomeHeader navigator={this.props.navigator}/>
+                <ScrollView style={{backgroundColor:'#F6F6F6'}}>
+                    <View style={{height:170}}>
                         {this.state.swiper}
                     </View>
-                    <View >
-                        <View style={styles.menuView}>
-                            {this.state.catArray1}
+                    <View style={styles.quick}>
+                        <View style={styles.quick_view}>
+                            <View style={styles.menuView}>
+                                {this.state.catArray1}
+                            </View>
+                            <View style={styles.menuView}>
+                                {this.state.catArray2}
+                            </View>
                         </View>
-                        <View style={styles.menuView}>
-                            {this.state.catArray2}
-                        </View>
+
                         <View style={styles.ad}>
-                            <Text style={{fontWeight:'bold'}}>万颗头条:</Text><Text>{this.state.content}</Text>
+                            <View style={styles.ad_topic}>
+                                <Image style={styles.headline}
+                                       source={require('../images/Headline.png')}/>
+                                <Text style={styles.ad_topic_text}>{this.state.content}</Text>
+                            </View>
+                            <View style={styles.ad_more}><Text style={styles.ad_more_text}>更多></Text></View>
+                        </View>
+                    </View>
+                    <View style={[styles.seckill,{marginTop: 12}]}>
+                        <View style={styles.seckill_1}>
+                            <Image source={require('../images/kill_img_1.png')} style={styles.seckill_1_img}></Image>
+                        </View>
+                        <View style={styles.seckill_2}>
+                            <View style={styles.seckill_3}>
+                                <Image source={require('../images/kill_img_2.png')}
+                                       style={styles.seckill_2_img}></Image>
+                            </View>
+                            <View style={[styles.seckill_2]}>
+                                <Image source={require('../images/kill_img_3.png')}
+                                       style={styles.seckill_3_img}></Image>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.chaoshihui}>
+                        <View style={styles.chaoshihui_title}>
+                            <Image source={require('../images/chaoshihui_tit.png')} style={styles.csh_tit}></Image>
+                        </View>
+                        <View style={styles.seckill}>
+                            <View style={styles.seckill_1}>
+                                <Image source={require('../images/csh_img1.png')} style={styles.seckill_1_img}></Image>
+                            </View>
+                            <View style={styles.seckill_2}>
+                                <View style={styles.seckill_3}>
+                                    <Image source={require('../images/csh_img2.png')}
+                                           style={styles.seckill_2_img}></Image>
+                                </View>
+                                <View style={[styles.seckill_2]}>
+                                    <Image source={require('../images/csh_img3.png')}
+                                           style={styles.seckill_3_img}></Image>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[styles.chaoshihui,{height:236}]}>
+                        <View style={styles.chaoshihui_title}>
+                            <Image source={require('../images/ppzg_tit.png')}
+                                   style={[styles.csh_tit,{width:96,height:22}]}></Image>
+                        </View>
+                        <View style={styles.seckill}>
+                            <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                                <Image source={require('../images/ppzg_img1.png')}
+                                       style={[styles.seckill_1_img,{width:68,height:170}]}></Image>
+                            </View>
+                            <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                                <Image source={require('../images/ppzg_img2.png')}
+                                       style={[styles.seckill_1_img,{width:89,height:172}]}></Image>
+                            </View>
+                            <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                                <Image source={require('../images/ppzg_img3.png')}
+                                       style={[styles.seckill_1_img,{width:60,height:178}]}></Image>
+                            </View>
                         </View>
                     </View>
                     <View
-                        style={{backgroundColor:'white',alignItems:'center',marginTop:10,height:40,justifyContent:'center'}}>
-                        <Text style={{fontSize:16,color:'#c1c1c1'}}>/推荐热卖--/</Text>
+                        style={styles.cnxh_view}>
+                        <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}></Image>
                     </View>
                     <ListView
                         dataSource={this.state.dataSource}
@@ -250,7 +323,56 @@ export default class HomePage extends Component {
 const styles = StyleSheet.create({
     menuView: {
         flexDirection: 'row',
-        marginTop: 10
+        marginTop: 12
+    },
+    quick_view:{
+    height:170
+    },
+    seckill: {
+        flex: 1,
+        height: 201,
+        backgroundColor: 'white',
+
+        flexDirection: 'row',
+        shadowColor: 'rgb(0,0,0)',
+        shadowOpacity: 0.1,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 1,
+            width: 0
+        }
+    },
+    seckill_1: {
+        flex: 1,
+        borderRightWidth: 0.5,
+        borderRightColor: '#E5E5E5',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+    seckill_1_img: {
+        width: 138,
+        height: 190,
+        resizeMode: 'stretch'
+    },
+    seckill_2_img: {
+        width: 186,
+        height: 74,
+        resizeMode: 'stretch'
+    },
+    seckill_3_img: {
+        width: 183,
+        height: 93,
+        resizeMode: 'stretch'
+    },
+    seckill_2: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    seckill_3: {
+        flex: 1,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#E5E5E5',
+        justifyContent: 'center'
     },
     wrapper: {
         flex: 1,
@@ -261,17 +383,41 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
     },
     ad: {
-        backgroundColor: 'white',
-        marginLeft: 20,
+        backgroundColor: '#F3F3F3',
+        marginLeft: 10,
         marginTop: 20,
         marginRight: 20,
         height: 30,
         paddingLeft: 10,
         flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 5
+    },
+    ad_topic: {
+        flex: 9,
+        flexDirection: 'row',
         alignItems: 'center'
     },
+    ad_topic_text: {
+        fontSize: 12,
+        color: '#3C3C3C',
+        fontFamily: 'PingFang SC'
+    },
+    ad_more: {
+        flex: 1,
+        height: 16,
+        marginRight: 15,
+        borderWidth: 1,
+        borderColor: '#FF7B00',
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    ad_more_text: {
+        color: '#FF7B00',
+        fontSize: 10
+    },
     listview: {
-        marginTop: 5,
         flexDirection: 'row',
         flexWrap: 'wrap'
     },
@@ -284,5 +430,58 @@ const styles = StyleSheet.create({
     price: {
         color: '#e43777',
         fontSize: 12
+    },
+    quick: {
+        height: 240,
+        backgroundColor: 'white',
+        shadowColor: "rgb(0,0,0)",
+        shadowOpacity: 0.1,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 0.5,
+            width: 0
+        }
+    },
+    headline: {
+        width: 59,
+        height: 14,
+        marginRight: 10
+    },
+    chaoshihui: {
+        marginTop: 12,
+        flex: 1,
+        height: 239,
+        backgroundColor: 'white',
+        shadowColor: "rgb(0,0,0)",
+        shadowOpacity: 0.1,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 0.5,
+            width: 0
+        }
+    },
+    chaoshihui_title: {
+        height: 38,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#E5E5E5',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    csh_tit: {
+        width: 77,
+        height: 22,
+        resizeMode: 'stretch',
+
+    },
+    cnxh_view: {
+        alignItems: 'center',
+        height: 40,
+        justifyContent: 'center'
+    },
+    cnxh_view_img:{
+        width:96,
+        height:20,
+        resizeMode: 'stretch',
+
     }
 });

@@ -21,7 +21,7 @@ import CartPage from '../CartPage';
 import Login from '../Login';
 import API from '../util/api';
 import * as NetService from '../util/NetService';
-var {height, width} = Dimensions.get('window');
+
 export default class HomeHeader extends Component {
     // 构造
     constructor(props) {
@@ -58,9 +58,6 @@ export default class HomeHeader extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log('width:'+width+"-height:"+height)
-    }
     updateState() {
 
         var _callback = function (result) {
@@ -143,23 +140,18 @@ export default class HomeHeader extends Component {
                     barStyle="light-content"
                 />
                 <TouchableWithoutFeedback onPress={()=>this.updateState()} disabled={this.state.status}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                        <Image source={require('../../images/person.png')}
-                               style={{height:30,width:30,resizeMode:'stretch'}}/>
+                    <View style={styles.qrcode_view}>
+                        <Image source={require('../../images/header/qrcode_icon.png')}
+                               style={styles.qrcode_icon}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
-                    <TextInput
-                        keyboardType='web-search'
-                        placeholder='创维家电直送 好礼不停'
-                        onFocus={()=>this._toSearchPage()}
-                        placeholderTextColor={'#00a040'}
-                        style={styles.inputText}/>
                     <Image source={require('../../images/header/search_icon.png')} style={styles.searchIcon}/>
+                    <Text style={styles.searchText}>2016夏季女T恤 热卖</Text>
                 </View>
                 <TouchableWithoutFeedback onPress={()=>this.toCart()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                        <Image source={require('../../images/header/icon_shopping_cart.png')} style={styles.scanIcon}/>
+                    <View style={styles.cate_view}>
+                        <Image source={require('../../images/header/cate_icon.png')} style={styles.scanIcon}/>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
@@ -170,42 +162,50 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 134 / PPI : 50,
+        height: Platform.OS === 'ios' ? 64 : 50,
         backgroundColor: '#009934',
         alignItems: 'center',
     },
-    logo: {
-        height: 25,
-        width: 64,
-        resizeMode: 'stretch'
-
+    qrcode_view:{
+        flex:1,height:50,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    qrcode_icon:{
+        height:22,
+        width:29,
+        resizeMode:'stretch'
     },
     searchBox: {
-        height: 30,
+        height: 28,
         flexDirection: 'row',
         flex: 5,
-        borderRadius: 3,
-        backgroundColor: '#00702d',
+        borderRadius: 5,
+        backgroundColor: '#007728',
         alignItems: 'center',
     },
     scanIcon: {
-        height: 26.7,
-        width: 26.7,
+        height: 18,
+        width: 27,
         resizeMode: 'stretch'
     },
     searchIcon: {
         marginLeft: 5,
-        marginRight: 8,
-        width: 20,
-        height: 20,
+        marginRight: 5,
+        width: 14.54,
+        height: 12.87,
         resizeMode: 'stretch',
         backgroundColor: '#00702d'
     },
-    inputText: {
+    searchText: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0)',
-        fontSize: 14,
-        color: 'white',
-        paddingTop: 10
+        fontSize: 13.32,
+        color: 'white'
+    },
+    cate_view:{
+        flex:1,
+        height:64,
+        justifyContent:'center',
+        alignItems:'center'
     }
 })

@@ -12,6 +12,7 @@
     "react-native-htmlview": "^0.5.0",
     "react-native-storage": "0.0.16",
     "react-native-swiper2": "^2.0.6",
+    "react-native-tab-navigator": "^0.3.2",
     "react-native-webview-bridge": "^0.20.3"
   }
 }

@@ -13,13 +13,14 @@ import React,{
 import HomePage from './app/HomePage';
 import codePush from "react-native-code-push";
 import funcTest from './app/funcTest';
+import MainScreen from './app/MainScreen';
 export default class MainPage extends Component {
     componentDidMount() {
         codePush.sync();
     }
     render() {
-        let defaultName = 'HomePage';
-        let defaultComponent = HomePage;
+        let defaultName = 'MainScreen';
+        let defaultComponent = MainScreen;
         return (
             <Navigator
                 initialRoute={{ name: defaultName, component: defaultComponent }}
