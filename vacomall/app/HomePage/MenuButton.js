@@ -15,12 +15,6 @@ import React, {
 import ListPage from '../ListPage';
 export default class MenuButton extends React.Component {
 
-    static propTypes = {
-        color: PropTypes.string.isRequired,
-        showText: PropTypes.string,  // 显示标题\文字
-        id: PropTypes.string.isRequired,  // id
-    };
-
     _selectGoodsList(id){
         const {navigator}=this.props;
         if(navigator){
@@ -38,10 +32,8 @@ export default class MenuButton extends React.Component {
         return (
             <TouchableWithoutFeedback onPress={(id)=>this._selectGoodsList(this.props.id)}>
                 <View style={{alignItems:'center',flex:1}}>
-                    <View
-                        style={{width:50,height:50,backgroundColor:this.props.color,borderRadius:50,justifyContent:'center',alignItems:'center'}}>
-                    </View>
-                    <Text style={[styles.showText]}>{this.props.showText }</Text>
+                    <Image source={{uri:this.props.imgUrl}} style={{width:50,height:50,resizeMode:'stretch'}}></Image>
+                    <Text style={[styles.showText]}>{this.props.showText}</Text>
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -55,8 +47,9 @@ const styles = StyleSheet.create({
         marginBottom: 2
     },
     showText: {
+        marginTop:6,
         fontSize: 12,
         color: '#696969',
-        fontWeight: 'bold',
+        fontFamily: 'PingFang SC'
     }
 });

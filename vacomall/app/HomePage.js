@@ -17,7 +17,8 @@ import React, {
     Navigator,
     BackAndroid,
     Platform,
-    ToastAndroid
+    ToastAndroid,
+    Animated
 } from 'react-native';
 import Swiper from 'react-native-swiper2';
 import MenuButton from './HomePage/MenuButton';
@@ -40,7 +41,11 @@ export default class HomePage extends Component {
                 rowHasChanged: (row1, row2)=>row1 !== row2,
             }),
             loaded: false,
-            content: ''
+            news: null,
+            isRefreshing: false,
+            newsValue: new Animated.Value(0),
+            newsFlag: 1,
+            guessFlag:false
         };
     }
 
@@ -67,7 +72,7 @@ export default class HomePage extends Component {
 
     componentDidMount() {
         /*获取首页基本数据*/
-        NetService.getFetchData(API.HOME + '?keys=INDEX_IMAGE,INDEX_CAT_DATA,INDEX_HOT_GOODS,INDEX_NOTE', (result)=>this._callback(result));
+        NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
 
         if (Platform.OS === 'android') {
             BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));
@@ -76,33 +81,39 @@ export default class HomePage extends Component {
 
     /*异步请求后的回调*/
     _callback(result) {
-        var index_img = result['INDEX_IMAGE']['DataValue'];
+        this.setState({isRefreshing: false});
+        this.timer && clearTimeout(this.timer);
+        /*轮播图数据*/
+        var index_img = result['INDEX_SCROLL_IMG']['items'];
+        if (index_img.length === 0) {
+            return;
+        }
         var imgArray = [];
         var _this = this;
-        JSON.parse(index_img).map(function (data, index) {
-            switch (data['Type']) {
-                case 1:
-                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.toDetails(data['ItemId'])}>
+        index_img.map(function (data, index) {
+            switch (data['Xtype']) {
+                case 10:
+                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.toDetails(data['Target'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}></Image>
                             </View>
                         </TouchableWithoutFeedback>
                     );
                     break;
-                case 2:
+                case 20:
                     imgArray.push(<TouchableWithoutFeedback key={index}
-                                                            onPress={()=>_this._selectGoodsList(data['Cid'])}>
+                                                            onPress={()=>_this._selectGoodsList(data['Target'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}></Image>
                             </View>
                         </TouchableWithoutFeedback>
                     );
                     break;
-                case 3:
+                case 30:
                     imgArray.push(<TouchableWithoutFeedback key={index}
-                                                            onPress={()=>_this.historyOnSubmit(data['keywords'])}>
+                                                            onPress={()=>_this.historyOnSubmit(data['Target'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ImgUrl"]}}></Image>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}></Image>
                             </View>
                         </TouchableWithoutFeedback>
                     );
@@ -116,22 +127,27 @@ export default class HomePage extends Component {
             </Swiper>
         });
 
-        var index_cat_data = result['INDEX_CAT_DATA']['DataValue'];
-
+        /*快捷入口*/
+        var index_cat_data = result['INDEX_CAT']['items'];
+        if (index_cat_data.length === 0) {
+            return;
+        }
         var _this = this;
         var catArray1 = [], catArray2 = []
-        JSON.parse(index_cat_data).map(function (data, index) {
+        index_cat_data.map(function (data, index) {
             if (index < 4) {
                 catArray1.push(<MenuButton key={index}
-                                           id={data['Id']}
-                                           color={data['BgColor']}
-                                           showText={data['Title']}
+                                           id={data['GroupId']}
+                                           imgUrl={data['ItemImg']}
+                                           Xtype={data['Xtype']}
+                                           showText={data['ItemName']}
                                            navigator={_this.props.navigator}/>)
             } else if (index < 8) {
                 catArray2.push(<MenuButton key={index}
-                                           id={data['Id']}
-                                           color={data['BgColor']}
-                                           showText={data['Title']}
+                                           id={data['GroupId']}
+                                           imgUrl={data['ItemImg']}
+                                           Xtype={data['Xtype']}
+                                           showText={data['ItemName']}
                                            navigator={_this.props.navigator}/>)
             }
         });
@@ -139,14 +155,112 @@ export default class HomePage extends Component {
             catArray1: catArray1,
             catArray2: catArray2
         });
-        var index_hot_data = result['INDEX_HOT_GOODS']['DataValue'];
+
+
+        /*万颗新闻头条*/
+        var newsArray = [];
+        var index_news_data = result['INDEX_NEWS']['items'];
+        if (index_news_data.length === 0) {
+            return;
+        }
+        index_news_data.map(function (data, index) {
+            newsArray.push(<View style={styles.news_centent} key={index}>
+                <Text>{data['ItemName']}</Text>
+            </View>)
+        });
+        newsArray.push(<View style={styles.news_centent} key={index_news_data.length}>
+            <Text>{index_news_data[0]['ItemName']}</Text>
+        </View>)
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(JSON.parse(index_hot_data))
+            news: <Animated.View key={0} style={[styles.news,{top:this.state.newsValue}]}>
+                {newsArray}
+            </Animated.View>
         });
 
-        var index_note = result['INDEX_NOTE']['DataValue'];
+        var _this = this;
+        this.timer=setInterval(function () {
+            if (_this.state.newsFlag === index_news_data.length + 1) {
+                _this.state.newsValue.setValue(0)
+                _this.setState({
+                    newsFlag: 1
+                });
+            }
+            Animated.spring(                          // 可选的基本动画类型: spring, decay, timing
+                _this.state.newsValue,                 // 将`bounceValue`值动画化
+                {
+                    toValue: -30 * _this.state.newsFlag,                         // 将其值以动画的形式改到一个较小值
+                }
+            ).start();
+            _this.setState({
+                newsFlag: _this.state.newsFlag + 1
+            });
+        }, 3000)
+
+        /*天天9块9*/
+        var index_99_data = result['INDEX_99']['items'];
+        if (index_99_data.length === 0) {
+            return;
+        }
         this.setState({
-            content: JSON.parse(index_note)['Note']
+            index99: <View style={[styles.seckill,{marginTop: 12}]}>
+                <View style={styles.seckill_1}>
+                    <Image source={{uri:index_99_data[0]['ItemImg']}} style={styles.seckill_1_img}></Image>
+                </View>
+                <View style={styles.seckill_2}>
+                    <View style={styles.seckill_3}>
+                        <Image source={{uri:index_99_data[1]['ItemImg']}}
+                               style={styles.seckill_2_img}></Image>
+                    </View>
+                    <View style={[styles.seckill_2]}>
+                        <Image source={{uri:index_99_data[2]['ItemImg']}}
+                               style={styles.seckill_3_img}></Image>
+                    </View>
+                </View>
+            </View>
+        });
+        /*超实惠*/
+        var index_csh_data = result['INDEX_CSH']['items'];
+        if (index_csh_data.length === 0) {
+            return;
+        }
+        this.setState({
+            indexCSH: <View style={styles.seckill}>
+                <View style={styles.seckill_1}>
+                    <Image source={{uri:index_99_data[0]['ItemImg']}}
+                           style={styles.seckill_1_img}></Image>
+                </View>
+                <View style={styles.seckill_2}>
+                    <View style={styles.seckill_3}>
+                        <Image source={{uri:index_99_data[1]['ItemImg']}}
+                               style={styles.seckill_2_img}></Image>
+                    </View>
+                    <View style={[styles.seckill_2]}>
+                        <Image source={{uri:index_99_data[2]['ItemImg']}}
+                               style={styles.seckill_3_img}></Image>
+                    </View>
+                </View>
+            </View>
+        });
+        /*品牌直供*/
+        var index_brand_data = result['INDEX_BRAND']['items'];
+        if (index_brand_data.length === 0) {
+            return;
+        }
+        this.setState({
+            indexBrand: <View style={styles.seckill}>
+                <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                    <Image source={{uri:index_brand_data[0]['ItemImg']}}
+                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
+                </View>
+                <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                    <Image source={{uri:index_brand_data[1]['ItemImg']}}
+                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
+                </View>
+                <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                    <Image source={{uri:index_brand_data[2]['ItemImg']}}
+                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
+                </View>
+            </View>
         });
     }
 
@@ -193,7 +307,7 @@ export default class HomePage extends Component {
         var _textLength = function (text) {
             var rtnText = "";
             if (text.length > 20) {
-                rtnText = text.substring(0, 25) + '…'
+                rtnText = text.substring(0, 25)
             } else {
                 rtnText = text;
             }
@@ -204,19 +318,18 @@ export default class HomePage extends Component {
                 <View style={styles.goods_view}>
 
                     <View style={{alignItems: 'center',justifyContent: 'center'}}>
-                        <Image source={{uri:gList['ImageUrl']}}
+                        <Image source={{uri:gList['SpuDefaultImage']}}
                                style={{width: 150,height: 150,marginBottom:10}}></Image>
                     </View>
-                    <View style={{marginBottom:10}}>
-                        <Text style={{fontSize:12}}>{_textLength(gList['SkuTitle'])}</Text>
+                    <View style={{marginBottom:1,height:32}}>
+                        <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                     </View>
                     <View style={{flex:1,flexDirection:'row'}}>
                         <View style={{flex:1}}>
-                            <Text style={styles.price}>￥{gList['SkuPrice']}</Text>
+                            <Text style={styles.price}><Text style={{fontSize:12}}>￥</Text>{gList['GoodsItemSalePrice']}</Text>
                         </View>
-                        <View
-                            style={{borderColor:'#e43777',borderWidth:1,borderRadius:5,width:50,height:20,justifyContent:'center',alignItems:'center'}}>
-                            <Text style={{fontSize:10,color:'#e43777'}}>立即抢购</Text>
+                        <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end'}}>
+                            <Text style={styles.bprice}>{gList['GoodsItemSales']}人已付款</Text>
                         </View>
                     </View>
                 </View>
@@ -224,11 +337,49 @@ export default class HomePage extends Component {
         )
     }
 
+    _onRefresh() {
+        this.setState({isRefreshing: true});
+        /*获取首页基本数据*/
+        NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
+    }
+
+    handleScroll(event:Object) {
+        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height > this.state.contentHeight&&this.state.guessFlag===false) {
+            NetService.getFetchData(API.GUESS, (result)=>this._guessCallback(result));
+            this.setState({
+                guessFlag:true
+            })
+        }
+        //event.nativeEvent.contentOffset+'-'+
+    }
+    _guessCallback(result){
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(result)
+        })
+        console.log(result);
+    }
+    _ContentSizeChange(w, h) {
+        //console.log(h)
+        this.setState({
+            contentHeight: h
+        });
+    }
+
     render() {
         return (
             <View style={{flex:1}}>
                 <HomeHeader navigator={this.props.navigator}/>
-                <ScrollView style={{backgroundColor:'#F6F6F6'}}>
+                <ScrollView style={{backgroundColor:'#F6F6F6'}}
+                            refreshControl={
+                              <RefreshControl
+                                refreshing={this.state.isRefreshing}
+                                onRefresh={()=>this._onRefresh()}
+                                colors={['#ff0000', '#00ff00', '#0000ff','#3ad564']}
+                                progressBackgroundColor="#ffffff"
+                              />
+                            }
+                            onContentSizeChange={(w,h)=>this._ContentSizeChange(w,h)}
+                            onScroll={(event)=>this.handleScroll(event)}>
                     <View style={{height:170}}>
                         {this.state.swiper}
                     </View>
@@ -237,7 +388,7 @@ export default class HomePage extends Component {
                             <View style={styles.menuView}>
                                 {this.state.catArray1}
                             </View>
-                            <View style={styles.menuView}>
+                            <View style={[styles.menuView,styles.menuView2]}>
                                 {this.state.catArray2}
                             </View>
                         </View>
@@ -246,65 +397,27 @@ export default class HomePage extends Component {
                             <View style={styles.ad_topic}>
                                 <Image style={styles.headline}
                                        source={require('../images/Headline.png')}/>
-                                <Text style={styles.ad_topic_text}>{this.state.content}</Text>
+                                <View style={{flex:1,height:30,overflow:'hidden'}}>
+                                    {this.state.news}
+                                </View>
                             </View>
                             <View style={styles.ad_more}><Text style={styles.ad_more_text}>更多></Text></View>
                         </View>
                     </View>
-                    <View style={[styles.seckill,{marginTop: 12}]}>
-                        <View style={styles.seckill_1}>
-                            <Image source={require('../images/kill_img_1.png')} style={styles.seckill_1_img}></Image>
-                        </View>
-                        <View style={styles.seckill_2}>
-                            <View style={styles.seckill_3}>
-                                <Image source={require('../images/kill_img_2.png')}
-                                       style={styles.seckill_2_img}></Image>
-                            </View>
-                            <View style={[styles.seckill_2]}>
-                                <Image source={require('../images/kill_img_3.png')}
-                                       style={styles.seckill_3_img}></Image>
-                            </View>
-                        </View>
-                    </View>
+
+                    {this.state.index99}
                     <View style={styles.chaoshihui}>
                         <View style={styles.chaoshihui_title}>
                             <Image source={require('../images/chaoshihui_tit.png')} style={styles.csh_tit}></Image>
                         </View>
-                        <View style={styles.seckill}>
-                            <View style={styles.seckill_1}>
-                                <Image source={require('../images/csh_img1.png')} style={styles.seckill_1_img}></Image>
-                            </View>
-                            <View style={styles.seckill_2}>
-                                <View style={styles.seckill_3}>
-                                    <Image source={require('../images/csh_img2.png')}
-                                           style={styles.seckill_2_img}></Image>
-                                </View>
-                                <View style={[styles.seckill_2]}>
-                                    <Image source={require('../images/csh_img3.png')}
-                                           style={styles.seckill_3_img}></Image>
-                                </View>
-                            </View>
-                        </View>
+                        {this.state.indexCSH}
                     </View>
                     <View style={[styles.chaoshihui,{height:236}]}>
                         <View style={styles.chaoshihui_title}>
                             <Image source={require('../images/ppzg_tit.png')}
                                    style={[styles.csh_tit,{width:96,height:22}]}></Image>
                         </View>
-                        <View style={styles.seckill}>
-                            <View style={[styles.seckill_1,{justifyContent:'center'}]}>
-                                <Image source={require('../images/ppzg_img1.png')}
-                                       style={[styles.seckill_1_img,{width:68,height:170}]}></Image>
-                            </View>
-                            <View style={[styles.seckill_1,{justifyContent:'center'}]}>
-                                <Image source={require('../images/ppzg_img2.png')}
-                                       style={[styles.seckill_1_img,{width:89,height:172}]}></Image>
-                            </View>
-                            <View style={[styles.seckill_1,{justifyContent:'center'}]}>
-                                <Image source={require('../images/ppzg_img3.png')}
-                                       style={[styles.seckill_1_img,{width:60,height:178}]}></Image>
-                            </View>
-                        </View>
+                        {this.state.indexBrand}
                     </View>
                     <View
                         style={styles.cnxh_view}>
@@ -325,14 +438,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 12
     },
-    quick_view:{
-    height:170
+    quick_view: {
+        height: 170
+    },
+    menuView2: {
+        marginTop: 20
+    },
+    news: {
+        position: 'absolute',
+    },
+    news_centent: {
+        height: 30,
+        justifyContent: 'center',
     },
     seckill: {
         flex: 1,
         height: 201,
         backgroundColor: 'white',
-
         flexDirection: 'row',
         shadowColor: 'rgb(0,0,0)',
         shadowOpacity: 0.1,
@@ -350,18 +472,18 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     seckill_1_img: {
-        width: 138,
-        height: 190,
+        width: (Dimensions.get('window').width / 2) - 1,
+        height: 200,
         resizeMode: 'stretch'
     },
     seckill_2_img: {
-        width: 186,
-        height: 74,
+        width: Dimensions.get('window').width / 2,
+        height: 100,
         resizeMode: 'stretch'
     },
     seckill_3_img: {
-        width: 183,
-        height: 93,
+        width: Dimensions.get('window').width / 2,
+        height: 100,
         resizeMode: 'stretch'
     },
     seckill_2: {
@@ -428,8 +550,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     price: {
-        color: '#e43777',
-        fontSize: 12
+        color: '#FF0200',
+        fontSize: 18
+    },
+    bprice:{
+        color:'#BFBFBF',
+        fontSize:12,
+        justifyContent:'flex-end'
     },
     quick: {
         height: 240,
@@ -450,7 +577,7 @@ const styles = StyleSheet.create({
     chaoshihui: {
         marginTop: 12,
         flex: 1,
-        height: 239,
+        height: 240,
         backgroundColor: 'white',
         shadowColor: "rgb(0,0,0)",
         shadowOpacity: 0.1,
@@ -478,9 +605,9 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center'
     },
-    cnxh_view_img:{
-        width:96,
-        height:20,
+    cnxh_view_img: {
+        width: 96,
+        height: 20,
         resizeMode: 'stretch',
 
     }
