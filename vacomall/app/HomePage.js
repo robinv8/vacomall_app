@@ -256,7 +256,7 @@ export default class HomePage extends Component {
                     <Image source={{uri:index_brand_data[1]['ItemImg']}}
                            style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
                 </View>
-                <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                <View style={[styles.seckill_1,{justifyContent:'center',borderRightWidth:0}]}>
                     <Image source={{uri:index_brand_data[2]['ItemImg']}}
                            style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
                 </View>
@@ -344,7 +344,7 @@ export default class HomePage extends Component {
     }
 
     handleScroll(event:Object) {
-        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height > this.state.contentHeight&&this.state.guessFlag===false) {
+        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height-100 > this.state.contentHeight&&this.state.guessFlag===false) {
             NetService.getFetchData(API.GUESS, (result)=>this._guessCallback(result));
             this.setState({
                 guessFlag:true
