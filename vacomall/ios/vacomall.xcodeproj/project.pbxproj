@@ -19,8 +19,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		34C89A346BD74E75905537B5 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F09EF14212F449C8E7F2A66 /* libCodePush.a */; };
+		80492FE21CFDAC9C00651A92 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */; };
 		8094B62C1CE49E0400BF2414 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8094B62B1CE49E0400BF2414 /* libz.tbd */; };
 		8094B6491CE6BEFB00BF2414 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8094B6471CE6BEBE00BF2414 /* libReact-Native-Webview-Bridge.a */; };
 		80AF23C21CFC1E6900555550 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 80AF23C11CFC1E6900555550 /* Base.lproj */; };
@@ -98,6 +99,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
+		80492FE01CFDAC9500651A92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
 		8094B61F1CE49DB700BF2414 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */;
@@ -141,6 +149,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = vacomall/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		8094B62B1CE49E0400BF2414 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8094B6381CE6BEBE00BF2414 /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../node_modules/react-native-webview-bridge/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
 		80AF23C11CFC1E6900555550 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = vacomall/Base.lproj; sourceTree = "<group>"; };
@@ -161,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80492FE21CFDAC9C00651A92 /* libBVLinearGradient.a in Frameworks */,
 				8094B6491CE6BEFB00BF2414 /* libReact-Native-Webview-Bridge.a in Frameworks */,
 				8094B62C1CE49E0400BF2414 /* libz.tbd in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -283,6 +293,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		80492FDD1CFDAC9400651A92 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8094B61C1CE49DB700BF2414 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +320,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */,
 				8094B6381CE6BEBE00BF2414 /* React-Native-Webview-Bridge.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -417,6 +436,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 80492FDD1CFDAC9400651A92 /* Products */;
+					ProjectRef = 80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */;
+				},
 				{
 					ProductGroup = 8094B61C1CE49DB700BF2414 /* Products */;
 					ProjectRef = E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */;
@@ -536,6 +559,13 @@
 			fileType = archive.ar;
 			path = libRCTLinking.a;
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 80492FE01CFDAC9500651A92 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8094B6201CE49DB700BF2414 /* libCodePush.a */ = {

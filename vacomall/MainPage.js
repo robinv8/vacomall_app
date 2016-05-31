@@ -9,8 +9,9 @@ import React,{
     Text,
     Navigator,
     AppState,
+    StatusBar
 }from 'react-native';
-import HomePage from './app/HomePage';
+import Login from './app/Login';
 import codePush from "react-native-code-push";
 import funcTest from './app/funcTest';
 import MainScreen from './app/MainScreen';
@@ -19,9 +20,13 @@ export default class MainPage extends Component {
         codePush.sync();
     }
     render() {
-        let defaultName = 'MainScreen';
-        let defaultComponent = MainScreen;
+        let defaultName = 'Login';
+        let defaultComponent = Login;
         return (
+        <View style={{flex:1}}>
+            <StatusBar
+                barStyle="light-content"
+            />
             <Navigator
                 initialRoute={{ name: defaultName, component: defaultComponent }}
                 style={{backgroundColor:'white'}}
@@ -35,6 +40,7 @@ export default class MainPage extends Component {
             let Component = route.component;
             return <Component {...route.params} navigator={navigator} />
           }}/>
+        </View>
         );
     }
 }

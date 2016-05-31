@@ -7,6 +7,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import java.util.Arrays;
 import java.util.List;
+import com.BV.LinearGradient.LinearGradientPackage;
 public class MainActivity extends ReactActivity {
 
     /**
@@ -39,7 +40,8 @@ public class MainActivity extends ReactActivity {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG),
-             new WebViewBridgePackage()
+             new WebViewBridgePackage(),
+             new LinearGradientPackage()
         );
     }
 }

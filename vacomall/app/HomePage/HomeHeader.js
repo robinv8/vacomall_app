@@ -136,9 +136,6 @@ export default class HomeHeader extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar
-                    barStyle="light-content"
-                />
                 <TouchableWithoutFeedback onPress={()=>this.updateState()} disabled={this.state.status}>
                     <View style={styles.qrcode_view}>
                         <Image source={require('../../images/header/qrcode_icon.png')}
