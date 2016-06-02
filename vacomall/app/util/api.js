@@ -10,6 +10,7 @@ var API = {
     HOME:API_ADDRESS+'group/get',
     GUESS:API_ADDRESS+'index/guess',
     LIST:API_ADDRESS+'goods/list',
+    CATE:API_ADDRESS+'group/get',
     SEARCH:API_ADDRESS+'search',
     DETAIL:API_ADDRESS+'goods/detail',
     GETCART:API_ADDRESS+'cart/get',

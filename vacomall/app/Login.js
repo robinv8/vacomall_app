@@ -52,35 +52,35 @@ export default class Login extends Component {
     async _loadInitialState() {
         var uname = await AsyncStorage.getItem('uname');
         var pwd = await AsyncStorage.getItem('pwd');
-        this.setState({
-            uname: uname,
-            pwd: pwd
-        });
-        if(this.state.uname===''||this.state.uname===null||this.state.pwd===''||this.state.pwd===null){
+        if(uname===''||uname===null||pwd===''||pwd===null){
             this.setState({
                 btnStateColor:'#70C98B'
             })
         }else{
             this.setState({
                 btnStateColor:'white'
-            })
+            });
+            this.setState({
+                uname: uname,
+                pwd: pwd
+            });
         }
     }
 
     _login() {
         var uname = this.state.uname;
         var pwd = this.state.pwd;
-        if (uname === "") {
+        if (uname===''||uname===null) {
             Toast.show('用户名不能为空!');
             return;
         }
-        if (pwd === "") {
+        if (pwd === ""||pwd===null) {
             Toast.show('密码不能为空!');
             return;
         }
-        if (uname !== "" && pwd !== "") {
-            NetService.postFetchData(API.LOGIN, 'uname=' + uname + '&pwd=' + pwd, (result)=>this._callback(result));
-        }
+
+        NetService.postFetchData(API.LOGIN, 'uname=' + uname + '&pwd=' + pwd, (result)=>this._callback(result));
+
     }
 
     _callback(result) {
@@ -223,6 +223,7 @@ export default class Login extends Component {
                                 placeholderTextColor={'#d8d8d8'}
                                 onChangeText={(uname,flag)=>this._onChange(uname,'uname')}
                                 underlineColorAndroid='transparent'
+                                onSubmitEditing={()=>this._login()}
                                 value={this.state.uname}
                             />
                             <TouchableWithoutFeedback onPress={(flag)=>this._clear('uname')}>
@@ -246,6 +247,7 @@ export default class Login extends Component {
                                 onChangeText={(pwd,flag) => this._onChange(pwd,'pwd')}
                                 underlineColorAndroid='transparent'
                                 placeholderTextColor={'#d8d8d8'}
+                                onSubmitEditing={()=>this._login()}
                                 value={this.state.pwd}
                             />
                             <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>

@@ -188,13 +188,13 @@ export default class Header extends Component {
 
     render() {
         return (
-            <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
+            <View style={{flex:1,backgroundColor:'#F6F6F6'}}>
                 <View style={styles.container}>
                     <StatusBar
-                        barStyle="light-content"
+                        barStyle="default"
                     />
                     <View style={styles.searchBox}>
-                        <Image source={require('../images/header/search-icon1.png')} style={styles.searchIcon}/>
+                        <Image source={require('../images/list_search_icon.png')} style={styles.searchIcon}/>
                         <TextInput
                             keyboardType='web-search'
                             placeholder='创维家电直送 好礼不停'
@@ -209,19 +209,20 @@ export default class Header extends Component {
                         {this.state.clear}
                     </View>
                     <TouchableWithoutFeedback onPress={()=>this._pop()}>
-                        <Text>取消</Text>
+                        <Text style={{fontSize:16,color:'#3C3C3C',marginBottom:8}}>取消</Text>
                     </TouchableWithoutFeedback>
                 </View>
                 <View
-                    style={{height:30,borderBottomWidth:1,borderBottomColor:'#e0e0e0',marginLeft:10,marginRight:10}}>
-                    <Text style={{color:'#c6c6c6'}}>历史搜索</Text>
+                    style={{height:28,borderBottomWidth:1,borderBottomColor:'#e0e0e0',marginLeft:15,marginRight:15}}>
+                    <Text style={{color:'#B6B6B6',fontSize:16}}>历史搜索</Text>
                 </View>
                 {this.state.list}
-                <View style={{flex:1,alignItems:'center',marginTop:30}}>
+                <View style={{flex:1,alignItems:'center',marginTop:28}}>
                     <TouchableWithoutFeedback onPress={()=>this._removeAll()}>
                         <View
-                            style={{padding:3,paddingLeft:10,borderRadius:1,paddingRight:10,borderWidth:1,borderColor:'#F08200'}}><Text
-                            style={{fontSize:12,color:'#F08200'}}>清楚历史记录</Text></View>
+                            style={styles.clear_btn}>
+                            <Text
+                            style={{fontSize:12,color:'#EF8200'}}>清楚历史记录</Text></View>
                     </TouchableWithoutFeedback>
                 </View>
             </View>
@@ -234,7 +235,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 134 / PPI : 50,
+        height:Platform.OS === 'ios' ? 64 : 40,
         alignItems: 'center',
     },
     logo: {
@@ -243,15 +244,26 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch'
 
     },
+    clear_btn:{
+        padding:3,
+        borderRadius:3,
+        borderWidth:1,
+        borderColor:'#F08200',
+        height:30,
+        width:120,
+        justifyContent:'center',
+        alignItems:'center'
+    },
     searchBox: {
-        height: 30,
+        height: 28,
         flexDirection: 'row',
         flex: 1,
-        borderRadius: 3,
-        backgroundColor: '#e3e3e3',
+        borderRadius: 2,
+        backgroundColor: '#E0E0E0',
         alignItems: 'center',
         marginLeft: 0,
         marginRight: 12,
+
     },
     scanIcon: {
         height: 26.7,
@@ -259,35 +271,32 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch'
     },
     searchIcon: {
-        marginLeft: 5,
-        marginRight: 0,
-        width: 18,
-        height: 18,
-        paddingLeft: 10,
+        marginLeft: 10,
+        marginRight: 8,
+        width: 15,
+        height: 12.87,
         resizeMode: 'stretch',
-        backgroundColor: '#e3e3e3'
     },
     clearIcon: {
-        marginLeft: 5,
+        marginLeft: 10,
         marginRight: 10,
-        width: 18,
-        height: 18,
+        width: 14,
+        height: 14,
         resizeMode: 'stretch',
-        backgroundColor: '#e3e3e3'
     },
     inputText: {
         backgroundColor: 'rgba(0,0,0,0)',
         fontSize: 14,
-        width: 860,
-        color: '#2e2e2e',
-        paddingTop:10
+        paddingTop:Platform.OS === 'ios' ? 0 : 10,
+        flex:1,
+        color: '#7A797B',
     },
     searchText: {
         height: 40,
         borderBottomWidth: 1,
-        borderBottomColor: '#e0e0e0',
+        borderBottomColor: '#CFCFCF',
         justifyContent: 'center',
-        marginLeft: 10,
-        marginRight: 10
+        marginLeft: 15,
+        marginRight: 15
     }
 })

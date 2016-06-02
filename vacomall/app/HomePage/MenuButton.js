@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
         marginTop:6,
         fontSize: 12,
         color: '#696969',
-        fontFamily: 'PingFang SC'
+
     }
 });

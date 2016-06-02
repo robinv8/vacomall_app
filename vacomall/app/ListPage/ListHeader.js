@@ -71,26 +71,27 @@ export default class Header extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this._back()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                        <Image source={require('../../images/header/back.png')}
+                        <Image source={require('../../images/back_icon.png')}
                                style={styles.backIcon}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
+                    <Image source={require('../../images/list_search_icon.png')} style={styles.searchIcon}/>
                     <TextInput
                         keyboardType='web-search'
                         placeholder='创维家电直送 好礼不停'
                         onFocus={()=>this._toSearchPage()}
-                        placeholderTextColor={'#00a040'}
+                        placeholderTextColor={'#7A797B'}
                         style={styles.inputText}/>
-                    <Image source={require('../../images/header/search_icon.png')} style={styles.searchIcon}/>
+                        <Image source={require('../../images/header/clear.png')} style={styles.clearIcon}/>
                 </View>
                 <TouchableWithoutFeedback onPress={()=>this.toCart()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                        <Image source={require('../../images/header/icon_shopping_cart.png')}
+                        <Image source={require('../../images/home_icon.png')}
                                style={styles.scanIcon}/>
                     </View>
                 </TouchableWithoutFeedback>
@@ -102,9 +103,9 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 134 / PPI : 50,
-        backgroundColor: '#009934',
-        alignItems: 'center',
+        height:Platform.OS === 'ios' ? 64 : 40,
+        backgroundColor: '#FAFAFA',
+        alignItems: 'center'
     },
     logo: {
         height: 25,
@@ -113,37 +114,43 @@ const styles = StyleSheet.create({
 
     },
     searchBox: {
-        height: 30,
+        height: 28,
         flexDirection: 'row',
         flex: 6,
-        borderRadius: 3,
-        backgroundColor: '#00702d',
+        borderRadius: 2,
+        backgroundColor: '#E0E0E0',
         alignItems: 'center',
     },
     scanIcon: {
-        height: 26.7,
-        width: 26.7,
+        height: 19,
+        width: 21,
         resizeMode: 'stretch'
     },
     searchIcon: {
-        marginLeft: 5,
+        marginLeft: 10,
         marginRight: 8,
-        width: 20,
-        height: 20,
+        width: 15,
+        height: 12.87,
         resizeMode: 'stretch',
-        backgroundColor: '#00702d'
+    },
+    clearIcon: {
+        marginLeft: 10,
+        marginRight: 10,
+        width: 14,
+        height: 14,
+        resizeMode: 'stretch',
     },
     backIcon: {
-        width: 10,
-        height: 15,
+        width: 14,
+        height: 20,
         resizeMode: 'stretch',
     },
     inputText: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0)',
-        fontSize: 14,
-        width: 860,
+        fontSize: 13.32,
+        paddingTop:Platform.OS === 'ios' ? 0 : 10,
+        paddingLeft:0,
         color: 'white',
-        paddingTop: 10
     }
 })

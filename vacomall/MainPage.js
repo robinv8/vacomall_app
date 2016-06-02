@@ -11,17 +11,23 @@ import React,{
     AppState,
     StatusBar
 }from 'react-native';
-import Login from './app/Login';
+
 import codePush from "react-native-code-push";
 import funcTest from './app/funcTest';
 import MainScreen from './app/MainScreen';
+
+import Login from './app/Login';
+import ListPage from './app/ListPage';
+import SearchPage from './app/SearchPage';
+import CategoryList from './app/CategoryList';
+
 export default class MainPage extends Component {
     componentDidMount() {
         codePush.sync();
     }
     render() {
-        let defaultName = 'Login';
-        let defaultComponent = Login;
+        let defaultName = 'CategoryList';
+        let defaultComponent = CategoryList;
         return (
         <View style={{flex:1}}>
             <StatusBar

@@ -27,7 +27,7 @@ import GoodsDetail from './GoodsDetail';
 import ListPage from './ListPage';
 import API from './util/api';
 import * as NetService from './util/NetService';
-
+var listFlag = 0;
 export default class HomePage extends Component {
     // 构造
     constructor(props) {
@@ -45,7 +45,7 @@ export default class HomePage extends Component {
             isRefreshing: false,
             newsValue: new Animated.Value(0),
             newsFlag: 1,
-            guessFlag:false
+            guessFlag: false
         };
     }
 
@@ -178,7 +178,7 @@ export default class HomePage extends Component {
         });
 
         var _this = this;
-        this.timer=setInterval(function () {
+        this.timer = setInterval(function () {
             if (_this.state.newsFlag === index_news_data.length + 1) {
                 _this.state.newsValue.setValue(0)
                 _this.setState({
@@ -313,23 +313,35 @@ export default class HomePage extends Component {
             }
             return rtnText;
         }
+        var listMarginRight = 0;
+        if (listFlag % 2 === 0) {
+            listMarginRight = 5;
+        } else {
+            listMarginRight = 0;
+        }
+        listFlag++;
+
         return (
             <TouchableWithoutFeedback onPress={(id)=>this.toDetails(gList['Id'])}>
-                <View style={styles.goods_view}>
-
-                    <View style={{alignItems: 'center',justifyContent: 'center'}}>
+                <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
+                    <View
+                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
                         <Image source={{uri:gList['SpuDefaultImage']}}
                                style={{width: 150,height: 150,marginBottom:10}}></Image>
                     </View>
-                    <View style={{marginBottom:1,height:32}}>
-                        <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
-                    </View>
-                    <View style={{flex:1,flexDirection:'row'}}>
-                        <View style={{flex:1}}>
-                            <Text style={styles.price}><Text style={{fontSize:12}}>￥</Text>{gList['GoodsItemSalePrice']}</Text>
+                    <View style={{marginLeft:7,marginRight:4}}>
+                        <View style={{marginBottom:1,height:32}}>
+                            <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
-                        <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end'}}>
-                            <Text style={styles.bprice}>{gList['GoodsItemSales']}人已付款</Text>
+                        <View style={{flex:1,flexDirection:'row'}}>
+                            <View style={{flex:1,marginBottom:5}}>
+                                <Text style={styles.price}><Text
+                                    style={{fontSize:12}}>￥</Text>{gList['GoodsItemSalePrice']}
+                                </Text>
+                            </View>
+                            <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end',marginBottom:5}}>
+                                <Text style={styles.bprice}>{gList['GoodsItemSales']}人已付款</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -341,23 +353,26 @@ export default class HomePage extends Component {
         this.setState({isRefreshing: true});
         /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
+        listFlag = 0;
     }
 
     handleScroll(event:Object) {
-        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height-100 > this.state.contentHeight&&this.state.guessFlag===false) {
+        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height - 100 > this.state.contentHeight && this.state.guessFlag === false) {
             NetService.getFetchData(API.GUESS, (result)=>this._guessCallback(result));
             this.setState({
-                guessFlag:true
+                guessFlag: true
             })
         }
         //event.nativeEvent.contentOffset+'-'+
     }
-    _guessCallback(result){
+
+    _guessCallback(result) {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(result)
         })
         console.log(result);
     }
+
     _ContentSizeChange(w, h) {
         //console.log(h)
         this.setState({
@@ -472,7 +487,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     seckill_1_img: {
-        width: (Dimensions.get('window').width / 2) - 1,
+        width: (Dimensions.get('window').width / 2) - 2,
         height: 200,
         resizeMode: 'stretch'
     },
@@ -544,19 +559,25 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     goods_view: {
-        padding: 5,
-        margin: 3,
-        width: (Dimensions.get('window').width - 12) / 2,
+        width: (Dimensions.get('window').width) / 2 - 3,
         backgroundColor: 'white',
+        marginBottom: 5,
+        shadowColor: "rgb(0,0,0)",
+        shadowOpacity: 0.1,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 0.5,
+            width: 0
+        }
     },
     price: {
         color: '#FF0200',
         fontSize: 18
     },
-    bprice:{
-        color:'#BFBFBF',
-        fontSize:12,
-        justifyContent:'flex-end'
+    bprice: {
+        color: '#BFBFBF',
+        fontSize: 12,
+        justifyContent: 'flex-end'
     },
     quick: {
         height: 240,

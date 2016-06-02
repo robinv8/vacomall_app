@@ -12,17 +12,20 @@ import React, {
     StyleSheet,
     Dimensions,
     ScrollView,
-    TouchableOpacity,
     TouchableWithoutFeedback,
     RefreshControl,
     BackAndroid,
-    Platform
+    Platform,
+    ActivityIndicatorIOS
 }from 'react-native'
 import ListHeader from './ListPage/ListHeader';
 import GoodsDetail from './GoodsDetail';
 import API from './util/api';
 import * as NetService from './util/NetService';
 var GiftedListView = require('react-native-gifted-listview');
+var SortItemArray=[];
+var beforeSortItem;
+var listFlag = 0;
 export default class ListPage extends Component {
     // 构造
     constructor(props) {
@@ -35,24 +38,34 @@ export default class ListPage extends Component {
             }),
             loaded: false,
             page: 1,
-            size: 5,
+            size: 600,
             sort: 0,
             listArray: [],
+            sortItem:null
         }
     }
+
     componentDidMount() {
-        var _this = this
+        this.setState({
+            sortItem:<View style={styles.sort_view}>
+                <SortItem text={'综合排序'} color={'#EF8200'} img={require('../images/sort_icon_hover.png')} onclick={(num)=>this._sort(0)}/>
+                <SortItem text={'价格'} color={'#555555'} img={require('../images/sort_icon.png')} onclick={(num)=>this._sort(3)}/>
+                <SortItem text={'销量'} color={'#555555'} img={require('../images/sort_icon.png')} onclick={(num)=>this._sort(2)}/>
+            </View>
+        });
+        var _this = this;
         setTimeout(function () {
             _this.getListData(1)
         }, 400);
     }
 
     getListData() {
-        if (this.props.id === null) {
-            NetService.postFetchData(API.SEARCH, 'wd=' + this.props.text + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
-        } else {
-            NetService.postFetchData(API.LIST, 'cart=' + this.props.id + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
-        }
+        //if (this.props.id === null) {
+        //    NetService.postFetchData(API.SEARCH, 'wd=' + this.props.text + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
+        //} else {
+        //    NetService.postFetchData(API.LIST, 'cart=' + this.props.id + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
+        //}
+        NetService.postFetchData(API.LIST, 'cart=02dea4921ef5402a871d198925ac7a88&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
     }
 
     _callback(result) {
@@ -75,8 +88,48 @@ export default class ListPage extends Component {
             sort: num,
             page: 1,
             listArray: []
-        })
+        });
+        this.setState({
+            flag:num
+        });
+        switch (num){
+            case 0:
+                SortItemArray[0].setState({
+                    color: '#EF8200',
+                    img:require('../images/sort_icon_hover.png')
+                });
+                beforeSortItem.setState({
+                    color: '#555555',
+                    img:require('../images/sort_icon.png')
+                });
+
+                beforeSortItem=SortItemArray[0];
+                break;
+            case 3:
+                SortItemArray[1].setState({
+                    color: '#EF8200',
+                    img:require('../images/sort_icon_hover.png')
+                });
+                beforeSortItem.setState({
+                    color: '#555555',
+                    img:require('../images/sort_icon.png')
+                });
+                beforeSortItem=SortItemArray[1];
+                break;
+            case 2:
+                SortItemArray[2].setState({
+                    color: '#EF8200',
+                    img:require('../images/sort_icon_hover.png')
+                });
+                beforeSortItem.setState({
+                    color: '#555555',
+                    img:require('../images/sort_icon.png')
+                });
+                beforeSortItem=SortItemArray[2];
+                break;
+        }
         this.getListData();
+
     }
 
     render() {
@@ -84,43 +137,27 @@ export default class ListPage extends Component {
             return this.renderLoadingView();
         }
         return (
-            <View style={{flex:1,backgroundColor:'white'}}>
+            <View style={{flex:1,backgroundColor:'#F6F6F6'}}>
                 <ListHeader navigator={this.props.navigator} id={this.props.id}/>
-                <View
-                    style={{alignItems:'center',justifyContent:'center',flexDirection: 'row',height:50,borderBottomColor:'#efefef',borderBottomWidth:1}}>
-                    <View style={{alignItems:'center',flex:1}}>
-                        <TouchableOpacity onPress={(num)=>this._sort(0)}>
-                            <View style={styles.sort}>
-                                <Text style={[styles.sortText]}>综合排序</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{alignItems:'center',flex:1}}>
-                        <TouchableOpacity onPress={(num)=>this._sort(3)}>
-                            <View style={styles.sort}>
-                                <Text style={[styles.sortText]}>销量</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{alignItems:'center',flex:1}}>
-                        <TouchableOpacity onPress={(num)=>this._sort(2)}>
-                            <View style={styles.sort}>
-                                <Text style={[styles.sortText]}>价格</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+
+                {this.state.sortItem}
                 <ListView
-                    initialListSize={14}
+                    initialListSize={10}
                     dataSource={this.state.dataSource}
                     renderRow={(gList)=>this.renderGList(gList)}
                     onEndReached={()=>this.refresh()}
                     onEndReachedThreshold={100}
-                ></ListView>
+                    contentContainerStyle={styles.listview}
+                    onScroll={(event)=>this.handleScroll(event)}
+                />
             </View>
         )
     }
 
+    handleScroll(event:Object) {
+        console.log(event.nativeEvent.contentOffset.y)
+        //event.nativeEvent.contentOffset+'-'+
+    }
 
     refresh() {
         this.setState({
@@ -153,37 +190,40 @@ export default class ListPage extends Component {
     renderGList(gList) {
         var _textLength = function (text) {
             var rtnText = "";
-            if (text.length > 30) {
-                rtnText = text.substring(0, 30) + '…'
+            if (text.length > 20) {
+                rtnText = text.substring(0, 25)
             } else {
                 rtnText = text;
             }
             return rtnText;
         }
+        var listMarginRight = 0;
+        if (listFlag % 2 === 0) {
+            listMarginRight = 5;
+        } else {
+            listMarginRight = 0;
+        }
+        listFlag++;
         return (
             <TouchableWithoutFeedback onPress={(id)=>this.toDetails(gList['Id'])}>
-                <View style={styles.goods_view}>
-                    <View style={{backgroundColor:'#F6F6F6',flex:1,borderWidth:1,borderColor:'#dadada'}}>
-                        <Image source={{uri: gList['SpuDefaultImage']+'@h_300'}}
-                               style={{resizeMode:'stretch',height:200}}></Image>
+                <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
+                    <View
+                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
+                        <Image source={{uri:gList['SpuDefaultImage']}}
+                               style={{width: 150,height: 150,marginBottom:10}}></Image>
                     </View>
-                    <View style={{flex:1,borderBottomWidth:1,borderBottomColor:'#efefef',marginBottom:-5}}>
-                        <View style={{paddingLeft:10,paddingRight:10,flex:1}}>
-                            <Text style={[{fontSize:12,color:'#555555'}]}>{_textLength(gList['GoodsItemTitle'])}</Text>
-                            <View style={{flex:1,justifyContent:'flex-end',paddingBottom:5}}>
-                                <View style={{flexDirection:'row'}}>
-                                    <View style={{paddingTop:4}}>
-                                        <Text style={[styles.price,{fontSize:9}]}>￥</Text>
-                                    </View>
-                                    <Text style={[styles.price,{fontSize:13}]}>{gList['GoodsItemSalePrice']}</Text>
-                                    <View style={{marginLeft:10}}>
-                                        <Text
-                                            style={[{fontSize:13,color:'#9c9c9c'}]}>{gList['GoodsItemSales']}人付款</Text>
-                                    </View>
-                                    <View style={{flex:1,alignItems:'flex-end'}}>
-                                        <Text style={{color: 'black'}}>…</Text>
-                                    </View>
-                                </View>
+                    <View style={{marginLeft:7,marginRight:4}}>
+                        <View style={{marginBottom:1,height:32}}>
+                            <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
+                        </View>
+                        <View style={{flex:1,flexDirection:'row'}}>
+                            <View style={{flex:1,marginBottom:5}}>
+                                <Text style={styles.price}><Text
+                                    style={{fontSize:12}}>￥</Text>{gList['GoodsItemSalePrice']}
+                                </Text>
+                            </View>
+                            <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end',marginBottom:5}}>
+                                <Text style={styles.bprice}>{gList['GoodsItemSales']}人已付款</Text>
                             </View>
                         </View>
                     </View>
@@ -192,12 +232,59 @@ export default class ListPage extends Component {
         )
     }
 }
+class SortItem extends Component {
+    // 构造
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            text: null,
+            sortnum: null,
+            color: '#3C3C3C',
+            img: require('../images/sort_icon_hover.png')
+        };
+    }
 
+    componentDidMount(){
+        this.setState({
+            text: this.props.text,
+            color: this.props.color,
+            img:this.props.img
+        });
+
+        SortItemArray.push(this);
+        beforeSortItem=SortItemArray[0];
+    }
+    render() {
+        return (
+            <View style={styles.sortItem}>
+                <TouchableWithoutFeedback onPress={this.props.onclick}>
+                    <View style={styles.sortItemView}>
+                        <Text style={[styles.sortItem_text,{color:this.state.color}]}>{this.state.text}</Text>
+                        <Image
+                            source={this.state.img}
+                            style={styles.sortItem_img}
+                        />
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+        )
+    }
+}
 const styles = StyleSheet.create({
-
     goods_view: {
-        marginTop: -1,
-        marginBottom: 10,
+        width: (Dimensions.get('window').width) / 2 - 3,
+        backgroundColor: 'white',
+        marginBottom: 5,
+        shadowColor: "rgb(0,0,0)",
+        shadowOpacity: 0.1,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 0.5,
+            width: 0
+        }
+    },
+    listview: {
         flexDirection: 'row',
         flexWrap: 'wrap'
     },
@@ -211,10 +298,44 @@ const styles = StyleSheet.create({
         marginTop: 0,
         width: 100,
         height: 30,
-        borderRadius: 3
+        borderRadius: 3,
+        flexDirection: 'row'
+    },
+    sort_view: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: '#FAFAFA',
+        height: 32,
+        borderBottomColor: '#E7E7E7',
+        borderBottomWidth: 1,
+    },
+    sortItemView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flex: 1,
+        height: 32,
+        alignItems: 'center'
+    },
+    sortItem: {
+        flex: 1,
+        height: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    sortItem_text: {
+        color: '#3C3C3C',
+        fontSize: 14
+    },
+    sortItem_img: {
+        width: 7,
+        height: 8,
+        resizeMode: 'stretch',
+        marginLeft: 3
     },
     sortText: {
         fontSize: 12,
         color: '#555555'
-    }
+    },
 })
