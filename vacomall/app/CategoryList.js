@@ -19,7 +19,7 @@ import SubCate from './Category/SubCate';
 
 import API from './util/api';
 import * as NetService from './util/NetService';
-var cateMap = {},firstObj;
+var cateMap = {}, beforeObj,fObj=[];
 export default class Category extends Component {
     constructor(props) {
         super(props);
@@ -33,66 +33,59 @@ export default class Category extends Component {
 
     //组件加载完成,并已渲染之后执行
     componentDidMount() {
-        this.fetchData()
+        this.fetchData(0, 0);
     }
 
-    fetchData() {
-        NetService.getFetchData(API.CATE + '?type=CAT', (result)=>this._callback(result));
+    fetchData(num, lazy) {
+        NetService.getFetchData(API.CATE + '?pid=' + num + '&lazy=' + lazy, (result)=>_callback(result));
+        var _this = this;
+        function _callback(result) {
+            if (num === 0) {
+                _this.setState({
+                    firstData: result,
+                });
+                _this._getFirstRows();
+            } else {
+                _this.setState({
+                    subData: result,
+                });
+                _this._getSubRows();
+                cateMap[num] = result;
+            }
+        }
     }
 
-    _callback(result) {
+
+    _getSubCate(id, obj) {
+        if(obj===beforeObj){
+            return;
+        }
         this.setState({
-            firstData: result,
+           subRows:[]
         });
-        this._getFirstRows();
-    }
-
-    componentWillMount() {
-        //this._getFirstCate();
-        //this._getSubCate('60a92bc7cee94e21bb129bc985ee92f1')
-    }
-
-    _getSubCate(id,obj) {
-        if(firstObj!==undefined){
-            firstObj.setState({
-                color:'#898989',
-                background:'#FFFFFF'
+        if (beforeObj !== undefined) {
+            beforeObj.setState({
+                color: '#898989',
+                background: '#FFFFFF'
+            })
+        }else{
+            fObj[0].setState({
+                color: '#898989',
+                background: '#FFFFFF'
             })
         }
         obj.setState({
-            color:'#EF8200',
-            background:'rgba(0,0,0,0)'
+            color: '#EF8200',
+            background: 'rgba(0,0,0,0)'
         });
-        firstObj=obj;
-        //if (cateMap[id] !== undefined) {
-        //
-        //    this.setState({
-        //        subData: cateMap[id]
-        //    });
-        //    this._getSubRows();
-        //
-        //} else {
-        //    this.componentDidMount(id)
-        //}
-
-    }
-
-    _getSubRows() {
-        var rows = [];
-        var _getGoodsList = this._getGoodsList;
-        var _this = this;
-        this.state.subData.forEach(function (product, index) {
-            rows.push(<SubCate key={index} id={product['Id']} name={product['MobileCatgoryName']}
-                               navigator={_this.props.navigator}/>);
-        })
-        this.setState({
-            subRows: rows
-        })
-    }
-
-    _getFirstCate() {
-        if (this.state.firstData.length === 0) {
-            this.componentDidMount(0);
+        beforeObj = obj;
+        if (cateMap[id] !== undefined) {
+            this.setState({
+                subData: cateMap[id]
+            });
+            this._getSubRows();
+        } else {
+            this.fetchData(id, 1);
         }
     }
 
@@ -100,13 +93,36 @@ export default class Category extends Component {
         var rows = [];
         var _this = this
         this.state.firstData.forEach(function (product, index) {
-            rows.push(<FirstCate key={index} id={product['Id']} name={product['GroupName']}
-                                 _getSubCate={(id,obj)=>_this._getSubCate(id,obj)}/>);
+            if (index === 0) {
+                _this.fetchData(product['Id'], 1);
+                rows.push(<FirstCate key={index} id={product['Id']} name={product['Title']} init={true} fObj={fObj}
+                                     _getSubCate={(id,obj)=>_this._getSubCate(id,obj)}/>);
+
+            }else{
+                rows.push(<FirstCate key={index} id={product['Id']} name={product['Title']}
+                                     _getSubCate={(id,obj)=>_this._getSubCate(id,obj)}/>);
+            }
         })
         this.setState({
             firstRows: rows
         })
     }
+
+    _getSubRows() {
+        var rows = [];
+        var _getGoodsList = this._getGoodsList;
+        var _this = this;
+        this.state.subData.forEach(function (product, index) {
+            if(product['items'].length!==0){
+                rows.push(<SubCate key={index} id={product['Id']} item={product['items']}  name={product['Title']}
+                                   navigator={_this.props.navigator}/>);
+            }
+        });
+        this.setState({
+            subRows: rows
+        })
+    }
+
 
     render() {
         return (
@@ -117,8 +133,7 @@ export default class Category extends Component {
                     <ScrollView style={styles.firstCate}>
                         {this.state.firstRows}
                     </ScrollView>
-                    <ScrollView style={styles.subScroll}><View
-                        style={styles.subCate}>{this.state.subRows}</View></ScrollView>
+                    <ScrollView style={styles.subScroll}>{this.state.subRows}</ScrollView>
                 </View>
             </View>
         );
@@ -132,15 +147,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     firstCate: {
-        flex:1,
-        marginTop:1
+        width: 103,
+        marginTop: 1
     },
     subScroll: {
         flex: 2.68,
-        marginLeft: 5,
-    },
-    subCate: {
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
+        marginLeft: 9,
+        marginTop: 1
+    }
 })
