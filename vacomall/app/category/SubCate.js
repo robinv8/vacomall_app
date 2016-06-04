@@ -10,10 +10,46 @@ import React, {
     TouchableWithoutFeedback,
     StyleSheet,
     Navigator,
-    TouchableOpacity
+    Image,
+    Dimensions,
+    Platform
 } from 'react-native';
 import ListPage from '../ListPage'
 export default class SubCate extends Component {
+    // 构造
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            third: []
+        };
+    }
+
+    componentWillMount() {
+        var rows = [];
+        const _this=this;
+        this.props.item.map(function (data, index) {
+            rows.push(<Third key={index} name={data['Title']} icon={data['Icon']} id={data['Id']} navigator={_this.props.navigator}/>)
+        });
+        this.setState({
+            third: rows
+        })
+    }
+
+    render() {
+        return (
+            <View>
+                <View
+                    style={styles.sublist}><Text style={[styles.text]}>{this.props.name}</Text></View>
+                <View style={{flexDirection: 'row'}}>
+                    {this.state.third}
+                </View>
+            </View>
+
+        );
+    }
+}
+class Third extends Component {
     _selectGoodsList(id){
         const {navigator}=this.props;
         if(navigator){
@@ -24,25 +60,38 @@ export default class SubCate extends Component {
         }
     }
     render() {
-        return(
-            <TouchableOpacity  onPress={()=>this._selectGoodsList(this.props.id)}><View
-                style={styles.sublist}><Text style={[styles.text]}>{this.props.name}</Text></View></TouchableOpacity>
+        return (
+            <TouchableWithoutFeedback onPress={(id)=>this._selectGoodsList(this.props.id)}>
+                <View
+                    style={styles.third}>
+                    <Image source={{uri:this.props.icon}} style={{width:124,height:124,resizeMode:'stretch'}}/>
+                    <Text style={[styles.Thirdtext]}>{this.props.name}</Text>
+                </View>
+            </TouchableWithoutFeedback>
         );
-    }
+    };
 }
 const styles = StyleSheet.create({
     sublist: {
-        height: 40,
-        width: 80,
-        borderBottomWidth: 1,
-        borderBottomColor: 'white',
-        borderRightWidth: 1,
-        borderRightColor: 'white',
-        backgroundColor: '#F3F4F6',
+        flex: 1,
+        height: 50,
+        justifyContent: 'center',
+    },
+    third: {
+        height: 168,
+        width: Platform.OS === 'ios' ? (Dimensions.get('window').width - 130) / 2 : (Dimensions.get('window').width - 115) / 2,
+        marginRight: 5,
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center'
     },
     text: {
-        fontSize: 12
+        fontSize: 14,
+        color: '#3C3C3C'
+    },
+    Thirdtext: {
+        fontSize: 12,
+        color: '#3C3C3C',
+        marginTop: 8
     }
 })

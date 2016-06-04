@@ -52,22 +52,30 @@ export default class Header extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this.props._back()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Image source={require('../../images/login/login_back.png')}
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+                        <Image source={require('../../images/back_icon.png')}
                            style={styles.backIcon}/>
-                        </View>
+                        <Text style={{marginLeft:2,fontSize:16}}>返回</Text>
+                    </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
-                    <Text style={{color: 'white',fontSize: 20}}>商品详情</Text>
+                    <Text style={{color: '#3C3C3C',fontSize: 18}}>商品详情</Text>
                 </View>
-                <TouchableWithoutFeedback onPress={()=>this.toCart()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Image source={require('../../images/white_cart.png')} style={styles.scanIcon}/>
+                <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
+                    <TouchableWithoutFeedback onPress={()=>this.toCart()}>
+                        <View style={{alignItems: 'center',justifyContent: 'center', marginRight:16}}>
+                            <Image source={require('../../images/black_cart.png')} style={styles.scanIcon}/>
                         </View>
-                </TouchableWithoutFeedback>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={()=>this.toCart()}>
+                        <View style={{flexDirection:'row',alignItems: 'center',justifyContent: 'center', marginRight:15}}>
+                            <Image source={require('../../images/more_icon.png')} style={styles.moreIcon}/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
             </View>
         )
     }
@@ -76,9 +84,12 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 134 / PPI : 50,
-        backgroundColor: '#14A83B',
+        height:Platform.OS === 'ios' ? 64 : 40,
+        backgroundColor: '#FAFAFA',
         alignItems: 'center',
+        borderBottomWidth:0.5,
+        borderBottomColor:'#B2B2B2',
+        justifyContent:'center'
     },
     logo: {
         height: 25,
@@ -94,9 +105,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     scanIcon: {
-        height: 30,
-        width: 30,
+        height: 23,
+        width: 26,
         resizeMode: 'stretch'
+    },
+    moreIcon:{
+        width: 20,
+        height: 5,
+        resizeMode: 'stretch',
     },
     searchIcon: {
         width: 20,
@@ -108,6 +124,7 @@ const styles = StyleSheet.create({
         width: 12,
         height: 20,
         resizeMode: 'stretch',
+        marginLeft:9
     },
     inputText: {
         flex: 1,

@@ -20,14 +20,14 @@ import Login from './app/Login';
 import ListPage from './app/ListPage';
 import SearchPage from './app/SearchPage';
 import CategoryList from './app/CategoryList';
-
+import GoodsDetail from './app/GoodsDetail';
 export default class MainPage extends Component {
     componentDidMount() {
         codePush.sync();
     }
     render() {
-        let defaultName = 'CategoryList';
-        let defaultComponent = CategoryList;
+        let defaultName = 'GoodsDetail';
+        let defaultComponent = GoodsDetail;
         return (
         <View style={{flex:1}}>
             <StatusBar
