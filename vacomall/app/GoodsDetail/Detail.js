@@ -22,7 +22,7 @@ import React,{
 
 import API from '../util/api';
 import * as NetService from '../util/NetService';
-import md5 from '../util/md5.min';
+
 import Login from '../Login';
 import DetailImg from './DetailImg';
 
@@ -35,19 +35,18 @@ export default class GoodsDetail extends Component {
         super(props);
         // 初始状态
         this.state = {
-            specColor: '#C3C3C3',
-            num: '1',
             price: '0',
             loaded: false,
             id: null,
             webImgData: null,
-            swiperData:null
+            swiperData:null,
+            resultData:null,
+            specs:null
         };
-        this._specSelect = this._specSelect.bind(this)
+
     }
 
     componentDidMount() {
-        seacVueObj = [], specification = {}, secp = null;
         var _this = this;
         setTimeout(function () {
             //NetService.postFetchData(API.DETAIL, 'id=' + _this.props.id, (result)=>_this._callback(result));
@@ -61,69 +60,24 @@ export default class GoodsDetail extends Component {
             return;
         }
         this.setState({
-            swiperData:result['images']
+            swiperData:result['images'],
+            resultData:result
         });
         this.setDetails(result['details']);
-        this.setSpecifications(result['specifications'])
+
         this.setState({
             loaded: true
         })
-        specification = result['allGoods'];
         this.setState({
             webImgData: result['imageDetails'][0]['SpuDetail']
         })
     }
-
-
     setDetails(data) {
         this.setState({
             price: data['GoodsItemSalePrice'],
             details: data,
         })
     }
-
-    setSpecifications(datas) {
-        var _this = this;
-        var secpArray = [];
-        datas.forEach(function (data, index) {
-            var secp = data.SpecificationInfo.split(',');
-            var specvueArray = []
-            secp.forEach(function (data1, index1) {
-                specvueArray.push(<Spec key={index1} flag={index} result={datas.length} specvue={data1}
-                                        specSelect={_this._specSelect}/>)
-            });
-            secpArray.push(<View key={index} style={{marginBottom:10,paddingBottom:15,borderBottomWidth:1,borderBottomColor:'red'}}>
-                <View style={{flexDirection:'row',marginBottom:5}}>
-                    <Text style={{fontSize:12,color:'#2F2F2F'}}>{data['SpecificationName']}</Text><Text
-                    style={{fontSize:12,marginLeft:3,color:'#F08100',marginTop:1}}></Text>
-                </View>
-                <View style={{flex:1,flexDirection:'row',flexWrap:'wrap'}}>
-                    {specvueArray}
-                </View>
-            </View>)
-        })
-        this.setState({
-            specifications: secpArray
-        });
-    }
-
-    _onChange(num) {
-        var res = /^[0-9]*$/;
-        var _this = this;
-        if (res.test(num) && num !== "") {
-            if (num.substring(0, 1) === "0") {
-                num = num.substring(1)
-            }
-            _this.setState({
-                num: num
-            })
-        } else {
-            _this.setState({
-                num: '1'
-            })
-        }
-    }
-
     _addCart() {
         if (this.state.id === null) {
             ToastAndroid.show('请选择商品规格!', ToastAndroid.SHORT);
@@ -237,9 +191,9 @@ export default class GoodsDetail extends Component {
                                     <Text style={styles.exp_text}>七天无理由退货</Text>
                                 </View>
                             </View>
-                            <GoodsSpec specifications={this.state.specifications} _this={this}/>
-                        </View>
 
+                        </View>
+                        <GoodsSpec _this2={this}/>
                         <TouchableWithoutFeedback onPress={()=>this.toDetailImg()}>
                             <View
                                 style={{marginTop:10,backgroundColor:'white',paddingLeft:5,height:50,justifyContent:'center',alignItems:'center'}}>
@@ -264,38 +218,10 @@ export default class GoodsDetail extends Component {
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
-                {this.state.specs}
             </View>
         );
     }
 
-    _num(flag) {
-        if (flag === 'add') {
-            var num = (parseInt(this.state.num) + 1).toString()
-            this.setState({
-                num: num
-            })
-        } else {
-            var num = "";
-            if (this.state.num === '0') {
-                num = this.state.num
-            } else {
-                num = (parseInt(this.state.num) - 1).toString()
-            }
-            this.setState({
-                num: num
-            })
-        }
-    }
-
-    _specSelect(obj) {
-        if (obj !== undefined) {
-            this.setState({
-                price: obj['GoodsSalePrice'],
-                id: obj['Id'],
-            })
-        }
-    }
 
     renderLoadingView() {
         return (
@@ -309,75 +235,10 @@ export default class GoodsDetail extends Component {
     }
 }
 
-var secp = null, seacVueObj = [], specification = {};
-class Spec extends Component {
-    // 构造
-    constructor(props) {
-        super(props);
-        // 初始状态
-        this.state = {
-            specColor: '#C3C3C3',
-            flag: this.props.flag,
-            specvue: this.props.specvue,
-            result: this.props.result
-        };
-    }
 
-    _specSelect() {
-        if (seacVueObj[this.state.flag] !== undefined) {
-            seacVueObj[this.state.flag]._specUnSelect();
-        }
-        seacVueObj[this.state.flag] = this;
-        this.setState({
-            specColor: '#F08100'
-        });
-
-        var jslength = 0;
-        for (var js2 in seacVueObj) {
-            jslength++;
-        }
-
-        if (jslength === this.state.result) {
-            var specvue = "";
-            for (var i = 0; i < jslength; i++) {
-                specvue = specvue + seacVueObj[i].state.specvue + ','
-            }
-            var vueMd5 = md5(specvue.substring(0, specvue.length - 1)).toUpperCase();
-            this.props.specSelect(specification[vueMd5])
-        }
-        if (secp === this) {
-            return;
-        } else if (secp != null && this.state.flag === secp.state.flag) {
-            secp._specUnSelect();
-        }
-        secp = this;
-    }
-
-    _specUnSelect() {
-        this.setState({
-            specColor: '#C3C3C3'
-        })
-    }
-
-    render() {
-        return (
-            <TouchableWithoutFeedback onPress={()=>this._specSelect()}>
-                <View style={[styles.specVue,{borderColor:this.state.specColor}]}><Text
-                    style={styles.specVueText}>{this.state.specvue}</Text></View>
-            </TouchableWithoutFeedback>
-        );
-    }
-}
 const styles = StyleSheet.create({
     price_view: {
         flexDirection: 'row',
-    },
-    drawer: {
-        position: 'absolute',
-        top: 0,
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-        backgroundColor: 'rgba(0,0,0,0.3)'
     },
     right_arrows: {
         resizeMode: 'stretch',
@@ -390,10 +251,7 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         borderBottomColor: '#E7E7E7'
     },
-    spec: {
-        color: '#3C3C3C',
 
-    },
     exp_img: {
         resizeMode: 'stretch',
         width: 14,
@@ -440,16 +298,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    specVue: {
-        padding: 10,
-        paddingTop: 3,
-        paddingBottom: 3,
-        borderWidth: 1,
-        marginRight: 5,
-        marginBottom: 5
-    },
-    specVueText: {
-        fontSize: 12,
-        color: '#2F2F2F'
-    }
 });

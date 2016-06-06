@@ -14,6 +14,14 @@ import md5 from './util/md5.min';
 import Login from './Login';
 import Detail from './GoodsDetail/Detail';
 export default class GoodsDetail extends Component {
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            specs:null
+        };
+      }
     _back() {
         const {navigator}=this.props;
         if (navigator) {
@@ -28,7 +36,7 @@ export default class GoodsDetail extends Component {
             <View style={{flex:1}}>
                 <DetailHeader navigator={this.props.navigator} id={this.props.id} _back={()=>this._back()}/>
                 <Navigator
-                    initialRoute={{ name: defaultName, component: defaultComponent,params:{id:this.props.id,parentProps:this.props}}}
+                    initialRoute={{ name: defaultName, component: defaultComponent,params:{id:this.props.id,parentProps:this.props,_this1:this}}}
                     style={{backgroundColor:'white'}}
                     configureScene={(route) => {
                 if (route.sceneConfig) {
@@ -40,6 +48,7 @@ export default class GoodsDetail extends Component {
             let Component = route.component;
             return <Component {...route.params} navigator={navigator} />
           }}/>
+                {this.state.specs}
             </View>
         );
     }
