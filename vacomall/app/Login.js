@@ -103,7 +103,10 @@ export default class Login extends Component {
 
     toPage() {
         const {navigator}=this.props;
-        var page = this.props.page;
+        if (navigator) {
+            navigator.pop();
+        }
+        /*var page = this.props.page;
         if (navigator) {
             switch (page) {
                 case 'HomePage':
@@ -128,7 +131,7 @@ export default class Login extends Component {
                     });
                     break;
             }
-        }
+        }*/
     }
 
     _visibleCut(flag, text) {
@@ -187,9 +190,13 @@ export default class Login extends Component {
     }
 
     _close() {
-        Toast.show('sasa', {
-            duration: Toast.durations.SHORT
-        });
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.resetTo({
+                component: HomePage,
+                sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump,
+            });
+        }
     }
 
     render() {

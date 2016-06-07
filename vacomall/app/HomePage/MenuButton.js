@@ -13,20 +13,31 @@ import React, {
     Navigator
 } from 'react-native';
 import ListPage from '../ListPage';
+import CategoryList from '../CategoryList';
 export default class MenuButton extends React.Component {
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+
+        };
+      }
 
     _selectGoodsList(id){
         const {navigator}=this.props;
-        if(navigator){
-            navigator.push({
-                component:ListPage,
-                sceneConfig:Navigator.SceneConfigs.FloatFromRight,
-                params:{id:id}
-
-            })
+        switch (this.props.Xtype){
+            case 50:
+                if(navigator){
+                    navigator.push({
+                        component:CategoryList,
+                        //sceneConfig:Navigator.SceneConfigs.FloatFromRight
+                    });
+                }
+                break;
         }
-    }
 
+    }
 
     render() {
         return (

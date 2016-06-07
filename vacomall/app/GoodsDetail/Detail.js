@@ -25,7 +25,7 @@ import * as NetService from '../util/NetService';
 
 import Login from '../Login';
 import DetailImg from './DetailImg';
-
+import Toast from 'react-native-root-toast';
 import DetailSwiper from './DetailSwiper';
 import GoodsSpec from './GoodsSpec';
 
@@ -41,7 +41,8 @@ export default class GoodsDetail extends Component {
             webImgData: null,
             swiperData:null,
             resultData:null,
-            specs:null
+            specs:null,
+            num:'0'
         };
 
     }
@@ -50,7 +51,7 @@ export default class GoodsDetail extends Component {
         var _this = this;
         setTimeout(function () {
             //NetService.postFetchData(API.DETAIL, 'id=' + _this.props.id, (result)=>_this._callback(result));
-            NetService.postFetchData(API.DETAIL, 'id=73426069403c4d04ac6963989e4c1ef9', (result)=>_this._callback(result));
+            NetService.postFetchData(API.DETAIL, 'id=0ce43cfa29994a77b8572a788c1d2715', (result)=>_this._callback(result));
         }, 400);
     }
 
@@ -80,7 +81,7 @@ export default class GoodsDetail extends Component {
     }
     _addCart() {
         if (this.state.id === null) {
-            ToastAndroid.show('请选择商品规格!', ToastAndroid.SHORT);
+            Toast.show('请选择商品规格!');
         } else {
             NetService.postFetchData(API.ADDCART, 'id=' + this.state.id + '&buySum=' + this.state.num, (result)=>this._callback1(result));
         }
@@ -91,7 +92,7 @@ export default class GoodsDetail extends Component {
             btnStatus: true
         });
         if (result['success'] === false) {
-            ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
+            Toast.show(result['result']['message']);
             if (result['result']['code'] === 303) {
                 const {navigator}=this.props.parentProps;
                 if (navigator) {
@@ -104,7 +105,7 @@ export default class GoodsDetail extends Component {
             }
             return;
         }
-        ToastAndroid.show(result['message'], ToastAndroid.SHORT);
+        Toast.show(result['message']);
         seacVueObj.map(function (_this) {
             _this.setState({
                 specColor: '#C3C3C3'
@@ -154,7 +155,7 @@ export default class GoodsDetail extends Component {
                                             <Text
                                                 style={[styles.price,{fontSize: 22,marginTop:-4}]}>{this.state.price}</Text>
                                         </View>
-                                        <View style={styles.price_con}>
+                                        <View style={[styles.price_con,{flex:1,justifyContent:'flex-end',marginRight:6}]}>
                                             <Text
                                                 style={[styles.bef_text,styles.bef_price]}>市场价￥{this.state.details['GoodsItemTagPrice']}</Text>
                                         </View>
@@ -255,7 +256,8 @@ const styles = StyleSheet.create({
     exp_img: {
         resizeMode: 'stretch',
         width: 14,
-        height: 14
+        height: 14,
+        marginTop:Dimensions.ios==='ios'?0:2
     },
     exp_text: {
         fontSize: 12,
@@ -270,7 +272,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4F4F4'
     },
     price_con: {
-        flex: 1,
         flexDirection: 'row',
         height: 45,
         alignItems: 'center'

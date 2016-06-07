@@ -25,6 +25,8 @@ import MenuButton from './HomePage/MenuButton';
 import HomeHeader from './HomePage/HomeHeader';
 import GoodsDetail from './GoodsDetail';
 import ListPage from './ListPage';
+
+
 import API from './util/api';
 import * as NetService from './util/NetService';
 var listFlag = 0;
@@ -292,6 +294,15 @@ export default class HomePage extends Component {
         }
     }
 
+    _goToCate() {
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: CategoryList,
+                params: {id: id}
+            })
+        }
+    }
 
     toDetails(id) {
         const {navigator}=this.props;

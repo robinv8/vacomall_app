@@ -13,27 +13,81 @@ import React,{
     Dimensions,
     TextInput,
     ScrollView,
-    Platform
+    Platform,
+    Navigator
 }from 'react-native';
 import md5 from '../util/md5.min';
-let secp = null, seacVueObj = [], specification = {}, detailThis;
+import API from '../util/api';
+import * as NetService from '../util/NetService';
+import Toast from 'react-native-root-toast';
+import Login from '../Login';
+let secp = null, seacVueObj = [], specification = {}, detailThis,shadeThis;
+
 export default class GoodsSpec extends Component {
     // 构造
     constructor(props) {
         super(props);
         // 初始状态
         this.state = {
-            specColor: '#C3C3C3',
-            bottom: new Animated.Value(-Dimensions.get('window').height / 2-150),
-            specifications: null,
-            num: '1',
+            spec: '选择规格',
         };
-        this._specSelect = this._specSelect.bind(this);
     }
 
     componentDidMount() {
-        //seacVueObj = [], specification = {}, secp = null;
         detailThis = this.props._this2;
+        detailThis.props._this1.setState({
+            specs: <Shade _this3={this}/>
+        });
+    }
+
+    render() {
+        return (
+            <View>
+                <TouchableWithoutFeedback onPress={()=>shadeThis._shade()}>
+                    <View
+                        style={{flexDirection:'row',padding:10,marginBottom:10,paddingBottom:0,paddingTop:0,backgroundColor:'white',height:44,alignItems:'center'}}>
+                        <View style={{flexDirection:'row',flex:1,justifyContent:'flex-start'}}>
+                            <Text style={styles.spec}>{this.state.spec}</Text>
+                        </View>
+                        <View style={{flexDirection:'row',flex:1,justifyContent:'flex-end'}}>
+                            <Image source={require('../../images/detail/right_arrows.png')}
+                                   style={styles.right_arrows}/>
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+        );
+    };
+}
+class Shade extends Component {
+    // 构造
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            bottom: new Animated.Value(-Dimensions.get('window').height / 2 - 150),
+            specColor: '#C3C3C3',
+            specifications: null,
+            num: '1',
+            store: '0',
+            id:null,
+            SkuSpecification:null,
+            shadeTop:Dimensions.get('window').height
+        };
+        this._specSelect = this._specSelect.bind(this);
+    }
+    _shade() {
+        this.setState({
+            shadeTop:0
+        });
+        Animated.timing(this.state.bottom, {
+            toValue: Platform.OS === 'ios' ? 0 : 25,// 将其值以动画的形式改到一个较小值
+            decay: 0.1,
+        }).start();
+    }
+    componentDidMount() {
+        shadeThis=this;
+        //seacVueObj = [], specification = {}, secp = null;
         specification = detailThis.state.resultData['allGoods'];
         var specifications = detailThis.state.resultData['specifications']
         this.setSpecifications(specifications);
@@ -42,12 +96,13 @@ export default class GoodsSpec extends Component {
     cancelshade() {
         var _this = this;
         Animated.timing(this.state.bottom, {
-            toValue: -Dimensions.get('window').height / 2-150,                         // 将其值以动画的形式改到一个较小值
+            toValue: -Dimensions.get('window').height / 2 - 150,                         // 将其值以动画的形式改到一个较小值
             decay: 0.3,
         }).start(function () {
-            _this.props._this2.props._this1.setState({
-                specs: null
-            })
+            _this.setState({
+                shadeTop:Dimensions.get('window').height
+            });
+            secp = null, seacVueObj = [], specification = {};;
         })
     }
 
@@ -104,6 +159,14 @@ export default class GoodsSpec extends Component {
             this.setState({
                 price: obj['GoodsSalePrice'],
                 id: obj['Id'],
+                store: obj['GoodsStore'],
+                SkuSpecification:obj['SkuSpecification']
+            });
+            this.props._this3.setState({
+                spec:'已选:"'+obj['SkuSpecification']+'"'
+            });
+            detailThis.setState({
+                id:obj['Id']
             })
         }
     }
@@ -124,9 +187,44 @@ export default class GoodsSpec extends Component {
         }
     }
 
-    _shade() {
-        detailThis.props._this1.setState({
-            specs: <View style={styles.drawer}>
+    _addCart() {
+        if (this.state.id === null) {
+            Toast.show('请选择商品规格!');
+        } else {
+            NetService.postFetchData(API.ADDCART, 'id=' + this.state.id + '&buySum=' + this.state.num, (result)=>this._callback1(result));
+        }
+    }
+    _callback1(result) {
+        this.setState({
+            btnStatus: true
+        });
+        if (result['success'] === false) {
+            Toast.show(result['result']['message']);
+            if (result['result']['code'] === 303) {
+                const {navigator}=detailThis.props.parentProps;
+                if (navigator) {
+                    navigator.push({
+                        component: Login,
+                        sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
+                        //params: {page: 'GoodsDetail', id: this.props.id}
+                    })
+                }
+            }
+            return;
+        }
+        Toast.show(result['message']);
+        /*seacVueObj.map(function (_this) {
+            _this.setState({
+                specColor: '#C3C3C3'
+            });
+        });
+
+        seacVueObj = [], this.state.id = null;*/
+        this.cancelshade();
+    }
+    render() {
+        return (
+            <View style={[styles.drawer,{top:this.state.shadeTop}]}>
                 <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
                     <View style={{flex:1}}/>
                 </TouchableWithoutFeedback>
@@ -134,25 +232,22 @@ export default class GoodsSpec extends Component {
                     style={[styles.animate_view,{bottom:this.state.bottom}]}>
                     <View style={[styles.info_view]}>
                         <View style={styles.info_view1}>
-                            <View style={{position:'relative'}}>
-                                <View style={{alignItems:'flex-end',position:'absolute',top:0,right:0}}>
-                                    <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
-                                        <Image source={require('../../images/close_icon.png')}
-                                               style={{width:20,height:20,marginTop:5,marginRight:6}}/>
-                                    </TouchableWithoutFeedback>
-                                </View>
-                                <Text
-                                    style={{marginTop:21,color:'#3C3C3C',marginBottom:5}}>{detailThis.state.resultData['details']['GoodsItemTitle'].substring(0, 24)}</Text>
-                            </View>
-                            <View style={{flexDirection:'row'}}>
-                                <View style={styles.price_con}>
-                                    <Text style={[styles.price,{fontSize:16,marginTop:0}]}>￥</Text>
+                            <View
+                                style={{borderBottomWidth: 0.5,borderBottomColor: '#E7E7E7',flex:1, paddingLeft: 130,justifyContent: 'flex-end',paddingBottom: 16,marginRight: 10,marginLeft:10}}>
+                                <View style={{position:'relative'}}>
                                     <Text
-                                        style={[styles.price,{fontSize: 20,marginTop:-4}]}>{detailThis.state.resultData['details']['GoodsItemSalePrice']}</Text>
+                                        style={{marginTop:21,color:'#3C3C3C',marginBottom:5}}>{detailThis.state.resultData['details']['GoodsItemTitle'].substring(0, 24)}</Text>
                                 </View>
-                                <View style={styles.price_con}>
-                                    <Text
-                                        style={[styles.bef_text,styles.bef_price]}>市场价￥{detailThis.state.resultData['details']['GoodsItemTagPrice']}</Text>
+                                <View style={{flexDirection:'row'}}>
+                                    <View style={styles.price_con}>
+                                        <Text style={[styles.price,{fontSize:16,marginTop:0}]}>￥</Text>
+                                        <Text
+                                            style={[styles.price,{fontSize: 20,marginTop:-4}]}>{detailThis.state.resultData['details']['GoodsItemSalePrice']}</Text>
+                                    </View>
+                                    <View style={styles.price_con}>
+                                        <Text
+                                            style={[styles.bef_text,styles.bef_price]}>市场价￥{detailThis.state.resultData['details']['GoodsItemTagPrice']}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -160,14 +255,20 @@ export default class GoodsSpec extends Component {
                             <Image source={{uri:detailThis.state.resultData['images'][0]['ImagePath']}}
                                    style={styles.shade_img}/>
                         </View>
+                        <View
+                            style={{alignItems:'flex-end',position:'absolute',right:0,bottom:Platform.OS==='ios'?50:60}}>
+                            <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
+                                <Image source={require('../../images/close_icon.png')}
+                                       style={{width:20,height:20,marginTop:5,marginRight:6}}/>
+                            </TouchableWithoutFeedback>
+                        </View>
                     </View>
                     <ScrollView style={{height:Dimensions.get('window').height/2-100,backgroundColor:'white'}}>
                         <View>{this.state.specifications}</View>
-                        <View style={{padding:5}}>
-                            <View style={{marginBottom:10}}>
+                        <View style={{padding:5,flexDirection:'row',alignItems:'center'}}>
+                            <View style={{marginBottom:10,marginLeft:10,marginRight:10}}>
                                 <View style={{flexDirection:'row',marginBottom:5}}>
-                                    <Text style={{fontSize:12,color:'#2F2F2F'}}>数量</Text><Text
-                                    style={{fontSize:12,marginLeft:3,color:'#F08100',marginTop:1}}>({this.state.num}件)</Text>
+                                    <Text style={{fontSize:14,color:'#2F2F2F'}}>数量</Text>
                                 </View>
                                 <View style={{flexDirection:'row',width:110,height:35,backgroundColor:'#F5F5F5'}}>
                                     <TouchableWithoutFeedback onPress={(flag)=>this._num('sub')}>
@@ -180,7 +281,7 @@ export default class GoodsSpec extends Component {
                                     <View
                                         style={styles.input_view}>
                                         <TextInput
-                                            style={{flex:1,paddingLeft:5,paddingRight:5,textAlign:'center',fontSize:18,}}
+                                            style={{flex:1,paddingLeft:5,paddingRight:5,textAlign:'center',fontSize:18,height:35,paddingTop:1}}
                                             keyboardType={'numeric'}
                                             onChangeText={(num)=>this._onChange(num)}
                                             underlineColorAndroid='transparent'
@@ -195,43 +296,27 @@ export default class GoodsSpec extends Component {
                                     </TouchableWithoutFeedback>
                                 </View>
                             </View>
+                            <View
+                                style={{height:35,justifyContent:'center',marginLeft:10,marginTop:Dimensions.ios==='ios'?5:10}}>
+                                <Text
+                                    style={{fontSize:12,color:'#BFBFBF'}}>(库存{this.state.store}件)</Text>
+                            </View>
                         </View>
                     </ScrollView>
                     <View style={{backgroundColor:'white'}}>
-                        <View style={{backgroundColor:'#16BD42',flex:1,height:40,justifyContent:'center',alignItems:'center',borderRadius:2,margin:12,marginBottom:9,}}>
-                            <Text style={{fontSize:18,color:'white'}}>完成</Text>
-                        </View>
+                        <TouchableWithoutFeedback onPress={()=>this._addCart()}>
+                            <View
+                                style={{backgroundColor:'#16BD42',flex:1,height:40,justifyContent:'center',alignItems:'center',borderRadius:2,margin:12,marginBottom:9,}}>
+                                <Text style={{fontSize:18,color:'white'}}>完成</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
 
                 </Animated.View>
             </View>
-        })
-        Animated.timing(this.state.bottom, {
-            toValue: Platform.OS === 'ios' ? 0 : 25,// 将其值以动画的形式改到一个较小值
-            decay: 0.1,
-        }).start()
-    }
-
-    render() {
-        return (
-            <View>
-                <TouchableWithoutFeedback onPress={()=>this._shade()}>
-                    <View
-                        style={{flexDirection:'row',padding:10,marginBottom:10,paddingBottom:0,paddingTop:0,backgroundColor:'white',height:44,alignItems:'center'}}>
-                        <View style={{flexDirection:'row',flex:1,justifyContent:'flex-start'}}>
-                            <Text style={styles.spec}>选择规格</Text>
-                        </View>
-                        <View style={{flexDirection:'row',flex:1,justifyContent:'flex-end'}}>
-                            <Image source={require('../../images/detail/right_arrows.png')}
-                                   style={styles.right_arrows}/>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            </View>
         );
-    };
+    }
 }
-
 class Spec extends Component {
     // 构造
     constructor(props) {
@@ -308,17 +393,14 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         height: 129,
     },
-    info_view1:{
-        paddingLeft:130,
-        justifyContent:'flex-end',
-        paddingBottom:16,
-        backgroundColor:'white',
-        position:'absolute',
-        bottom:0,
-        width:Dimensions.get('window').width,
-        paddingRight: 10,
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#E7E7E7',
+    info_view1: {
+        backgroundColor: 'white',
+        position: 'absolute',
+        bottom: 0,
+        width: Dimensions.get('window').width,
+    },
+    spec: {
+        color: '#3C3C3C'
     },
     shade_img: {
         width: 109,
@@ -351,7 +433,7 @@ const styles = StyleSheet.create({
     input_view: {
         width: 40,
         height: 35,
-        marginTop:Platform.OS === 'ios' ? 0 : 5
+        marginTop: Platform.OS === 'ios' ? 0 : 5
     },
     sub_view: {
         width: 35,
@@ -361,7 +443,6 @@ const styles = StyleSheet.create({
     },
     drawer: {
         position: 'absolute',
-        top: 0,
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
         backgroundColor: 'rgba(0,0,0,0.5)'
@@ -378,9 +459,9 @@ const styles = StyleSheet.create({
         borderBottomColor: '#E7E7E7'
     },
     specVue: {
-        padding:8,
-        paddingTop:4,
-        paddingBottom:4,
+        padding: 8,
+        paddingTop: 4,
+        paddingBottom: 4,
         borderRadius: 5.71,
         justifyContent: 'center',
         alignItems: 'center',

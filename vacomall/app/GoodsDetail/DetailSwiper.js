@@ -28,10 +28,17 @@ export default class DetailSwiper extends Component{
             imagesArray.push(<View style={styles.wrapper} key={index}>
                 <Image style={styles.slide} source={{uri:data['ImagePath']+"@h_600"}}></Image>
             </View>)
-        })
-        this.setState({
-            swiper: <Swiper height={414} autoplay={true} paginationStyle={{bottom: 5,flex:1}}>{imagesArray}</Swiper>
-        })
+        });
+        if(imagesArray.length===1){
+            this.setState({
+                swiper: <Swiper height={414} autoplay={false} paginationStyle={{bottom: 5,flex:1}}>{imagesArray}</Swiper>
+            })
+        }else{
+            this.setState({
+                swiper: <Swiper height={414} autoplay={true} paginationStyle={{bottom: 5,flex:1}}>{imagesArray}</Swiper>
+            })
+        }
+
     }
     render(){
         return(

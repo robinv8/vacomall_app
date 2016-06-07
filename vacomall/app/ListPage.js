@@ -78,7 +78,13 @@ export default class ListPage extends Component {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
                 loaded: true,
-                isRefreshing: false
+                isRefreshing: false,
+                isNull:false
+            })
+        }else{
+            this.setState({
+                isNull:true,
+                loaded: true,
             })
         }
     }
@@ -135,6 +141,8 @@ export default class ListPage extends Component {
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
+        }if(this.state.isNull){
+            return this.isNull();
         }
         return (
             <View style={{flex:1,backgroundColor:'#F6F6F6'}}>
@@ -165,7 +173,16 @@ export default class ListPage extends Component {
         })
         this.getListData();
     }
-
+    isNull(){
+        return (
+            <View style={{flex:1}}>
+                <ListHeader navigator={this.props.navigator}/>
+                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
+                   <Text>未找到相关商品!</Text>
+                </View>
+            </View>
+        );
+    }
     renderLoadingView() {
         return (
             <View style={{flex:1}}>

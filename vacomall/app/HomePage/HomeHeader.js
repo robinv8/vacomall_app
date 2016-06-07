@@ -18,6 +18,7 @@ import React, {
 var PPI = PixelRatio.get();
 import SearchPage from '../SearchPage';
 import CartPage from '../CartPage';
+import CategoryList from '../CategoryList';
 import Login from '../Login';
 import API from '../util/api';
 import * as NetService from '../util/NetService';
@@ -104,8 +105,15 @@ export default class HomeHeader extends Component {
             ]
         )
     }
-
-    toCart() {
+    toCate(){
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: CategoryList,
+            })
+        }
+    }
+    /*toCart() {
         const {navigator}=this.props;
         var _callback = function (result) {
             if (result['success'] === false) {
@@ -130,7 +138,7 @@ export default class HomeHeader extends Component {
             }
         }
         NetService.postFetchData(API.LOGINSTATE, '', _callback.bind(this));
-    }
+    }*/
 
 
     render() {
@@ -146,7 +154,7 @@ export default class HomeHeader extends Component {
                     <Image source={require('../../images/header/search_icon.png')} style={styles.searchIcon}/>
                     <Text style={styles.searchText}>2016夏季女T恤 热卖</Text>
                 </View>
-                <TouchableWithoutFeedback onPress={()=>this.toCart()}>
+                <TouchableWithoutFeedback onPress={()=>this.toCate()}>
                     <View style={styles.cate_view}>
                         <Image source={require('../../images/header/cate_icon.png')} style={styles.scanIcon}/>
                     </View>

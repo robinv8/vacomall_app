@@ -11,7 +11,8 @@ import React, {
     ScrollView,
     TouchableOpacity,
     PropTypes,
-    Navigator
+    Navigator,
+    Image
 } from 'react-native';
 import CategoryHeader from './Category/CategoryHeader';
 import FirstCate from './Category/FirstCate';
@@ -28,21 +29,27 @@ export default class Category extends Component {
             firstRows: [],
             subData: [],
             subRows: [],
+            loaded:false
         }
     }
 
     //组件加载完成,并已渲染之后执行
     componentDidMount() {
+        cateMap = {}, beforeObj=undefined,fObj=[];
         this.fetchData(0, 0);
     }
 
     fetchData(num, lazy) {
-        NetService.getFetchData(API.CATE + '?pid=' + num + '&lazy=' + lazy, (result)=>_callback(result));
+        setTimeout(function(){
+            NetService.getFetchData(API.CATE + '?pid=' + num + '&lazy=' + lazy, (result)=>_callback(result));
+        },400)
+
         var _this = this;
         function _callback(result) {
             if (num === 0) {
                 _this.setState({
                     firstData: result,
+                    loaded:true
                 });
                 _this._getFirstRows();
             } else {
@@ -122,14 +129,25 @@ export default class Category extends Component {
             subRows: rows
         })
     }
-
+    renderLoadingView() {
+        return (
+            <View style={{flex:1}}>
+                <CategoryHeader navigator={this.props.navigator}/>
+                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
+                    <Image source={require('../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
+                </View>
+            </View>
+        );
+    }
 
     render() {
+        if (!this.state.loaded) {
+            return this.renderLoadingView();
+        }
         return (
             <View style={{backgroundColor:'#F6F6F6',flex:1}}>
-                <CategoryHeader/>
+                <CategoryHeader navigator={this.props.navigator}/>
                 <View style={styles.container}>
-
                     <ScrollView style={styles.firstCate}>
                         {this.state.firstRows}
                     </ScrollView>
