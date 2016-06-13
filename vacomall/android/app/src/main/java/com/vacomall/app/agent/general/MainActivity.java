@@ -1,6 +1,7 @@
 package com.vacomall.app.agent.general;
 
 import com.facebook.react.ReactActivity;
+import com.heng.wechat.WeChatPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -39,6 +40,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new WeChatPackage(),
             new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG),
              new WebViewBridgePackage(),
              new LinearGradientPackage()

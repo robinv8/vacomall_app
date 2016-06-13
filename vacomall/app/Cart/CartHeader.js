@@ -41,20 +41,20 @@ export default class Header extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this._back()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Image source={require('../../images/login/login_back.png')}
+                    <Image source={require('../../images/back_icon.png')}
                            style={styles.backIcon}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
-                    <Text style={{color: 'white',fontSize: 20}}>购物车</Text>
+                    <Text style={{color: '#3C3C3C',fontSize: 18}}>购物车</Text>
                 </View>
                 <TouchableWithoutFeedback onPress={()=>this._edit()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'white',fontSize: 16}}>编辑</Text>
+                    <Text style={{color:'#3C3C3C',fontSize: 16}}>编辑</Text>
                         </View>
                 </TouchableWithoutFeedback>
             </View>
@@ -65,9 +65,16 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 134 / PPI : 50,
-        backgroundColor: '#14A83B',
+        height:Platform.OS === 'ios' ? 64 : 40,
+        backgroundColor: '#FAFAFA',
         alignItems: 'center',
+        shadowColor: 'rgb(178,178,178)',
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 0.5,
+            width: 0
+        }
     },
     logo: {
         height: 25,

@@ -13,9 +13,9 @@ import React,{
     TextInput,
     Alert,
     WebView,
-    ToastAndroid,
     ViewPagerAndroid,
     Navigator,
+    RefreshControl
 }from 'react-native';
 import DetailHeader from './DetailHeader'
 import Swiper from 'react-native-swiper2';
@@ -23,7 +23,7 @@ import API from '../util/api';
 import * as NetService from '../util/NetService';
 import md5 from '../util/md5.min';
 import Login from '../Login';
-import HTML from 'react-native-fence-html'
+import HtmlRender from 'react-native-html-render';
 export default class GoodsDetail extends Component {
     // 构造
     constructor(props) {
@@ -31,6 +31,7 @@ export default class GoodsDetail extends Component {
         // 初始状态
         this.state = {
             HTML: null,
+            guessFlag:false
         };
     }
 
@@ -42,26 +43,35 @@ export default class GoodsDetail extends Component {
     }
 
     render() {
-
         return (
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
-                <TouchableWithoutFeedback onPress={()=>this.toDetail()}>
-                    <View
-                        style={{backgroundColor:'white',paddingLeft:5,height:50,justifyContent:'center',alignItems:'center'}}>
-                        <Text>点击返回商品详情</Text>
-                    </View>
-                </TouchableWithoutFeedback>
-                <ScrollView style={{flex:1,marginTop:10,backgroundColor:'white'}}>
-                    <HTML html={this.props.webImgData}
-                    htmlStyles={styles}
+                <ScrollView style={{flex:1,backgroundColor:'white'}}
+                            refreshControl={
+                              <RefreshControl
+                                onRefresh={()=>this.toDetail()}
+                                colors={['#ff0000', '#00ff00', '#0000ff','#3ad564']}
+                                progressBackgroundColor="#ffffff"
+                                title={'释放,返回商品详情'}
+                              />
+                            }
+                >
+                    <HtmlRender
+                        value={this.props.webImgData}
+                        stylesheet={styles}
                     />
                 </ScrollView>
             </View>
         );
     }
 }
-const styles = {
+const styles = StyleSheet.create({
     img: {
-        resizeMode: 'cover'
+        width:Dimensions.get('window').width,
+        height:Dimensions.get('window').width,
+        resizeMode: 'stretch'
+    },
+    p:{
+        padding:0,
+        margin:0
     }
-}
+})

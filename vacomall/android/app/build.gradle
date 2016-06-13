@@ -130,6 +130,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-wechat-android')
 
     compile project(':react-native-code-push')
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -138,6 +139,7 @@ dependencies {
     // From node_modules
     compile project(':react-native-webview-bridge')
     compile project(':react-native-linear-gradient')
+    compile project(':react-native-wechat-android')
 }
 
 // Run this once to be able to run the application with BUCK

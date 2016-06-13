@@ -25,11 +25,13 @@ import MenuButton from './HomePage/MenuButton';
 import HomeHeader from './HomePage/HomeHeader';
 import GoodsDetail from './GoodsDetail';
 import ListPage from './ListPage';
+import ViewPull from '../ViewPull'
 
 
 import API from './util/api';
 import * as NetService from './util/NetService';
 var listFlag = 0;
+
 export default class HomePage extends Component {
     // 构造
     constructor(props) {
@@ -40,7 +42,7 @@ export default class HomePage extends Component {
             catArray1: [],
             catArray2: [],
             dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2)=>row1 !== row2,
+                rowHasChanged: (row1, row2)=>row1 !== row2
             }),
             loaded: false,
             news: null,
@@ -97,7 +99,7 @@ export default class HomePage extends Component {
                 case 10:
                     imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.toDetails(data['Target'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}></Image>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     );
@@ -106,7 +108,7 @@ export default class HomePage extends Component {
                     imgArray.push(<TouchableWithoutFeedback key={index}
                                                             onPress={()=>_this._selectGoodsList(data['Target'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}></Image>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     );
@@ -115,7 +117,7 @@ export default class HomePage extends Component {
                     imgArray.push(<TouchableWithoutFeedback key={index}
                                                             onPress={()=>_this.historyOnSubmit(data['Target'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}></Image>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     );
@@ -206,16 +208,16 @@ export default class HomePage extends Component {
         this.setState({
             index99: <View style={[styles.seckill,{marginTop: 12}]}>
                 <View style={styles.seckill_1}>
-                    <Image source={{uri:index_99_data[0]['ItemImg']}} style={styles.seckill_1_img}></Image>
+                    <Image source={{uri:index_99_data[0]['ItemImg']}} style={styles.seckill_1_img}/>
                 </View>
                 <View style={styles.seckill_2}>
                     <View style={styles.seckill_3}>
                         <Image source={{uri:index_99_data[1]['ItemImg']}}
-                               style={styles.seckill_2_img}></Image>
+                               style={styles.seckill_2_img}/>
                     </View>
                     <View style={[styles.seckill_2]}>
                         <Image source={{uri:index_99_data[2]['ItemImg']}}
-                               style={styles.seckill_3_img}></Image>
+                               style={styles.seckill_3_img}/>
                     </View>
                 </View>
             </View>
@@ -229,16 +231,16 @@ export default class HomePage extends Component {
             indexCSH: <View style={styles.seckill}>
                 <View style={styles.seckill_1}>
                     <Image source={{uri:index_99_data[0]['ItemImg']}}
-                           style={styles.seckill_1_img}></Image>
+                           style={styles.seckill_1_img}/>
                 </View>
                 <View style={styles.seckill_2}>
                     <View style={styles.seckill_3}>
                         <Image source={{uri:index_99_data[1]['ItemImg']}}
-                               style={styles.seckill_2_img}></Image>
+                               style={styles.seckill_2_img}/>
                     </View>
                     <View style={[styles.seckill_2]}>
                         <Image source={{uri:index_99_data[2]['ItemImg']}}
-                               style={styles.seckill_3_img}></Image>
+                               style={styles.seckill_3_img}/>
                     </View>
                 </View>
             </View>
@@ -252,15 +254,15 @@ export default class HomePage extends Component {
             indexBrand: <View style={styles.seckill}>
                 <View style={[styles.seckill_1,{justifyContent:'center'}]}>
                     <Image source={{uri:index_brand_data[0]['ItemImg']}}
-                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
+                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
                 </View>
                 <View style={[styles.seckill_1,{justifyContent:'center'}]}>
                     <Image source={{uri:index_brand_data[1]['ItemImg']}}
-                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
+                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
                 </View>
                 <View style={[styles.seckill_1,{justifyContent:'center',borderRightWidth:0}]}>
                     <Image source={{uri:index_brand_data[2]['ItemImg']}}
-                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}></Image>
+                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
                 </View>
             </View>
         });
@@ -323,7 +325,7 @@ export default class HomePage extends Component {
                 rtnText = text;
             }
             return rtnText;
-        }
+        };
         var listMarginRight = 0;
         if (listFlag % 2 === 0) {
             listMarginRight = 5;
@@ -338,7 +340,7 @@ export default class HomePage extends Component {
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
                         <Image source={{uri:gList['SpuDefaultImage']}}
-                               style={{width: 150,height: 150,marginBottom:10}}></Image>
+                               style={{width: 150,height: 150,marginBottom:10}}/>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
                         <View style={{marginBottom:1,height:32}}>
@@ -391,6 +393,10 @@ export default class HomePage extends Component {
         });
     }
 
+    onDownFunc() {
+
+    }
+
     render() {
         return (
             <View style={{flex:1}}>
@@ -434,25 +440,25 @@ export default class HomePage extends Component {
                     {this.state.index99}
                     <View style={styles.chaoshihui}>
                         <View style={styles.chaoshihui_title}>
-                            <Image source={require('../images/chaoshihui_tit.png')} style={styles.csh_tit}></Image>
+                            <Image source={require('../images/chaoshihui_tit.png')} style={styles.csh_tit}/>
                         </View>
                         {this.state.indexCSH}
                     </View>
                     <View style={[styles.chaoshihui,{height:236}]}>
                         <View style={styles.chaoshihui_title}>
                             <Image source={require('../images/ppzg_tit.png')}
-                                   style={[styles.csh_tit,{width:96,height:22}]}></Image>
+                                   style={[styles.csh_tit,{width:96,height:22}]}/>
                         </View>
                         {this.state.indexBrand}
                     </View>
                     <View
                         style={styles.cnxh_view}>
-                        <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}></Image>
+                        <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}/>
                     </View>
                     <ListView
                         dataSource={this.state.dataSource}
                         renderRow={(gList)=>this.renderGList(gList)}
-                        contentContainerStyle={styles.listview}></ListView>
+                        contentContainerStyle={styles.listview}/>
                 </ScrollView>
             </View>
         )

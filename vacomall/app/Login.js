@@ -46,7 +46,6 @@ export default class Login extends Component {
 
     componentDidMount() {
         this._loadInitialState();
-        console.log(PPI);
     }
 
     async _loadInitialState() {
@@ -211,7 +210,7 @@ export default class Login extends Component {
                             <View
                                 style={{marginRight:3,marginTop:Platform.OS === 'ios' ?19 : 0,justifyContent:'center',alignItems:'center',width:50,height:50}}>
                                 <Image source={require('../images/login/login_close.png')}
-                                       style={{width:18,height:18,resizeMode:'stretch'}}></Image>
+                                       style={{width:18,height:18,resizeMode:'stretch'}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
@@ -294,11 +293,11 @@ export default class Login extends Component {
                         <View style={{flexDirection:'row',flex:1,marginTop:20}}>
                             <View style={styles.thirdparty_view}>
                                 <Image source={require('../images/login/login_qq_icon.png')}
-                                       style={styles.thirdparty}></Image>
+                                       style={styles.thirdparty}/>
                             </View>
                             <View style={styles.thirdparty_view}>
                                 <Image source={require('../images/login/login_wechat_icon.png')}
-                                       style={styles.thirdparty}></Image>
+                                       style={styles.thirdparty}/>
                             </View>
                         </View>
                     </View>

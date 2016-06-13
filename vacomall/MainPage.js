@@ -21,13 +21,24 @@ import ListPage from './app/ListPage';
 import SearchPage from './app/SearchPage';
 import CategoryList from './app/CategoryList';
 import GoodsDetail from './app/GoodsDetail';
+import Cart from './app/CartPage';
+
+import wechatTest from './app/Test/wechatTest';
+import wechatTestAndroid from './app/Test/wechatTestAndroid';
+import Person from './app/Person';
+import pullTest from './app/Test/pullTest';
+
+import Reactotron from 'reactotron';
+
+
 export default class MainPage extends Component {
     componentDidMount() {
         codePush.sync();
+
     }
     render() {
-        let defaultName = 'GoodsDetail';
-        let defaultComponent = GoodsDetail;
+        let defaultName = 'Person';
+        let defaultComponent = Person;
         return (
         <View style={{flex:1}}>
             <StatusBar

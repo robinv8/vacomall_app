@@ -28,7 +28,7 @@ import DetailImg from './DetailImg';
 import Toast from 'react-native-root-toast';
 import DetailSwiper from './DetailSwiper';
 import GoodsSpec from './GoodsSpec';
-
+import HtmlRender from 'react-native-html-render';
 export default class GoodsDetail extends Component {
     // 构造
     constructor(props) {
@@ -39,10 +39,12 @@ export default class GoodsDetail extends Component {
             loaded: false,
             id: null,
             webImgData: null,
-            swiperData:null,
-            resultData:null,
-            specs:null,
-            num:'0'
+            swiperData: null,
+            resultData: null,
+            specs: null,
+            num: '0',
+            contentHeight:null,
+            guessFlag:false
         };
 
     }
@@ -61,8 +63,8 @@ export default class GoodsDetail extends Component {
             return;
         }
         this.setState({
-            swiperData:result['images'],
-            resultData:result
+            swiperData: result['images'],
+            resultData: result
         });
         this.setDetails(result['details']);
 
@@ -73,12 +75,14 @@ export default class GoodsDetail extends Component {
             webImgData: result['imageDetails'][0]['SpuDetail']
         })
     }
+
     setDetails(data) {
         this.setState({
             price: data['GoodsItemSalePrice'],
             details: data,
         })
     }
+
     _addCart() {
         if (this.state.id === null) {
             Toast.show('请选择商品规格!');
@@ -125,6 +129,27 @@ export default class GoodsDetail extends Component {
         }
     }
 
+    handleScroll(event:Object) {
+        console.log(event.nativeEvent.contentOffset.y+Dimensions.get('window').height + '-' + this.state.contentHeight)
+        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height-100> this.state.contentHeight && this.state.guessFlag === false) {
+            const {navigator}=this.props;
+            if (navigator) {
+                navigator.push({
+                    component: DetailImg,
+                    sceneConfig: Navigator.SceneConfigs.FloatFromBottom,
+                    params: {webImgData: this.state.webImgData, _back: this.props._back}
+                })
+            }
+        }
+    }
+
+    _ContentSizeChange(w, h) {
+        console.log(h)
+        this.setState({
+            contentHeight: h
+        });
+    }
+
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -133,7 +158,10 @@ export default class GoodsDetail extends Component {
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
                 <View style={{flex:1}}>
                     <ScrollView
-                        style={{flex:1}}>
+                        style={{flex:1}}
+                        onContentSizeChange={(w,h)=>this._ContentSizeChange(w,h)}
+                        onScroll={(event)=>this.handleScroll(event)}
+                    >
                         <DetailSwiper swiperData={this.state.swiperData}/>
                         <View>
                             <View style={{backgroundColor:'white',padding:10,marginBottom:10,paddingBottom:0}}>
@@ -155,7 +183,8 @@ export default class GoodsDetail extends Component {
                                             <Text
                                                 style={[styles.price,{fontSize: 22,marginTop:-4}]}>{this.state.price}</Text>
                                         </View>
-                                        <View style={[styles.price_con,{flex:1,justifyContent:'flex-end',marginRight:6}]}>
+                                        <View
+                                            style={[styles.price_con,{flex:1,justifyContent:'flex-end',marginRight:6}]}>
                                             <Text
                                                 style={[styles.bef_text,styles.bef_price]}>市场价￥{this.state.details['GoodsItemTagPrice']}</Text>
                                         </View>
@@ -197,23 +226,23 @@ export default class GoodsDetail extends Component {
                         <GoodsSpec _this2={this}/>
                         <TouchableWithoutFeedback onPress={()=>this.toDetailImg()}>
                             <View
-                                style={{marginTop:10,backgroundColor:'white',paddingLeft:5,height:50,justifyContent:'center',alignItems:'center'}}>
-                                <Text>点击查看图片详情</Text>
+                                style={{paddingLeft:5,height:40,justifyContent:'center',alignItems:'center'}}>
+                                <Text>继续拖动,查看图文详情</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </ScrollView>
                 </View>
                 <View>
-                    <View style={{flexDirection:'row',height:40,backgroundColor:'white'}}>
+                    <View style={{flexDirection:'row',height:49,backgroundColor:'white'}}>
                         <View
-                            style={[styles.bom,{flex:180, paddingLeft:10, borderTopColor:'#DBDBDB', borderTopWidth:0.5, flexDirection:'row', justifyContent:'flex-start'}]}>
+                            style={[styles.bom,{flex:1, paddingLeft:10, flexDirection:'row', justifyContent:'flex-start',backgroundColor:'white', borderTopColor:'#DBDBDB', borderTopWidth:1,}]}>
                             <Text style={{fontSize:12}}>总价:</Text>
                             <Text style={[styles.price]}>￥</Text>
                             <Text
                                 style={[styles.price,{fontSize: 18,marginTop:-4}]}>{(this.state.price * this.state.num).toFixed(2)}</Text>
                         </View>
                         <TouchableWithoutFeedback onPress={()=>this._addCart()}>
-                            <View style={[styles.bom,{flex:99,backgroundColor:'#ff9402'}]}>
+                            <View style={[styles.bom,{flex:1,backgroundColor:'#ff9402'}]}>
                                 <Text style={{fontSize:14,color:'white'}}>加入购物车</Text>
                             </View>
                         </TouchableWithoutFeedback>
@@ -257,7 +286,7 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
         width: 14,
         height: 14,
-        marginTop:Dimensions.ios==='ios'?0:2
+        marginTop: Dimensions.ios === 'ios' ? 0 : 2
     },
     exp_text: {
         fontSize: 12,

@@ -15,6 +15,7 @@ import React, {
 
 import TabNavigator from 'react-native-tab-navigator';
 import HomePage from './HomePage';
+import Person from './Person';
 
 const HOME = 'home';
 const HOME_NORMAL = require('../images/tabs/home_normal.png');
@@ -67,7 +68,7 @@ export default class MainScreen extends Component {
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}/>)}
                     {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, MainScreen._createChildView(CHONGZHI))}
                     {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, MainScreen._createChildView(CART))}
-                    {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, MainScreen._createChildView(PERSONAL))}
+                    {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person navigator={this.props.navigator}/>)}
                 </TabNavigator>
             </View >
         );
