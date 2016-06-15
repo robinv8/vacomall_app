@@ -382,8 +382,7 @@ export default class HomePage extends Component {
     _guessCallback(result) {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(result)
-        })
-        console.log(result);
+        });
     }
 
     _ContentSizeChange(w, h) {
@@ -647,6 +646,5 @@ const styles = StyleSheet.create({
         width: 96,
         height: 20,
         resizeMode: 'stretch',
-
     }
 });

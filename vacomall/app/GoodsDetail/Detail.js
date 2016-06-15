@@ -52,8 +52,8 @@ export default class GoodsDetail extends Component {
     componentDidMount() {
         var _this = this;
         setTimeout(function () {
-            //NetService.postFetchData(API.DETAIL, 'id=' + _this.props.id, (result)=>_this._callback(result));
-            NetService.postFetchData(API.DETAIL, 'id=0ce43cfa29994a77b8572a788c1d2715', (result)=>_this._callback(result));
+            NetService.postFetchData(API.DETAIL, 'id=' + _this.props.id, (result)=>_this._callback(result));
+            //NetService.postFetchData(API.DETAIL, 'id=0ce43cfa29994a77b8572a788c1d2715', (result)=>_this._callback(result));
         }, 400);
     }
 

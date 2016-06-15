@@ -15,7 +15,7 @@ export function postFetchData(apiUrl,body,callback) {
             if (responseJson['success'] !== true) {
                 callback(responseJson);
             } else {
-                callback(responseJson['result']);
+                callback(responseJson);
             }
         }).catch((error) => {
         console.warn(error);

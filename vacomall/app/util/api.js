@@ -3,7 +3,8 @@
  */
 //var API_ADDRESS ='http://api.m.vacomall.com/';//'http://api.m.vacomall.com/';//'http://10.8.8.106:8099/';
 var API_ADDRESS='http://10.8.8.106:8099/'//'http://test.api.m.vacomall.com/';
-
+var API_ADDRESS1='http://polarbear.duapp.com/';
+var API_ADDRESS2='http://wxpay.weixin.qq.com/';
 var DEBUG = true;
 var API = {
     LOGIN:API_ADDRESS+'auth/login',
@@ -20,7 +21,9 @@ var API = {
     CONFIRM:API_ADDRESS+'order/confirm',
     SUBMIT:API_ADDRESS+'order/submit',
     HASSTORE:API_ADDRESS+'cart/hasStore',
-    LOGOUT:API_ADDRESS+'auth/logout'
+    LOGOUT:API_ADDRESS+'auth/logout',
+    ORDER:API_ADDRESS1+'orderPay/appPreOrder',
+    ORDER1:API_ADDRESS2+'pub_v2/app/app_pay.php?plat=ios'
 };
 
 module.exports = API;

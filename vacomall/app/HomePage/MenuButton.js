@@ -42,7 +42,7 @@ export default class MenuButton extends React.Component {
     render() {
         return (
             <TouchableWithoutFeedback onPress={(id)=>this._selectGoodsList(this.props.id)}>
-                <View style={{alignItems:'center',flex:1}}>
+                <View style={{alignItems:'center',flex:1,justifyContent:'center'}}>
                     <Image source={{uri:this.props.imgUrl}} style={{width:50,height:50,resizeMode:'stretch'}}></Image>
                     <Text style={[styles.showText]}>{this.props.showText}</Text>
                 </View>

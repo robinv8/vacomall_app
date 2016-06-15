@@ -130,6 +130,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-wx')
     compile project(':react-native-wechat-android')
 
     compile project(':react-native-code-push')

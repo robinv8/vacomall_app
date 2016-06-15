@@ -256,7 +256,7 @@ class Shade extends Component {
                                    style={styles.shade_img}/>
                         </View>
                         <View
-                            style={{alignItems:'flex-end',position:'absolute',right:0,bottom:Platform.OS==='ios'?50:60}}>
+                            style={{alignItems:'flex-end',position:'absolute',right:0,top:Platform.OS==='ios'?35:29}}>
                             <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
                                 <Image source={require('../../images/close_icon.png')}
                                        style={{width:20,height:20,marginTop:5,marginRight:6}}/>

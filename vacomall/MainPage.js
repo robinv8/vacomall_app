@@ -37,8 +37,8 @@ export default class MainPage extends Component {
 
     }
     render() {
-        let defaultName = 'Person';
-        let defaultComponent = Person;
+        let defaultName = 'wechatTest';
+        let defaultComponent = wechatTest;
         return (
         <View style={{flex:1}}>
             <StatusBar

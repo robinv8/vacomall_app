@@ -2,7 +2,7 @@
  * Created by renyubin on 16/6/12.
  */
 import React,{
-Component,
+    Component,
     View, Text, StyleSheet, ScrollView,
     AlertIOS, TouchableHighlight,
     NativeAppEventEmitter
@@ -10,13 +10,16 @@ Component,
 import WeChat from 'react-native-wechat-ios';
 let scope = 'snsapi_userinfo';
 let state = 'wechat_sdk_test';
-const appid='wx0ccd9f577013dab0';
+import API from '../util/api';
+import * as NetService from '../util/NetService';
+import MD5 from '../util/md5.min';
+const appid = 'wx0ccd9f577013dab0';
 function show(title, msg) {
-    AlertIOS.alert(title+'', msg+'');
+    AlertIOS.alert(title + '', msg + '');
 }
-export default class wechatTest extends Component{
+export default class wechatTest extends Component {
     componentDidMount() {
-        //this.registerApp();
+        this.registerApp();
 
         NativeAppEventEmitter.addListener(
             'didRecvAuthResponse',
@@ -37,7 +40,7 @@ export default class wechatTest extends Component{
 
     registerApp() {
         WeChat.registerApp(appid, (res) => {
-            show('registerApp', res);
+            //show('registerApp', res);
         });
     }
 
@@ -95,6 +98,47 @@ export default class wechatTest extends Component{
             thumbImage: 'https://dn-qianlonglaile.qbox.me/static/pcQianlong/images/buy_8e82463510d2c7988f6b16877c9a9e39.png',
             scene: 0
         });
+    }
+
+    order() {
+        /*获取首页基本数据*/
+        NetService.postFetchData(API.ORDER, 'orderId=2372be3a86784bec8402666b059ace5f', (result)=>_callback(result));
+        function _callback(result) {
+            var result = result['response'];
+            var stringA = "appid="+result['appid']+"&body=test&device_info="+result['device_info']+"&mch_id="+result['mch_id']+"&nonce_str="+result['nonce_str'];
+            stringSignTemp="stringA&key=e108845cb15eef5d23bd29da9edbf941";
+            var sign=MD5(stringSignTemp).toUpperCase()
+            let payOptions = {
+                appId: result['appid'],
+                nonceStr: result['nonce_str'],
+                partnerId: result['mch_id'],
+                prepayId: result['prepay_id'],
+                packageValue: 'Sign=WXPay',
+                timeStamp: parseInt(new Date().getTime() / 1000 - 30),
+                sign: sign
+            };
+            WeChat.weChatPay(payOptions, (res)=> {
+                show('支付', res);
+            });
+        }
+
+        /*NetService.getFetchData(API.ORDER1,(result)=>_callback(result));
+         function _callback(result) {
+         let payOptions = {
+         appid: result['appid'],
+         nonceStr: result['noncestr'],
+         partnerId: result['partnerid'],
+         prepayId: result['prepayid'],
+         packageValue: 'Sign=WXPay',
+         timeStamp: result['timestamp'],
+         sign: result['sign']
+         };
+         //show('md',result['prepayid']);
+         WeChat.weChatPay(payOptions, (res)=> {
+         //show('支付', res);
+         });
+         }*/
+
     }
 
     render() {
@@ -157,6 +201,11 @@ export default class wechatTest extends Component{
                     <Text style={styles.buttonTitle}>sendLinkURL</Text>
                 </TouchableHighlight>
 
+                <TouchableHighlight
+                    style={styles.button} underlayColor="#f38"
+                    onPress={this.order}>
+                    <Text style={styles.buttonTitle}>支付</Text>
+                </TouchableHighlight>
 
             </ScrollView>
         );
