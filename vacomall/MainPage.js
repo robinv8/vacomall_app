@@ -22,6 +22,7 @@ import SearchPage from './app/SearchPage';
 import CategoryList from './app/CategoryList';
 import GoodsDetail from './app/GoodsDetail';
 import Cart from './app/CartPage';
+import ChongZhiPage from './app/ChongZhiPage';
 
 import wechatTest from './app/Test/wechatTest';
 import wechatTestAndroid from './app/Test/wechatTestAndroid';
@@ -37,8 +38,8 @@ export default class MainPage extends Component {
 
     }
     render() {
-        let defaultName = 'wechatTest';
-        let defaultComponent = wechatTest;
+        let defaultName = 'ChongZhiPage';
+        let defaultComponent = ChongZhiPage;
         return (
         <View style={{flex:1}}>
             <StatusBar

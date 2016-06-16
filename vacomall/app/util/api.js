@@ -23,7 +23,7 @@ var API = {
     HASSTORE:API_ADDRESS+'cart/hasStore',
     LOGOUT:API_ADDRESS+'auth/logout',
     ORDER:API_ADDRESS1+'orderPay/appPreOrder',
-    ORDER1:API_ADDRESS2+'pub_v2/app/app_pay.php?plat=ios'
+    ORDERCONFIRM:API_ADDRESS+'orderPay/getAppPayInfo'
 };
 
 module.exports = API;

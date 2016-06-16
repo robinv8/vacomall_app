@@ -11,6 +11,7 @@ import WeChat from 'react-native-wechat-ios';
 let scope = 'snsapi_userinfo';
 let state = 'wechat_sdk_test';
 import API from '../util/api';
+import * as Random from '../util/random';
 import * as NetService from '../util/NetService';
 import MD5 from '../util/md5.min';
 const appid = 'wx0ccd9f577013dab0';
@@ -102,45 +103,49 @@ export default class wechatTest extends Component {
 
     order() {
         /*获取首页基本数据*/
-        NetService.postFetchData(API.ORDER, 'orderId=2372be3a86784bec8402666b059ace5f', (result)=>_callback(result));
+        NetService.postFetchData(API.ORDER, 'orderId=162c05d8d2d34208ba4f27d908eba921', (result)=>_callback(result));
         function _callback(result) {
             var result = result['response'];
-            var stringA = "appid="+result['appid']+"&body=test&device_info="+result['device_info']+"&mch_id="+result['mch_id']+"&nonce_str="+result['nonce_str'];
-            stringSignTemp="stringA&key=e108845cb15eef5d23bd29da9edbf941";
-            var sign=MD5(stringSignTemp).toUpperCase()
+            const random = Random.generateMixed(16);
+            const timeStamp = parseInt(new Date().getTime() / 1000 - 30);
+            var stringA = "appid=" + result['appid'] + "&noncestr=" + random + "&package=Sign=WXPay&partnerid=" + result['mch_id'] + "&prepayid=" + result['prepay_id'] + "&timestamp=" + timeStamp;
+            console.log(stringA)
+            stringSignTemp = stringA + "&key=e10884523bd29da9edbf941cb15eef5d";
+            console.log(stringSignTemp);
+            var sign = MD5(stringSignTemp).toUpperCase()
             let payOptions = {
                 appId: result['appid'],
-                nonceStr: result['nonce_str'],
+                nonceStr: random,
                 partnerId: result['mch_id'],
-                prepayId: result['prepay_id'],
                 packageValue: 'Sign=WXPay',
-                timeStamp: parseInt(new Date().getTime() / 1000 - 30),
+                prepayId: result['prepay_id'],
+                timeStamp: timeStamp.toString(),
                 sign: sign
             };
             WeChat.weChatPay(payOptions, (res)=> {
                 show('支付', res);
             });
+
+            let subscription = NativeAppEventEmitter.addListener(
+                'finishedPay',
+                (res) => {
+                    if(res.errCode == 0) { //充值成功
+                        console.log('充值成功');
+                    } else if(res.errCode == -1) { //很多情况下是证书问题
+                        console.log('支付失败,请稍后尝试');
+                    } else if(res.errCode == -2) { //充值取消
+                        console.log("充值取消");
+                    }
+                }
+            );
         }
-
-        /*NetService.getFetchData(API.ORDER1,(result)=>_callback(result));
-         function _callback(result) {
-         let payOptions = {
-         appid: result['appid'],
-         nonceStr: result['noncestr'],
-         partnerId: result['partnerid'],
-         prepayId: result['prepayid'],
-         packageValue: 'Sign=WXPay',
-         timeStamp: result['timestamp'],
-         sign: result['sign']
-         };
-         //show('md',result['prepayid']);
-         WeChat.weChatPay(payOptions, (res)=> {
-         //show('支付', res);
-         });
-         }*/
-
     }
-
+    orderconfirm(){
+        NetService.postFetchData(API.ORDER, 'orderId=2372be3a86784bec8402666b059ace5f', (result)=>_callback(result));
+        function _callback(result) {
+            console.log(result)
+        }
+    }
     render() {
         return (
             <ScrollView contentContainerStyle={styles.wrapper}>
@@ -205,6 +210,11 @@ export default class wechatTest extends Component {
                     style={styles.button} underlayColor="#f38"
                     onPress={this.order}>
                     <Text style={styles.buttonTitle}>支付</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                    style={styles.button} underlayColor="#f38"
+                    onPress={this.orderconfirm}>
+                    <Text style={styles.buttonTitle}>支付确认</Text>
                 </TouchableHighlight>
 
             </ScrollView>
