@@ -18,7 +18,7 @@ const appid = 'wx0ccd9f577013dab0';
 function show(title, msg) {
     AlertIOS.alert(title + '', msg + '');
 }
-export default class wechatTestwechatTest extends Component {
+export default class wechatTest extends Component {
     componentDidMount() {
         this.registerApp();
 
