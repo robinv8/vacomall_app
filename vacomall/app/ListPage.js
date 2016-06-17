@@ -73,8 +73,9 @@ export default class ListPage extends Component {
             ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
             return;
         }
-        if (result['list'].length !== 0) {
-            Array.prototype.push.apply(this.state.listArray, result['list'])
+        let list=result['result']['list'];
+        if (list.length !== 0) {
+            Array.prototype.push.apply(this.state.listArray, list)
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
                 loaded: true,

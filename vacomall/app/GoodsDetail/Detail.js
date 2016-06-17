@@ -13,7 +13,6 @@ import React,{
     TextInput,
     Alert,
     WebView,
-    ToastAndroid,
     ViewPagerAndroid,
     Navigator,
     Animated
@@ -22,7 +21,6 @@ import React,{
 
 import API from '../util/api';
 import * as NetService from '../util/NetService';
-
 import Login from '../Login';
 import DetailImg from './DetailImg';
 import Toast from 'react-native-root-toast';
@@ -59,9 +57,10 @@ export default class GoodsDetail extends Component {
 
     _callback(result) {
         if (result['success'] === false) {
-            ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
+            Toast.show(result['result']['message']);
             return;
         }
+        var result=result['result'];
         this.setState({
             swiperData: result['images'],
             resultData: result

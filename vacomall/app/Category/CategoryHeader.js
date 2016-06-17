@@ -19,6 +19,8 @@ import React, {
 import API from '../util/api';
 import * as NetService from '../util/NetService';
 var PPI = PixelRatio.get();
+import Toast from 'react-native-root-toast';
+import Login from '../Login';
 export default class Header extends Component {
     _back() {
         const {navigator}=this.props;
@@ -33,7 +35,7 @@ export default class Header extends Component {
         const {navigator}=this.props;
         var _callback = function (result) {
             if (result['success'] === false) {
-                ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
+                Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
                     if (navigator) {
                         navigator.replace({

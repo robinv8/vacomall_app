@@ -18,11 +18,11 @@ const appid = 'wx0ccd9f577013dab0';
 function show(title, msg) {
     AlertIOS.alert(title + '', msg + '');
 }
-export default class wechatTest extends Component {
+export default class wechatTestwechatTest extends Component {
     componentDidMount() {
         this.registerApp();
 
-        NativeAppEventEmitter.addListener(
+       /* NativeAppEventEmitter.addListener(
             'didRecvAuthResponse',
             (response) => AlertIOS.alert(JSON.stringify(response))
         );
@@ -36,7 +36,7 @@ export default class wechatTest extends Component {
                     alert('分享失败');
                 }
             }
-        );
+        );*/
     }
 
     registerApp() {
@@ -103,7 +103,7 @@ export default class wechatTest extends Component {
 
     order() {
         /*获取首页基本数据*/
-        NetService.postFetchData(API.ORDER, 'orderId=162c05d8d2d34208ba4f27d908eba921', (result)=>_callback(result));
+        NetService.postFetchData(API.ORDER, 'orderId=10c7a20173f04a35b716da987b55c1d4', (result)=>_callback(result));
         function _callback(result) {
             var result = result['response'];
             const random = Random.generateMixed(16);

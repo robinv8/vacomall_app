@@ -16,7 +16,7 @@ import React, {
 import TabNavigator from 'react-native-tab-navigator';
 import HomePage from './HomePage';
 import Person from './Person';
-
+import ChongZhiPage from './ChongZhiPage';
 const HOME = 'home';
 const HOME_NORMAL = require('../images/tabs/home_normal.png');
 const HOME_FOCUS = require('../images/tabs/home_focus.png');
@@ -66,7 +66,7 @@ export default class MainScreen extends Component {
             <View style={{flex: 1}}>
                 <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} style={{backgroundColor:'rgba(255,255,255,0)'}}>
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}/>)}
-                    {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, MainScreen._createChildView(CHONGZHI))}
+                    {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage navigator={this.props.navigator}/>)}
                     {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, MainScreen._createChildView(CART))}
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person navigator={this.props.navigator}/>)}
                 </TabNavigator>
