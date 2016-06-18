@@ -20,8 +20,7 @@ import ScrollableTabView,{DefaultTabBar}  from 'react-native-scrollable-tab-view
 import API from './util/api';
 import * as NetService from './util/NetService';
 export let mobile=null;
-import Toast from 'react-native-root-toast';
-const appid = 'wx0ccd9f577013dab0';
+
 export default class ChongZhiPage extends Component {
     // 构造
     constructor(props) {
@@ -34,13 +33,8 @@ export default class ChongZhiPage extends Component {
             Flow: []
         };
     }
-    registerApp() {
-        WeChat.registerApp(appid, (res) => {
-            Toast.show(res);
-        });
-    }
+
     componentDidMount() {
-        this.registerApp();
         NetService.getFetchData(API.HOME + '?keys=CZ_HF,CZ_LL', (result)=> {
             this.setState({
                 HuaFei: <HuaFei tabLabel="话费" navigator={this.props.navigator} hfData={result['CZ_HF']}/>,
@@ -77,7 +71,7 @@ export default class ChongZhiPage extends Component {
 
     render() {
         return (
-            <View style={{backgroundColor:'#FAFAFA',flex:1}}>
+            <View style={{backgroundColor:'#fafafa',flex:1}}>
                 <View style={styles.container}>
                     <StatusBar
                         barStyle="default"
@@ -100,13 +94,13 @@ export default class ChongZhiPage extends Component {
                 </View>
                 <View style={{flex:1,backgroundColor:'#fafafa'}}>
                     <ScrollableTabView
-                        //tabBarTextStyle={{color:'#BFBFBF',fontSize:16}}
+                        tabBarTextStyle={{fontSize:16}}
                         tabBarInactiveTextColor="#BFBFBF"
                         tabBarActiveTextColor='#16BD42'
                         tabBarUnderlineColor='#16BD42'
                         tabBarBackgroundColor='white'
                         scrollWithoutAnimation={true}
-                        renderTabBar={() => <DefaultTabBar />}>
+                        renderTabBar={() => <DefaultTabBar underlineHeight={2} style={{borderBottomWidth:2,borderBottomColor:'#BFBFBF',height:60,paddingTop:10}}/>}>
                         {this.state.HuaFei}
                         {this.state.Flow}
                     </ScrollableTabView>
@@ -122,14 +116,13 @@ const styles = StyleSheet.create({
         height: Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderBottomColor: '#D5D5D5',
         justifyContent: 'center'
     },
     searchBox: {
-        height: 40,
+
         flexDirection: 'row',
-        flex: 6,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -137,7 +130,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         borderBottomWidth: 0.5,
-        borderBottomColor: '#E6E6E6',
+        borderBottomColor: '#E5E5E5',
         justifyContent: 'center',
         height: 49,
         alignItems: 'center',
@@ -146,7 +139,7 @@ const styles = StyleSheet.create({
     },
     textinput: {
         paddingLeft: 12,
-        height: 47,
+        height: 48,
         backgroundColor: 'white',
         fontSize: 18,
         flex: 1

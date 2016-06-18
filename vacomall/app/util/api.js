@@ -22,8 +22,8 @@ var API = {
     SUBMIT:         API_ADDRESS + 'order/submit',
     HASSTORE:       API_ADDRESS + 'cart/hasStore',
     LOGOUT:         API_ADDRESS + 'auth/logout',
-    ORDER:          API_ADDRESS1 + 'wx/preorder',
-    ORDERCONFIRM:   API_ADDRESS + 'orderPay/getAppPayInfo',
+    ORDER:          API_ADDRESS + 'wx/preorder',
+    GETPAYINFO:   API_ADDRESS + 'wx/getpayinfo',
     SUBMITCZ:       API_ADDRESS + 'order/submitcz'
 };
 

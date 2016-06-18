@@ -2,6 +2,7 @@
  * Created by renyubin on 16/4/24.
  */
 'use strict';
+
 import React, {
     Component,
     View,
@@ -20,6 +21,10 @@ import React, {
     ToastAndroid,
     Animated
 } from 'react-native';
+
+import Path from './util/Path';
+
+let {NetService} =Path;
 import Swiper from 'react-native-swiper2';
 import MenuButton from './HomePage/MenuButton';
 import HomeHeader from './HomePage/HomeHeader';
@@ -29,7 +34,7 @@ import ViewPull from '../ViewPull'
 
 
 import API from './util/api';
-import * as NetService from './util/NetService';
+//import * as NetService from './util/NetService';
 var listFlag = 0;
 
 export default class HomePage extends Component {
@@ -125,6 +130,7 @@ export default class HomePage extends Component {
             }
 
         });
+
         this.setState({
             swiper: <Swiper autoplay={true} height={170} paginationStyle={{bottom: 5}}>
                 {imgArray}

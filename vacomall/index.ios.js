@@ -8,6 +8,6 @@
 import React,{
     AppRegistry,
 } from 'react-native';
-import MainPage from './MainPage';
+import MainPage from './app/MainPage';
 
 AppRegistry.registerComponent('vacomall', () => MainPage);

@@ -14,6 +14,7 @@ import React, {
     Navigator,
     Image
 } from 'react-native';
+
 import CategoryHeader from './Category/CategoryHeader';
 import FirstCate from './Category/FirstCate';
 import SubCate from './Category/SubCate';
