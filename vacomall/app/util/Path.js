@@ -43,7 +43,7 @@ import API from './api';
 import * as NetService from './NetService';
 
 
-const Path ={
+let Path ={
     Login: Login,//登录页面
     MainScreen: MainScreen,//APP主入口
     HomeHeader:HomeHeader,//首页头部
