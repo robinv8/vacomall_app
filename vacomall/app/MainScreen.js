@@ -12,9 +12,9 @@ import React, {
     Navigator,
     Platform
 } from 'react-native';
-
+import {HomePage} from './util/Path';
 import TabNavigator from 'react-native-tab-navigator';
-import HomePage from './HomePage';
+//import HomePage from './HomePage';
 import Person from './Person';
 import ChongZhiPage from './ChongZhiPage';
 const HOME = 'home';

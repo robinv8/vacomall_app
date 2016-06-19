@@ -6,13 +6,7 @@ import React,{
     Navigator,
     View
 }from 'react-native';
-import DetailHeader from './GoodsDetail/DetailHeader'
-import Swiper from 'react-native-swiper2';
-import API from './util/api';
-import * as NetService from './util/NetService';
-import md5 from './util/md5.min';
-import Login from './Login';
-import Detail from './GoodsDetail/Detail';
+import {DetailHeader,Detail} from './util/Path';
 export default class GoodsDetail extends Component {
     // 构造
       constructor(props) {

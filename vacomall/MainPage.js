@@ -13,29 +13,26 @@ import React,{
 }from 'react-native';
 
 /*import funcTest from './app/funcTest';
- import MainScreen from './app/MainScreen';
+//import MainScreen from './app/MainScreen';
 
- import Login from './app/Login';
- import ListPage from './app/ListPage';
- import SearchPage from './app/SearchPage';
- import CategoryList from './app/CategoryList';
- import GoodsDetail from './app/GoodsDetail';
- import Cart from './app/CartPage';
- import ChongZhiPage from './app/ChongZhiPage';
+import Login from './app/Login';
+import ListPage from './app/ListPage';
+import SearchPage from './app/SearchPage';
+import CategoryList from './app/CategoryList';
+import GoodsDetail from './app/GoodsDetail';
+import Cart from './app/CartPage';
+import ChongZhiPage from './app/ChongZhiPage';
 
- import wechatTest from './app/Test/wechatTest';
- import wechatTestAndroid from './app/Test/wechatTestAndroid';
- import Person from './app/Person';
- import pullTest from './app/Test/pullTest';*/
-import Path from './app/util/Path';
-
-let {MainScreen,codePush,HomePage} =Path;
-
-import Reactotron from 'reactotron';
+import wechatTest from './app/Test/wechatTest';
+import wechatTestAndroid from './app/Test/wechatTestAndroid';
+import Person from './app/Person';
+ import Reactotron from 'reactotron';
+import pullTest from './app/Test/pullTest';*/
+import {MainScreen,codePush} from './app/util/Path';
 
 export default class MainPage extends Component {
     componentDidMount() {
-        codePush.sync();//app 热更新
+       codePush.sync();//app 热更新
     }
 
     render() {

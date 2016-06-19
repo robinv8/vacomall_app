@@ -8,7 +8,7 @@ import React,
     StyleSheet,
     Image
 }from 'react-native';
-import Swiper from 'react-native-swiper2';
+import {Swiper} from '../util/Path';
 export default class DetailSwiper extends Component{
     // 构造
       constructor(props) {

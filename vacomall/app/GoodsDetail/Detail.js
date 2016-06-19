@@ -17,16 +17,10 @@ import React,{
     Navigator,
     Animated
 }from 'react-native';
+import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender} from '../util/Path';
 
 
-import API from '../util/api';
-import * as NetService from '../util/NetService';
-import Login from '../Login';
-import DetailImg from './DetailImg';
-import Toast from 'react-native-root-toast';
-import DetailSwiper from './DetailSwiper';
-import GoodsSpec from './GoodsSpec';
-import HtmlRender from 'react-native-html-render';
+
 export default class GoodsDetail extends Component {
     // 构造
     constructor(props) {

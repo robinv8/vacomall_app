@@ -12,8 +12,7 @@ import React, {
     StyleSheet,
     Navigator
 } from 'react-native';
-import ListPage from '../ListPage';
-import CategoryList from '../CategoryList';
+import {ListPage,CategoryList} from '../util/Path';
 export default class MenuButton extends React.Component {
     // 构造
       constructor(props) {

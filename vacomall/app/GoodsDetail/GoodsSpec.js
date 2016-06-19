@@ -16,11 +16,8 @@ import React,{
     Platform,
     Navigator
 }from 'react-native';
-import md5 from '../util/md5.min';
-import API from '../util/api';
-import * as NetService from '../util/NetService';
-import Toast from 'react-native-root-toast';
-import Login from '../Login';
+import {Toast,Login,API,NetService} from '../util/Path';
+
 let secp = null, seacVueObj = [], specification = {}, detailThis,shadeThis;
 
 export default class GoodsSpec extends Component {

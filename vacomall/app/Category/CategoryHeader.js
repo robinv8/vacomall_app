@@ -15,12 +15,8 @@ import React, {
     Navigator,
     ToastAndroid
 }from 'react-native';
+import {API,NetService,Toast,Login} from '../util/Path';
 
-import API from '../util/api';
-import * as NetService from '../util/NetService';
-var PPI = PixelRatio.get();
-import Toast from 'react-native-root-toast';
-import Login from '../Login';
 export default class Header extends Component {
     _back() {
         const {navigator}=this.props;
@@ -31,31 +27,11 @@ export default class Header extends Component {
     }
 
 
-    toCart() {
+    toHome() {
         const {navigator}=this.props;
-        var _callback = function (result) {
-            if (result['success'] === false) {
-                Toast.show(result['result']['message']);
-                if (result['result']['code'] === 303) {
-                    if (navigator) {
-                        navigator.replace({
-                            component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params: {page: 'ListPage',id:this.props.id}
-                        })
-                    }
-                }
-            } else {
-                if (navigator) {
-                    navigator.push({
-                        component: CartPage,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-
-                    })
-                }
-            }
+        if (navigator) {
+            navigator.popToTop()
         }
-        NetService.postFetchData(API.LOGINSTATE, '', _callback.bind(this));
     }
 
     render() {
@@ -76,7 +52,7 @@ export default class Header extends Component {
                             分类
                         </Text>
                     </View>
-                    <TouchableWithoutFeedback onPress={()=>this.toCart()}>
+                    <TouchableWithoutFeedback onPress={()=>this.toHome()}>
                         <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
                             <Image source={require('../../images/home_icon.png')}
                                    style={styles.scanIcon}/>

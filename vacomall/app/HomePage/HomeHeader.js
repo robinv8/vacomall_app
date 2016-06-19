@@ -15,13 +15,7 @@ import React, {
     Alert,
     Dimensions
 }from 'react-native';
-var PPI = PixelRatio.get();
-import SearchPage from '../SearchPage';
-import CartPage from '../CartPage';
-import CategoryList from '../CategoryList';
-import Login from '../Login';
-import API from '../util/api';
-import * as NetService from '../util/NetService';
+import {API,NetService,CategoryList,Login,CartPage,ListPage,SearchPage} from '../util/Path';
 
 export default class HomeHeader extends Component {
     // 构造
@@ -150,10 +144,12 @@ export default class HomeHeader extends Component {
                                style={styles.qrcode_icon}/>
                     </View>
                 </TouchableWithoutFeedback>
-                <View style={styles.searchBox}>
-                    <Image source={require('../../images/header/search_icon.png')} style={styles.searchIcon}/>
-                    <Text style={styles.searchText}>2016夏季女T恤 热卖</Text>
-                </View>
+                <TouchableWithoutFeedback onPress={()=>this._toSearchPage()}>
+                    <View style={styles.searchBox}>
+                        <Image source={require('../../images/header/search_icon.png')} style={styles.searchIcon}/>
+                        <Text style={styles.searchText}>2016夏季女T恤 热卖</Text>
+                    </View>
+                </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={()=>this.toCate()}>
                     <View style={styles.cate_view}>
                         <Image source={require('../../images/header/cate_icon.png')} style={styles.scanIcon}/>

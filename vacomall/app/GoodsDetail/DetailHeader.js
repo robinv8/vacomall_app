@@ -15,34 +15,26 @@ import React, {
     Navigator,
     ToastAndroid
 }from 'react-native';
-import CartPage from '../CartPage';
-import Login from '../Login';
-import API from '../util/api';
-import * as NetService from '../util/NetService';
-var PPI = PixelRatio.get();
+import {CartPage,Login,API,NetService,Toast} from '../util/Path';
+
 export default class Header extends Component {
 
     toCart() {
         const {navigator}=this.props;
         var _callback=function(result){
             if(result['success']===false){
-                ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
+                Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
                     if (navigator) {
-                        navigator.replace({
+                        navigator.push({
                             component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params: {page: 'GoodsDetail',id:this.props.id}
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid
                         })
                     }
                 }
             }else{
                 if (navigator) {
-                    navigator.push({
-                        component: CartPage,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-
-                    })
+                    navigator.pop();
                 }
             }
         }

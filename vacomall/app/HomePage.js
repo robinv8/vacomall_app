@@ -21,25 +21,10 @@ import React, {
     ToastAndroid,
     Animated
 } from 'react-native';
-
-import Path from './util/Path';
-let {API}=Path;
-/*import Swiper from 'react-native-swiper2';
-import MenuButton from './HomePage/MenuButton';
-
-import GoodsDetail from './GoodsDetail';
-import ListPage from './ListPage';
-import ViewPull from '../ViewPull'*/
-
-import HomeHeader from './HomePage/HomeHeader';
-/*import API from './util/api';*/
-import * as NetService from './util/NetService';
+import {HomeHeader,Swiper,MenuButton,GoodsDetail,ListPage,API,NetService} from './util/Path';
 var listFlag = 0;
 
 export default class HomePage extends Component {
-    propTypes(){
-        HomeHeader:React.PropTypes.object
-    }
     // 构造
     constructor(props) {
         super(props);
@@ -83,7 +68,7 @@ export default class HomePage extends Component {
 
     componentDidMount() {
         /*获取首页基本数据*/
-        NetService.getFetchData(Path.API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
+        NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
 
         if (Platform.OS === 'android') {
             BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));

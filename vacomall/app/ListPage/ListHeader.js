@@ -15,12 +15,9 @@ import React, {
     Navigator,
     ToastAndroid
 }from 'react-native';
-import SearchPage from '../SearchPage';
-import CartPage from '../CartPage';
-import Login from '../Login';
-import API from '../util/api';
-import * as NetService from '../util/NetService';
-var PPI = PixelRatio.get();
+import {SearchPage,CartPage,API,NetService,Login} from '../util/Path';
+
+
 export default class Header extends Component {
     _back() {
         const {navigator}=this.props;
@@ -40,31 +37,11 @@ export default class Header extends Component {
         }
     }
 
-    toCart() {
+    toHome() {
         const {navigator}=this.props;
-        var _callback = function (result) {
-            if (result['success'] === false) {
-                ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
-                if (result['result']['code'] === 303) {
-                    if (navigator) {
-                        navigator.replace({
-                            component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params: {page: 'ListPage',id:this.props.id}
-                        })
-                    }
-                }
-            } else {
-                if (navigator) {
-                    navigator.push({
-                        component: CartPage,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-
-                    })
-                }
-            }
+        if (navigator) {
+            navigator.popToTop()
         }
-        NetService.postFetchData(API.LOGINSTATE, '', _callback.bind(this));
     }
 
     render() {
@@ -89,7 +66,7 @@ export default class Header extends Component {
                         style={styles.inputText}/>
                         <Image source={require('../../images/header/clear.png')} style={styles.clearIcon}/>
                 </View>
-                <TouchableWithoutFeedback onPress={()=>this.toCart()}>
+                <TouchableWithoutFeedback onPress={()=>this.toHome()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
                         <Image source={require('../../images/home_icon.png')}
                                style={styles.scanIcon}/>

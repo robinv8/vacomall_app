@@ -14,13 +14,8 @@ import React, {
     Navigator,
     Image
 } from 'react-native';
+import {API,NetService,CategoryHeader,FirstCate,SubCate} from './util/Path';
 
-import CategoryHeader from './Category/CategoryHeader';
-import FirstCate from './Category/FirstCate';
-import SubCate from './Category/SubCate';
-
-import API from './util/api';
-import * as NetService from './util/NetService';
 var cateMap = {}, beforeObj,fObj=[];
 export default class Category extends Component {
     constructor(props) {
