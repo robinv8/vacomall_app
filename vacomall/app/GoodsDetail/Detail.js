@@ -235,7 +235,7 @@ export default class GoodsDetail extends Component {
                                 style={[styles.price,{fontSize: 18,marginTop:-4}]}>{(this.state.price * this.state.num).toFixed(2)}</Text>
                         </View>
                         <TouchableWithoutFeedback onPress={()=>this._addCart()}>
-                            <View style={[styles.bom,{flex:1,backgroundColor:'#ff9402'}]}>
+                            <View style={[styles.bom,{backgroundColor:'#16BD42'}]}>
                                 <Text style={{fontSize:14,color:'white'}}>加入购物车</Text>
                             </View>
                         </TouchableWithoutFeedback>
@@ -318,6 +318,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bom: {
+        width:130,
         justifyContent: 'center',
         alignItems: 'center'
     },

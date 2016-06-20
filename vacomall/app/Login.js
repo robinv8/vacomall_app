@@ -19,13 +19,7 @@ import React,{
     Platform,
     StatusBar
 } from 'react-native';
-import HomePage from './HomePage';
-import ListPage from './ListPage';
-import GoodsDetail from './GoodsDetail';
-import Toast from 'react-native-root-toast';
-import LinearGradient from 'react-native-linear-gradient';
-import API from './util/api';
-import * as NetService from './util/NetService';
+import {Toast,LinearGradient,API,NetService,MainScreen} from './util/Path';
 var PPI = PixelRatio.get();
 export default class Login extends Component {
     // 构造
@@ -105,32 +99,6 @@ export default class Login extends Component {
         if (navigator) {
             navigator.pop();
         }
-        /*var page = this.props.page;
-        if (navigator) {
-            switch (page) {
-                case 'HomePage':
-                    navigator.replace({
-                        component: HomePage,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                        params: {page: 'Login'}
-                    });
-                    break;
-                case 'ListPage':
-                    navigator.replace({
-                        component: ListPage,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                        params: {page: 'Login', id: this.props.id}
-                    });
-                    break;
-                case 'GoodsDetail':
-                    navigator.replace({
-                        component: GoodsDetail,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                        params: {page: 'Login', id: this.props.id}
-                    });
-                    break;
-            }
-        }*/
     }
 
     _visibleCut(flag, text) {
@@ -192,7 +160,7 @@ export default class Login extends Component {
         const {navigator}=this.props;
         if (navigator) {
             navigator.resetTo({
-                component: HomePage,
+                component: MainScreen,
                 sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump,
             });
         }
@@ -283,7 +251,7 @@ export default class Login extends Component {
                             </LinearGradient>
                         </TouchableOpacity>
                     </View>
-                    <View style={{alignItems:'flex-end',marginTop:8,marginRight:40,opacity:0}}>
+                    <View style={{alignItems:'flex-end',marginTop:8,marginRight:40}}>
                         <TouchableOpacity onPress={()=>this._login()}>
                             <Text style={{fontSize:14,color:'#515151'}}>忘记密码?</Text>
                         </TouchableOpacity>

@@ -68,17 +68,17 @@ export default class Category extends Component {
         });
         if (beforeObj !== undefined) {
             beforeObj.setState({
-                color: '#898989',
+                color: '#9B9B9B',
                 background: '#FFFFFF'
             })
         }else{
             fObj[0].setState({
-                color: '#898989',
+                color: '#9B9B9B',
                 background: '#FFFFFF'
             })
         }
         obj.setState({
-            color: '#EF8200',
+            color: '#16BD42',
             background: 'rgba(0,0,0,0)'
         });
         beforeObj = obj;

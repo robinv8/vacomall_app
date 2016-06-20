@@ -107,37 +107,13 @@ export default class HomeHeader extends Component {
             })
         }
     }
-    /*toCart() {
-        const {navigator}=this.props;
-        var _callback = function (result) {
-            if (result['success'] === false) {
-                ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
-                if (result['result']['code'] === 303) {
-                    if (navigator) {
-                        navigator.replace({
-                            component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params: {page: 'HomePage'}
-                        })
-                    }
-                }
-            } else {
-                if (navigator) {
-                    navigator.push({
-                        component: CartPage,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-
-                    })
-                }
-            }
-        }
-        NetService.postFetchData(API.LOGINSTATE, '', _callback.bind(this));
-    }*/
-
 
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar
+                    barStyle="light-content"
+                />
                 <TouchableWithoutFeedback onPress={()=>this.updateState()} disabled={this.state.status}>
                     <View style={styles.qrcode_view}>
                         <Image source={require('../../images/header/qrcode_icon.png')}
@@ -164,7 +140,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
         height: Platform.OS === 'ios' ? 64 : 50,
-        backgroundColor: '#009934',
+        backgroundColor: '#16BD42',
         alignItems: 'center',
     },
     qrcode_view:{

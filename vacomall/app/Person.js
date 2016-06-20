@@ -150,17 +150,17 @@ export default class Person extends Component {
                     <Image source={require('../images/person_background.png')} style={styles.personHead_img}>
                         <View style={{flexDirection:'row',flex:1}}>
                             <View style={{height:50,paddingLeft:12,paddingTop:14,flex:1}}>
-                                <Image source={require('../images/back_icon.png')} style={styles.backIcon}/>
+
                             </View>
-                            <View style={{alignItems:'center',marginTop:24}}>
+                            <View style={{alignItems:'center',marginTop:20}}>
                                 <Image source={require('../images/header_img.png')} style={styles.header_img}/>
-                                <Text style={{fontSize:16,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>HI!万小颗</Text>
+                                <Text style={{fontSize:16,color:'white',backgroundColor:'rgba(0,0,0,0)',marginTop:5}}>HI!万小颗</Text>
                             </View>
                             <View style={{height:50,paddingRight:13,paddingTop:14,alignItems:'flex-end',flex:1}}>
                                 <Image source={require('../images/setting.png')} style={styles.settingIcon}/>
                             </View>
                         </View>
-                        <View style={styles.header_bottom}>
+                        <View style={[styles.header_bottom,{opacity:0}]}>
                             <View style={styles.header_bottom_con}/>
                             <View style={styles.header_bottom_con}>
                                 <Text style={{color:'#CAEFDA'}}>购物券:</Text>
@@ -244,9 +244,10 @@ const styles = StyleSheet.create({
         height: 238,
     },
     personHead_img: {
-        height: 238,
+        height: 208,
         width:Dimensions.get('window').width,
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
+        //resizeMode: 'stretch',
     },
     backIcon: {
         width: 12,
@@ -259,9 +260,9 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
     },
     header_img:{
-        width: 73,
-        height: 70,
-        resizeMode: 'stretch',
+        width: 120,
+        height: 120,
+        //resizeMode: 'stretch',
     },
     goods_view: {
         width: (Dimensions.get('window').width) / 2 - 3,

@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 14,
-        color: '#3C3C3C'
+        color: '#3C3C3C',
     },
     Thirdtext: {
         fontSize: 12,

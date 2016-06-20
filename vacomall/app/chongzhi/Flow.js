@@ -9,10 +9,16 @@ import React,{
     StyleSheet,
     TouchableWithoutFeedback,
     Dimensions,
-    Image
+    Image,
+    Navigator,
+    Platform,
+    ScrollView,
+
 }from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import Toast from 'react-native-root-toast';
+import {LinearGradient,Toast,Login,API,NetService,WeChatPayIos,WeChatPayAndroid,ChongZhi} from '../util/Path';
+
+
+let WeChatPay;
 export default class Flow extends Component {
     // 构造
     constructor(props) {
@@ -20,30 +26,43 @@ export default class Flow extends Component {
         // 初始状态
         this.state = {
             childShowView: null,
-            text:this.props.text
+            reduce:0
         };
     }
 
     componentDidMount() {
-        if (this.props.llData === null) {
+        if(Platform.OS==='ios'){
+            WeChatPay=WeChatPayIos;
+        }else{
+            WeChatPay=WeChatPayAndroid;
+        }
+        WeChatPay.registerApp();//注册微信
+
+        if (this.props.hfData === null) {
             return;
         }
         let dataArray = this.props.llData['items'];
         let childArray = [], groupArray = [];
         let i = 0;
+        var _this=this;
         dataArray.map(function (elem, index) {
             if (index % 3 - 1 === 0 && index !== 0) {
                 childArray.push(<Child key={index}
                                        ItemName={elem['ItemName']}
                                        ItemSalePrice={elem['ItemSalePrice']}
+                                       ItemPrice={elem['ItemPrice']}
                                        Target={elem['Target']}
+                                       _this={_this}
                                        style={{marginLeft:10,marginRight:10}}/>);
             } else {
                 childArray.push(<Child key={index}
                                        ItemName={elem['ItemName']}
+                                       Target={elem['Target']}
+                                       ItemPrice={elem['ItemPrice']}
+                                       _this={_this}
                                        ItemSalePrice={elem['ItemSalePrice']}/>);
             }
-            if ((index % 2 === 0 && index !== 0) || index === dataArray.length - 1) {
+            if ((index % 3 - 2===0 && index !== 0) || index === dataArray.length - 1) {
                 groupArray.push(<View style={styles.child_con} key={i}>{childArray}</View>);
                 childArray = [];
                 i++;
@@ -53,20 +72,42 @@ export default class Flow extends Component {
             childShowView: groupArray
         })
     }
-    pay(){
-        if(beforeThis===null){
+
+    pay() {
+        if (beforeThis === null) {
             Toast.show('请选择充值金额!');
             return;
         }
-        let mobile=this.state.text;
-        if(mobile===null){
+        let mobile = ChongZhi.mobile;
+        //Toast.show(mobile);
+        if (mobile === null) {
             Toast.show('手机号码不正确!');
             return;
         }
+        NetService.postFetchData(API.SUBMITCZ, 'phone=' + mobile + '&target=' + beforeThis.state.Target, (result)=> {
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                const {navigator}=this.props;
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+
+            //this.order(result['Id'])
+            WeChatPay.order(result['result']['OutTradeId']);
+        });
     }
+
+
     render() {
         return (
-            <View style={{flex:1,backgroundColor:'#fafafa'}}>
+            <ScrollView style={{flex:1,backgroundColor:'#fafafa'}}>
                 <View style={styles.child}>
                     {this.state.childShowView}
                 </View>
@@ -91,12 +132,12 @@ export default class Flow extends Component {
                     <TouchableWithoutFeedback onPress={()=>this.pay()}>
                         <LinearGradient colors={['#16BD42', '#16BD42', '#16BD42']} style={styles.linearGradient}>
                             <Text style={[styles.buttonText]}>
-                                立即支付 <Text style={{fontSize:14}}>(立省0.2元)</Text>
+                                立即支付 <Text style={{fontSize:14}}>(立省{this.state.reduce}元)</Text>
                             </Text>
                         </LinearGradient>
                     </TouchableWithoutFeedback>
                 </View>
-            </View>
+            </ScrollView>
 
         );
     }
@@ -114,7 +155,7 @@ class Child extends Component {
             color1: '#16BD42',
             fontSize2: 10,
             color2: '#16BD42',
-            Target:this.props.Target
+            Target: this.props.Target
         };
     }
 
@@ -133,8 +174,12 @@ class Child extends Component {
             fontSize1: 20,
             color1: '#FDFF00',
             fontSize2: 12,
-            color2: 'white'
+            color2: 'white',
+
         });
+        this.props._this.setState({
+            reduce:(this.props.ItemPrice-this.props.ItemSalePrice).toFixed(2)
+        })
 
         beforeThis = this;
     }

@@ -47,29 +47,36 @@ export function order(id) {
             timeStamp: timeStamp.toString(),
             sign: sign
         };
-        WeChat.weChatPay(payOptions, (res)=> {
-            //show('支付', res);
-            //ToastAndroid.show(res,ToastAndroid.SHORT);
+
+        //ToastAndroid.show('你好',ToastAndroid.SHORT);
+        console.log(id);
+        getpayinfo(id)
+        WeChat.weChatPay(payOptions,(err,sendReqOK) => {
+            getpayinfo(id)
         });
-        DeviceEventEmitter.addListener('finishedPay',function(event){
+        /*DeviceEventEmitter.addListener('finishedPay',function(event){
             var success = event.success;
             ToastAndroid.show(JSON.stringify(event))
-            /*if(success){
+            /!*if(success){
                 getpayinfo(id);
             }else{
                 ToastAndroid.show('支付失败',ToastAndroid.SHORT);
-            }*/
-        });
+            }*!/
+        });*/
     }
 }
 function getpayinfo(id){
-
+setTimeout(function(){
     NetService.postFetchData(API.GETPAYINFO, 'orderId='+id, (result)=>{
+
         result=result['result'];
+        //console.log(JSON.stringify(result))
         if(result['isPay']){
-            ToastAndroid.show('支付结果','充值成功');
+            Toast.show('微信支付成功!');
         }else{
-            ToastAndroid.show('支付结果','订单正在处理,请等待……');
+            Toast.show('订单正在处理,请稍后查看订单状态……');
         }
     });
+},5000)
+
 }

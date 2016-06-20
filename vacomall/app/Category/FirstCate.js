@@ -17,7 +17,7 @@ export default class FirstCate extends Component {
         super(props);
         // 初始状态
         this.state = {
-            color: '#898989',
+            color: '#9B9B9B',
             background: '#FFFFFF'
         };
     }
@@ -25,7 +25,7 @@ export default class FirstCate extends Component {
     componentDidMount() {
         if(this.props.init){
             this.setState({
-                color: '#EF8200',
+                color: '#16BD42',
                 background: 'rgba(0,0,0,0)'
             });
             this.props.fObj.push(this);

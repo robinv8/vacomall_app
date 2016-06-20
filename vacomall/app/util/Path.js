@@ -5,6 +5,8 @@
 
 /*---View---*/
 import Login from '../Login';
+import RetrievePwd from '../RetrievePwd';
+import RetrievePwdHeader from '../RetrievePwd/RetrievePwdHeader';
 import MainScreen from '../MainScreen';
 import MainPage from '../../MainPage';
 
@@ -40,6 +42,8 @@ import CartPage from '../CartPage';
 /*---订单支付相关模块---*/
 
 
+/*---充值---*/
+import * as ChongZhi from '../ChongZhiPage';
 
 //import ViewPull from '../ViewPull'
 
@@ -49,11 +53,15 @@ import codePush from 'react-native-code-push';
 import Swiper from 'react-native-swiper2';
 import Toast from 'react-native-root-toast';
 import HtmlRender from 'react-native-html-render';
+import LinearGradient from 'react-native-linear-gradient';
+import Reactotron from 'reactotron';
 
 /*---自定义工具类---*/
 import API from './api';
 import * as NetService from './NetService';
 import md5 from './md5.min';
+import * as WeChatPayIos from './WeChatPayIos';
+import * as WeChatPayAndroid from './WeChatPayAndroid';
 
 export {
     Login,//登录
@@ -83,4 +91,11 @@ export {
     GoodsSpec,//商品规格
     md5,
     HtmlRender,//htmlview
+    LinearGradient,//渐变色
+    RetrievePwd,//找回密码
+    RetrievePwdHeader,//找回密码
+    WeChatPayIos,
+    WeChatPayAndroid,
+    ChongZhi,
+    Reactotron
 };

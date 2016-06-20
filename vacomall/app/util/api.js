@@ -23,7 +23,7 @@ var API = {
     HASSTORE:       API_ADDRESS + 'cart/hasStore',
     LOGOUT:         API_ADDRESS + 'auth/logout',
     ORDER:          API_ADDRESS + 'wx/preorder',
-    GETPAYINFO:   API_ADDRESS + 'wx/getpayinfo',
+    GETPAYINFO:     API_ADDRESS + 'wx/getpayinfo',
     SUBMITCZ:       API_ADDRESS + 'order/submitcz'
 };
 

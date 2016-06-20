@@ -63,7 +63,7 @@ export function order(id) {
                 } else if(res.errCode == -1) { //很多情况下是证书问题
                     show('支付结果','支付失败,请稍后尝试');
                 } else if(res.errCode == -2) { //充值取消
-                    show('支付结果',"充值取消");
+                    //show('支付结果',"充值取消");
                 }
             }
         );

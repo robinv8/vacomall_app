@@ -18,10 +18,11 @@ import React, {
     Platform,
     ActivityIndicatorIOS
 }from 'react-native'
-import {ListHeader,GoodsDetail,API,NetService} from './util/Path';
+import {ListHeader,GoodsDetail,API,NetService,Toast} from './util/Path';
 var SortItemArray=[];
 var beforeSortItem;
 var listFlag = 0;
+
 export default class ListPage extends Component {
     // 构造
     constructor(props) {
@@ -42,6 +43,9 @@ export default class ListPage extends Component {
     }
 
     componentDidMount() {
+        SortItemArray=[];
+        beforeSortItem;
+        listFlag = 0;
         this.setState({
             sortItem:<View style={styles.sort_view}>
                 <SortItem text={'综合排序'} color={'#EF8200'} img={require('../images/sort_icon_hover.png')} onclick={(num)=>this._sort(0)}/>
@@ -56,6 +60,7 @@ export default class ListPage extends Component {
     }
 
     getListData() {
+
         if (this.props.id === null) {
             NetService.postFetchData(API.SEARCH, 'wd=' + this.props.text + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
         } else {
@@ -66,7 +71,7 @@ export default class ListPage extends Component {
 
     _callback(result) {
         if (result['success'] === false) {
-            ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
+            Toast.show(result['result']['message']);
             return;
         }
         let list=result['result']['list'];
@@ -79,14 +84,23 @@ export default class ListPage extends Component {
                 isNull:false
             })
         }else{
-            this.setState({
-                isNull:true,
-                loaded: true,
-            })
+            if(this.state.listArray.length>0){
+                this.setState({
+                    //isNull:true,
+                    loaded: true,
+                });
+            }else{
+                this.setState({
+                    //isNull:true,
+                    loaded: true,
+                });
+            }
+
         }
     }
 
     _sort(num) {
+        listFlag=0;
         this.setState({
             sort: num,
             page: 1,
@@ -134,13 +148,13 @@ export default class ListPage extends Component {
         this.getListData();
 
     }
-
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
         }if(this.state.isNull){
             return this.isNull();
         }
+
         return (
             <View style={{flex:1,backgroundColor:'#F6F6F6'}}>
                 <ListHeader navigator={this.props.navigator} id={this.props.id}/>

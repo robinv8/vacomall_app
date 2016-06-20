@@ -12,16 +12,12 @@ import React,{
     Image,
     Navigator,
     Platform,
-    ScrollView
+    ScrollView,
+
 }from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import Toast from 'react-native-root-toast';
-import * as ChongZhi from '../ChongZhiPage';
-import Login from '../Login';
-import * as WeChatPayIos from '../util/WeChatPayIos';
-import * as WeChatPayAndroid from '../util/WeChatPayAndroid';
-import API from '../util/api';
-import * as NetService from '../util/NetService';
+import {LinearGradient,Toast,Login,API,NetService,WeChatPayIos,WeChatPayAndroid,ChongZhi} from '../util/Path';
+
+
 let WeChatPay;
 export default class HuaFei extends Component {
     // 构造
@@ -29,7 +25,8 @@ export default class HuaFei extends Component {
         super(props);
         // 初始状态
         this.state = {
-            childShowView: null
+            childShowView: null,
+            reduce:0
         };
     }
 
@@ -47,17 +44,22 @@ export default class HuaFei extends Component {
         let dataArray = this.props.hfData['items'];
         let childArray = [], groupArray = [];
         let i = 0;
+        var _this=this;
         dataArray.map(function (elem, index) {
             if (index % 3 - 1 === 0 && index !== 0) {
                 childArray.push(<Child key={index}
                                        ItemName={elem['ItemName']}
                                        ItemSalePrice={elem['ItemSalePrice']}
+                                       ItemPrice={elem['ItemPrice']}
                                        Target={elem['Target']}
+                                       _this={_this}
                                        style={{marginLeft:10,marginRight:10}}/>);
             } else {
                 childArray.push(<Child key={index}
                                        ItemName={elem['ItemName']}
                                        Target={elem['Target']}
+                                       ItemPrice={elem['ItemPrice']}
+                                       _this={_this}
                                        ItemSalePrice={elem['ItemSalePrice']}/>);
             }
             if ((index % 3 - 2===0 && index !== 0) || index === dataArray.length - 1) {
@@ -130,7 +132,7 @@ export default class HuaFei extends Component {
                     <TouchableWithoutFeedback onPress={()=>this.pay()}>
                         <LinearGradient colors={['#16BD42', '#16BD42', '#16BD42']} style={styles.linearGradient}>
                             <Text style={[styles.buttonText]}>
-                                立即支付 <Text style={{fontSize:14}}>(立省0.2元)</Text>
+                                立即支付 <Text style={{fontSize:14}}>(立省{this.state.reduce}元)</Text>
                             </Text>
                         </LinearGradient>
                     </TouchableWithoutFeedback>
@@ -172,8 +174,12 @@ class Child extends Component {
             fontSize1: 20,
             color1: '#FDFF00',
             fontSize2: 12,
-            color2: 'white'
+            color2: 'white',
+
         });
+        this.props._this.setState({
+            reduce:(this.props.ItemPrice-this.props.ItemSalePrice).toFixed(2)
+        })
 
         beforeThis = this;
     }
