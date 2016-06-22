@@ -39,22 +39,29 @@ import SubCate from '../Category/SubCate';
 
 /*---购物车相关模块---*/
 import CartPage from '../CartPage';
+import CartHeader from '../Cart/CartHeader';
+import EditCartHeader from '../EditCart/EditCartHeader';
 /*---订单支付相关模块---*/
-
+import OrderPage from '../OrderPage';
 
 /*---充值---*/
+import ChongZhiPage from '../ChongZhiPage';
 import * as ChongZhi from '../ChongZhiPage';
 
+/*---个人中心---*/
+import Person from '../Person';
 //import ViewPull from '../ViewPull'
 
 
 /*---第三方组件---*/
+import TabNavigator from 'react-native-tab-navigator';
 import codePush from 'react-native-code-push';
 import Swiper from 'react-native-swiper2';
 import Toast from 'react-native-root-toast';
 import HtmlRender from 'react-native-html-render';
 import LinearGradient from 'react-native-linear-gradient';
 import Reactotron from 'reactotron';
+import ListViewRowEdit from 'react-native-listview-row-edit';
 
 /*---自定义工具类---*/
 import API from './api';
@@ -97,5 +104,12 @@ export {
     WeChatPayIos,
     WeChatPayAndroid,
     ChongZhi,
-    Reactotron
+    ChongZhiPage,
+    Reactotron,
+    TabNavigator,
+    Person,
+    CartHeader,
+    OrderPage,
+    EditCartHeader,
+    ListViewRowEdit
 };

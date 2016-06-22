@@ -14,7 +14,7 @@ import React, {
     Dimensions,
     Platform
 } from 'react-native';
-import ListPage from '../ListPage'
+import {ListPage,} from '../util/Path';
 export default class SubCate extends Component {
     // 构造
     constructor(props) {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 14,
-        color: '#3C3C3C'
+        color: '#3C3C3C',
     },
     Thirdtext: {
         fontSize: 12,

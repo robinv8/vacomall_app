@@ -12,11 +12,7 @@ import React, {
     Navigator,
     Platform
 } from 'react-native';
-import {HomePage} from './util/Path';
-import TabNavigator from 'react-native-tab-navigator';
-//import HomePage from './HomePage';
-import Person from './Person';
-import ChongZhiPage from './ChongZhiPage';
+import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator} from './util/Path';
 const HOME = 'home';
 const HOME_NORMAL = require('../images/tabs/home_normal.png');
 const HOME_FOCUS = require('../images/tabs/home_focus.png');
@@ -48,7 +44,8 @@ export default class MainScreen extends Component {
                 selected={this.state.selectedTab === tag}
                 renderIcon={() => <Image style={styles.tabIcon} source={img}/>}
                 renderSelectedIcon={() => <Image style={styles.tabIcon} source={selectedImg}/>}
-                onPress={() => this.setState({ selectedTab: tag })}>
+                onPress={() => this.setState({ selectedTab: tag })}
+                >
                 {childView}
             </TabNavigator.Item>
         );
@@ -67,7 +64,7 @@ export default class MainScreen extends Component {
                 <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} style={{backgroundColor:'rgba(255,255,255,0)'}}>
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}/>)}
                     {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage navigator={this.props.navigator}/>)}
-                    {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, MainScreen._createChildView(CART))}
+                    {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator} tab={true}/>)}
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person navigator={this.props.navigator}/>)}
                 </TabNavigator>
             </View >
@@ -87,6 +84,6 @@ const styles = StyleSheet.create({
         width: 41,
         height: 35,
         resizeMode: 'stretch',
-        marginTop: 15
+        top:7
     }
 })

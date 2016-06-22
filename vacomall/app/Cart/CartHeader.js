@@ -15,27 +15,57 @@ import React, {
     Navigator,
     ToastAndroid
 }from 'react-native';
-import EditCart from '../EditCart'
-var PPI = PixelRatio.get();
+import {Toast} from '../util/Path';
 export default class Header extends Component {
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            opacity:1,
+            editState:<TouchableWithoutFeedback onPress={()=>this._edit()}>
+                <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'#3C3C3C',fontSize: 16}}>编辑</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        };
+      }
     _back() {
+        if(this.props.tab){
+            return;
+        }
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop()
         }
     }
-    _edit() {
-        if(this.props.gList.length===0){
-            ToastAndroid.show('购物车数量为0,不能进行编辑!', ToastAndroid.SHORT);
-            return;
-        }
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.replace({
-                component: EditCart,
-                params: {id: this.props.id}
+
+    componentDidMount() {
+        if(this.props.tab){
+            this.setState({
+                opacity:0
             })
         }
+    }
+    _editsubmit(){
+        this.setState({
+            editState:<TouchableWithoutFeedback onPress={()=>this._edit()}>
+                <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'#3C3C3C',fontSize: 16}}>编辑</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        });
+        this.props._editsubmit()
+    }
+    _edit(){
+        this.setState({
+            editState:<TouchableWithoutFeedback onPress={()=>this._editsubmit()}>
+                <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'#3C3C3C',fontSize: 16}}>完成</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        });
+        this.props._edit()
     }
     render() {
         return (
@@ -44,7 +74,7 @@ export default class Header extends Component {
                     barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this._back()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center',opacity:this.state.opacity}}>
                     <Image source={require('../../images/back_icon.png')}
                            style={styles.backIcon}/>
                     </View>
@@ -52,11 +82,7 @@ export default class Header extends Component {
                 <View style={styles.searchBox}>
                     <Text style={{color: '#3C3C3C',fontSize: 18}}>购物车</Text>
                 </View>
-                <TouchableWithoutFeedback onPress={()=>this._edit()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#3C3C3C',fontSize: 16}}>编辑</Text>
-                        </View>
-                </TouchableWithoutFeedback>
+                {this.state.editState}
             </View>
         )
     }
@@ -68,13 +94,9 @@ const styles = StyleSheet.create({
         height:Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
-        shadowColor: 'rgb(178,178,178)',
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        shadowOffset: {
-            height: 0.5,
-            width: 0
-        }
+        borderBottomWidth:0.5,
+        borderBottomColor:'#B2B2B2',
+        justifyContent:'center'
     },
     logo: {
         height: 25,

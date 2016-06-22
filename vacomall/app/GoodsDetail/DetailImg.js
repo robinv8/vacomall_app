@@ -34,10 +34,13 @@ export default class GoodsDetail extends Component {
         };
     }
 
-    toDetail() {
+    toDetails(id) {
         const {navigator}=this.props;
         if (navigator) {
-            navigator.pop();
+            navigator.push({
+                component: GoodsDetail,
+                params: {id: id}
+            })
         }
     }
 

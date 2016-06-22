@@ -14,12 +14,9 @@ import React, {
     ScrollView,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    ToastAndroid,
     TextInput
 }from 'react-native'
-import EditCartHeader from './EditCart/EditCartHeader';
-import API from './util/api';
-import * as NetService from './util/NetService';
+import {EditCartHeader,API,NetService,Toast} from './util/Path';
 var cartThis = [];
 export default class EditCart extends Component {
     // 构造
@@ -47,9 +44,10 @@ export default class EditCart extends Component {
 
     _callback(result) {
         if (result['success'] === false) {
-            ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
+            Toast.show(result['result']['message']);
             return;
         } else {
+            result=result['result'];
             if (result['cartList'].length !== 0) {
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(result['cartList']),
@@ -211,7 +209,7 @@ class CartList extends Component {
             checked: false,
             checkedImg: require('../images/cart_dischecked.png'),
             num: '0',
-            price: '0',
+            price: '0'
         };
     }
 

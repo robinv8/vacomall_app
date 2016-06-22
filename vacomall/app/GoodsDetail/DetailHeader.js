@@ -34,7 +34,10 @@ export default class Header extends Component {
                 }
             }else{
                 if (navigator) {
-                    navigator.pop();
+                    navigator.push({
+                        component: CartPage,
+                        //sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                    })
                 }
             }
         }
