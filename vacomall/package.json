@@ -11,6 +11,7 @@
     "react-native-code-push": "^1.10.6-beta",
     "react-native-html-render": "^1.0.3",
     "react-native-linear-gradient": "^1.5.9",
+    "react-native-listview-row-edit": "^1.0.1",
     "react-native-root-toast": "^1.0.3",
     "react-native-scrollable-tab-view": "^0.4.4",
     "react-native-storage": "0.0.16",
