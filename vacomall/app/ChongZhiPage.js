@@ -13,12 +13,8 @@ import React,
     TouchableWithoutFeedback,
     Image,
 }from 'react-native';
-import WeChat from 'react-native-wechat-ios';
-import Flow from './ChongZhi/Flow';
-import HuaFei from './ChongZhi/HuaFei';
-import ScrollableTabView,{DefaultTabBar}  from 'react-native-scrollable-tab-view';
-import API from './util/api';
-import * as NetService from './util/NetService';
+import {Flow,HuaFei,ScrollableTabView,DefaultTabBar,API,NetService} from './util/Path';
+
 export let mobile=null;
 
 export default class ChongZhiPage extends Component {

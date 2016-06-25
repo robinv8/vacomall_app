@@ -160,24 +160,24 @@ export default class GoodsDetail extends Component {
                             <View style={{backgroundColor:'white',padding:10,marginBottom:10,paddingBottom:0}}>
                                 <View style={styles.goods_name}>
                                     <View style={{flex:8}}>
-                                        <Text style={{color:'#3C3C3C'}}>{this.state.details['GoodsItemTitle']}</Text>
+                                        <Text style={{color:'#3C3C3C',lineHeight:20}}>{this.state.details['GoodsItemTitle']}</Text>
                                     </View>
                                     <View style={{justifyContent:'center',flex:2,alignItems:'center'}}>
                                         <Image source={require('../../images/share_icon.png')}
                                                style={styles.share_icon}/>
-                                        <Text>分享</Text>
+                                        <Text style={{color:'#979797',fontSize:12}}>分享</Text>
                                     </View>
                                 </View>
                                 <View style={styles.price_view}>
                                     <View
-                                        style={{flex:1,flexDirection:'row',borderRightWidth:1,borderRightColor:'#E3E3E3'}}>
+                                        style={{flex:1,flexDirection:'row'}}>
                                         <View style={styles.price_con}>
                                             <Text style={[styles.price,{fontSize:16,marginTop:3}]}>￥</Text>
                                             <Text
                                                 style={[styles.price,{fontSize: 22,marginTop:-4}]}>{this.state.price}</Text>
                                         </View>
                                         <View
-                                            style={[styles.price_con,{flex:1,justifyContent:'flex-end',marginRight:6}]}>
+                                            style={[styles.price_con,{flex:1,justifyContent:'flex-start',marginLeft:2}]}>
                                             <Text
                                                 style={[styles.bef_text,styles.bef_price]}>市场价￥{this.state.details['GoodsItemTagPrice']}</Text>
                                         </View>
@@ -185,7 +185,7 @@ export default class GoodsDetail extends Component {
 
                                     <View style={styles.sales}>
                                         <View style={styles.freight}><Text
-                                            style={{fontSize:14,color:'#BFBFBF',marginLeft:16}}>快递:0.00</Text></View>
+                                            style={{fontSize:14,color:'#BFBFBF'}}>快递:0.00</Text></View>
                                         <View style={[styles.freight,{alignItems:'flex-end',marginRight:5}]}><Text
                                             style={{fontSize:14,color:'#BFBFBF'}}>月销:{this.state.details['GoodsItemSales']}笔</Text></View>
                                     </View>
@@ -193,22 +193,22 @@ export default class GoodsDetail extends Component {
                             </View>
                             <View
                                 style={{flexDirection:'row',padding:10,marginBottom:10,paddingBottom:0,paddingTop:0,backgroundColor:'white',height:44,alignItems:'center'}}>
-                                <View style={{flexDirection:'row',flex:1,justifyContent:'flex-start'}}>
+                                <View style={{flexDirection:'row',flex:1,justifyContent:'flex-start',alignItems:'center'}}>
                                     <Image source={require('../../images/detail/right.png')}
                                            style={styles.exp_img}></Image>
                                     <Text style={styles.exp_text}>免运费</Text>
                                 </View>
-                                <View style={{flexDirection:'row',flex:1}}>
+                                <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
                                     <Image source={require('../../images/detail/right.png')}
                                            style={styles.exp_img}/>
                                     <Text style={styles.exp_text}>包邮</Text>
                                 </View>
-                                <View style={{flexDirection:'row',flex:2}}>
+                                <View style={{flexDirection:'row',flex:2,alignItems:'center'}}>
                                     <Image source={require('../../images/detail/right.png')}
                                            style={styles.exp_img}/>
                                     <Text style={styles.exp_text}>支持货到付款</Text>
                                 </View>
-                                <View style={{flexDirection:'row',flex:1,justifyContent:'flex-end'}}>
+                                <View style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
                                     <Image source={require('../../images/detail/right.png')}
                                            style={styles.exp_img}/>
                                     <Text style={styles.exp_text}>七天无理由退货</Text>
@@ -261,7 +261,7 @@ export default class GoodsDetail extends Component {
 
 const styles = StyleSheet.create({
     price_view: {
-        flexDirection: 'row',
+        height:74
     },
     right_arrows: {
         resizeMode: 'stretch',
@@ -270,16 +270,15 @@ const styles = StyleSheet.create({
     },
     goods_name: {
         flexDirection: 'row',
-        borderBottomWidth: 1,
-        paddingBottom: 5,
+        borderBottomWidth: 0.5,
+        paddingBottom: 11,
         borderBottomColor: '#E7E7E7'
     },
 
     exp_img: {
         resizeMode: 'stretch',
         width: 14,
-        height: 14,
-        marginTop: Dimensions.ios === 'ios' ? 0 : 2
+        height: 14
     },
     exp_text: {
         fontSize: 12,
@@ -295,8 +294,8 @@ const styles = StyleSheet.create({
     },
     price_con: {
         flexDirection: 'row',
-        height: 45,
-        alignItems: 'center'
+        height: 30,
+        marginTop:14
     },
     price: {
         color: '#FD3824',

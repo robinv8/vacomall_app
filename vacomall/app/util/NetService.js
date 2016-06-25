@@ -38,5 +38,6 @@ export function getFetchData(apiUrl,callback) {
             }
         }).catch((error) => {
         console.warn(error);
+        //callback(error);
     }).done();
 }

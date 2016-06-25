@@ -12,17 +12,14 @@ import React,{
     StatusBar,
     ScrollView,
     ListView,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Navigator
 }from 'react-native';
-import Login from './Login';
-import API from './util/api';
-import * as NetService from './util/NetService';
-import MenuButton from './HomePage/MenuButton';
-import GoodsDetail from './GoodsDetail';
+import {Login,API,NetService,MenuButton,GoodsDetail,Toast,OrderSelectPage} from './util/Path';
 var listFlag = 0;
 export default class Person extends Component {
     // 构造
-      constructor(props) {
+    constructor(props) {
         super(props);
         // 初始状态
         this.state = {
@@ -31,8 +28,15 @@ export default class Person extends Component {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2)=>row1 !== row2
             }),
+            all: 0,
+            dfk: null,
+            dfh: null,
+            dsh: null,
+            thh: null,
+            isrefresh: false
         };
-      }
+    }
+
     getPersion() {
         const {navigator}=this.props;
         if (navigator) {
@@ -42,21 +46,90 @@ export default class Person extends Component {
         }
     }
 
-    componentDidMount() {
-        /*获取首页基本数据*/
-        NetService.getFetchData(API.HOME + '?keys=INDEX_CAT', (result)=>_callback(result));
-        var _this=this;
-        function _callback(result){
-            _this.cathandle(result);
-        };
-        NetService.getFetchData(API.GUESS, (result)=>_guessCallback(result));
-        function _guessCallback(result){
-            _this.setState({
-                dataSource: _this.state.dataSource.cloneWithRows(result)
-            });
+    componentWillReceiveProps() {
+        if (this.state.isrefresh) {
+            this.componentDidMount()
         }
     }
-    cathandle(result){
+
+    componentDidMount() {
+        NetService.getFetchData(API.ORDERNUM, (result)=> {
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    const {navigator}=this.props;
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                        })
+                        this.setState({
+                            isrefresh: true
+                        })
+                    }
+                }
+                return;
+            } else {
+                this.setState({
+                    isrefresh: false
+                })
+                let dfk = result[100];
+                if (dfk > 0) {
+                    dfk = dfk.toString();
+                    this.setState({
+                        dfk: <View style={styles.bub}>
+                            <Text
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfk.length > 1 ? dfk.substring(0, 1) + '+' : dfk}</Text>
+                        </View>
+                    })
+                }
+                let dfh = result[200];
+                if (dfh > 0) {
+                    dfh = dfh.toString();
+                    this.setState({
+                        dfh: <View style={styles.bub}>
+                            <Text
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfh.length > 1 ? dfh.substring(0, 1) + '+' : dfh}</Text>
+                        </View>
+                    })
+                }
+                let dsh = result[300];
+                if (dsh > 0) {
+                    dsh = dsh.toString();
+                    this.setState({
+                        dsh: <View style={styles.bub}>
+                            <Text
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dsh.length > 1 ? dsh.substring(0, 1) + '+' : dsh}</Text>
+                        </View>
+                    })
+                }
+                let thh = result[300];
+                if (dfk > 0) {
+                    thh = thh.toString();
+                    this.setState({
+                        thh: <View style={styles.bub}>
+                            <Text
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{thh.length > 1 ? thh.substring(0, 1) + '+' : thh}</Text>
+                        </View>
+                    })
+                }
+                /*获取首页基本数据*/
+                NetService.getFetchData(API.HOME + '?keys=INDEX_CAT', (result)=> {
+                    console.log(result)
+                    this.cathandle(result);
+                });
+
+                NetService.getFetchData(API.GUESS, (result)=> {
+                    this.setState({
+                        dataSource: this.state.dataSource.cloneWithRows(result)
+                    });
+                });
+            }
+        });
+
+    }
+
+    cathandle(result) {
         /*快捷入口*/
         var index_cat_data = result['INDEX_CAT']['items'];
         if (index_cat_data.length === 0) {
@@ -86,6 +159,17 @@ export default class Person extends Component {
             catArray2: catArray2
         });
     }
+
+    toOrderDetail(num) {
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: OrderSelectPage,
+                params: {initialPage: num}
+            })
+        }
+    }
+
     renderGList(gList) {
         var _textLength = function (text) {
             var rtnText = "";
@@ -131,6 +215,7 @@ export default class Person extends Component {
             </TouchableWithoutFeedback>
         )
     }
+
     toDetails(id) {
         const {navigator}=this.props;
         if (navigator) {
@@ -140,6 +225,7 @@ export default class Person extends Component {
             })
         }
     }
+
     render() {
         return (
             <View style={styles.container}>
@@ -164,60 +250,79 @@ export default class Person extends Component {
                             <View style={styles.header_bottom_con}/>
                             <View style={styles.header_bottom_con}>
                                 <Text style={{color:'#CAEFDA'}}>购物券:</Text>
-                                <Text style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>55</Text>
+                                <Text
+                                    style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>55</Text>
                                 <Text style={{color:'white',fontSize:12}}>张</Text>
                             </View>
                             <View style={[styles.header_bottom_con,{borderRightWidth:0}]}>
                                 <Text style={{color:'#CAEFDA'}}>优惠券:</Text>
-                                <Text style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>4</Text>
+                                <Text
+                                    style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>4</Text>
                                 <Text style={{color:'white',fontSize:12}}>张</Text>
                             </View>
                         </View>
                     </Image>
                     <View style={{backgroundColor:'white',marginBottom:10}}>
-                        <View style={{height:50,alignItems:'center',flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'#E5E5E5'}}>
-                            <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
-                                <Image source={require('../images/order_item.png')} style={[styles.settingIcon,{marginLeft:18,marginRight:5}]}/>
-                                <Text>全部订单</Text>
-                            </View>
-                            <View style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
-                                <Image source={require('../images/search_icon1.png')} style={[styles.searchIcon,{marginLeft:18,marginRight:5}]}/>
-                                <Text style={{color:'#C2C2C2'}}>查看全部订单</Text>
-                                <Image source={require('../images/right_arrow.png')} style={[styles.right_arrow]}/>
-                            </View>
-                        </View>
-                        <View style={{flex:1,flexDirection:'row',height:78,paddingTop:17}}>
-                            <View style={{flex:1,alignItems:'center'}}>
-                                <Image source={require('../images/order_icon1.png')} style={styles.order_icon}/>
-                                <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待付款</Text>
-
-                            </View>
-                            <View style={{flex:1,alignItems:'center'}}>
-                                <Image source={require('../images/order_icon2.png')} style={styles.order_icon}/>
-                                <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待付款</Text>
-                                <View style={styles.bub}>
-                                    <Text style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>10</Text>
+                        <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail('all')}>
+                            <View
+                                style={{height:50,alignItems:'center',flexDirection:'row',borderBottomWidth:0.4,borderBottomColor:'#E5E5E5'}}>
+                                <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
+                                    <Image source={require('../images/order_item.png')}
+                                           style={[styles.settingIcon,{marginLeft:18,marginRight:5}]}/>
+                                    <Text>全部订单</Text>
+                                </View>
+                                <View
+                                    style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
+                                    <Image source={require('../images/search_icon1.png')}
+                                           style={[styles.searchIcon,{marginLeft:18,marginRight:5}]}/>
+                                    <Text style={{color:'#C2C2C2'}}>查看全部订单</Text>
+                                    <Image source={require('../images/right_arrow.png')} style={[styles.right_arrow]}/>
                                 </View>
                             </View>
-                            <View style={{flex:1,alignItems:'center'}}>
-                                <Image source={require('../images/order_icon3.png')} style={styles.order_icon}/>
-                                <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待付款</Text>
-                            </View>
-                            <View style={{flex:1,alignItems:'center'}}>
-                                <Image source={require('../images/order_icon4.png')} style={styles.order_icon}/>
-                                <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待付款</Text>
-                            </View>
+                        </TouchableWithoutFeedback>
+                        <View style={{flex:1,flexDirection:'row',height:78,}}>
+                            <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(100)}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                    <Image source={require('../images/order_icon1.png')} style={styles.order_icon}/>
+                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待付款</Text>
+                                    {this.state.dfk}
+                                </View>
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(200)}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                    <Image source={require('../images/order_icon2.png')} style={styles.order_icon}/>
+                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待发货</Text>
+                                    {this.state.dfh}
+
+                                </View>
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(300)}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                    <Image source={require('../images/order_icon3.png')} style={styles.order_icon}/>
+                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待收货</Text>
+                                    {this.state.dsh}
+                                </View>
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(400)}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                    <Image source={require('../images/order_icon4.png')} style={styles.order_icon}/>
+                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>退换货/售后</Text>
+                                    {this.state.thh}
+                                </View>
+                            </TouchableWithoutFeedback>
                         </View>
                     </View>
                     <View style={styles.quick_view}>
                         <View style={styles.menuView}>
-                            {this.state.catArray1.map(function(data,index){
-                            return <View key={index} style={{flex:1,height:110,borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
-                        })}
+                            {this.state.catArray1.map(function (data, index) {
+                                return <View key={index}
+                                             style={{flex:1,height:110,borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
+                            })}
                         </View>
                         <View style={[styles.menuView,styles.menuView2]}>
-                            {this.state.catArray2.map(function(data,index){
-                                return <View key={index} style={{flex:1,height:110,borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
+                            {this.state.catArray2.map(function (data, index) {
+                                return <View key={index}
+                                             style={{flex:1,height:110,borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
                             })}
                         </View>
                     </View>
@@ -236,8 +341,8 @@ export default class Person extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        flex:1,
-        backgroundColor:'#F5F5F5'
+        flex: 1,
+        backgroundColor: '#F5F5F5'
     },
     personHead: {
         flex: 1,
@@ -245,7 +350,7 @@ const styles = StyleSheet.create({
     },
     personHead_img: {
         height: 208,
-        width:Dimensions.get('window').width,
+        width: Dimensions.get('window').width,
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
         //resizeMode: 'stretch',
     },
@@ -254,12 +359,12 @@ const styles = StyleSheet.create({
         height: 18,
         resizeMode: 'stretch',
     },
-    settingIcon:{
+    settingIcon: {
         width: 20,
         height: 20,
         resizeMode: 'stretch',
     },
-    header_img:{
+    header_img: {
         width: 120,
         height: 120,
         //resizeMode: 'stretch',
@@ -276,19 +381,19 @@ const styles = StyleSheet.create({
             width: 0
         }
     },
-    header_bottom:{
-        height:60,
-        backgroundColor:'rgba(0,0,0,0.25)',
-        justifyContent:'flex-end',
-        flexDirection:'row'
+    header_bottom: {
+        height: 60,
+        backgroundColor: 'rgba(0,0,0,0.25)',
+        justifyContent: 'flex-end',
+        flexDirection: 'row'
     },
-    header_bottom_con:{
-        flex:1,
-        borderRightWidth:0.5,
-        borderRightColor:'#4EA976',
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center'
+    header_bottom_con: {
+        flex: 1,
+        borderRightWidth: 0.5,
+        borderRightColor: '#4EA976',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     searchIcon: {
         marginRight: 2,
@@ -296,42 +401,42 @@ const styles = StyleSheet.create({
         height: 14,
         resizeMode: 'stretch',
     },
-    right_arrow:{
+    right_arrow: {
         width: 8,
         height: 10,
         resizeMode: 'stretch',
         marginLeft: 4,
         marginRight: 10,
     },
-    order_icon:{
-        width:26,
-        height:23,
+    order_icon: {
+        width: 26,
+        height: 23,
         resizeMode: 'stretch'
     },
-    bub:{
-        position:'absolute',
-        width:15,
-        height:15,
-        backgroundColor:'#FF9700',
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius:15,
-        right:25,
-        top:-10
+    bub: {
+        position: 'absolute',
+        width: 15,
+        height: 15,
+        backgroundColor: '#FD3824',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 15,
+        right: 25,
+        top: 10
     },
     quick_view: {
         height: 220,
-        backgroundColor:'white',
+        backgroundColor: 'white',
     },
     menuView: {
         flexDirection: 'row',
-        height:110,
-        alignItems:'center',
-        borderBottomWidth:0.5,
-        borderBottomColor:'#E5E5E5'
+        height: 110,
+        alignItems: 'center',
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#E5E5E5'
     },
     menuView2: {
-        borderBottomWidth:0
+        borderBottomWidth: 0
     },
     listview: {
         flexDirection: 'row',
@@ -339,7 +444,7 @@ const styles = StyleSheet.create({
     },
     cnxh_view: {
         alignItems: 'center',
-        height: 40,
+        height: 51,
         justifyContent: 'center'
     },
     cnxh_view_img: {

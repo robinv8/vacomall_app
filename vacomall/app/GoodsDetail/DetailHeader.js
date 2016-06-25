@@ -18,7 +18,13 @@ import React, {
 import {CartPage,Login,API,NetService,Toast} from '../util/Path';
 
 export default class Header extends Component {
-
+    _back() {
+        const {navigator}=this.props;
+        //const test=navigator.getCurrentRoutes();
+        if (navigator) {
+            navigator.pop()
+        }
+    }
     toCart() {
         const {navigator}=this.props;
         var _callback=function(result){
@@ -50,7 +56,7 @@ export default class Header extends Component {
                     barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this.props._back()}>
-                    <View style={{flex:1,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+                    <View style={{flex:2,justifyContent:'flex-start',alignItems:'center',flexDirection:'row'}}>
                         <Image source={require('../../images/back_icon.png')}
                            style={styles.backIcon}/>
                         <Text style={{marginLeft:2,fontSize:16}}>返回</Text>
@@ -59,7 +65,7 @@ export default class Header extends Component {
                 <View style={styles.searchBox}>
                     <Text style={{color: '#3C3C3C',fontSize: 18}}>商品详情</Text>
                 </View>
-                <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
+                <View style={{flex:2,flexDirection:'row',justifyContent:'flex-end'}}>
                     <TouchableWithoutFeedback onPress={()=>this.toCart()}>
                         <View style={{alignItems: 'center',justifyContent: 'center', marginRight:16}}>
                             <Image source={require('../../images/black_cart.png')} style={styles.scanIcon}/>

@@ -228,7 +228,6 @@ class Shade extends Component {
                 </TouchableWithoutFeedback>
                 <Animated.View
                     style={[styles.animate_view,{bottom:this.state.bottom}]}>
-
                     <View style={[styles.info_view]}>
                         <View style={styles.info_view1}>
                             <View
@@ -249,17 +248,18 @@ class Shade extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View
-                                style={{alignItems:'flex-end',position:'absolute',right:0,top:Platform.OS==='ios'?35:29}}>
-                                <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
-                                    <Image source={require('../../images/close_icon.png')}
-                                           style={{width:20,height:20,marginTop:5,marginRight:6}}/>
-                                </TouchableWithoutFeedback>
-                            </View>
                         </View>
+
                         <View style={{flex:1,marginBottom:10,marginLeft:10,position:'relative'}}>
                             <Image source={{uri:detailThis.state.resultData['images'][0]['ImagePath']}}
                                    style={styles.shade_img}/>
+                        </View>
+                        <View
+                            style={{alignItems:'flex-end',position:'absolute',right:0,top:0,marginTop:10}}>
+                            <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
+                                <Image source={require('../../images/close_icon.png')}
+                                       style={{width:20,height:20,marginTop:5,marginRight:6}}/>
+                            </TouchableWithoutFeedback>
                         </View>
                     </View>
 

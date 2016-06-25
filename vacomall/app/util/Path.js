@@ -43,10 +43,14 @@ import CartHeader from '../Cart/CartHeader';
 import EditCartHeader from '../EditCart/EditCartHeader';
 /*---订单支付相关模块---*/
 import OrderPage from '../OrderPage';
-
+import OrderSelectPage from '../OrderSelectPage';
+import OrderAll from '../OrderDetail/OrderAll'
 /*---充值---*/
 import ChongZhiPage from '../ChongZhiPage';
 import * as ChongZhi from '../ChongZhiPage';
+import Flow from '../ChongZhi/Flow';
+import HuaFei from '../ChongZhi/HuaFei';
+
 
 /*---个人中心---*/
 import Person from '../Person';
@@ -62,6 +66,7 @@ import HtmlRender from 'react-native-html-render';
 import LinearGradient from 'react-native-linear-gradient';
 import Reactotron from 'reactotron';
 import ListViewRowEdit from 'react-native-listview-row-edit';
+import ScrollableTabView,{DefaultTabBar}  from 'react-native-scrollable-tab-view';
 
 /*---自定义工具类---*/
 import API from './api';
@@ -111,5 +116,11 @@ export {
     CartHeader,
     OrderPage,
     EditCartHeader,
-    ListViewRowEdit
+    ListViewRowEdit,
+    ScrollableTabView,
+    DefaultTabBar,
+    Flow,
+    HuaFei,
+    OrderSelectPage,
+    OrderAll
 };

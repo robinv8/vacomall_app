@@ -13,7 +13,7 @@ import React,{
 }from 'react-native';
 
 
-import {MainScreen,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail} from './app/util/Path';
+import {MainScreen,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage} from './app/util/Path';
 
 export default class MainPage extends Component {
     componentDidMount() {
@@ -22,8 +22,8 @@ export default class MainPage extends Component {
     }
 
     render() {
-        let defaultName = 'MainScreen';
-        let defaultComponent = MainScreen;
+        let defaultName = 'Person';
+        let defaultComponent = Person;
         return (
             <View style={{flex:1}}>
                 <StatusBar

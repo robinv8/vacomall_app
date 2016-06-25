@@ -24,7 +24,9 @@ var API = {
     LOGOUT:         API_ADDRESS + 'auth/logout',
     ORDER:          API_ADDRESS + 'wx/preorder',
     GETPAYINFO:     API_ADDRESS + 'wx/getpayinfo',
-    SUBMITCZ:       API_ADDRESS + 'order/submitcz'
+    SUBMITCZ:       API_ADDRESS + 'order/submitcz',
+    ORDERNUM:       API_ADDRESS + 'me/order/get/num',
+    ORDERDETAIL:    API_ADDRESS + 'me/order/get'
 };
 
 module.exports = API;
