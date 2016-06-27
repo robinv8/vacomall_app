@@ -17,23 +17,23 @@ import * as Random from '../util/random';
 import * as NetService from '../util/NetService';
 import MD5 from '../util/md5.min';
 const appid = 'wx0ccd9f577013dab0';
-
-function show(title, msg) {
-    AlertIOS.alert(title + '', msg + '');
-}
 export function registerApp() {
     WeChat.registerApp(appid, (res) => {
         //show('registerApp',res)
     });
 }
-export function openWXApp(i) {
-    WeChat.openWXApp((res) => {
-        show('openWXApp', i);
+export function isWXAppInstalled(callback) {
+    WeChat.isWXAppInstalled((res) => {
+        if (!res) {
+            Toast.show('请安装微信,便可充值!');
+        }
+        callback(res);
     });
 }
+
 export function order(id) {
     /!*获取首页基本数据*!/
-    NetService.postFetchData(API.ORDER, 'orderId='+id, (result)=>_callback(result));
+    NetService.postFetchData(API.ORDER, 'orderId=' + id, (result)=>_callback(result));
     function _callback(result) {
         var result = result['result']['response'];
         const random = Random.generateMixed(16);
@@ -53,29 +53,29 @@ export function order(id) {
             sign: sign
         };
         WeChat.weChatPay(payOptions, (res)=> {
-            //show('支付', res);
+
         });
         let subscription = NativeAppEventEmitter.addListener(
             'finishedPay',
             (res) => {
-                if(res.errCode == 0) { //充值成功
+                if (res.errCode == 0) { //充值成功
                     getpayinfo(id);
-                } else if(res.errCode == -1) { //很多情况下是证书问题
-                    show('支付结果','支付失败,请稍后尝试');
-                } else if(res.errCode == -2) { //充值取消
+                } else if (res.errCode == -1) { //很多情况下是证书问题
+                    show('支付结果', '支付失败,请稍后尝试');
+                } else if (res.errCode == -2) { //充值取消
                     //show('支付结果',"充值取消");
                 }
             }
         );
     }
 }
-function getpayinfo(id){
-    NetService.postFetchData(API.GETPAYINFO, 'orderId='+id, (result)=>{
-        result=result['result'];
-        if(result['isPay']){
-            show('支付结果','充值成功');
-        }else{
-            show('支付结果','订单正在处理,请等待……');
-        }
-    });
+function getpayinfo(id) {
+    setTimeout(function () {
+        NetService.postFetchData(API.GETPAYINFO, 'orderId=' + id, (result)=> {
+            result = result['result'];
+            if (result['isPay']) {
+                Toast.show('微信支付成功!');
+            }
+        });
+    }, 3000)
 }

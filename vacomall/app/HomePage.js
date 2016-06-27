@@ -119,7 +119,7 @@ export default class HomePage extends Component {
         });
 
         this.setState({
-            swiper: <Swiper autoplay={true} height={170} paginationStyle={{bottom: 5}}>
+            swiper: <Swiper autoplay={false} height={170} paginationStyle={{bottom: 5}}>
                 {imgArray}
             </Swiper>
         });

@@ -19,7 +19,6 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "vacomall";
     }
-
     /**
      * Returns whether dev mode should be enabled.
      * This enables e.g. the dev menu.
@@ -40,10 +39,10 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-            new WeChatPackage(),
             new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG),
              new WebViewBridgePackage(),
-             new LinearGradientPackage()
+             new LinearGradientPackage(),
+            new WeChatPackage()
         );
     }
 }

@@ -6,7 +6,8 @@ import React,{
     View, Text, StyleSheet, ScrollView,
     AlertIOS, TouchableHighlight,
     DeviceEventEmitter,
-    ToastAndroid
+    ToastAndroid,
+    Alert
 }from 'react-native';
 
 import WeChat from 'react-native-wechat-android';
@@ -21,12 +22,25 @@ const appid = 'wx0ccd9f577013dab0';
 
 export function registerApp() {
     WeChat.registerApp(appid,(err,registerOK) => {
-        //ToastAndroid.show(registerOK + '',ToastAndroid.SHORT);
+        //Toast.show(registerOK + '');
+    });
+    WeChat.openWXApp((err,res) => {
+
     });
 }
 
+export function isWXAppInstalled(callback){
+    WeChat.isWXAppInstalled(
+        (err,isInstalled) => {
+            if(!isInstalled){
+                Toast.show('请安装微信,便可充值!');
+            }
+            callback(isInstalled);
+        }
+    );
+}
+
 export function order(id) {
-    //getpayinfo('4d4a3ddb294545a0ab530e64c44adc0');
     /!*获取首页基本数据*!/
    NetService.postFetchData(API.ORDER, 'orderId='+id, (result)=>_callback(result));
     function _callback(result) {
@@ -37,7 +51,7 @@ export function order(id) {
         console.log(stringA)
         stringSignTemp = stringA + "&key=e10884523bd29da9edbf941cb15eef5d";
         console.log(stringSignTemp);
-        var sign = MD5(stringSignTemp).toUpperCase()
+        var sign = MD5(stringSignTemp).toUpperCase();
         let payOptions = {
             appId: result['appid'],
             nonceStr: random,
@@ -47,12 +61,9 @@ export function order(id) {
             timeStamp: timeStamp.toString(),
             sign: sign
         };
-
-        //ToastAndroid.show('你好',ToastAndroid.SHORT);
-        console.log(id);
-        getpayinfo(id)
+        Toast.show('开始充值');
         WeChat.weChatPay(payOptions,(err,sendReqOK) => {
-            getpayinfo(id)
+            getpayinfo(id);
         });
         /*DeviceEventEmitter.addListener('finishedPay',function(event){
             var success = event.success;
@@ -66,17 +77,12 @@ export function order(id) {
     }
 }
 function getpayinfo(id){
-setTimeout(function(){
-    NetService.postFetchData(API.GETPAYINFO, 'orderId='+id, (result)=>{
-
-        result=result['result'];
-        //console.log(JSON.stringify(result))
-        if(result['isPay']){
-            Toast.show('微信支付成功!');
-        }else{
-            Toast.show('订单正在处理,请稍后查看订单状态……');
-        }
-    });
-},5000)
-
+    setTimeout(function () {
+        NetService.postFetchData(API.GETPAYINFO, 'orderId=' + id, (result)=> {
+            result = result['result'];
+            if (result['isPay']) {
+                Toast.show('微信支付成功!');
+            }
+        });
+    }, 3000)
 }

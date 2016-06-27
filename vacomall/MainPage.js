@@ -22,8 +22,8 @@ export default class MainPage extends Component {
     }
 
     render() {
-        let defaultName = 'Person';
-        let defaultComponent = Person;
+        let defaultName = 'MainScreen';
+        let defaultComponent = MainScreen;
         return (
             <View style={{flex:1}}>
                 <StatusBar

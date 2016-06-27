@@ -25,8 +25,8 @@
 		8019A6C41D0D1A06007A87F7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C31D0D1A05007A87F7 /* CoreTelephony.framework */; };
 		8019A6C81D0D1A79007A87F7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C51D0D1A79007A87F7 /* libsqlite3.dylib */; };
 		8019A6C91D0D1A79007A87F7 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C61D0D1A79007A87F7 /* libc++.1.dylib */; };
-		8019A71A1D0FF8BB007A87F7 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A7171D0FF8A4007A87F7 /* libRCTWeChat.a */; };
 		80492FE21CFDAC9C00651A92 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */; };
+		805364A61D21191E003A3BE5 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805364A31D21191A003A3BE5 /* libRCTWeChat.a */; };
 		8084F0461D10284800A3A4D7 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0451D10284800A3A4D7 /* libz.1.dylib */; };
 		8084F0721D10F99100A3A4D7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0711D10F99100A3A4D7 /* Security.framework */; };
 		8084F0821D10F99F00A3A4D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0811D10F99F00A3A4D7 /* UIKit.framework */; };
@@ -107,19 +107,19 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
-		8019A7161D0FF8A4007A87F7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8019A7071D0FF8A4007A87F7 /* RCTWeChat.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D38ECF511C192AC800BDD8AE;
-			remoteInfo = RCTWeChat;
-		};
 		80492FE01CFDAC9500651A92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = BVLinearGradient;
+		};
+		805364A21D21191A003A3BE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D38ECF511C192AC800BDD8AE;
+			remoteInfo = RCTWeChat;
 		};
 		8094B61F1CE49DB700BF2414 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -168,8 +168,8 @@
 		8019A6C31D0D1A05007A87F7 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8019A6C51D0D1A79007A87F7 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /usr/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
 		8019A6C61D0D1A79007A87F7 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "/usr/lib/libc++.1.dylib"; sourceTree = "<absolute>"; };
-		8019A7071D0FF8A4007A87F7 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat-ios/RCTWeChat/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
 		80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
+		805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat-ios/RCTWeChat/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
 		8084F0451D10284800A3A4D7 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
 		8084F0711D10F99100A3A4D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8084F0811D10F99F00A3A4D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -193,11 +193,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				805364A61D21191E003A3BE5 /* libRCTWeChat.a in Frameworks */,
 				8084F0841D10F9AF00A3A4D7 /* Foundation.framework in Frameworks */,
 				8084F0821D10F99F00A3A4D7 /* UIKit.framework in Frameworks */,
 				8084F0721D10F99100A3A4D7 /* Security.framework in Frameworks */,
 				8084F0461D10284800A3A4D7 /* libz.1.dylib in Frameworks */,
-				8019A71A1D0FF8BB007A87F7 /* libRCTWeChat.a in Frameworks */,
 				8019A6C81D0D1A79007A87F7 /* libsqlite3.dylib in Frameworks */,
 				8019A6C91D0D1A79007A87F7 /* libc++.1.dylib in Frameworks */,
 				8019A6C41D0D1A06007A87F7 /* CoreTelephony.framework in Frameworks */,
@@ -324,18 +324,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8019A7081D0FF8A4007A87F7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8019A7171D0FF8A4007A87F7 /* libRCTWeChat.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		80492FDD1CFDAC9400651A92 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		805364941D21191A003A3BE5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				805364A31D21191A003A3BE5 /* libRCTWeChat.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -374,7 +374,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				8019A7071D0FF8A4007A87F7 /* RCTWeChat.xcodeproj */,
+				805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */,
 				80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */,
 				8094B6381CE6BEBE00BF2414 /* React-Native-Webview-Bridge.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -467,7 +467,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 730;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -536,8 +536,8 @@
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
 				},
 				{
-					ProductGroup = 8019A7081D0FF8A4007A87F7 /* Products */;
-					ProjectRef = 8019A7071D0FF8A4007A87F7 /* RCTWeChat.xcodeproj */;
+					ProductGroup = 805364941D21191A003A3BE5 /* Products */;
+					ProjectRef = 805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */;
 				},
 				{
 					ProductGroup = 8094B6391CE6BEBE00BF2414 /* Products */;
@@ -620,18 +620,18 @@
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		8019A7171D0FF8A4007A87F7 /* libRCTWeChat.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTWeChat.a;
-			remoteRef = 8019A7161D0FF8A4007A87F7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = 80492FE01CFDAC9500651A92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		805364A31D21191A003A3BE5 /* libRCTWeChat.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTWeChat.a;
+			remoteRef = 805364A21D21191A003A3BE5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8094B6201CE49DB700BF2414 /* libCodePush.a */ = {
@@ -737,11 +737,7 @@
 				INFOPLIST_FILE = vacomallTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vacomall.app/vacomall";
@@ -760,11 +756,7 @@
 				INFOPLIST_FILE = vacomallTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vacomall.app/vacomall";
@@ -793,6 +785,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vacomall;
 				PRODUCT_NAME = vacomall;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -817,6 +810,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vacomall;
 				PRODUCT_NAME = vacomall;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -885,6 +879,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vacomall;
 				PRODUCT_NAME = vacomall;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = AdHoc;
 		};
@@ -900,11 +895,7 @@
 				INFOPLIST_FILE = vacomallTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vacomall.app/vacomall";

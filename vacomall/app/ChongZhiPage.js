@@ -31,10 +31,11 @@ export default class ChongZhiPage extends Component {
     }
 
     componentDidMount() {
+        let _this=this;
         NetService.getFetchData(API.HOME + '?keys=CZ_HF,CZ_LL', (result)=> {
             this.setState({
-                HuaFei: <HuaFei tabLabel="话费" navigator={this.props.navigator} hfData={result['CZ_HF']}/>,
-                Flow: <Flow tabLabel="流量" navigator={this.props.navigator} llData={result['CZ_LL']}/>
+                HuaFei: <HuaFei tabLabel="话费" navigator={_this.props.navigator} hfData={result['CZ_HF']}/>,
+                Flow: <Flow tabLabel="流量" navigator={_this.props.navigator} llData={result['CZ_LL']}/>
             })
         });
     }
