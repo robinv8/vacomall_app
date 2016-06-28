@@ -39,12 +39,21 @@ export default class Header extends Component {
             navigator.pop()
         }
     }
-
     componentDidMount() {
         if(this.props.tab){
             this.setState({
                 opacity:0
             })
+        }
+        if(this.props.topEvent===false){
+            this.setState({
+                editState:<TouchableWithoutFeedback onPress={()=>{}}>
+                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center',opacity:0}}>
+                        <Text style={{color:'#3C3C3C',fontSize: 16}}>完成</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            });
+            return;
         }
     }
     _editsubmit(){

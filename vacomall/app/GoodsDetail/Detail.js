@@ -19,8 +19,7 @@ import React,{
 }from 'react-native';
 import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender} from '../util/Path';
 
-
-
+let shadeThis;
 export default class GoodsDetail extends Component {
     // 构造
     constructor(props) {
@@ -34,9 +33,10 @@ export default class GoodsDetail extends Component {
             swiperData: null,
             resultData: null,
             specs: null,
-            num: '0',
-            contentHeight:null,
-            guessFlag:false
+            num: '1',
+            contentHeight: null,
+            guessFlag: false,
+            shadeThis:null
         };
 
     }
@@ -54,7 +54,7 @@ export default class GoodsDetail extends Component {
             Toast.show(result['result']['message']);
             return;
         }
-        var result=result['result'];
+        var result = result['result'];
         this.setState({
             swiperData: result['images'],
             resultData: result
@@ -77,71 +77,10 @@ export default class GoodsDetail extends Component {
     }
 
     _addCart() {
-        if (this.state.id === null) {
-            Toast.show('请选择商品规格!');
-        } else {
-            NetService.postFetchData(API.ADDCART, 'id=' + this.state.id + '&buySum=' + this.state.num, (result)=>this._callback1(result));
-        }
+        this.state.shadeThis._shade();
     }
 
-    _callback1(result) {
-        this.setState({
-            btnStatus: true
-        });
-        if (result['success'] === false) {
-            Toast.show(result['result']['message']);
-            if (result['result']['code'] === 303) {
-                const {navigator}=this.props.parentProps;
-                if (navigator) {
-                    navigator.replace({
-                        component: Login,
-                        sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                        params: {page: 'GoodsDetail', id: this.props.id}
-                    })
-                }
-            }
-            return;
-        }
-        Toast.show(result['message']);
-        seacVueObj.map(function (_this) {
-            _this.setState({
-                specColor: '#C3C3C3'
-            });
-        });
-        seacVueObj = [], this.state.id = null;
-    }
 
-    toDetailImg() {
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.push({
-                component: DetailImg,
-                sceneConfig: Navigator.SceneConfigs.FloatFromBottom,
-                params: {webImgData: this.state.webImgData, _back: this.props._back}
-            })
-        }
-    }
-
-    handleScroll(event:Object) {
-        console.log(event.nativeEvent.contentOffset.y+Dimensions.get('window').height + '-' + this.state.contentHeight)
-        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height-100> this.state.contentHeight && this.state.guessFlag === false) {
-            const {navigator}=this.props;
-            if (navigator) {
-                navigator.push({
-                    component: DetailImg,
-                    sceneConfig: Navigator.SceneConfigs.FloatFromBottom,
-                    params: {webImgData: this.state.webImgData, _back: this.props._back}
-                })
-            }
-        }
-    }
-
-    _ContentSizeChange(w, h) {
-        console.log(h)
-        this.setState({
-            contentHeight: h
-        });
-    }
 
     render() {
         if (!this.state.loaded) {
@@ -152,15 +91,14 @@ export default class GoodsDetail extends Component {
                 <View style={{flex:1}}>
                     <ScrollView
                         style={{flex:1}}
-                        onContentSizeChange={(w,h)=>this._ContentSizeChange(w,h)}
-                        onScroll={(event)=>this.handleScroll(event)}
                     >
                         <DetailSwiper swiperData={this.state.swiperData}/>
                         <View>
                             <View style={{backgroundColor:'white',padding:10,marginBottom:10,paddingBottom:0}}>
                                 <View style={styles.goods_name}>
                                     <View style={{flex:8}}>
-                                        <Text style={{color:'#3C3C3C',lineHeight:20}}>{this.state.details['GoodsItemTitle']}</Text>
+                                        <Text
+                                            style={{color:'#3C3C3C',lineHeight:20}}>{this.state.details['GoodsItemTitle']}</Text>
                                     </View>
                                     <View style={{justifyContent:'center',flex:2,alignItems:'center'}}>
                                         <Image source={require('../../images/share_icon.png')}
@@ -193,7 +131,8 @@ export default class GoodsDetail extends Component {
                             </View>
                             <View
                                 style={{flexDirection:'row',padding:10,marginBottom:10,paddingBottom:0,paddingTop:0,backgroundColor:'white',height:44,alignItems:'center'}}>
-                                <View style={{flexDirection:'row',flex:1,justifyContent:'flex-start',alignItems:'center'}}>
+                                <View
+                                    style={{flexDirection:'row',flex:1,justifyContent:'flex-start',alignItems:'center'}}>
                                     <Image source={require('../../images/detail/right.png')}
                                            style={styles.exp_img}></Image>
                                     <Text style={styles.exp_text}>免运费</Text>
@@ -208,7 +147,8 @@ export default class GoodsDetail extends Component {
                                            style={styles.exp_img}/>
                                     <Text style={styles.exp_text}>支持货到付款</Text>
                                 </View>
-                                <View style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
+                                <View
+                                    style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
                                     <Image source={require('../../images/detail/right.png')}
                                            style={styles.exp_img}/>
                                     <Text style={styles.exp_text}>七天无理由退货</Text>
@@ -217,16 +157,16 @@ export default class GoodsDetail extends Component {
 
                         </View>
                         <GoodsSpec _this2={this}/>
-                        <TouchableWithoutFeedback onPress={()=>this.toDetailImg()}>
-                            <View
-                                style={{paddingLeft:5,height:40,justifyContent:'center',alignItems:'center'}}>
-                                <Text>继续拖动,查看图文详情</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
+                        <View
+                            style={{paddingLeft:5,height:40,justifyContent:'center',alignItems:'center'}}>
+                            <Text>继续拖动,查看图文详情</Text>
+                        </View>
+                        <DetailImg webImgData={this.state.webImgData} navigator={this.props._this1.props.navigator}/>
                     </ScrollView>
                 </View>
                 <View>
-                    <View style={{flexDirection:'row',height:49,backgroundColor:'white'}}>
+                    <View
+                        style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width}}>
                         <View
                             style={[styles.bom,{flex:1, paddingLeft:10, flexDirection:'row', justifyContent:'flex-start',backgroundColor:'white', borderTopColor:'#DBDBDB', borderTopWidth:1,}]}>
                             <Text style={{fontSize:12}}>总价:</Text>
@@ -261,7 +201,7 @@ export default class GoodsDetail extends Component {
 
 const styles = StyleSheet.create({
     price_view: {
-        height:74
+        height: 74
     },
     right_arrows: {
         resizeMode: 'stretch',
@@ -295,7 +235,7 @@ const styles = StyleSheet.create({
     price_con: {
         flexDirection: 'row',
         height: 30,
-        marginTop:14
+        marginTop: 14
     },
     price: {
         color: '#FD3824',
@@ -317,7 +257,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bom: {
-        width:130,
+        width: 130,
         justifyContent: 'center',
         alignItems: 'center'
     },

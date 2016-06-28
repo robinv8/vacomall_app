@@ -43,6 +43,8 @@ import CartHeader from '../Cart/CartHeader';
 import EditCartHeader from '../EditCart/EditCartHeader';
 /*---订单支付相关模块---*/
 import OrderPage from '../OrderPage';
+import OrderHeader from '../Order/OrderHeader';
+
 import OrderSelectPage from '../OrderSelectPage';
 import OrderAll from '../OrderDetail/OrderAll'
 /*---充值---*/
@@ -51,7 +53,9 @@ import * as ChongZhi from '../ChongZhiPage';
 import Flow from '../ChongZhi/Flow';
 import HuaFei from '../ChongZhi/HuaFei';
 
-
+/*---支付---*/
+import PaySuccess from '../Pay/PaySuccess';
+import PayError from '../Pay/PayError';
 /*---个人中心---*/
 import Person from '../Person';
 //import ViewPull from '../ViewPull'
@@ -122,5 +126,8 @@ export {
     Flow,
     HuaFei,
     OrderSelectPage,
-    OrderAll
+    OrderAll,
+    PaySuccess,
+    PayError,
+    OrderHeader
 };

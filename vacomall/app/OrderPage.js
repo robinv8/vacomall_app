@@ -16,12 +16,9 @@ import React, {
     TouchableWithoutFeedback,
     ToastAndroid,
     Navigator
-}from 'react-native'
-import OrderHeader from './Order/OrderHeader';
-import API from './util/api';
-import * as NetService from './util/NetService';
-import PaySuccess from './Pay/PaySuccess';
-import PayError from './Pay/PayError';
+}from 'react-native';
+import {OrderHeader,API,NetService} from './util/Path'
+
 var cartThis = [];
 export default class OrderPage extends Component {
     // 构造
@@ -38,14 +35,14 @@ export default class OrderPage extends Component {
             address: "",
             money: "",
             num: "",
-            flag:true
+            flag: true
         };
     }
 
     componentDidMount() {
         var _this = this;
         setTimeout(function () {
-            NetService.postFetchData(API.CONFIRM, '',(result)=>_this._callback(result));
+            NetService.postFetchData(API.CONFIRM, '', (result)=>_this._callback(result));
         }, 400)
     }
 
@@ -54,6 +51,7 @@ export default class OrderPage extends Component {
             ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
             return;
         }
+        result = result['result'];
         var memberVillage = result['memberVillage'];
         this.setState({
             name: memberVillage['VillageName'],
@@ -76,9 +74,10 @@ export default class OrderPage extends Component {
 
     _toSubmit() {
         const {navigator}=this.props;
+
         function _callback(result) {
-            if(this.state.flag){
-                this.state.flag=false;
+            if (this.state.flag) {
+                this.state.flag = false;
                 if (result['success'] === false) {
                     ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
                     if (navigator) {
@@ -99,7 +98,7 @@ export default class OrderPage extends Component {
             }
         }
 
-        NetService.postFetchData(API.SUBMIT, '',_callback.bind(this));
+        NetService.postFetchData(API.SUBMIT, '', _callback.bind(this));
     }
 
     render() {
@@ -110,29 +109,26 @@ export default class OrderPage extends Component {
             <View style={{flex:1,backgroundColor:'#f4f4f4'}}>
                 <View style={{flex:1}}>
                     <OrderHeader navigator={this.props.navigator}/>
-                    <View style={{height:80,backgroundColor:'white',flexDirection:'row'}}>
-                        <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
-                            <Image source={require('../images/mapicon.png')}
-                                   style={{width:15,height:20,resizeMode:'stretch'}}></Image>
-                        </View>
-                        <View style={{flex:9,justifyContent:'center',paddingRight:20}}>
-                            <View style={{flexDirection:'row'}}>
-                                <View style={{flex:1}}>
-                                    <Text style={{fontSize:12,color:'#2F2F2F'}}>收货人:{this.state.name}</Text>
+                    <View
+                        style={{height:84,backgroundColor:'white',flexDirection:'row',padding:12,paddingTop:17,paddingBottom:15}}>
+
+                        <View style={{flex:9,justifyContent:'center'}}>
+                            <View style={{flexDirection:'row',marginBottom:15}}>
+                                <View style={{flex:1,flexDirection:'row'}}>
+                                    <Text style={{color:'#BFBFBF'}}>收货人:</Text><View style={{marginLeft:21}}><Text
+                                    style={{color:'#BFBFBF'}}>{this.state.name}</Text></View>
                                 </View>
                                 <View style={{alignItems:'flex-end',flex:1}}>
-                                    <Text style={{fontSize:12,color:'#2F2F2F'}}>{this.state.mobile}</Text>
+                                    <Text style={{color:'#BFBFBF'}}>{this.state.mobile}</Text>
                                 </View>
                             </View>
-                            <View><Text style={{fontSize:12,color:'#2F2F2F'}}>收货地址:{this.state.address}</Text></View>
+                            <View style={{flexDirection:'row'}}>
+                                <Text style={{color:'#BFBFBF'}}>收货地址:</Text></View>
+                            <View style={{marginLeft:21}}><Text
+                            style={{color:'#BFBFBF'}}>{this.state.address}</Text></View>
                         </View>
                     </View>
-                    <View style={{flexDirection:'row'}}>
-                        <View style={{flex:1,height:2,backgroundColor:'#FF6382'}}></View>
-                        <View style={{flex:1,height:2,backgroundColor:'#3080DD'}}></View>
-                        <View style={{flex:1,height:2,backgroundColor:'#FACD28'}}></View>
-                        <View style={{flex:1,height:2,backgroundColor:'#17D1D0'}}></View>
-                    </View>
+
                     <View style={{flex:1}}>
                         <ListView
                             initialListSize={14}
@@ -160,6 +156,7 @@ export default class OrderPage extends Component {
             </View>
         )
     }
+
     renderLoadingView() {
         return (
             <View style={{flex:1}}>
@@ -170,6 +167,7 @@ export default class OrderPage extends Component {
             </View>
         );
     }
+
     renderGList(gList) {
         var _textLength = function (text) {
             var rtnText = "";

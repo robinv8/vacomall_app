@@ -18,14 +18,12 @@ import API from '../util/api';
 import * as Random from '../util/random';
 import * as NetService from '../util/NetService';
 import MD5 from '../util/md5.min';
+import * as ChongZhi from '../ChongZhiPage';
 const appid = 'wx0ccd9f577013dab0';
 
 export function registerApp() {
     WeChat.registerApp(appid,(err,registerOK) => {
         //Toast.show(registerOK + '');
-    });
-    WeChat.openWXApp((err,res) => {
-
     });
 }
 
@@ -61,7 +59,9 @@ export function order(id) {
             timeStamp: timeStamp.toString(),
             sign: sign
         };
-        Toast.show('开始充值');
+        ChongZhi.parentThis.setState({
+            loadding: null
+        });
         WeChat.weChatPay(payOptions,(err,sendReqOK) => {
             getpayinfo(id);
         });

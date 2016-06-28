@@ -71,7 +71,7 @@ export default class Header extends Component {
                             <Image source={require('../../images/black_cart.png')} style={styles.scanIcon}/>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={()=>this.toCart()}>
+                    <TouchableWithoutFeedback onPress={()=>{}}>
                         <View style={{flexDirection:'row',alignItems: 'center',justifyContent: 'center', marginRight:15}}>
                             <Image source={require('../../images/more_icon.png')} style={styles.moreIcon}/>
                         </View>

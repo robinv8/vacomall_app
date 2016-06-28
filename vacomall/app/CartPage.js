@@ -45,55 +45,67 @@ export default class CartPage extends Component {
                     <Text style={{fontSize:14,color:'white'}}>去结算</Text>
                 </View>
             </TouchableWithoutFeedback>,
-            editdata: null
+            editdata: null,
+            refreshing: false
 
         }
     }
 
+    componentWillReceiveProps() {
+        this.componentWillMount(()=> {
+            this._editsubmit();
+        })
+    }
 
-    componentDidMount() {
+
+    componentWillMount(callback) {
         cartThis = [];
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows([])
         });
-        NetService.postFetchData(API.GETCART, '', (result)=>this._callback(result));
-    }
-
-    _callback(result) {
-        if (result['success'] === false) {
-            Toast.show(result['result']['message']);
-            if (result['result']['code'] === 303) {
-                const {navigator}=this.props;
-                if (navigator) {
-                    navigator.push({
-                        component: Login,
-                        sceneConfig: Navigator.SceneConfigs.FadeAndroid
+        NetService.postFetchData(API.GETCART, '', (result)=> {
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    const {navigator}=this.props;
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                        })
+                    }
+                    this.setState({
+                        refreshing: true
                     })
                 }
-            }
-            return;
-        } else {
-            result = result['result'];
-            if (result['cartList'].length !== 0) {
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(result['cartList']),
-                    loaded: true,
-                    isNull: true,
-                    gList: result['cartList'],
-                    price: result['cartTotalMoney']
-                })
+                return;
             } else {
-                this.setState({
-                    loaded: true,
-                });
-                NetService.getFetchData(API.GUESS, (result)=> {
-                    this.setState({
-                        dataSource1: this.state.dataSource1.cloneWithRows(result)
-                    });
-                });
-            }
-        }
+                result = result['result'];
+                if (result['cartList'].length !== 0) {
 
+                    this.setState({
+                        dataSource: this.state.dataSource.cloneWithRows(result['cartList']),
+                        loaded: true,
+                        isNull: true,
+                        gList: result['cartList'],
+                        price: result['cartTotalMoney']
+                    });
+                    if (callback !== undefined) {
+                        callback();
+                    }
+                } else {
+                    this.setState({
+                        loaded: true,
+                        isNull: false
+                    });
+                    NetService.getFetchData(API.GUESS, (result)=> {
+                        this.setState({
+                            dataSource1: this.state.dataSource1.cloneWithRows(result)
+                        });
+                    });
+                }
+            }
+        });
     }
 
     _checked() {
@@ -144,7 +156,7 @@ export default class CartPage extends Component {
              })*/
             _this.setState({
                 checkedImg: require('../images/check_icon.png'),
-                checked: true,
+                checked: false,
                 editdata: <TouchableWithoutFeedback onPress={()=>this._checked()}>
                     <View
                         style={{flexDirection:'row',alignItems:'center',height:40,paddingLeft:10,paddingRight:42}}>
@@ -179,34 +191,6 @@ export default class CartPage extends Component {
         }
     }
 
-    isNull() {
-        return (
-            <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}>
-                <CartHeader navigator={this.props.navigator} id={this.props.id} tab={this.props.tab}/>
-                <View
-                    style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',height:350,marginTop:11}}>
-                    <View style={{flexDirection:'row',alignItems: 'center',}}>
-                        <Image source={require('../images/white_cart.png')}
-                               style={{width: 30,height:26,marginRight:15}}/><Text
-                        style={{color:'#3C3C3C'}}>购物车是空的,您可以</Text>
-                    </View>
-                    <View
-                        style={{backgroundColor: '#FF9700',width:88,height:28,borderRadius:5,justifyContent: 'center',alignItems: 'center',marginTop:22}}>
-                        <Text style={{color:'white'}}>随便逛逛</Text>
-                    </View>
-                </View>
-                <View
-                    style={styles.cnxh_view}>
-                    <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}/>
-                </View>
-                <ListView
-                    dataSource={this.state.dataSource1}
-                    renderRow={(gList)=>this.renderGList1(gList)}
-                    contentContainerStyle={styles.listview}/>
-
-            </ScrollView>
-        );
-    }
 
     //boundary line
     _renderBound() {
@@ -309,7 +293,11 @@ export default class CartPage extends Component {
             _cartThis.setState({
                 opacity: 0
             })
-        })
+        });
+        if (!this.state.checked) {
+            return;
+        }
+        this._checked();
     }
 
     _deletCate() {
@@ -322,14 +310,17 @@ export default class CartPage extends Component {
         });
         if (flag) {
             ids = ids.substring(0, ids.length - 1);
+            //let _this=this;
             NetService.postFetchData(API.DELETECART, 'id=' + ids, (result)=> {
                 if (result['success'] === false) {
                     Toast.show(result['result']['message']);
                     return;
                 }
                 Toast.show(result['result']['message']);
-                this.componentDidMount();
-                this._edit();
+                this.componentWillMount(()=> {
+                    this._edit()
+                });
+
             });
         } else {
             Toast.show('请选择要删除的商品!');
@@ -346,7 +337,7 @@ export default class CartPage extends Component {
         return (
             <View style={{flex:1,backgroundColor:'#f4f4f4'}}>
                 <CartHeader navigator={this.props.navigator} _edit={()=>this._edit()}
-                            _editsubmit={()=>this._editsubmit()} tab={this.props.tab}/>
+                            _editsubmit={()=>this._editsubmit()} tab={this.props.tab} topEvent={true}/>
                 <ScrollView
                     scrollsToTop={true}
                     removeClippedSubviews={true}>
@@ -362,7 +353,7 @@ export default class CartPage extends Component {
                     <ListView
                         style={{backgroundColor:'white'}}
                         dataSource={this.state.dataSource}
-                        enableEmptySections = {true}
+                        enableEmptySections={true}
                         renderRow={(gList)=>this.renderGList(gList)}
                     />
                     <View
@@ -409,6 +400,34 @@ export default class CartPage extends Component {
         );
     }
 
+    isNull() {
+        return (
+            <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}>
+                <CartHeader navigator={this.props.navigator} id={this.props.id} tab={this.props.tab} topEvent={false}/>
+                <View
+                    style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',height:350,marginTop:11}}>
+                    <View style={{flexDirection:'row',alignItems: 'center',}}>
+                        <Image source={require('../images/white_cart.png')}
+                               style={{width: 30,height:26,marginRight:15}}/><Text
+                        style={{color:'#3C3C3C'}}>购物车是空的,您可以</Text>
+                    </View>
+                    <View
+                        style={{backgroundColor: '#FF9700',width:88,height:28,borderRadius:5,justifyContent: 'center',alignItems: 'center',marginTop:22}}>
+                        <Text style={{color:'white'}}>随便逛逛</Text>
+                    </View>
+                </View>
+                <View
+                    style={styles.cnxh_view}>
+                    <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}/>
+                </View>
+                <ListView
+                    dataSource={this.state.dataSource1}
+                    renderRow={(gList)=>this.renderGList1(gList)}
+                    contentContainerStyle={styles.listview}/>
+
+            </ScrollView>
+        );
+    }
 
     renderGList(gList) {
         var _textLength = function (text) {
@@ -507,8 +526,10 @@ class CartList extends Component {
                                    style={{height:82,width:82,resizeMode:'stretch'}}/>
                         </View>
                         <View style={{flex:4,marginLeft:10}}>
-                            <Text style={{color:'#898989',fontSize:14,height:63}}>{this.props.gList['name']}</Text>
-                            <Text style={{color:'#C8C8C8',fontSize:12}}>规格:{this.props.gList['skuSpecification']}</Text>
+                            <Text
+                                style={{color:'#898989',fontSize:14,height:63}}>{this.props.gList['name'].substring(0, 50)}</Text>
+                            <Text
+                                style={{color:'#C8C8C8',fontSize:12}}>规格:{this.props.gList['skuSpecification'].substring(0, 30)}</Text>
                         </View>
                     </View>
 

@@ -13,7 +13,7 @@ import React,{
 }from 'react-native';
 
 
-import {MainScreen,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage} from './app/util/Path';
+import {MainScreen,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage,CartPage,OrderPage} from './app/util/Path';
 
 export default class MainPage extends Component {
     componentDidMount() {

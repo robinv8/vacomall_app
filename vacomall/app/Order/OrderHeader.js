@@ -14,8 +14,6 @@ import React, {
     TouchableWithoutFeedback,
     Navigator
 }from 'react-native';
-import CartPage from '../CartPage'
-var PPI = PixelRatio.get();
 export default class Header extends Component {
     _back() {
         const {navigator}=this.props;
@@ -23,32 +21,23 @@ export default class Header extends Component {
             navigator.pop()
         }
     }
-    _edit() {
-        var _this=this;
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.replace({
-                component: CartPage,
-                params: {id: _this.props.id}
-            })
-        }
-    }
+
     render() {
         return (
             <View style={styles.container}>
                 <StatusBar
-                    barStyle="light-content"
+                    barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this._back()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                        <Image source={require('../../images/login/login_back.png')}
+                        <Image source={require('../../images/back_icon.png')}
                                style={styles.backIcon}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
-                    <Text style={{color: 'white',fontSize: 20}}>确定订单</Text>
+                    <Text style={{color: '#3C3C3C',fontSize: 18}}>确认订单</Text>
                 </View>
-                <TouchableWithoutFeedback onPress={()=>this._edit()}>
+                <TouchableWithoutFeedback onPress={()=>{}}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
 
                     </View>
@@ -61,9 +50,12 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 134 / PPI : 50,
-        backgroundColor: '#14A83B',
+        height:Platform.OS === 'ios' ? 64 : 40,
+        backgroundColor: '#FAFAFA',
         alignItems: 'center',
+        borderBottomWidth:0.5,
+        borderBottomColor:'#B2B2B2',
+        justifyContent:'center'
     },
     logo: {
         height: 25,

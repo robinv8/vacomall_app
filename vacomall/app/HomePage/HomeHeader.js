@@ -15,7 +15,7 @@ import React, {
     Alert,
     Dimensions
 }from 'react-native';
-import {API,NetService,CategoryList,Login,CartPage,ListPage,SearchPage} from '../util/Path';
+import {API,NetService,CategoryList,Login,CartPage,ListPage,SearchPage,Toast} from '../util/Path';
 
 export default class HomeHeader extends Component {
     // 构造
@@ -77,15 +77,14 @@ export default class HomeHeader extends Component {
         };
         function _callback(result) {
             if (result['success'] === false) {
-                ToastAndroid.show(result['result']['message'], ToastAndroid.SHORT);
+                Toast.show(result['result']['message']);
                 return;
             }
-            ToastAndroid.show('退出成功!', ToastAndroid.SHORT);
+            Toast.show('退出成功!');
             if (navigator) {
-                navigator.replace({
+                navigator.push({
                     component: Login,
-                    sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                    params: {page: 'HomePage'}
+                    sceneConfig: Navigator.SceneConfigs.FadeAndroid
                 })
             }
         }

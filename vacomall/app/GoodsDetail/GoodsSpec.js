@@ -32,6 +32,7 @@ export default class GoodsSpec extends Component {
 
     componentDidMount() {
         detailThis = this.props._this2;
+
         detailThis.props._this1.setState({
             specs: <Shade _this3={this}/>
         });
@@ -56,7 +57,7 @@ export default class GoodsSpec extends Component {
         );
     };
 }
-class Shade extends Component {
+export class Shade extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -67,24 +68,30 @@ class Shade extends Component {
             specifications: null,
             num: '1',
             store: '0',
-            id:null,
-            SkuSpecification:null,
-            shadeTop:Dimensions.get('window').height
+            id: null,
+            SkuSpecification: null,
+            shadeTop: Dimensions.get('window').height
         };
         this._specSelect = this._specSelect.bind(this);
     }
+
     _shade() {
         this.setState({
-            shadeTop:0
+            shadeTop: 0
         });
         Animated.timing(this.state.bottom, {
             toValue: Platform.OS === 'ios' ? 0 : 25,// 将其值以动画的形式改到一个较小值
             decay: 0.1,
         }).start();
     }
+
     componentDidMount() {
-        shadeThis=this;
-        //seacVueObj = [], specification = {}, secp = null;
+        shadeThis = this;
+        console.log(shadeThis);
+        this.props._this3.props._this2.setState({
+            shadeThis:shadeThis
+        });
+        seacVueObj = [], specification = {}, secp = null;
         specification = detailThis.state.resultData['allGoods'];
         var specifications = detailThis.state.resultData['specifications']
         this.setSpecifications(specifications);
@@ -97,9 +104,8 @@ class Shade extends Component {
             decay: 0.3,
         }).start(function () {
             _this.setState({
-                shadeTop:Dimensions.get('window').height
+                shadeTop: Dimensions.get('window').height
             });
-            secp = null, seacVueObj = [], specification = {};;
         })
     }
 
@@ -151,19 +157,18 @@ class Shade extends Component {
     }
 
     _specSelect(obj) {
-        console.log(obj)
         if (obj !== undefined) {
             this.setState({
                 price: obj['GoodsSalePrice'],
                 id: obj['Id'],
                 store: obj['GoodsStore'],
-                SkuSpecification:obj['SkuSpecification']
+                SkuSpecification: obj['SkuSpecification']
             });
             this.props._this3.setState({
-                spec:'已选:"'+obj['SkuSpecification']+'"'
+                spec: '已选:"' + obj['SkuSpecification'] + '"'
             });
             detailThis.setState({
-                id:obj['Id']
+                id: obj['Id']
             })
         }
     }
@@ -191,6 +196,7 @@ class Shade extends Component {
             NetService.postFetchData(API.ADDCART, 'id=' + this.state.id + '&buySum=' + this.state.num, (result)=>this._callback1(result));
         }
     }
+
     _callback1(result) {
         this.setState({
             btnStatus: true
@@ -209,17 +215,27 @@ class Shade extends Component {
             }
             return;
         }
-        result=result['result'];
+        result = result['result'];
         Toast.show(result['message']);
-        /*seacVueObj.map(function (_this) {
+        seacVueObj.map(function (_this) {
             _this.setState({
-                specColor: '#C3C3C3'
+                specColor: '#E9E9EA',
+                specVueTextColor: '#898989'
             });
         });
-
-        seacVueObj = [], this.state.id = null;*/
+        this.setState({
+            id:null,
+            num:'1'
+        });
+        this.props._this3.setState({
+            spec: '选择规格'
+        });
+        detailThis.setState({
+            id: null
+        });
         this.cancelshade();
     }
+
     render() {
         return (
             <View style={[styles.drawer,{top:this.state.shadeTop}]}>
@@ -229,33 +245,35 @@ class Shade extends Component {
                 <Animated.View
                     style={[styles.animate_view,{bottom:this.state.bottom}]}>
                     <View style={[styles.info_view]}>
-                        <View style={styles.info_view1}>
-                            <View
-                                style={{borderBottomWidth: 0.5,borderBottomColor: '#E7E7E7',flex:1, paddingLeft: 130,justifyContent: 'flex-end',paddingBottom: 16,marginRight: 10,marginLeft:10}}>
-                                <View style={{position:'relative'}}>
-                                    <Text
-                                        style={{marginTop:21,color:'#3C3C3C',marginBottom:5}}>{detailThis.state.resultData['details']['GoodsItemTitle'].substring(0, 24)}</Text>
+                        <View style={[styles.info_view1]}>
+                            <View style={styles.info_viewText}>
+                                <View style={{flex:5,height:90}}>
+                                    <View>
+                                        <Text
+                                            style={{marginTop:21,color:'#3C3C3C',marginBottom:5}}>{detailThis.state.resultData['details']['GoodsItemTitle'].substring(0, 24)}</Text>
+                                    </View>
+                                    <View style={{flexDirection:'row'}}>
+                                        <View style={styles.price_con}>
+                                            <Text style={[styles.price,{fontSize:16,marginTop:0}]}>￥</Text>
+                                            <Text
+                                                style={[styles.price,{fontSize: 20,marginTop:-4}]}>{detailThis.state.resultData['details']['GoodsItemSalePrice']}</Text>
+                                        </View>
+                                        <View style={styles.price_con}>
+                                            <Text
+                                                style={[styles.bef_text,styles.bef_price]}>市场价￥{detailThis.state.resultData['details']['GoodsItemTagPrice']}</Text>
+                                        </View>
+                                    </View>
                                 </View>
-                                <View style={{flexDirection:'row'}}>
-                                    <View style={styles.price_con}>
-                                        <Text style={[styles.price,{fontSize:16,marginTop:0}]}>￥</Text>
-                                        <Text
-                                            style={[styles.price,{fontSize: 20,marginTop:-4}]}>{detailThis.state.resultData['details']['GoodsItemSalePrice']}</Text>
-                                    </View>
-                                    <View style={styles.price_con}>
-                                        <Text
-                                            style={[styles.bef_text,styles.bef_price]}>市场价￥{detailThis.state.resultData['details']['GoodsItemTagPrice']}</Text>
-                                    </View>
+                                <View
+                                    style={{flex:1}}>
                                 </View>
                             </View>
                         </View>
-
                         <View style={{flex:1,marginBottom:10,marginLeft:10,position:'relative'}}>
                             <Image source={{uri:detailThis.state.resultData['images'][0]['ImagePath']}}
                                    style={styles.shade_img}/>
                         </View>
-                        <View
-                            style={{alignItems:'flex-end',position:'absolute',right:0,top:0,marginTop:10}}>
+                        <View style={{position:'absolute',top:30,right:0}}>
                             <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
                                 <Image source={require('../../images/close_icon.png')}
                                        style={{width:20,height:20,marginTop:5,marginRight:6}}/>
@@ -394,10 +412,21 @@ const styles = StyleSheet.create({
         height: 129,
     },
     info_view1: {
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255,255,255,1)',
         position: 'absolute',
         bottom: 0,
         width: Dimensions.get('window').width,
+    },
+    info_viewText: {
+        flexDirection: 'row',
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#E7E7E7',
+        flex: 1,
+        paddingLeft: 130,
+        justifyContent: 'flex-end',
+        paddingBottom: 16,
+        marginLeft: 10,
+        position:'relative'
     },
     spec: {
         color: '#3C3C3C'

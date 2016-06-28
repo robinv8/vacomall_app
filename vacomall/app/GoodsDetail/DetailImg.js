@@ -17,9 +17,9 @@ import React,{
     Navigator,
     RefreshControl,ListView
 }from 'react-native';
-import {API,NetService,md5,Login,HtmlRender} from '../util/Path';
+import {API,NetService,md5,Login,HtmlRender,GoodsDetail} from '../util/Path';
 let listFlag = 0;
-export default class GoodsDetail extends Component {
+export default class DetailImg extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -108,16 +108,7 @@ export default class GoodsDetail extends Component {
     render() {
         return (
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
-                <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}
-                            refreshControl={
-                              <RefreshControl
-                                onRefresh={()=>this.toDetail()}
-                                colors={['#ff0000', '#00ff00', '#0000ff','#3ad564']}
-                                progressBackgroundColor="#ffffff"
-                                title={'释放,返回商品详情'}
-                              />
-                            }
-                >
+                <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}>
                     <HtmlRender
                         value={this.props.webImgData}
                         stylesheet={styles}

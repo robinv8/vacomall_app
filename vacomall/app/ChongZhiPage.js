@@ -12,10 +12,11 @@ import React,
     TextInput,
     TouchableWithoutFeedback,
     Image,
+    Dimensions
 }from 'react-native';
 import {Flow,HuaFei,ScrollableTabView,DefaultTabBar,API,NetService} from './util/Path';
 
-export let mobile=null;
+export let mobile=null,parentThis;
 
 export default class ChongZhiPage extends Component {
     // 构造
@@ -26,12 +27,14 @@ export default class ChongZhiPage extends Component {
             clear: null,
             text: null,
             HuaFei: [],
-            Flow: []
+            Flow: [],
+            loadding:null
         };
     }
 
     componentDidMount() {
         let _this=this;
+        parentThis=this;
         NetService.getFetchData(API.HOME + '?keys=CZ_HF,CZ_LL', (result)=> {
             this.setState({
                 HuaFei: <HuaFei tabLabel="话费" navigator={_this.props.navigator} hfData={result['CZ_HF']}/>,
@@ -44,7 +47,8 @@ export default class ChongZhiPage extends Component {
         this.setState({
             text: '',
             clear: null
-        })
+        });
+        mobile=null;
     }
 
     _onChange(text) {
@@ -59,9 +63,10 @@ export default class ChongZhiPage extends Component {
             mobile=text;
         } else {
             this.setState({
-                text: '',
+                text: null,
                 clear: null,
-            })
+            });
+            mobile=null;
         }
 
     }
@@ -102,6 +107,7 @@ export default class ChongZhiPage extends Component {
                         {this.state.Flow}
                     </ScrollableTabView>
                 </View>
+                {this.state.loadding}
             </View>
         );
     }
