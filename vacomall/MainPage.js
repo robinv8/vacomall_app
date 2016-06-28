@@ -22,8 +22,8 @@ export default class MainPage extends Component {
     }
 
     render() {
-        let defaultName = 'MainScreen';
-        let defaultComponent = MainScreen;
+        let defaultName = 'OrderPage';
+        let defaultComponent = OrderPage;
         return (
             <View style={{flex:1}}>
                 <StatusBar
