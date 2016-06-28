@@ -49,6 +49,7 @@ export default class HomePage extends Component {
         if (Platform.OS === 'android') {
             BackAndroid.removeEventListener('hardwareBackPress', ()=>this.onBackAndroid());
         }
+        clearInterval(this.timer);
     }
 
     onBackAndroid() {

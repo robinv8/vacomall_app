@@ -17,7 +17,7 @@ import React, {
     ToastAndroid,
     Navigator
 }from 'react-native'
-import {CartHeader,Login,API,NetService,Toast,OrderPage,GoodsDetail,ListViewRowEdit} from './util/Path';
+import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit} from './util/Path';
 
 let cartThis = [], listFlag = 0;
 export default class CartPage extends Component {
@@ -52,13 +52,22 @@ export default class CartPage extends Component {
     }
 
     componentWillReceiveProps() {
-        this.componentWillMount(()=> {
-            this._editsubmit();
+        this.setState({
+            refreshing:this.props.active
         })
+       if (this.state.refreshing) {
+            this.componentWillMount(()=> {
+                this._editsubmit();
+            });
+        }
+        //this.props.active=false;
     }
 
 
     componentWillMount(callback) {
+        this.setState({
+            refreshing:false
+        })
         cartThis = [];
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows([])
@@ -195,7 +204,7 @@ export default class CartPage extends Component {
     //boundary line
     _renderBound() {
         return (
-            <View style={{height: 1, backgroundColor: 'silver'}}></View>
+            <View style={{height: 1, backgroundColor: 'silver'}}/>
         )
     }
 
@@ -533,7 +542,7 @@ class CartList extends Component {
                         </View>
                     </View>
 
-                    <View style={{flex:1,alignItems:'flex-end',paddingRight:2}}>
+                    <View style={{flex:2,alignItems:'flex-end',paddingRight:2}}>
                         <View style={{height:60}}>
                             <Text style={{color:'#FF0200',fontSize:12}}>￥<Text
                                 style={{fontSize:18}}>{this.props.gList['price']}</Text></Text>
@@ -550,7 +559,8 @@ class CartList extends Component {
 const styles = StyleSheet.create({
     goods_view: {
         backgroundColor: 'white',
-        height: 115
+        height: 115,
+        flex:1
     },
     sty: {
         flexDirection: 'row',

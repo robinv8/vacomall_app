@@ -34,7 +34,8 @@ export default class MainScreen extends Component {
         // 初始状态
         this.state = {
             selectedTab: HOME,
-            navigator: null
+            navigator: null,
+            active:null
         };
     }
 
@@ -44,7 +45,7 @@ export default class MainScreen extends Component {
                 selected={this.state.selectedTab === tag}
                 renderIcon={() => <Image style={styles.tabIcon} source={img}/>}
                 renderSelectedIcon={() => <Image style={styles.tabIcon} source={selectedImg}/>}
-                onPress={() => this.setState({ selectedTab: tag })}
+                onPress={() => this.setState({ selectedTab: tag ,active:true})}
                 >
                 {childView}
             </TabNavigator.Item>
@@ -64,7 +65,7 @@ export default class MainScreen extends Component {
                 <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} style={{backgroundColor:'rgba(255,255,255,0)'}}>
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}/>)}
                     {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage navigator={this.props.navigator}/>)}
-                    {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator} tab={true}/>)}
+                    {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator} tab={true} active={this.state.active}/>)}
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person navigator={this.props.navigator}/>)}
                 </TabNavigator>
             </View >
