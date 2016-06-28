@@ -50,8 +50,8 @@ import OrderAll from '../OrderDetail/OrderAll'
 /*---充值---*/
 import ChongZhiPage from '../ChongZhiPage';
 import * as ChongZhi from '../ChongZhiPage';
-import Flow from '../ChongZhi/Flow';
-import HuaFei from '../ChongZhi/HuaFei';
+import Flow from '../chongzhi/Flow';
+import HuaFei from '../chongzhi/HuaFei';
 
 /*---支付---*/
 import PaySuccess from '../Pay/PaySuccess';
