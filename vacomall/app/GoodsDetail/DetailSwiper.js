@@ -26,7 +26,7 @@ export default class DetailSwiper extends Component{
         var imagesArray = []
         images.forEach(function (data, index) {
             imagesArray.push(<View style={styles.wrapper} key={index}>
-                <Image style={styles.slide} source={{uri:data['ImagePath']+"@h_600"}}></Image>
+                <Image style={styles.slide} source={{uri:data['ImagePath']+"@h_500"}}></Image>
             </View>)
         });
         if(imagesArray.length===1){

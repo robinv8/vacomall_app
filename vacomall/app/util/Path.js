@@ -55,6 +55,7 @@ import HuaFei from '../chongzhi/HuaFei';
 
 /*---支付---*/
 import PaySuccess from '../Pay/PaySuccess';
+import PayHDFK from '../Pay/PayHDFK';
 import PayError from '../Pay/PayError';
 /*---个人中心---*/
 import Person from '../Person';
@@ -71,10 +72,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import Reactotron from 'reactotron';
 import ListViewRowEdit from 'react-native-listview-row-edit';
 import ScrollableTabView,{DefaultTabBar}  from 'react-native-scrollable-tab-view';
-
+import WeChatIos from 'react-native-wechat-ios';
+import WeChatAndroid from 'react-native-wechat-android';
 /*---自定义工具类---*/
 import API from './api';
 import * as NetService from './NetService';
+import * as Random from './random';
 import md5 from './md5.min';
 import * as WeChatPayIos from './WeChatPayIos';
 import * as WeChatPayAndroid from './WeChatPayAndroid';
@@ -129,5 +132,9 @@ export {
     OrderAll,
     PaySuccess,
     PayError,
-    OrderHeader
+    OrderHeader,
+    PayHDFK,
+    WeChatAndroid,
+    WeChatIos,
+    Random
 };

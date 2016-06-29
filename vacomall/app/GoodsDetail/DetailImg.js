@@ -99,7 +99,7 @@ export default class DetailImg extends Component {
     toDetails(id) {
         const {navigator}=this.props;
         if (navigator) {
-            navigator.push({
+            navigator.replace({
                 component: GoodsDetail,
                 params: {id: id}
             })

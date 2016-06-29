@@ -38,43 +38,50 @@ export function isWXAppInstalled(callback){
     );
 }
 
-export function order(id) {
+export function order(id,module) {
     /!*获取首页基本数据*!/
-   NetService.postFetchData(API.ORDER, 'orderId='+id, (result)=>_callback(result));
-    function _callback(result) {
-        var result = result['result']['response'];
-        const random = Random.generateMixed(16);
-        const timeStamp = parseInt(new Date().getTime() / 1000 - 30);
-        var stringA = "appid=" + result['appid'] + "&noncestr=" + random + "&package=Sign=WXPay&partnerid=" + result['mch_id'] + "&prepayid=" + result['prepay_id'] + "&timestamp=" + timeStamp;
-        console.log(stringA)
-        stringSignTemp = stringA + "&key=e10884523bd29da9edbf941cb15eef5d";
-        console.log(stringSignTemp);
-        var sign = MD5(stringSignTemp).toUpperCase();
-        let payOptions = {
-            appId: result['appid'],
-            nonceStr: random,
-            partnerId: result['mch_id'],
-            packageValue: 'Sign=WXPay',
-            prepayId: result['prepay_id'],
-            timeStamp: timeStamp.toString(),
-            sign: sign
-        };
-        ChongZhi.parentThis.setState({
-            loadding: null
-        });
-        WeChat.weChatPay(payOptions,(err,sendReqOK) => {
+   NetService.postFetchData(API.ORDER, 'orderId='+id, (result)=>{
+       if(!result['success']){
+           Toast.show(result['message']);
+           return;
+       }
+       var result = result['result']['response'];
+       const random = Random.generateMixed(16);
+       const timeStamp = parseInt(new Date().getTime() / 1000 - 30);
+       var stringA = "appid=" + result['appid'] + "&noncestr=" + random + "&package=Sign=WXPay&partnerid=" + result['mch_id'] + "&prepayid=" + result['prepay_id'] + "&timestamp=" + timeStamp;
+       console.log(stringA)
+       stringSignTemp = stringA + "&key=e10884523bd29da9edbf941cb15eef5d";
+       console.log(stringSignTemp);
+       var sign = MD5(stringSignTemp).toUpperCase();
+       let payOptions = {
+           appId: result['appid'],
+           nonceStr: random,
+           partnerId: result['mch_id'],
+           packageValue: 'Sign=WXPay',
+           prepayId: result['prepay_id'],
+           timeStamp: timeStamp.toString(),
+           sign: sign
+       };
+       if(module==='chongzhi'){
+           ChongZhi.parentThis.setState({
+               loadding: null
+           });
+       }
+
+       WeChat.weChatPay(payOptions,(err,sendReqOK) => {
+           //getpayinfo(id);
+           console.log(sendReqOK)
+       });
+       DeviceEventEmitter.addListener('finishedPay', function (event) {
+           var success = event.success;
+           ToastAndroid.show(JSON.stringify(event))
+           /*if(success){
             getpayinfo(id);
-        });
-        /*DeviceEventEmitter.addListener('finishedPay',function(event){
-            var success = event.success;
-            ToastAndroid.show(JSON.stringify(event))
-            /!*if(success){
-                getpayinfo(id);
             }else{
-                ToastAndroid.show('支付失败',ToastAndroid.SHORT);
-            }*!/
-        });*/
-    }
+            ToastAndroid.show('支付失败',ToastAndroid.SHORT);
+            }*/
+       });
+   });
 }
 function getpayinfo(id){
     setTimeout(function () {

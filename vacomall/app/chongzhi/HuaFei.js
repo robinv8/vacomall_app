@@ -13,7 +13,6 @@ import React,{
     Navigator,
     Platform,
     ScrollView,
-
 }from 'react-native';
 import {LinearGradient,Toast,Login,API,NetService,WeChatPayIos,WeChatPayAndroid,ChongZhi} from '../util/Path';
 
@@ -84,9 +83,21 @@ export default class HuaFei extends Component {
             Toast.show('手机号码不正确!');
             return;
         }
+        ChongZhi.parentThis.setState({
+            loadding: <View
+                style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
+                <View
+                    style={{width:200,height:140,backgroundColor:'rgba(0,0,0,0.5)',borderRadius:5,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'white'}}>正在加载,请等候……</Text>
+                </View>
+            </View>
+        });
         NetService.postFetchData(API.SUBMITCZ, 'phone=' + mobile + '&target=' + beforeThis.state.Target, (result)=> {
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
+                ChongZhi.parentThis.setState({
+                    loadding: null
+                });
                 const {navigator}=this.props;
                 if (result['result']['code'] === 303) {
                     if (navigator) {
@@ -100,7 +111,7 @@ export default class HuaFei extends Component {
             }
 
             //this.order(result['Id'])
-            WeChatPay.order(result['result']['OutTradeId']);
+            WeChatPay.order(result['result']['OutTradeId'],'chongzhi');
         });
     }
 

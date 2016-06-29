@@ -14,11 +14,12 @@ import React, {
     ScrollView,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    Navigator, TextInput
+    Navigator, TextInput,
+    Platform
 }from 'react-native';
-import {OrderHeader, API, NetService, Toast} from './util/Path'
+import {OrderHeader, API, NetService, Toast,PaySuccess,WeChatPayAndroid,WeChatPayIos} from './util/Path'
 
-var cartThis = [];
+let cartThis = [],WeChatPay;;
 export default class OrderPage extends Component {
     // 构造
     constructor(props) {
@@ -34,31 +35,32 @@ export default class OrderPage extends Component {
             address: "",
             money: "",
             num: "",
-            flag: true
+            flag: true,
+            wx:<Image source={require('../images/check_icon.png')}
+                      style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+            hdfk:<Image source={require('../images/check_icon.png')}
+                        style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+            orderPayId:null,
+            text:'',
+            loadding:null
         };
     }
 
     componentDidMount() {
-        var _this = this;
-        setTimeout(function () {
-            NetService.postFetchData(API.CONFIRM, '', (result)=>_this._callback(result));
-        }, 400)
+        if(Platform.OS==='ios'){
+            WeChatPay=WeChatPayIos;
+        }else{
+            WeChatPay=WeChatPayAndroid;
+        }
+        WeChatPay.registerApp();//注册微信
+        setTimeout(()=>{
+            NetService.postFetchData(API.CONFIRM, '', (result)=>this._callback(result));
+        },500);
+        this.checkpay('wx','d3d74b12b76045adaf86dd20cee00574');
     }
 
     componentDidUnMount() {
         cartThis = [];
-        this.setState({
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2)=>row1 !== row2,
-            }),
-            loaded: false,
-            name: "",
-            mobile: "",
-            address: "",
-            money: "",
-            num: "",
-            flag: true
-        });
     }
 
     _callback(result) {
@@ -75,7 +77,7 @@ export default class OrderPage extends Component {
             money: result['cartTotalMoney'],
             num: result['cartList'].length
         });
-        if (result.length !== 0) {
+        if (result['cartList'].length !== 0) {
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(result['cartList']),
                 loaded: true,
@@ -88,9 +90,39 @@ export default class OrderPage extends Component {
     }
 
     _toSubmit() {
-        const {navigator}=this.props;
+       let orderPayId=this.state.orderPayId
+        if(orderPayId===null){
+            Toast.show('请选择支付类型!');
+            return;
+        }
 
-        function _callback(result) {
+        this.setState({
+            loadding: <View
+                style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
+                <View
+                    style={{width:200,height:140,backgroundColor:'rgba(0,0,0,0.5)',borderRadius:5,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'white'}}>正在加载,请等候……</Text>
+                </View>
+            </View>
+        });
+        NetService.postFetchData(API.SUBMIT, 'orderPayId='+orderPayId+'&orderRemark='+this.state.text,(result)=>{
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                const {navigator}=this.props;
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+            WeChatPay.order(result['result']['OutTradeId'],this);
+        });
+        /*const {navigator}=this.props;
+        NetService.postFetchData(API.SUBMIT, '',()=>{
             if (this.state.flag) {
                 this.state.flag = false;
                 if (result['success'] === false) {
@@ -111,11 +143,35 @@ export default class OrderPage extends Component {
                     })
                 }
             }
-        }
-
-        NetService.postFetchData(API.SUBMIT, '', _callback.bind(this));
+        });*/
     }
-
+    checkpay(paystyle,orderPayId){
+        switch (paystyle){
+            case 'wx':
+                this.setState({
+                    wx:<Image source={require('../images/checked_icon.png')}
+                              style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    hdfk:<Image source={require('../images/check_icon.png')}
+                                style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    orderPayId:orderPayId
+                });
+                break;
+            case 'hdfk':
+                this.setState({
+                    wx:<Image source={require('../images/check_icon.png')}
+                              style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    hdfk:<Image source={require('../images/checked_icon.png')}
+                                style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    orderPayId:orderPayId
+                });
+                break;
+        }
+    }
+    _onChange(text) {
+        this.setState({
+            text: text
+        })
+    }
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -153,7 +209,7 @@ export default class OrderPage extends Component {
                             style={{marginTop:12}}
                         />
                         <View
-                            style={{flex:1,height:194,backgroundColor:'white',marginTop:11,paddingLeft:10,paddingRight:10}}>
+                            style={{flex:1,backgroundColor:'white',marginTop:11,paddingLeft:10,paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
                             <View style={styles.ordernews}>
                                 <View style={{flex:1}}>
                                     <Text style={{color:'#3C3C3C'}}>保障服务</Text>
@@ -178,12 +234,13 @@ export default class OrderPage extends Component {
                                     <TextInput
                                         placeholder='选填,可填写您需要的备注信息'
                                         placeholderTextColor={'#BFBFBF'}
+                                        onChangeText={(text)=>this._onChange(text)}
+                                        value={this.state.text}
                                         style={{height:47,paddingLeft:14,fontSize:14}}
                                     />
                                 </View>
                             </View>
-                            <View style={[styles.ordernews,{justifyContent:'flex-end'}]}>
-
+                            <View style={[styles.ordernews,{justifyContent:'flex-end',borderBottomWidth:0}]}>
                                 <View style={{flexDirection:'row'}}>
                                     <Text style={{fontSize:12,marginTop:5}}>共计:</Text>
                                     <Text style={[styles.price,{marginTop:5}]}>￥</Text>
@@ -192,12 +249,45 @@ export default class OrderPage extends Component {
                                 </View>
                             </View>
                         </View>
+                        <View style={{flex:1,backgroundColor:'white',marginTop:11,paddingLeft:10,paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
+                            <View style={[styles.ordernews,{height:38}]}>
+                                <View style={{flex:1}}>
+                                    <Text style={{color:'#3C3C3C'}}>选择付款方式</Text>
+                                </View>
+                            </View>
+                            <View style={[styles.ordernews,{height:57}]}>
+                                <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
+                                    <Image source={require('../images/wechat_icon.png')}
+                                           style={{width:25,height: 25,resizeMode: 'stretch',marginRight:10}}
+                                    />
+                                    <Text>微信支付</Text>
+                                </View>
+                                <TouchableWithoutFeedback onPress={()=>this.checkpay('wx','d3d74b12b76045adaf86dd20cee00574')}>
+                                    <View style={{flex:1,alignItems:'flex-end'}}>
+                                        {this.state.wx}
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </View>
+                            <View style={[styles.ordernews,{borderBottomWidth:0,height:57}]}>
+                                <View style={{flexDirection:'row',flex:5,alignItems:'center'}}>
+                                    <Image source={require('../images/hdfk.png')}
+                                           style={{width:25,height: 25,resizeMode: 'stretch',marginRight:10}}
+                                    />
+                                    <Text>货到付款</Text>
+                                </View>
+                                <TouchableWithoutFeedback onPress={()=>this.checkpay('hdfk','7be9eb00370b4dd99ddd129708fec4d8')}>
+                                    <View style={{flex:1,alignItems:'flex-end'}}>
+                                        {this.state.hdfk}
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </View>
+                        </View>
                     </ScrollView>
                 </View>
                 <View>
                     <View style={{flexDirection:'row',height:49,backgroundColor:'white'}}>
                         <View
-                            style={[styles.bom,{flex:2, paddingLeft:10, borderTopColor:'#DBDBDB', borderTopWidth:0.5, flexDirection:'row', justifyContent:'flex-end',paddingRight:10}]}>
+                            style={[styles.bom,{flex:2, paddingLeft:10, borderTopColor:'#DBDBDB', borderTopWidth:1, flexDirection:'row', justifyContent:'flex-end',paddingRight:10}]}>
                             <Text style={{fontSize:12,marginTop:4}}>总价:</Text>
                             <Text style={[styles.price,{marginTop:4}]}>￥</Text>
                             <Text
@@ -210,6 +300,7 @@ export default class OrderPage extends Component {
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
+                {this.state.loadding}
             </View>
         )
     }
@@ -240,12 +331,29 @@ export default class OrderPage extends Component {
         )
     }
 }
+let prevThis=null;
 class CartList extends Component {
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            borderBottomWidth:0
+        };
+      }
+    componentDidMount() {
+        if(prevThis!==null){
+            prevThis.setState({
+                borderBottomWidth:0.5
+            });
+        }
+        prevThis=this;
+    }
 
     render() {
         return (
             <View style={styles.goods_view}>
-                <View style={styles.goods_view_view}>
+                <View style={[styles.goods_view_view,{borderBottomWidth:this.state.borderBottomWidth}]}>
                     <View style={{flexDirection:'row',flex:7}}>
                         <View
                             style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
@@ -282,23 +390,12 @@ const styles = StyleSheet.create({
         height: 115,
         flex: 1
     },
-    sty: {
-        flexDirection: 'row',
-        height: 38,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        marginLeft: 10,
-        marginRight: 10,
-        borderBottomWidth: 0.5,
-        borderBottomColor: 'rgba(191,191,191,0.5)'
-    },
+
     goods_view_view: {
         height: 115,
-        backgroundColor: 'white',
         flexDirection: 'row',
         marginLeft: 10,
         marginRight: 10,
-        borderBottomWidth: 0.5,
         borderBottomColor: 'rgba(191,191,191,0.5)',
         paddingTop: 14,
         paddingBottom: 16,
@@ -347,6 +444,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         borderBottomColor: 'rgba(191,191,191,0.5)',
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'center'
     }
 })

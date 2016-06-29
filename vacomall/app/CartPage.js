@@ -179,13 +179,15 @@ export default class CartPage extends Component {
     }
 
     _toOrder() {
+        this.setState({
+           refreshing:false
+        });
         var _this = this;
         if (this.state.gList.length === 0) {
             Toast.show('购物车数量为0,不能结算!');
             return;
         }
-        NetService.postFetchData(API.HASSTORE, '', (result)=>_callback(result));
-        function _callback(result) {
+        NetService.postFetchData(API.HASSTORE, '', (result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 return;
@@ -197,7 +199,7 @@ export default class CartPage extends Component {
                     sceneConfig: Navigator.SceneConfigs.FloatFromRight,
                 })
             }
-        }
+        });
     }
 
 
@@ -231,7 +233,7 @@ export default class CartPage extends Component {
                 <View style={[styles.goods_view1,{marginRight:listMarginRight}]}>
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
-                        <Image source={{uri:gList['SpuDefaultImage']}}
+                        <Image source={{uri:gList['SpuDefaultImage']+'@h_200'}}
                                style={{width: 150,height: 150,marginBottom:10}}/>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
@@ -366,7 +368,7 @@ export default class CartPage extends Component {
                         renderRow={(gList)=>this.renderGList(gList)}
                     />
                     <View
-                        style={{flexDirection:'row',height: 49,backgroundColor:'white',justifyContent:'flex-end',alignItems:'center',paddingRight:15,}}>
+                        style={{flexDirection:'row',height: 49,backgroundColor:'white',justifyContent:'flex-end',alignItems:'center',paddingRight:15,borderBottomWidth:1,borderBottomColor:'#e2e2e2'}}>
                         <Text>共计:<Text style={styles.price}>￥<Text
                             style={{fontSize:18}}>{this.state.price}</Text></Text></Text>
                     </View>
@@ -565,7 +567,6 @@ const styles = StyleSheet.create({
     sty: {
         flexDirection: 'row',
         height: 38,
-        backgroundColor: 'white',
         alignItems: 'center',
         marginLeft: 10,
         marginRight: 10,
@@ -574,7 +575,6 @@ const styles = StyleSheet.create({
     },
     goods_view_view: {
         height: 115,
-        backgroundColor: 'white',
         flexDirection: 'row',
         marginLeft: 10,
         marginRight: 10,

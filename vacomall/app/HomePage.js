@@ -16,7 +16,6 @@ import React, {
     TouchableWithoutFeedback,
     ListView,
     Navigator,
-    BackAndroid,
     Platform,
     ToastAndroid,
     Animated
@@ -46,34 +45,14 @@ export default class HomePage extends Component {
     }
 
     componentWillUnmount() {
-        if (Platform.OS === 'android') {
-            BackAndroid.removeEventListener('hardwareBackPress', ()=>this.onBackAndroid());
-        }
         clearInterval(this.timer);
     }
 
-    onBackAndroid() {
-        const {navigator} = this.props;
-        const routers = navigator.getCurrentRoutes();
-        if (routers.length > 1) {
-            var displayName = routers[routers.length - 1]['component']['displayName'];
-            if (displayName === 'paySuccess') {
-                navigator.popToTop();
-            } else {
-                navigator.pop();
-            }
-            return true;
-        }
-        return false;
-    };
+
 
     componentDidMount() {
         /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
-
-        if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));
-        }
     }
 
     /*异步请求后的回调*/

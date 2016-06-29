@@ -10,9 +10,10 @@ import React, {
     Image,
     TouchableHighlight,
     Navigator,
-    Platform
+    Platform,
+    BackAndroid
 } from 'react-native';
-import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator} from './util/Path';
+import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator,Toast} from './util/Path';
 const HOME = 'home';
 const HOME_NORMAL = require('../images/tabs/home_normal.png');
 const HOME_FOCUS = require('../images/tabs/home_focus.png');
@@ -35,7 +36,7 @@ export default class MainScreen extends Component {
         this.state = {
             selectedTab: HOME,
             navigator: null,
-            active:null
+            active: null
         };
     }
 
@@ -46,10 +47,47 @@ export default class MainScreen extends Component {
                 renderIcon={() => <Image style={styles.tabIcon} source={img}/>}
                 renderSelectedIcon={() => <Image style={styles.tabIcon} source={selectedImg}/>}
                 onPress={() => this.setState({ selectedTab: tag ,active:true})}
-                >
+            >
                 {childView}
             </TabNavigator.Item>
         );
+    }
+
+    componentDidUnMount() {
+        if (Platform.OS === 'android') {
+            BackAndroid.removeEventListener('hardwareBackPress', ()=>this.onBackAndroid());
+        }
+    }
+
+    onBackAndroid() {
+        const {navigator} = this.props;
+        const routers = navigator.getCurrentRoutes();
+        if (routers.length > 1) {
+            var displayName = routers[routers.length - 1]['component']['displayName'];
+            Toast.show(displayName)
+            if (displayName === 'Login') {
+                this.setState({
+                    selectedTab:HOME
+                });
+                navigator.popToTop();
+            } else {
+                navigator.pop();
+            }
+            return true;
+        }
+        if(this.state.selectedTab!==HOME){
+            this.setState({
+                selectedTab:HOME
+            });
+            return true;
+        }
+        return false;
+    };
+
+    componentDidMount() {
+        if (Platform.OS === 'android') {
+            BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));
+        }
     }
 
     static _createChildView(tag) {
@@ -59,14 +97,19 @@ export default class MainScreen extends Component {
             </View>
         )
     }
+
     render() {
         return (
             <View style={{flex: 1}}>
-                <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} style={{backgroundColor:'rgba(255,255,255,0)'}}>
+                <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab}>
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}/>)}
-                    {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage navigator={this.props.navigator}/>)}
-                    {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator} tab={true} active={this.state.active}/>)}
-                    {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person navigator={this.props.navigator}/>)}
+                    {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage
+                        navigator={this.props.navigator}/>)}
+                    {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator}
+                                                                                  tab={true}
+                                                                                  active={this.state.active}/>)}
+                    {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person
+                        navigator={this.props.navigator}/>)}
                 </TabNavigator>
             </View >
         );
@@ -75,16 +118,16 @@ export default class MainScreen extends Component {
 
 const styles = StyleSheet.create({
     tab: {
-        backgroundColor:'rgba(250,250,250,0.5)',
+        backgroundColor: 'rgba(250,250,250,0.5)',
         alignItems: 'center',
         height: 49,
-        borderTopWidth:Platform.OS === 'ios' ? 1 : 0.5,
-        borderTopColor:'rgba(0,0,0,0.1)'
+        borderTopWidth: Platform.OS === 'ios' ? 1 : 0.5,
+        borderTopColor: 'rgba(0,0,0,0.1)'
     },
     tabIcon: {
         width: 41,
         height: 35,
         resizeMode: 'stretch',
-        top:7
+        top: 7
     }
 })

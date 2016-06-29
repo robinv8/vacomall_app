@@ -15,7 +15,7 @@ import React, {
 }from 'react-native'
 var PPI = PixelRatio.get();
 var cartThis = [];
-export default class paySuccess extends Component {
+export default class PayHDFK extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -62,7 +62,7 @@ export default class paySuccess extends Component {
 
                         </View>
                         <View style={styles.searchBox}>
-                            <Text style={{color: '#3C3C3C',fontSize: 18}}>支付成功</Text>
+                            <Text style={{color: '#3C3C3C',fontSize: 18}}>货到付款</Text>
                         </View>
                         <TouchableWithoutFeedback onPress={()=>this.toHome()}>
                             <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
@@ -75,11 +75,11 @@ export default class paySuccess extends Component {
                 <View>
                     <View style={{alignItems:'center',flex:1}}>
                         <View style={{marginTop:60}}>
-                            <Image source={require('../../images/success_icon.png')}
+                            <Image source={require('../../images/hdfk_icon.png')}
                                    style={{width:100,height:87,resizeMode:'stretch'}}></Image>
                         </View>
                         <View style={{alignItems:'center',marginTop:23}}>
-                            <Text style={{color:'#3C3C3C',fontSize:18}}>支付成功!</Text>
+                            <Text style={{color:'#3C3C3C',fontSize:18}}>下单成功!</Text>
                             <Text style={{color:'#898989',fontSize:16,marginTop:15}}>我们尽快安排帮您发货!</Text>
                         </View>
                     </View>
@@ -111,10 +111,10 @@ export default class paySuccess extends Component {
                     </View>
                     <View style={[styles.orderList,{borderBottomWidth:0}]}>
                         <View style={{flex:1}}>
-                            <Text style={styles.text}>支付金额</Text>
+                            <Text style={[styles.text,{color:'#FD3824'}]}>需付金额</Text>
                         </View>
                         <View style={{flex:2}}>
-                            <Text style={styles.text}>{this.state.OrderPayMoney}</Text>
+                            <Text style={[styles.text,{color:'#FD3824'}]}>{this.state.OrderPayMoney}</Text>
                         </View>
                     </View>
                 </View>

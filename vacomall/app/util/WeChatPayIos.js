@@ -5,26 +5,25 @@ import React,{
     Component,
     View, Text, StyleSheet, ScrollView,
     AlertIOS, TouchableHighlight,
-    NativeAppEventEmitter
+    NativeAppEventEmitter,
+    Navigator
 }from 'react-native';
+import {WeChatIos,Toast,API,ChongZhi,NetService,md5,Random,PaySuccess} from './Path'
 
-import WeChat from 'react-native-wechat-ios';
-import Toast from 'react-native-root-toast';
 let scope = 'snsapi_userinfo';
 let state = 'wechat_sdk_test';
-import API from '../util/api';
-import * as Random from '../util/random';
-import * as NetService from '../util/NetService';
-import MD5 from '../util/md5.min';
-import * as ChongZhi from '../ChongZhiPage';
+
+
 const appid = 'wx0ccd9f577013dab0';
+
+
 export function registerApp() {
-    WeChat.registerApp(appid, (res) => {
+    WeChatIos.registerApp(appid, (res) => {
         //show('registerApp',res)
     });
 }
 export function isWXAppInstalled(callback) {
-    WeChat.isWXAppInstalled((res) => {
+    WeChatIos.isWXAppInstalled((res) => {
         if (!res) {
             Toast.show('请安装微信,便可充值!');
         }
@@ -32,18 +31,19 @@ export function isWXAppInstalled(callback) {
     });
 }
 
-export function order(id) {
+export function order(id,module) {
     /!*获取首页基本数据*!/
-    NetService.postFetchData(API.ORDER, 'orderId=' + id, (result)=>_callback(result));
-    function _callback(result) {
+    NetService.postFetchData(API.ORDER, 'orderId=' + id, (result)=>{
+        if(!result['success']){
+            Toast.show(result['message']);
+            return;
+        }
         var result = result['result']['response'];
         const random = Random.generateMixed(16);
         const timeStamp = parseInt(new Date().getTime() / 1000 - 30);
         var stringA = "appid=" + result['appid'] + "&noncestr=" + random + "&package=Sign=WXPay&partnerid=" + result['mch_id'] + "&prepayid=" + result['prepay_id'] + "&timestamp=" + timeStamp;
-        console.log(stringA)
         stringSignTemp = stringA + "&key=e10884523bd29da9edbf941cb15eef5d";
-        console.log(stringSignTemp);
-        var sign = MD5(stringSignTemp).toUpperCase()
+        var sign = md5(stringSignTemp).toUpperCase()
         let payOptions = {
             appId: result['appid'],
             nonceStr: random,
@@ -53,32 +53,52 @@ export function order(id) {
             timeStamp: timeStamp.toString(),
             sign: sign
         };
-        ChongZhi.parentThis.setState({
-            loadding: null
-        });
-        WeChat.weChatPay(payOptions, (res)=> {
+        if(module==='chongzhi'){
+            ChongZhi.parentThis.setState({
+                loadding: null
+            });
+        }else{
+            module.setState({
+                loadding: null
+            });
+        }
+        WeChatIos.weChatPay(payOptions, (res)=> {
 
         });
         let subscription = NativeAppEventEmitter.addListener(
             'finishedPay',
             (res) => {
                 if (res.errCode == 0) { //充值成功
-                    getpayinfo(id);
+                    getpayinfo(id,module);
                 } else if (res.errCode == -1) { //很多情况下是证书问题
-                    show('支付结果', '支付失败,请稍后尝试');
+                    Toast.show('支付失败,请稍后尝试');
                 } else if (res.errCode == -2) { //充值取消
-                    //show('支付结果',"充值取消");
+                    Toast.show("充值取消");
                 }
             }
         );
-    }
+    });
 }
-function getpayinfo(id) {
+function getpayinfo(id,module) {
     setTimeout(function () {
         NetService.postFetchData(API.GETPAYINFO, 'orderId=' + id, (result)=> {
             result = result['result'];
             if (result['isPay']) {
-                Toast.show('微信支付成功!');
+
+                if(module==='chongzhi'){
+                    ChongZhi.parentThis.setState({
+                        loadding: null
+                    });
+                    Toast.show('微信支付成功!');
+                }else{
+                    const {navigator}=module.props;
+                    if (navigator) {
+                        navigator.push({
+                            component: PaySuccess,
+                            sceneConfig: Navigator.SceneConfigs.FloatFromRight,
+                        })
+                    }
+                }
             }
         });
     }, 3000)
