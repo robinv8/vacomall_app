@@ -17,9 +17,20 @@ import React, {
     Navigator, TextInput,
     Platform
 }from 'react-native';
-import {OrderHeader, API, NetService, Toast,PaySuccess,WeChatPayAndroid,WeChatPayIos} from './util/Path'
+import {
+    OrderHeader,
+    API,
+    NetService,
+    Toast,
+    PaySuccess,
+    WeChatPayAndroid,
+    WeChatPayIos,
+    Login,
+    PayHDFK
+} from './util/Path'
 
-let cartThis = [],WeChatPay;;
+let cartThis = [], WeChatPay;
+;
 export default class OrderPage extends Component {
     // 构造
     constructor(props) {
@@ -36,27 +47,27 @@ export default class OrderPage extends Component {
             money: "",
             num: "",
             flag: true,
-            wx:<Image source={require('../images/check_icon.png')}
-                      style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
-            hdfk:<Image source={require('../images/check_icon.png')}
-                        style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
-            orderPayId:null,
-            text:'',
-            loadding:null
+            wx: <Image source={require('../images/check_icon.png')}
+                       style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+            hdfk: <Image source={require('../images/check_icon.png')}
+                         style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+            orderPayId: null,
+            text: '',
+            loadding: null
         };
     }
 
     componentDidMount() {
-        if(Platform.OS==='ios'){
-            WeChatPay=WeChatPayIos;
-        }else{
-            WeChatPay=WeChatPayAndroid;
+        if (Platform.OS === 'ios') {
+            WeChatPay = WeChatPayIos;
+        } else {
+            WeChatPay = WeChatPayAndroid;
         }
         WeChatPay.registerApp();//注册微信
-        setTimeout(()=>{
+        setTimeout(()=> {
             NetService.postFetchData(API.CONFIRM, '', (result)=>this._callback(result));
-        },500);
-        this.checkpay('wx','d3d74b12b76045adaf86dd20cee00574');
+        }, 500);
+        this.checkpay('wx', 'd3d74b12b76045adaf86dd20cee00574');
     }
 
     componentDidUnMount() {
@@ -90,88 +101,93 @@ export default class OrderPage extends Component {
     }
 
     _toSubmit() {
-       let orderPayId=this.state.orderPayId
-        if(orderPayId===null){
+        let orderPayId = this.state.orderPayId
+        if (orderPayId === null) {
             Toast.show('请选择支付类型!');
             return;
         }
-
-        this.setState({
-            loadding: <View
-                style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
-                <View
-                    style={{width:200,height:140,backgroundColor:'rgba(0,0,0,0.5)',borderRadius:5,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'white'}}>正在加载,请等候……</Text>
-                </View>
-            </View>
-        });
-        NetService.postFetchData(API.SUBMIT, 'orderPayId='+orderPayId+'&orderRemark='+this.state.text,(result)=>{
-            if (result['success'] === false) {
-                Toast.show(result['result']['message']);
-                const {navigator}=this.props;
-                if (result['result']['code'] === 303) {
-                    if (navigator) {
-                        navigator.push({
-                            component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                        })
-                    }
+        let isWXAppInstalled = true;
+        if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
+            WeChatPay.isWXAppInstalled((res)=> {
+                if (res) {
+                    submitOrder(this);
                 }
-                return;
-            }
-            WeChatPay.order(result['result']['OutTradeId'],this);
-        });
-        /*const {navigator}=this.props;
-        NetService.postFetchData(API.SUBMIT, '',()=>{
-            if (this.state.flag) {
-                this.state.flag = false;
+            });
+        } else {
+            submitOrder(this);
+        }
+        function submitOrder(_this){
+            console.log(_this);
+            const {navigator}=_this.props;
+            _this.setState({
+                loadding: <View
+                    style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
+                    <View
+                        style={{width:200,height:140,backgroundColor:'rgba(0,0,0,0.5)',borderRadius:5,justifyContent:'center',alignItems:'center'}}>
+                        <Text style={{color:'white'}}>正在加载,请等候……</Text>
+                    </View>
+                </View>
+            });
+            NetService.postFetchData(API.SUBMIT, 'orderPayId=' + orderPayId + '&orderRemark=' + _this.state.text, (result)=> {
                 if (result['success'] === false) {
                     Toast.show(result['result']['message']);
-                    if (navigator) {
-                        navigator.push({
-                            component: PayError,
-                            sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                        })
+                    if (result['result']['code'] === 303) {
+                        if (navigator) {
+                            navigator.push({
+                                component: Login,
+                                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                            })
+                        }
                     }
                     return;
                 }
-                if (navigator) {
-                    navigator.push({
-                        component: PaySuccess,
-                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                        params: {result: result}
-                    })
+                result = result['result'];
+                if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
+                    WeChatPay.order(result['OutTradeId'], _this);//微信支付
+                } else {
+                    if (navigator) {
+                        navigator.push({
+                            component: PayHDFK,
+                            sceneConfig: Navigator.SceneConfigs.FloatFromRight,
+                            params: {result: result}
+                        })
+                    }
                 }
-            }
-        });*/
+
+            });
+        }
     }
-    checkpay(paystyle,orderPayId){
-        switch (paystyle){
+
+
+    checkpay(paystyle, orderPayId) {
+        switch (paystyle) {
             case 'wx':
                 this.setState({
-                    wx:<Image source={require('../images/checked_icon.png')}
-                              style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
-                    hdfk:<Image source={require('../images/check_icon.png')}
-                                style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
-                    orderPayId:orderPayId
+                    wx: <Image source={require('../images/checked_icon.png')}
+                               style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    hdfk: <Image source={require('../images/check_icon.png')}
+                                 style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    orderPayId: orderPayId
                 });
                 break;
             case 'hdfk':
                 this.setState({
-                    wx:<Image source={require('../images/check_icon.png')}
-                              style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
-                    hdfk:<Image source={require('../images/checked_icon.png')}
-                                style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
-                    orderPayId:orderPayId
+                    wx: <Image source={require('../images/check_icon.png')}
+                               style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    hdfk: <Image source={require('../images/checked_icon.png')}
+                                 style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
+                    orderPayId: orderPayId
                 });
                 break;
         }
     }
+
     _onChange(text) {
         this.setState({
             text: text
         })
     }
+
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -249,7 +265,8 @@ export default class OrderPage extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View style={{flex:1,backgroundColor:'white',marginTop:11,paddingLeft:10,paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
+                        <View
+                            style={{flex:1,backgroundColor:'white',marginTop:11,paddingLeft:10,paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
                             <View style={[styles.ordernews,{height:38}]}>
                                 <View style={{flex:1}}>
                                     <Text style={{color:'#3C3C3C'}}>选择付款方式</Text>
@@ -262,7 +279,8 @@ export default class OrderPage extends Component {
                                     />
                                     <Text>微信支付</Text>
                                 </View>
-                                <TouchableWithoutFeedback onPress={()=>this.checkpay('wx','d3d74b12b76045adaf86dd20cee00574')}>
+                                <TouchableWithoutFeedback
+                                    onPress={()=>this.checkpay('wx','d3d74b12b76045adaf86dd20cee00574')}>
                                     <View style={{flex:1,alignItems:'flex-end'}}>
                                         {this.state.wx}
                                     </View>
@@ -275,7 +293,8 @@ export default class OrderPage extends Component {
                                     />
                                     <Text>货到付款</Text>
                                 </View>
-                                <TouchableWithoutFeedback onPress={()=>this.checkpay('hdfk','7be9eb00370b4dd99ddd129708fec4d8')}>
+                                <TouchableWithoutFeedback
+                                    onPress={()=>this.checkpay('hdfk','7be9eb00370b4dd99ddd129708fec4d8')}>
                                     <View style={{flex:1,alignItems:'flex-end'}}>
                                         {this.state.hdfk}
                                     </View>
@@ -331,23 +350,24 @@ export default class OrderPage extends Component {
         )
     }
 }
-let prevThis=null;
+let prevThis = null;
 class CartList extends Component {
     // 构造
-      constructor(props) {
+    constructor(props) {
         super(props);
         // 初始状态
         this.state = {
-            borderBottomWidth:0
+            borderBottomWidth: 0
         };
-      }
+    }
+
     componentDidMount() {
-        if(prevThis!==null){
+        if (prevThis !== null) {
             prevThis.setState({
-                borderBottomWidth:0.5
+                borderBottomWidth: 0.5
             });
         }
-        prevThis=this;
+        prevThis = this;
     }
 
     render() {

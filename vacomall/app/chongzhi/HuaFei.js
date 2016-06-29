@@ -2,7 +2,7 @@
  * Created by renyubin on 16/6/17.
  */
 'use strict';
-import React,{
+import React, {
     Component,
     View,
     Text,
@@ -14,7 +14,7 @@ import React,{
     Platform,
     ScrollView,
 }from 'react-native';
-import {LinearGradient,Toast,Login,API,NetService,WeChatPayIos,WeChatPayAndroid,ChongZhi} from '../util/Path';
+import {LinearGradient, Toast, Login, API, NetService, WeChatPayIos, WeChatPayAndroid, ChongZhi} from '../util/Path';
 
 
 let WeChatPay;
@@ -25,15 +25,15 @@ export default class HuaFei extends Component {
         // 初始状态
         this.state = {
             childShowView: null,
-            reduce:0
+            reduce: 0
         };
     }
 
     componentDidMount() {
-        if(Platform.OS==='ios'){
-            WeChatPay=WeChatPayIos;
-        }else{
-            WeChatPay=WeChatPayAndroid;
+        if (Platform.OS === 'ios') {
+            WeChatPay = WeChatPayIos;
+        } else {
+            WeChatPay = WeChatPayAndroid;
         }
         WeChatPay.registerApp();//注册微信
 
@@ -43,7 +43,7 @@ export default class HuaFei extends Component {
         let dataArray = this.props.hfData['items'];
         let childArray = [], groupArray = [];
         let i = 0;
-        var _this=this;
+        var _this = this;
         dataArray.map(function (elem, index) {
             if (index % 3 - 1 === 0 && index !== 0) {
                 childArray.push(<Child key={index}
@@ -61,7 +61,7 @@ export default class HuaFei extends Component {
                                        _this={_this}
                                        ItemSalePrice={elem['ItemSalePrice']}/>);
             }
-            if ((index % 3 - 2===0 && index !== 0) || index === dataArray.length - 1) {
+            if ((index % 3 - 2 === 0 && index !== 0) || index === dataArray.length - 1) {
                 groupArray.push(<View style={styles.child_con} key={i}>{childArray}</View>);
                 childArray = [];
                 i++;
@@ -81,6 +81,13 @@ export default class HuaFei extends Component {
         //Toast.show(mobile);
         if (mobile === null) {
             Toast.show('手机号码不正确!');
+            return;
+        }
+        let isWXAppInstalled=false;
+        WeChatPay.isWXAppInstalled((res)=> {
+                isWXAppInstalled=res;
+        });
+        if(!isWXAppInstalled){
             return;
         }
         ChongZhi.parentThis.setState({
@@ -109,9 +116,8 @@ export default class HuaFei extends Component {
                 }
                 return;
             }
+            //WeChatPay.order(result['result']['OutTradeId'],'chongzhi');
 
-            //this.order(result['Id'])
-            WeChatPay.order(result['result']['OutTradeId'],'chongzhi');
         });
     }
 
@@ -189,7 +195,7 @@ class Child extends Component {
 
         });
         this.props._this.setState({
-            reduce:(this.props.ItemPrice-this.props.ItemSalePrice).toFixed(2)
+            reduce: (this.props.ItemPrice - this.props.ItemSalePrice).toFixed(2)
         })
 
         beforeThis = this;

@@ -18,8 +18,8 @@ import React, {
     Platform,
     ActivityIndicatorIOS
 }from 'react-native'
-import {ListHeader,GoodsDetail,API,NetService,Toast} from './util/Path';
-var SortItemArray=[];
+import {ListHeader, GoodsDetail, API, NetService, Toast} from './util/Path';
+var SortItemArray = [];
 var beforeSortItem;
 var listFlag = 0;
 
@@ -38,30 +38,41 @@ export default class ListPage extends Component {
             size: 600,
             sort: 0,
             listArray: [],
-            sortItem:null
+            sortItem: null,
+            searchText: null
+        }
+    }
+
+    componentWillMount() {
+        if (this.props.id === null) {
+            this.setState({
+                searchText: this.props.text
+            })
         }
     }
 
     componentDidMount() {
-        SortItemArray=[];
+        SortItemArray = [];
         beforeSortItem;
         listFlag = 0;
         this.setState({
-            sortItem:<View style={styles.sort_view}>
-                <SortItem text={'综合排序'} color={'#EF8200'} img={require('../images/sort_icon_hover.png')} onclick={(num)=>this._sort(0)}/>
-                <SortItem text={'价格'} color={'#555555'} img={require('../images/sort_icon.png')} onclick={(num)=>this._sort(3)}/>
-                <SortItem text={'销量'} color={'#555555'} img={require('../images/sort_icon.png')} onclick={(num)=>this._sort(2)}/>
+            sortItem: <View style={styles.sort_view}>
+                <SortItem text={'综合排序'} color={'#EF8200'} img={require('../images/sort_icon_hover.png')}
+                          onclick={(num)=>this._sort(0)}/>
+                <SortItem text={'价格'} color={'#555555'} img={require('../images/sort_icon.png')}
+                          onclick={(num)=>this._sort(3)}/>
+                <SortItem text={'销量'} color={'#555555'} img={require('../images/sort_icon.png')}
+                          onclick={(num)=>this._sort(2)}/>
             </View>
         });
-        var _this = this;
-        setTimeout(function () {
-            _this.getListData(1)
+        setTimeout(()=> {
+            this.getListData(1)
         }, 400);
     }
 
     getListData() {
-
         if (this.props.id === null) {
+
             NetService.postFetchData(API.SEARCH, 'wd=' + this.props.text + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
         } else {
             NetService.postFetchData(API.LIST, 'cart=' + this.props.id + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
@@ -74,22 +85,22 @@ export default class ListPage extends Component {
             Toast.show(result['result']['message']);
             return;
         }
-        let list=result['result']['list'];
+        let list = result['result']['list'];
         if (list.length !== 0) {
             Array.prototype.push.apply(this.state.listArray, list)
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
                 loaded: true,
                 isRefreshing: false,
-                isNull:false
+                isNull: false
             })
-        }else{
-            if(this.state.listArray.length>0){
+        } else {
+            if (this.state.listArray.length > 0) {
                 this.setState({
                     //isNull:true,
                     loaded: true,
                 });
-            }else{
+            } else {
                 this.setState({
                     //isNull:true,
                     loaded: true,
@@ -100,64 +111,66 @@ export default class ListPage extends Component {
     }
 
     _sort(num) {
-        listFlag=0;
+        listFlag = 0;
         this.setState({
             sort: num,
             page: 1,
             listArray: []
         });
         this.setState({
-            flag:num
+            flag: num
         });
-        switch (num){
+        switch (num) {
             case 0:
                 SortItemArray[0].setState({
                     color: '#EF8200',
-                    img:require('../images/sort_icon_hover.png')
+                    img: require('../images/sort_icon_hover.png')
                 });
                 beforeSortItem.setState({
                     color: '#555555',
-                    img:require('../images/sort_icon.png')
+                    img: require('../images/sort_icon.png')
                 });
 
-                beforeSortItem=SortItemArray[0];
+                beforeSortItem = SortItemArray[0];
                 break;
             case 3:
                 SortItemArray[1].setState({
                     color: '#EF8200',
-                    img:require('../images/sort_icon_hover.png')
+                    img: require('../images/sort_icon_hover.png')
                 });
                 beforeSortItem.setState({
                     color: '#555555',
-                    img:require('../images/sort_icon.png')
+                    img: require('../images/sort_icon.png')
                 });
-                beforeSortItem=SortItemArray[1];
+                beforeSortItem = SortItemArray[1];
                 break;
             case 2:
                 SortItemArray[2].setState({
                     color: '#EF8200',
-                    img:require('../images/sort_icon_hover.png')
+                    img: require('../images/sort_icon_hover.png')
                 });
                 beforeSortItem.setState({
                     color: '#555555',
-                    img:require('../images/sort_icon.png')
+                    img: require('../images/sort_icon.png')
                 });
-                beforeSortItem=SortItemArray[2];
+                beforeSortItem = SortItemArray[2];
                 break;
         }
         this.getListData();
 
     }
+
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
-        }if(this.state.isNull){
+        }
+        if (this.state.isNull) {
             return this.isNull();
         }
 
         return (
             <View style={{flex:1,backgroundColor:'#F6F6F6'}}>
-                <ListHeader navigator={this.props.navigator} id={this.props.id}/>
+                <ListHeader navigator={this.props.navigator} id={this.props.id} searchText={this.state.searchText}/>
 
                 {this.state.sortItem}
                 <ListView
@@ -172,11 +185,7 @@ export default class ListPage extends Component {
             </View>
         )
     }
-
-    handleScroll(event:Object) {
-        console.log(event.nativeEvent.contentOffset.y)
-        //event.nativeEvent.contentOffset+'-'+
-    }
+    
 
     refresh() {
         this.setState({
@@ -184,20 +193,22 @@ export default class ListPage extends Component {
         })
         this.getListData();
     }
-    isNull(){
+
+    isNull() {
         return (
             <View style={{flex:1}}>
-                <ListHeader navigator={this.props.navigator}/>
+                <ListHeader navigator={this.props.navigator} id={this.props.id} searchText={this.state.searchText}/>
                 <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                   <Text>未找到相关商品!</Text>
+                    <Text>未找到相关商品!</Text>
                 </View>
             </View>
         );
     }
+
     renderLoadingView() {
         return (
             <View style={{flex:1}}>
-                <ListHeader navigator={this.props.navigator}/>
+                <ListHeader navigator={this.props.navigator} id={this.props.id} searchText={this.state.searchText}/>
                 <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
                     <Image source={require('../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
                 </View>
@@ -273,16 +284,17 @@ class SortItem extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             text: this.props.text,
             color: this.props.color,
-            img:this.props.img
+            img: this.props.img
         });
 
         SortItemArray.push(this);
-        beforeSortItem=SortItemArray[0];
+        beforeSortItem = SortItemArray[0];
     }
+
     render() {
         return (
             <View style={styles.sortItem}>

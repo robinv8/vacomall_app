@@ -2,7 +2,7 @@
  * Created by renyubin on 16/6/4.
  */
 
-import React,{
+import React, {
     Component,
     TouchableWithoutFeedback,
     Animated,
@@ -16,9 +16,9 @@ import React,{
     Platform,
     Navigator
 }from 'react-native';
-import {Toast,Login,API,NetService,md5} from '../util/Path';
+import {Toast, Login, API, NetService, md5} from '../util/Path';
 
-let secp = null, seacVueObj = [], specification = {}, detailThis,shadeThis;
+let secp = null, seacVueObj = [], specification = {}, detailThis, shadeThis;
 
 export default class GoodsSpec extends Component {
     // 构造
@@ -89,7 +89,7 @@ export class Shade extends Component {
         shadeThis = this;
         console.log(shadeThis);
         this.props._this3.props._this2.setState({
-            shadeThis:shadeThis
+            shadeThis: shadeThis
         });
         seacVueObj = [], specification = {}, secp = null;
         specification = detailThis.state.resultData['allGoods'];
@@ -157,7 +157,25 @@ export class Shade extends Component {
     }
 
     _specSelect(obj) {
-        if (obj !== undefined) {
+        if(obj==='error'){
+            seacVueObj.map(function (_this) {
+                _this.setState({
+                    specColor: '#E9E9EA',
+                    specVueTextColor: '#898989'
+                });
+            });
+            this.setState({
+                id: null,
+                num: '1'
+            });
+            this.props._this3.setState({
+                spec: '选择规格'
+            });
+            detailThis.setState({
+                id: null
+            });
+            this.cancelshade();
+        }else if (obj !== undefined) {
             this.setState({
                 price: obj['GoodsSalePrice'],
                 id: obj['Id'],
@@ -224,8 +242,8 @@ export class Shade extends Component {
             });
         });
         this.setState({
-            id:null,
-            num:'1'
+            id: null,
+            num: '1'
         });
         this.props._this3.setState({
             spec: '选择规格'
@@ -370,7 +388,13 @@ class Spec extends Component {
                 specvue = specvue + seacVueObj[i].state.specvue + ','
             }
             var vueMd5 = md5(specvue.substring(0, specvue.length - 1)).toUpperCase();
-            this.props.specSelect(specification[vueMd5])
+            var spec=specification[vueMd5];
+            if(spec===undefined){
+                Toast.show('该商品暂不能购买!');
+                this.props.specSelect('error');//商品规格异常
+                return;
+            }
+            this.props.specSelect(specification[vueMd5]);
         }
         if (secp === this) {
             return;
@@ -426,7 +450,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         paddingBottom: 16,
         marginLeft: 10,
-        position:'relative'
+        position: 'relative'
     },
     spec: {
         color: '#3C3C3C'

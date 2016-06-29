@@ -33,17 +33,6 @@ export default class DetailImg extends Component {
             }),
         };
     }
-
-    toDetails(id) {
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.push({
-                component: GoodsDetail,
-                params: {id: id}
-            })
-        }
-    }
-
     componentDidMount() {
         NetService.getFetchData(API.GUESS, (result)=>{
             this.setState({

@@ -11,9 +11,9 @@ import React, {
     StyleSheet,
     StatusBar,
     Image,
-    PixelRatio
+    Navigator
 }from 'react-native'
-var PPI = PixelRatio.get();
+import {MainScreen} from '../util/Path'
 var cartThis = [];
 export default class PayHDFK extends Component {
     // 构造
@@ -30,25 +30,23 @@ export default class PayHDFK extends Component {
 
     componentDidMount() {
         var result = this.props.result;
-        /* this.setState({
-         CreateTime: result['CreateTime'],
-         OrderCode: result['OrderCode'],
-         OrderPayType: result['OrderPayType'],
-         OrderPayMoney: result['OrderPayMoney']
-         })*/
         this.setState({
-            CreateTime: 1,
-            OrderCode: 1,
-            OrderPayType: 1,
-            OrderPayMoney: 1
+            CreateTime: result['CreateTime'],
+            OrderCode: result['OrderCode'],
+            OrderPayType: result['OrderPayType'],
+            OrderPayMoney: result['OrderPayMoney']
         })
+
     }
 
 
     toHome() {
         const {navigator}=this.props;
         if (navigator) {
-            navigator.popToTop()
+            navigator.resetTo({
+                component: MainScreen,
+                sceneConfig: Navigator.SceneConfigs.FadeAndroid
+            })
         }
     }
 
@@ -177,8 +175,8 @@ const styles = StyleSheet.create({
         marginRight: 50,
         alignItems: 'center'
     },
-    text:{
-        color:'#3C3C3C',
-        fontSize:16
+    text: {
+        color: '#3C3C3C',
+        fontSize: 16
     }
 })

@@ -84,6 +84,13 @@ export default class Flow extends Component {
             Toast.show('手机号码不正确!');
             return;
         }
+        let isWXAppInstalled=false;
+        WeChatPay.isWXAppInstalled((res)=> {
+            isWXAppInstalled=res;
+        });
+        if(!isWXAppInstalled){
+            return;
+        }
         ChongZhi.parentThis.setState({
             loadding: <View
                 style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>

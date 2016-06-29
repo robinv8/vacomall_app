@@ -47,8 +47,8 @@ export default class Header extends Component {
         // 初始状态
         this.state = {
             clear: null,
-            text: '',
-            list:[]
+            text: '文件',
+            list:[],
         }
     }
 
@@ -60,6 +60,12 @@ export default class Header extends Component {
     }
 
     componentDidMount() {
+        let searchText=this.props.searchText;
+        if(searchText!==undefined){
+            this.setState({
+                text:searchText
+            })
+        }
         this._getSearchArray();
     }
 

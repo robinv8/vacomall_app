@@ -83,7 +83,7 @@ import * as WeChatPayIos from './WeChatPayIos';
 import * as WeChatPayAndroid from './WeChatPayAndroid';
 
 export {
-    Login,//登录
+    MainPage,
     MainScreen,//APP主入口
     codePush,//热更新
     HomePage,//首页

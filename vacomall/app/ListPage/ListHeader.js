@@ -15,15 +15,33 @@ import React, {
     Navigator,
     ToastAndroid
 }from 'react-native';
-import {SearchPage,CartPage,API,NetService,Login} from '../util/Path';
+import {SearchPage, CartPage, API, NetService, Login} from '../util/Path';
 
 
 export default class Header extends Component {
+    // 构造
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            searchText: null
+        };
+    }
+
     _back() {
         const {navigator}=this.props;
-        const test=navigator.getCurrentRoutes();
+        const test = navigator.getCurrentRoutes();
         if (navigator) {
             navigator.pop()
+        }
+    }
+
+    componentDidMount() {
+        let searchText = this.props.searchText;
+        if (searchText !== null) {
+            this.setState({
+                searchText: searchText
+            })
         }
     }
 
@@ -32,7 +50,8 @@ export default class Header extends Component {
         if (navigator) {
             navigator.push({
                 component: SearchPage,
-                sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                params: {searchText: this.props.searchText}
             })
         }
     }
@@ -63,8 +82,9 @@ export default class Header extends Component {
                         placeholder='创维家电直送 好礼不停'
                         onFocus={()=>this._toSearchPage()}
                         placeholderTextColor={'#7A797B'}
+                        value={this.state.searchText}
                         style={styles.inputText}/>
-                        <Image source={require('../../images/header/clear.png')} style={styles.clearIcon}/>
+                    <Image source={require('../../images/header/clear.png')} style={styles.clearIcon}/>
                 </View>
                 <TouchableWithoutFeedback onPress={()=>this.toHome()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
@@ -80,7 +100,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height:Platform.OS === 'ios' ? 64 : 40,
+        height: Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
         alignItems: 'center'
     },
@@ -126,8 +146,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0)',
         fontSize: 13.32,
-        paddingTop:Platform.OS === 'ios' ? 0 : 10,
-        paddingLeft:0,
-        color: 'white',
+        paddingTop: Platform.OS === 'ios' ? 0 : 10,
+        paddingLeft: 0,
+        color: '#7A797B',
     }
 })
