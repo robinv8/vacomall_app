@@ -139,17 +139,6 @@ export default class CartPage extends Component {
                     checked: true
                 })
             })
-            /* var num = 0, price = 0;
-             cartThis.map(function (cart) {
-             num += cart.state.num
-             });
-             cartThis.map(function (cart) {
-             price += cart.state.price * cart.state.num
-             })
-             _this.setState({
-             num: num.toString(),
-             price: price.toFixed(2)
-             })*/
             _this.setState({
                 checkedImg: require('../images/checked_icon.png'),
                 checked: true,
@@ -169,10 +158,6 @@ export default class CartPage extends Component {
                     checked: false
                 })
             })
-            /*_this.setState({
-             num: 0,
-             price: '0.00'
-             })*/
             _this.setState({
                 checkedImg: require('../images/check_icon.png'),
                 checked: false,
@@ -202,6 +187,7 @@ export default class CartPage extends Component {
                 Toast.show(result['result']['message']);
                 return;
             }
+
             const {navigator}=_this.props;
             if (navigator) {
                 navigator.push({
@@ -224,7 +210,7 @@ export default class CartPage extends Component {
         var _textLength = function (text) {
             var rtnText = "";
             if (text.length > 20) {
-                rtnText = text.substring(0, 25)
+                rtnText = text.substring(0, 20)
             } else {
                 rtnText = text;
             }
@@ -246,7 +232,7 @@ export default class CartPage extends Component {
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_200'}}
                                style={{width: 150,height: 150,marginBottom:10}}/>
                     </View>
-                    <View style={{marginLeft:7,marginRight:4}}>
+                    <View style={{marginLeft:8,marginRight:4}}>
                         <View style={{marginBottom:1,height:32}}>
                             <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
@@ -532,6 +518,21 @@ class CartList extends Component {
         });
     }
 
+    texthandle(text) {
+        var rtnText = "";
+        let index = text.indexOf('-');
+        if (index > 0) {
+            rtnText = text.substring(0, index);
+        }
+        if (rtnText.length > 30) {
+            rtnText = rtnText.substring(0, 25)+'……'
+        } else {
+            rtnText = rtnText;
+        }
+
+        return rtnText;
+    }
+
     render() {
         return (
             <View style={styles.goods_view}>
@@ -548,15 +549,15 @@ class CartList extends Component {
                             <Image source={{uri:this.props.gList['imgUrl']}}
                                    style={{height:82,width:82,resizeMode:'stretch'}}/>
                         </View>
-                        <View style={{flex:4,marginLeft:10}}>
+                        <View style={{flex:7,marginLeft:10}}>
                             <Text
-                                style={{color:'#898989',fontSize:14,height:63}}>{this.props.gList['name'].substring(0, 50)}</Text>
+                                style={{color:'#898989',fontSize:14,height:63}}>{this.texthandle(this.props.gList['name'])}</Text>
                             <Text
                                 style={{color:'#C8C8C8',fontSize:12}}>规格:{this.props.gList['skuSpecification'].substring(0, 30)}</Text>
                         </View>
                     </View>
 
-                    <View style={{flex:2,alignItems:'flex-end',paddingRight:2}}>
+                    <View style={{flex:1,alignItems:'flex-end',paddingRight:2}}>
                         <View style={{height:60}}>
                             <Text style={{color:'#FF0200',fontSize:12}}>￥<Text
                                 style={{fontSize:18}}>{this.props.gList['price']}</Text></Text>

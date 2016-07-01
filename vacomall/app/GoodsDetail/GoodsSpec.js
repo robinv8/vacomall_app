@@ -144,7 +144,7 @@ export class Shade extends Component {
             })
         } else {
             let num = "";
-            if (this.state.num === '0') {
+            if (this.state.num === '1') {
                 num = this.state.num
             } else {
                 num = (parseInt(this.state.num) - 1).toString()
@@ -226,7 +226,7 @@ export class Shade extends Component {
                 if (navigator) {
                     navigator.push({
                         component: Login,
-                        sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
+                        sceneConfig: Navigator.SceneConfigs.FadeAndroid
                         //params: {page: 'GoodsDetail', id: this.props.id}
                     })
                 }
@@ -288,7 +288,8 @@ export class Shade extends Component {
                             </View>
                         </View>
                         <View style={{flex:1,marginBottom:10,marginLeft:10,position:'relative'}}>
-                            <Image source={{uri:detailThis.state.resultData['images'][0]['ImagePath']}}
+                            <Image defaultSource={require('../../images/defaultImage.png')}
+                                source={{uri:detailThis.state.resultData['images'][0]['ImagePath']}}
                                    style={styles.shade_img}/>
                         </View>
                         <View style={{position:'absolute',top:30,right:0}}>

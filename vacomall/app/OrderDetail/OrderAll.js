@@ -10,59 +10,89 @@ import React,{
     TouchableWithoutFeedback,
     Text,
     Platform,
-    StatusBar
+    StatusBar,
+    ListView,
+    Dimensions,
+    Navigator
 } from 'react-native';
-import {API,NetService,} from '../util/Path';
+import {API,NetService,Toast,Login} from '../util/Path';
+import OrderDetail from './OrderDetail'
 export default class OrderAll extends Component {
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2)=>row1 !== row2
+            }),
+            page:1,
+            listArray:[],
+            isLoad:false
+        };
+      }
     componentDidMount() {
-        NetService.getFetchData(API.ORDERDETAIL+'?st=100',(result)=>{
-
+        console.log(this.props.isLoad+'-'+this.state.isLoad)
+        if(!this.props.isLoad||this.state.isLoad){
+            return;
+        }
+        this.loadData();
+        this.setState({
+            isLoad:true
         })
     }
-
+    loadData(){
+        const {navigator}=this.props;
+        NetService.getFetchData(API.ORDERDETAIL+'?size=5&page='+this.state.page,(result)=>{
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+            let list = result['list'];
+            if (list.length !== 0) {
+                Array.prototype.push.apply(this.state.listArray, list)
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
+                });
+            }
+        })
+    }
+    componentWillReceiveProps() {
+        this.componentDidMount();
+    }
+    refresh() {
+        this.setState({
+            page: this.state.page + 1
+        })
+        this.loadData();
+    }
     componentDidUnMount() {
 
+    }
+    renderGList(gList) {
+        return (
+            <OrderDetail gList={gList}/>
+        )
     }
     render() {
         return (
             <View style={{backgroundColor:'#FAFAFA',flex:1}}>
-                <View style={styles.orderWrap}>
-                    <View style={{height:48,justifyContent:'center',borderBottomWidth:0.5,borderBottomColor:'#BFBFBF'}}>
-                        <Text style={{color:'#BFBFBF'}}>订单编号:9999999999999999</Text>
-                    </View>
-                    <View style={{height:100,justifyContent:'center',alignItems:'flex-end'}}>
-                        <View><Text>共计2件商品 合计:<Text>999</Text></Text></View>
-                        <View style={{flexDirection:'row'}}>
-                            <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
-                            <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
-                        </View>
-                    </View>
-                </View>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    enableEmptySections={true}
+                    onEndReached={()=>this.refresh()}
+                    onEndReachedThreshold={100}
+                    renderRow={(gList)=>this.renderGList(gList)}
+                />
             </View>
         )
     }
 }
-const styles=StyleSheet.create({
-    orderWrap:{
-        backgroundColor:'#FFFFFF',
-        marginTop:10,
-        borderBottomWidth:0.5,
-        borderBottomColor:'#E6E6E6',
-        paddingLeft:10,
-        paddingRight:10
-    },
-    btn:{
-        width:90,
-        height:32,
-        borderWidth:1,
-        borderColor:'#898989',
-        borderRadius:5,
-        justifyContent:'center',
-        alignItems:'center'
-    },
-    btn1:{
-        marginTop:10,
-        backgroundColor:'#16BD42',
-        borderWidth:0
-    }
-})

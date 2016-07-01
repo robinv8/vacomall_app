@@ -32,6 +32,7 @@ export default class MainPage extends Component {
                 />
                 <Navigator
                     initialRoute={{ name: defaultName, component: defaultComponent }}
+                    interactivePopGestureEnabled={false}
                     style={{backgroundColor:'white'}}
                     configureScene={(route) => {
                 if (route.sceneConfig) {

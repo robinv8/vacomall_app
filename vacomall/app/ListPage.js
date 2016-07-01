@@ -16,9 +16,10 @@ import React, {
     RefreshControl,
     BackAndroid,
     Platform,
-    ActivityIndicatorIOS
+    ActivityIndicatorIOS,
+    Navigator
 }from 'react-native'
-import {ListHeader, GoodsDetail, API, NetService, Toast} from './util/Path';
+import {ListHeader, GoodsDetail, API, NetService, Toast,MainScreen} from './util/Path';
 var SortItemArray = [];
 var beforeSortItem;
 var listFlag = 0;
@@ -39,7 +40,7 @@ export default class ListPage extends Component {
             sort: 0,
             listArray: [],
             sortItem: null,
-            searchText: null
+            searchText: null,
         }
     }
 
@@ -97,13 +98,18 @@ export default class ListPage extends Component {
         } else {
             if (this.state.listArray.length > 0) {
                 this.setState({
-                    //isNull:true,
+                    isNull:false,
                     loaded: true,
                 });
             } else {
                 this.setState({
-                    //isNull:true,
+                    isNull:true,
                     loaded: true,
+                });
+                NetService.getFetchData(API.GUESS, (result)=> {
+                    this.setState({
+                        dataSource: this.state.dataSource.cloneWithRows(result)
+                    });
                 });
             }
 
@@ -156,10 +162,18 @@ export default class ListPage extends Component {
                 beforeSortItem = SortItemArray[2];
                 break;
         }
+        this.setState({
+            listArray:[]
+        })
         this.getListData();
 
     }
-
+    toHome() {
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.popToTop()
+        }
+    }
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -195,12 +209,32 @@ export default class ListPage extends Component {
 
     isNull() {
         return (
-            <View style={{flex:1}}>
+            <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}>
                 <ListHeader navigator={this.props.navigator} id={this.props.id} searchText={this.state.searchText}/>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Text>未找到相关商品!</Text>
+                <View
+                    style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',height:350,marginTop:11}}>
+                    <View style={{flexDirection:'row',alignItems: 'center',}}>
+                        <Image source={require('../images/list_search_icon.png')}
+                               style={{ width: 15,height: 15,marginRight:5}}/>
+                        <Text style={{color:'#3C3C3C'}}>未找到相关商品,您可以</Text>
+                    </View>
+                    <TouchableWithoutFeedback onPress={()=>this.toHome()}>
+                        <View
+                            style={{backgroundColor: '#FF9700',width:88,height:28,borderRadius:5,justifyContent: 'center',alignItems: 'center',marginTop:22}}>
+                            <Text style={{color:'white'}}>随便逛逛</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
-            </View>
+                <View
+                    style={styles.cnxh_view}>
+                    <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}/>
+                </View>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={(gList)=>this.renderGList(gList)}
+                    contentContainerStyle={styles.listview}/>
+
+            </ScrollView>
         );
     }
 
@@ -376,5 +410,25 @@ const styles = StyleSheet.create({
     sortText: {
         fontSize: 12,
         color: '#555555'
+    },
+
+    cnxh_view: {
+        alignItems: 'center',
+        height: 40,
+        justifyContent: 'center'
+    },
+    cnxh_view_img: {
+        width: 96,
+        height: 20,
+        resizeMode: 'stretch',
+    },
+    price1: {
+        color: '#FF0200',
+        fontSize: 18
+    },
+    bprice: {
+        color: '#BFBFBF',
+        fontSize: 12,
+        justifyContent: 'flex-end'
     },
 })

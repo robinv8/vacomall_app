@@ -52,7 +52,9 @@ export default class OrderPage extends Component {
                          style={{width:18,height: 18,resizeMode: 'stretch'}}/>,
             orderPayId: null,
             text: '',
-            loadding: null
+            loadding: null,
+            isSubmitOrder: false,
+            result:null
         };
     }
 
@@ -124,36 +126,54 @@ export default class OrderPage extends Component {
         } else {
             submitOrder(this);
         }
-        function submitOrder(_this){
+        function submitOrder(_this) {
             const {navigator}=_this.props;
+            if (!_this.state.isSubmitOrder) {
+                NetService.postFetchData(API.SUBMIT, 'orderPayId=' + orderPayId + '&orderRemark=' + _this.state.text, (result)=> {
+                    if (result['success'] === false) {
+                        Toast.show(result['result']['message']);
+                        if (result['result']['code'] === 303) {
+                            if (navigator) {
+                                navigator.push({
+                                    component: Login,
+                                    sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                                })
+                            }
+                        }
+                        return;
+                    }
 
-            NetService.postFetchData(API.SUBMIT, 'orderPayId=' + orderPayId + '&orderRemark=' + _this.state.text, (result)=> {
-                if (result['success'] === false) {
-                    Toast.show(result['result']['message']);
-                    if (result['result']['code'] === 303) {
+                    result = result['result'];
+                    if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
+                        WeChatPay.order(result['OutTradeId'], _this);//微信支付
+                    } else {
                         if (navigator) {
                             navigator.push({
-                                component: Login,
-                                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                                component: PayHDFK,
+                                sceneConfig: Navigator.SceneConfigs.FloatFromRight,
+                                params: {result: result}
                             })
                         }
                     }
-                    return;
-                }
-                result = result['result'];
+                    _this.setState({
+                        isSubmitOrder: true,
+                        result:result
+                    });
+                });
+            }else{
                 if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
-                    WeChatPay.order(result['OutTradeId'], _this);//微信支付
+                    WeChatPay.order(_this.state.result['OutTradeId'], _this);//微信支付
                 } else {
                     if (navigator) {
                         navigator.push({
                             component: PayHDFK,
                             sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                            params: {result: result}
+                            params: {result: _this.state.result}
                         })
                     }
                 }
+            }
 
-            });
         }
     }
 

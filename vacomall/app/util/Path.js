@@ -46,7 +46,10 @@ import OrderPage from '../OrderPage';
 import OrderHeader from '../Order/OrderHeader';
 
 import OrderSelectPage from '../OrderSelectPage';
-import OrderAll from '../OrderDetail/OrderAll'
+import OrderAll from '../OrderDetail/OrderAll';
+import OrderDFK from '../OrderDetail/OrderDFK';
+import OrderDFH from '../OrderDetail/OrderDFH';
+import OrderDSH from '../OrderDetail/OrderDSH';
 /*---充值---*/
 import ChongZhiPage from '../ChongZhiPage';
 import * as ChongZhi from '../ChongZhiPage';
@@ -136,5 +139,8 @@ export {
     PayHDFK,
     WeChatAndroid,
     WeChatIos,
-    Random
+    Random,
+    OrderDFK,
+    OrderDFH,
+    OrderDSH
 };
