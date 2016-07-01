@@ -17,7 +17,8 @@ import {MainScreen,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Rea
 
 export default class MainPage extends Component {
     componentDidMount() {
-        //Reactotron.connect();
+
+        //Reactotron.connect()
        //codePush.sync();//app 热更新
     }
 

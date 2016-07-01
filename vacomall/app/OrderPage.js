@@ -30,7 +30,6 @@ import {
 } from './util/Path'
 
 let cartThis = [], WeChatPay;
-;
 export default class OrderPage extends Component {
     // 构造
     constructor(props) {
@@ -106,6 +105,15 @@ export default class OrderPage extends Component {
             Toast.show('请选择支付类型!');
             return;
         }
+        this.setState({
+            loadding: <View
+                style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
+                <View
+                    style={{width:200,height:140,backgroundColor:'rgba(0,0,0,0.5)',borderRadius:5,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'white'}}>正在加载,请等候……</Text>
+                </View>
+            </View>
+        });
         let isWXAppInstalled = true;
         if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
             WeChatPay.isWXAppInstalled((res)=> {
@@ -117,17 +125,8 @@ export default class OrderPage extends Component {
             submitOrder(this);
         }
         function submitOrder(_this){
-            console.log(_this);
             const {navigator}=_this.props;
-            _this.setState({
-                loadding: <View
-                    style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
-                    <View
-                        style={{width:200,height:140,backgroundColor:'rgba(0,0,0,0.5)',borderRadius:5,justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{color:'white'}}>正在加载,请等候……</Text>
-                    </View>
-                </View>
-            });
+
             NetService.postFetchData(API.SUBMIT, 'orderPayId=' + orderPayId + '&orderRemark=' + _this.state.text, (result)=> {
                 if (result['success'] === false) {
                     Toast.show(result['result']['message']);
@@ -251,8 +250,9 @@ export default class OrderPage extends Component {
                                         placeholder='选填,可填写您需要的备注信息'
                                         placeholderTextColor={'#BFBFBF'}
                                         onChangeText={(text)=>this._onChange(text)}
+                                        underlineColorAndroid='transparent'
                                         value={this.state.text}
-                                        style={{height:47,paddingLeft:14,fontSize:14}}
+                                        style={{height:47,paddingLeft:14,fontSize:14,paddingTop:Dimensions.OS==='ios'?0:12}}
                                     />
                                 </View>
                             </View>

@@ -84,13 +84,6 @@ export default class Flow extends Component {
             Toast.show('手机号码不正确!');
             return;
         }
-        let isWXAppInstalled=false;
-        WeChatPay.isWXAppInstalled((res)=> {
-            isWXAppInstalled=res;
-        });
-        if(!isWXAppInstalled){
-            return;
-        }
         ChongZhi.parentThis.setState({
             loadding: <View
                 style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
@@ -100,24 +93,38 @@ export default class Flow extends Component {
                 </View>
             </View>
         });
-        NetService.postFetchData(API.SUBMITCZ, 'phone=' + mobile + '&target=' + beforeThis.state.Target, (result)=> {
-            if (result['success'] === false) {
-                Toast.show(result['result']['message']);
-                const {navigator}=this.props;
-                if (result['result']['code'] === 303) {
-                    if (navigator) {
-                        navigator.push({
-                            component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                        })
-                    }
-                }
-                return;
+        let isWXAppInstalled = true;
+        WeChatPay.isWXAppInstalled((res)=> {
+            if (res) {
+                submitOrder(this);
+            }else{
+                ChongZhi.parentThis.setState({
+                    loadding: null
+                });
             }
-
-            //this.order(result['Id'])
-            WeChatPay.order(result['result']['OutTradeId']);
         });
+        function submitOrder(_this){
+            NetService.postFetchData(API.SUBMITCZ, 'phone=' + mobile + '&target=' + beforeThis.state.Target, (result)=> {
+                if (result['success'] === false) {
+                    Toast.show(result['result']['message']);
+                    ChongZhi.parentThis.setState({
+                        loadding: null
+                    });
+                    const {navigator}=_this.props;
+                    if (result['result']['code'] === 303) {
+                        if (navigator) {
+                            navigator.push({
+                                component: Login,
+                                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                            })
+                        }
+                    }
+                    return;
+                }
+                WeChatPay.order(result['result']['OutTradeId'],'chongzhi');
+
+            });
+        }
     }
 
 

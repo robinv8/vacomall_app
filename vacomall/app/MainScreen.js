@@ -64,7 +64,6 @@ export default class MainScreen extends Component {
         const routers = navigator.getCurrentRoutes();
         if (routers.length > 1) {
             var displayName = routers[routers.length - 1]['component']['displayName'];
-            Toast.show(displayName)
             if (displayName === 'Login') {
                 this.setState({
                     selectedTab:HOME

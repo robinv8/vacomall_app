@@ -17,7 +17,7 @@ import React, {
     ToastAndroid,
     Navigator
 }from 'react-native'
-import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit} from './util/Path';
+import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit,MainScreen} from './util/Path';
 
 let cartThis = [], listFlag = 0;
 export default class CartPage extends Component {
@@ -51,11 +51,21 @@ export default class CartPage extends Component {
         }
     }
 
+    toHome() {
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.resetTo({
+                component: MainScreen,
+                sceneConfig: Navigator.SceneConfigs.FadeAndroid
+            })
+        }
+    }
+
     componentWillReceiveProps() {
         this.setState({
-            refreshing:this.props.active
+            refreshing: this.props.active
         })
-       if (this.state.refreshing) {
+        if (this.state.refreshing) {
             this.componentWillMount(()=> {
                 this._editsubmit();
             });
@@ -66,7 +76,7 @@ export default class CartPage extends Component {
 
     componentWillMount(callback) {
         this.setState({
-            refreshing:false
+            refreshing: false
         })
         cartThis = [];
         this.setState({
@@ -180,14 +190,14 @@ export default class CartPage extends Component {
 
     _toOrder() {
         this.setState({
-           refreshing:false
+            refreshing: false
         });
         var _this = this;
         if (this.state.gList.length === 0) {
             Toast.show('购物车数量为0,不能结算!');
             return;
         }
-        NetService.postFetchData(API.HASSTORE, '', (result)=>{
+        NetService.postFetchData(API.HASSTORE, '', (result)=> {
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 return;
@@ -422,10 +432,12 @@ export default class CartPage extends Component {
                                style={{width: 30,height:26,marginRight:15}}/><Text
                         style={{color:'#3C3C3C'}}>购物车是空的,您可以</Text>
                     </View>
-                    <View
-                        style={{backgroundColor: '#FF9700',width:88,height:28,borderRadius:5,justifyContent: 'center',alignItems: 'center',marginTop:22}}>
-                        <Text style={{color:'white'}}>随便逛逛</Text>
-                    </View>
+                    <TouchableWithoutFeedback onPress={()=>this.toHome()}>
+                        <View
+                            style={{backgroundColor: '#FF9700',width:88,height:28,borderRadius:5,justifyContent: 'center',alignItems: 'center',marginTop:22}}>
+                            <Text style={{color:'white'}}>随便逛逛</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
                 <View
                     style={styles.cnxh_view}>
@@ -562,7 +574,7 @@ const styles = StyleSheet.create({
     goods_view: {
         backgroundColor: 'white',
         height: 115,
-        flex:1
+        flex: 1
     },
     sty: {
         flexDirection: 'row',

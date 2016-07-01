@@ -248,7 +248,6 @@ export default class HomePage extends Component {
                 component: ListPage,
                 sceneConfig: Navigator.SceneConfigs.FloatFromRight,
                 params: {id: id}
-
             })
         }
     }
@@ -281,6 +280,8 @@ export default class HomePage extends Component {
 
     toDetails(id) {
         const {navigator}=this.props;
+        const routers = navigator.getCurrentRoutes();
+        console.log(navigator)
         if (navigator) {
             navigator.push({
                 component: GoodsDetail,

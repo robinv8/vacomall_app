@@ -47,7 +47,7 @@ export default class Header extends Component {
         // 初始状态
         this.state = {
             clear: null,
-            text: '文件',
+            text: '',
             list:[],
         }
     }

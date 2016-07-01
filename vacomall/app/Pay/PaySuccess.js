@@ -48,7 +48,10 @@ export default class paySuccess extends Component {
     toHome() {
         const {navigator}=this.props;
         if (navigator) {
-            navigator.popToTop()
+            navigator.resetTo({
+                component: MainScreen,
+                sceneConfig: Navigator.SceneConfigs.FadeAndroid
+            })
         }
     }
 

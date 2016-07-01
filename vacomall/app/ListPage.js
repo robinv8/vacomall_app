@@ -180,7 +180,6 @@ export default class ListPage extends Component {
                     onEndReached={()=>this.refresh()}
                     onEndReachedThreshold={100}
                     contentContainerStyle={styles.listview}
-                    onScroll={(event)=>this.handleScroll(event)}
                 />
             </View>
         )
