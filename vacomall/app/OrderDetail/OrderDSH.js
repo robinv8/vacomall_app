@@ -31,24 +31,31 @@ export default class OrderDSH extends Component {
             }),
             page:1,
             listArray:[],
-            isLoad:false
+            loaded:false,
+            isloaded:false
         };
     }
     componentWillReceiveProps() {
-        this.componentDidMount()
+        this.setState({
+            isloaded:true
+        })
+        this.componentDidMount();
     }
     componentDidMount() {
-        if(!this.props.isLoad||this.state.isLoad){
+        let parentThis=this.props._this;
+
+        if(parentThis.state.activePage!==3||this.state.isloaded){
+            this.setState({
+                loaded:false,
+                isloaded:false
+            })
             return;
         }
-       this.loadData();
-        this.setState({
-            isLoad:true
-        })
+        this.loadData();
     }
     loadData(){
         const {navigator}=this.props;
-        NetService.getFetchData(API.ORDERDETAIL+'?st=300&size=5&page='+this.state.page,(result)=>{
+        NetService.getFetchData(API.ORDERDETAIL+'?st=300&size=10&page='+this.state.page,(result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
@@ -67,6 +74,9 @@ export default class OrderDSH extends Component {
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
                 });
+                this.setState({
+                    loaded:true
+                })
             }
         })
     }
@@ -84,7 +94,19 @@ export default class OrderDSH extends Component {
             <OrderDetail gList={gList}/>
         )
     }
+    renderLoadingView() {
+        return (
+            <View style={{flex:1}}>
+                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
+                    <Image source={require('../../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
+                </View>
+            </View>
+        );
+    }
     render() {
+        if (!this.state.loaded) {
+            return this.renderLoadingView();
+        }
         return (
             <View style={{backgroundColor:'#FAFAFA',flex:1}}>
                 <ListView

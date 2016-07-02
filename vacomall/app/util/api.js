@@ -26,7 +26,8 @@ var API = {
     GETPAYINFO:     API_ADDRESS + 'wx/getpayinfo',
     SUBMITCZ:       API_ADDRESS + 'order/submitcz',
     ORDERNUM:       API_ADDRESS + 'me/order/get/num',
-    ORDERDETAIL:    API_ADDRESS + 'me/order/get'
+    ORDERDETAIL:    API_ADDRESS + 'me/order/get',
+    CANCELORDER:    API_ADDRESS + 'me/order/cancel'
 };
 
 module.exports = API;

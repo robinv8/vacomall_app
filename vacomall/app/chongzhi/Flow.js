@@ -74,14 +74,13 @@ export default class Flow extends Component {
     }
 
     pay() {
-        if (beforeThis === null) {
-            Toast.show('请选择充值金额!');
+        let mobile=this.props._this.state.text;
+        if (mobile === '') {
+            Toast.show('手机号码不正确!');
             return;
         }
-        let mobile = ChongZhi.mobile;
-        //Toast.show(mobile);
-        if (mobile === null) {
-            Toast.show('手机号码不正确!');
+        if (beforeThis === null) {
+            Toast.show('请选择充值金额!');
             return;
         }
         ChongZhi.parentThis.setState({

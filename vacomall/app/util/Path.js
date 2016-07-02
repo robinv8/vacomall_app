@@ -64,6 +64,7 @@ import PayError from '../Pay/PayError';
 import Person from '../Person';
 //import ViewPull from '../ViewPull'
 
+import IntroPage from '../IntroPage';
 
 /*---第三方组件---*/
 import TabNavigator from 'react-native-tab-navigator';
@@ -77,6 +78,7 @@ import ListViewRowEdit from 'react-native-listview-row-edit';
 import ScrollableTabView,{DefaultTabBar}  from 'react-native-scrollable-tab-view';
 import WeChatIos from 'react-native-wechat-ios';
 import WeChatAndroid from 'react-native-wechat-android';
+import AppIntro from 'react-native-app-intro';
 /*---自定义工具类---*/
 import API from './api';
 import * as NetService from './NetService';
@@ -142,5 +144,7 @@ export {
     Random,
     OrderDFK,
     OrderDFH,
-    OrderDSH
+    OrderDSH,
+    AppIntro,
+    IntroPage
 };

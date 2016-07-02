@@ -9,22 +9,55 @@ import React,{
     Text,
     Navigator,
     AppState,
-    StatusBar
+    StatusBar,
+    AsyncStorage
 }from 'react-native';
 
 
-import {MainScreen,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage,CartPage,OrderPage,PaySuccess,PayHDFK} from './app/util/Path';
-
+import {MainScreen,IntroPage,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage,CartPage,OrderPage,PaySuccess,PayHDFK,ChongZhiPage} from './app/util/Path';
+let defaultName = 'IntroPage';
+let defaultComponent = IntroPage;
+import Version from './app/Version'
 export default class MainPage extends Component {
-    componentDidMount() {
-
-        //Reactotron.connect()
-       //codePush.sync();//app 热更新
+    // 构造
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            isload:false
+        };
     }
 
+    componentDidMount() {
+        //Reactotron.connect()
+        //codePush.sync();//app 热更新
+    }
+
+    componentWillMount() {
+        this._loadInitialState();
+    }
+    async _loadInitialState() {
+        let installed = await AsyncStorage.getItem('installedVersion');
+        console.log(installed)
+        if (installed == Version) {
+            defaultName = 'OrderSelectPage';
+            defaultComponent = OrderSelectPage;
+        } else {
+            defaultName = 'IntroPage';
+            defaultComponent = IntroPage;
+        }
+        this.setState({
+            isload:true
+        })
+    }
+
+
     render() {
-        let defaultName = 'MainScreen';
-        let defaultComponent = MainScreen;
+        if (!this.state.isload) {
+            return (
+                <View/>
+            )
+        }
         return (
             <View style={{flex:1}}>
                 <StatusBar

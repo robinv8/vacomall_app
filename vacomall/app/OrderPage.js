@@ -26,7 +26,9 @@ import {
     WeChatPayAndroid,
     WeChatPayIos,
     Login,
-    PayHDFK
+    PayHDFK,
+    OrderDFK,
+    CartPage
 } from './util/Path'
 
 let cartThis = [], WeChatPay;
@@ -54,7 +56,7 @@ export default class OrderPage extends Component {
             text: '',
             loadding: null,
             isSubmitOrder: false,
-            result:null
+            result: null
         };
     }
 
@@ -142,7 +144,11 @@ export default class OrderPage extends Component {
                         }
                         return;
                     }
-
+                    if (navigator) {
+                        navigator.replacePrevious({
+                            component: CartPage,
+                        })
+                    }
                     result = result['result'];
                     if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
                         WeChatPay.order(result['OutTradeId'], _this);//微信支付
@@ -157,10 +163,10 @@ export default class OrderPage extends Component {
                     }
                     _this.setState({
                         isSubmitOrder: true,
-                        result:result
+                        result: result
                     });
                 });
-            }else{
+            } else {
                 if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
                     WeChatPay.order(_this.state.result['OutTradeId'], _this);//微信支付
                 } else {
@@ -356,15 +362,7 @@ export default class OrderPage extends Component {
     }
 
     renderGList(gList) {
-        var _textLength = function (text) {
-            var rtnText = "";
-            if (text.length > 30) {
-                rtnText = text.substring(0, 30) + '…'
-            } else {
-                rtnText = text;
-            }
-            return rtnText;
-        }
+
         return (
             <CartList gList={gList}/>
         )
@@ -390,6 +388,21 @@ class CartList extends Component {
         prevThis = this;
     }
 
+    texthandle(text) {
+        var rtnText = "";
+        let index = text.indexOf('-');
+        if (index > 0) {
+            rtnText = text.substring(0, index);
+        }
+        if (rtnText.length > 30) {
+            rtnText = rtnText.substring(0, 25) + '……'
+        } else {
+            rtnText = rtnText;
+        }
+
+        return rtnText;
+    }
+
     render() {
         return (
             <View style={styles.goods_view}>
@@ -402,7 +415,7 @@ class CartList extends Component {
                         </View>
                         <View style={{flex:4,marginLeft:10}}>
                             <Text
-                                style={{color:'#898989',fontSize:14,height:63}}>{this.props.gList['name'].substring(0, 50)}</Text>
+                                style={{color:'#898989',fontSize:14,height:63}}>{this.texthandle(this.props.gList['name'])}</Text>
                             <Text
                                 style={{color:'#C8C8C8',fontSize:12}}>规格:{this.props.gList['skuSpecification'].substring(0, 30)}</Text>
                         </View>

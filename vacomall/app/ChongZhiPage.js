@@ -16,7 +16,7 @@ import React,
 }from 'react-native';
 import {Flow,HuaFei,ScrollableTabView,DefaultTabBar,API,NetService} from './util/Path';
 
-export let mobile=null,parentThis;
+export let parentThis;
 
 export default class ChongZhiPage extends Component {
     // 构造
@@ -25,7 +25,7 @@ export default class ChongZhiPage extends Component {
         // 初始状态
         this.state = {
             clear: null,
-            text: null,
+            text: '',
             HuaFei: [],
             Flow: [],
             loadding:null
@@ -37,8 +37,8 @@ export default class ChongZhiPage extends Component {
         parentThis=this;
         NetService.getFetchData(API.HOME + '?keys=CZ_HF,CZ_LL', (result)=> {
             this.setState({
-                HuaFei: <HuaFei tabLabel="话费" navigator={_this.props.navigator} hfData={result['CZ_HF']}/>,
-                Flow: <Flow tabLabel="流量" navigator={_this.props.navigator} llData={result['CZ_LL']}/>
+                HuaFei: <HuaFei tabLabel="话费" navigator={_this.props.navigator} hfData={result['CZ_HF']} _this={this}/>,
+                Flow: <Flow tabLabel="流量" navigator={_this.props.navigator} llData={result['CZ_LL']} _this={this}/>
             })
         });
     }
@@ -48,7 +48,6 @@ export default class ChongZhiPage extends Component {
             text: '',
             clear: null
         });
-        mobile=null;
     }
 
     _onChange(text) {
@@ -60,13 +59,11 @@ export default class ChongZhiPage extends Component {
                 </TouchableWithoutFeedback>,
                 text: text
             });
-            mobile=text;
         } else {
             this.setState({
-                text: null,
+                text: '',
                 clear: null,
             });
-            mobile=null;
         }
 
     }

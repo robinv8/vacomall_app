@@ -25,28 +25,55 @@ export default class OrderAll extends Component {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2)=>row1 !== row2
             }),
-            handle:null,
-            liststate:null
+            handle: null,
+            liststate: null
         };
     }
+
     /*
-    * <View style={{flexDirection:'row',marginTop:13}}>
+     * <View style={{flexDirection:'row',marginTop:13}}>
      <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
      <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
      </View>*/
+    cancelOrder(orderId){
+        NetService.postFetchData(API.CANCELORDER,'orderId='+orderId,(result)=>{
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+            this.props._this.setState({
+                page:1,
+                isloaded:false,
+                loaded:false,
+                listArray:[]
+            });
+            this.props._this.loadData();
+            Toast.show(result['result']['message']);
+        })
+    }
     componentDidMount() {
-        prevThis=null
+        prevThis = null
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(this.props.gList['goods']),
         });
-        switch(this.props.gList['OrderStatus']){
+        switch (this.props.gList['OrderStatus']) {
             case 100:
                 this.setState({
-                    handle:<View style={{flexDirection:'row',marginTop:13}}>
-                        <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
+                    handle: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.gList['Id'])}>
+                            <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
+                        </TouchableWithoutFeedback>
                         <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
                     </View>,
-                    liststate:<View style={{flexDirection:'row',marginTop:13}}>
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>待支付 </Text></View>
                     </View>
                 })
@@ -54,30 +81,33 @@ export default class OrderAll extends Component {
             case 200:
                 this.setState({
                     handle:<View style={{flexDirection:'row',marginTop:13}}>
-                        <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
-                    </View>,
-                    liststate:<View style={{flexDirection:'row',marginTop:13}}>
+                                    <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.gList['Id'])}>
+                                        <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
+                                    </TouchableWithoutFeedback>
+                                </View>,
+
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>待发货 </Text></View>
                     </View>
                 })
                 break;
             case 300:
                 this.setState({
-                    handle:<View style={{flexDirection:'row',marginTop:13}}>
+                    handle: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={styles.btn}><Text style={{color:'#898989'}}>查看物流</Text></View>
                         <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>确认收货</Text></View>
                     </View>,
-                    liststate:<View style={{flexDirection:'row',marginTop:13}}>
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>已发货 </Text></View>
                     </View>
                 })
                 break;
             case 500:
                 this.setState({
-                    handle:<View style={{flexDirection:'row',marginTop:13}}>
+                    handle: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>找相似</Text></View>
                     </View>,
-                    liststate:<View style={{flexDirection:'row',marginTop:13}}>
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>请退款 </Text></View>
                     </View>
                 })
@@ -85,9 +115,11 @@ export default class OrderAll extends Component {
 
         }
     }
+
     componentDidUnMount() {
 
     }
+
     renderGList(gList) {
         var _textLength = function (text) {
             var rtnText = "";
@@ -102,6 +134,7 @@ export default class OrderAll extends Component {
             <CartList gList={gList} liststate={this.state.liststate}/>
         )
     }
+
     render() {
         return (
             <View style={{backgroundColor:'#FAFAFA',flex:1}}>
@@ -115,7 +148,9 @@ export default class OrderAll extends Component {
                         renderRow={(gList)=>this.renderGList(gList)}
                     />
                     <View style={{height:100,justifyContent:'center',alignItems:'flex-end'}}>
-                        <View><Text style={{color:'#898989'}}>共计{this.props.gList['goods'].length}件商品 合计:<Text style={{color:'#FD3824',fontSize:12}}>￥</Text><Text style={{color:'#FD3824',fontSize:18}}>{this.props.gList['OrderPayMoney']}</Text></Text></View>
+                        <View><Text style={{color:'#898989'}}>共计{this.props.gList['goods'].length}件商品 合计:<Text
+                            style={{color:'#FD3824',fontSize:12}}>￥</Text><Text
+                            style={{color:'#FD3824',fontSize:18}}>{this.props.gList['OrderPayMoney']}</Text></Text></View>
                         {this.state.handle}
                     </View>
                 </View>
@@ -123,7 +158,7 @@ export default class OrderAll extends Component {
         )
     }
 }
-var prevThis=null;
+var prevThis = null;
 class CartList extends Component {
     // 构造
     constructor(props) {
@@ -134,20 +169,21 @@ class CartList extends Component {
         };
     }
 
-    texthandle(text){
+    texthandle(text) {
         var rtnText = "";
         let index = text.indexOf('-');
         if (index > 0) {
             rtnText = text.substring(0, index);
         }
         if (rtnText.length > 30) {
-            rtnText = rtnText.substring(0, 25)+'……'
+            rtnText = rtnText.substring(0, 25) + '……'
         } else {
             rtnText = rtnText;
         }
 
         return rtnText;
     }
+
     render() {
         return (
             <View style={styles.goods_view}>
@@ -166,7 +202,8 @@ class CartList extends Component {
                         </View>
                     </View>
 
-                    <View style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
+                    <View
+                        style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
                         <View>
                             <Text style={{color:'#BFBFBF',fontSize:10}}>￥<Text
                                 style={{fontSize:14}}>{this.props.gList['SkuSalePrice']}</Text></Text>
@@ -182,37 +219,37 @@ class CartList extends Component {
         );
     }
 }
-const styles=StyleSheet.create({
-    orderWrap:{
-        backgroundColor:'#FFFFFF',
-        marginTop:10,
-        borderBottomWidth:1,
-        borderBottomColor:'#E6E6E6',
-        paddingLeft:10,
-        paddingRight:10
+const styles = StyleSheet.create({
+    orderWrap: {
+        backgroundColor: '#FFFFFF',
+        marginTop: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#E6E6E6',
+        paddingLeft: 10,
+        paddingRight: 10
     },
-    btn:{
-        width:90,
-        height:32,
-        borderWidth:1,
-        borderColor:'#898989',
-        borderRadius:5,
-        justifyContent:'center',
-        alignItems:'center'
+    btn: {
+        width: 90,
+        height: 32,
+        borderWidth: 1,
+        borderColor: '#898989',
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    btn1:{
-        marginLeft:10,
-        backgroundColor:'#16BD42',
-        borderWidth:0
+    btn1: {
+        marginLeft: 10,
+        backgroundColor: '#16BD42',
+        borderWidth: 0
     },
-    min_btn:{
-        width:54,
-        height:20,
-        borderWidth:0.5,
-        borderColor:'#FF9700',
-        borderRadius:5,
-        justifyContent:'center',
-        alignItems:'center'
+    min_btn: {
+        width: 54,
+        height: 20,
+        borderWidth: 0.5,
+        borderColor: '#FF9700',
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     goods_view: {
         backgroundColor: 'white',

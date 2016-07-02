@@ -72,8 +72,8 @@ export function order(id,module) {
                     getpayinfo(id,module);
                 } else if (res.errCode == -1) { //很多情况下是证书问题
                     Toast.show('支付失败,请稍后尝试');
-                } else if (res.errCode == -2) { //充值取消
-                    Toast.show("充值取消");
+                } else if (res.errCode == -2) { //取消支付
+                    Toast.show("取消支付");
                 }
             }
         );

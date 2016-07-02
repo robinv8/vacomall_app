@@ -21,11 +21,7 @@ export default class OrderSelectPage extends Component {
         this.state = {
             orderStatus: '我的订单',
             initialPage: 0,
-            isLoad0: false,
-            isLoad1: false,
-            isLoad2: false,
-            isLoad3: false,
-            isLoad4: false
+            activePage:0
         };
     }
 
@@ -39,21 +35,26 @@ export default class OrderSelectPage extends Component {
 
     componentWillMount() {
         let initialPage = this.props.initialPage;
-        //if(!initialPage===undefined){
+        if(initialPage===undefined){
+            initialPage=this.state.initialPage;
+            this.setState({
+                activePage:initialPage
+            })
+        }else{
+            this.setState({
+                activePage:this.props.initialPage
+            })
+        }
+
+
         let _this = this;
         const initialPageArray = ['all', 100, 200, 300, 400]
         initialPageArray.findIndex(function (value, index, arr) {
             if (value === initialPage) {
                 _this.setState({
                     initialPage: index,
+                    activePage:index
                 });
-                switch (index) {
-                    case 0:
-                        _this.setState({
-                            isLoad0: true
-                        })
-                        break;
-                }
             }
         })
     }
@@ -65,34 +66,9 @@ export default class OrderSelectPage extends Component {
     }
 
     onChangeTab(index) {
-        switch (index['i']) {
-            case 0:
-                this.setState({
-                    isLoad0: true
-                })
-                break;
-            case 1:
-                this.setState({
-                    isLoad1: true
-                })
-                break;
-            case 2:
-                this.setState({
-                    isLoad2: true
-                })
-                break;
-            case 3:
-                this.setState({
-                    isLoad3: true
-                })
-                break;
-            case 4:
-                this.setState({
-                    isLoad4: true
-                })
-                break;
-        }
-
+        this.setState({
+            activePage:index['i']
+        })
     }
 
     render() {
@@ -132,11 +108,11 @@ export default class OrderSelectPage extends Component {
                     onScroll={()=>this.scroll()}
                     onChangeTab={(index)=>this.onChangeTab(index)}
                     renderTabBar={() => <DefaultTabBar underlineHeight={2} style={{borderBottomWidth:2,borderBottomColor:'#D2D2D2',height:60,paddingTop:10}}/>}>
-                    <OrderAll tabLabel="全部" isLoad={this.state.isLoad0}/>
-                    <OrderDFK tabLabel="待付款" isLoad={this.state.isLoad1}/>
-                    <OrderDFH tabLabel="待发货" isLoad={this.state.isLoad2}/>
-                    <OrderDSH tabLabel="待收货" isLoad={this.state.isLoad3}/>
-                    <View tabLabel="退换货" isLoad={this.state.isLoad4}/>
+                    <OrderAll tabLabel="全部" _this={this}/>
+                    <OrderDFK tabLabel="待付款" _this={this}/>
+                    <OrderDFH tabLabel="待发货" _this={this}/>
+                    <OrderDSH tabLabel="待收货" _this={this}/>
+                    <View tabLabel="退换货" _this={this}/>
                 </ScrollableTabView>
             </View>
         )

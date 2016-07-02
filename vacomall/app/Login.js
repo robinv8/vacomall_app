@@ -44,7 +44,8 @@ export default class Login extends Component {
 
     async _loadInitialState() {
         var uname = await AsyncStorage.getItem('uname');
-        var pwd = await AsyncStorage.getItem('pwd');
+        var pwd =  await AsyncStorage.getItem('pwd');
+
         if(uname===''||uname===null||pwd===''||pwd===null){
             this.setState({
                 btnStateColor:'#70C98B'

@@ -28,18 +28,27 @@ export default class OrderAll extends Component {
             }),
             page:1,
             listArray:[],
-            isLoad:false
+            loaded:false,
+            isloaded:false
         };
       }
+    componentWillReceiveProps() {
+        this.setState({
+            isloaded:true
+        })
+        this.componentDidMount();
+    }
     componentDidMount() {
-        console.log(this.props.isLoad+'-'+this.state.isLoad)
-        if(!this.props.isLoad||this.state.isLoad){
+        let parentThis=this.props._this;
+
+        if(parentThis.state.activePage!==0||this.state.isloaded){
+            this.setState({
+                loaded:false,
+                isloaded:false
+            })
             return;
         }
         this.loadData();
-        this.setState({
-            isLoad:true
-        })
     }
     loadData(){
         const {navigator}=this.props;
@@ -62,12 +71,13 @@ export default class OrderAll extends Component {
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
                 });
+                this.setState({
+                    loaded:true,
+                })
             }
         })
     }
-    componentWillReceiveProps() {
-        this.componentDidMount();
-    }
+
     refresh() {
         this.setState({
             page: this.state.page + 1
@@ -79,10 +89,22 @@ export default class OrderAll extends Component {
     }
     renderGList(gList) {
         return (
-            <OrderDetail gList={gList}/>
+            <OrderDetail gList={gList} _this={this}/>
         )
     }
+    renderLoadingView() {
+        return (
+            <View style={{flex:1}}>
+                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
+                    <Image source={require('../../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
+                </View>
+            </View>
+        );
+    }
     render() {
+        if (!this.state.loaded) {
+            return this.renderLoadingView();
+        }
         return (
             <View style={{backgroundColor:'#FAFAFA',flex:1}}>
                 <ListView
