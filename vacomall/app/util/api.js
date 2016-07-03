@@ -27,7 +27,8 @@ var API = {
     SUBMITCZ:       API_ADDRESS + 'order/submitcz',
     ORDERNUM:       API_ADDRESS + 'me/order/get/num',
     ORDERDETAIL:    API_ADDRESS + 'me/order/get',
-    CANCELORDER:    API_ADDRESS + 'me/order/cancel'
+    CANCELORDER:    API_ADDRESS + 'me/order/cancel',
+    ORDERCONFIRM:   API_ADDRESS + 'me/order/confirm'
 };
 
 module.exports = API;

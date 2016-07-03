@@ -18,8 +18,8 @@ import React,{
     Dimensions,
     Navigator
 } from 'react-native';
-import {API,NetService,Toast,Login} from '../util/Path';
-import OrderDetail from './OrderDetail'
+import {API,NetService,Toast,Login,OrderList} from '../util/Path';
+
 export default class OrderDFH extends Component {
     // 构造
     constructor(props) {
@@ -91,7 +91,7 @@ export default class OrderDFH extends Component {
     }
     renderGList(gList) {
         return (
-            <OrderDetail gList={gList}/>
+            <OrderList gList={gList}/>
         )
     }
     renderLoadingView() {

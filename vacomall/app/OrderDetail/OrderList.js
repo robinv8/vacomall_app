@@ -2,7 +2,7 @@
  * Created by renyubin on 16/6/25.
  */
 'use strict';
-import React,{
+import React, {
     Component,
     View,
     StyleSheet,
@@ -15,8 +15,8 @@ import React,{
     Dimensions,
     Navigator
 } from 'react-native';
-import {API,NetService,Toast,Login} from '../util/Path';
-export default class OrderAll extends Component {
+import {API, NetService, Toast, Login} from '../util/Path';
+export default class OrderList extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -35,8 +35,8 @@ export default class OrderAll extends Component {
      <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
      <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
      </View>*/
-    cancelOrder(orderId){
-        NetService.postFetchData(API.CANCELORDER,'orderId='+orderId,(result)=>{
+    cancelOrder(orderId) {
+        NetService.postFetchData(API.CANCELORDER, 'orderId=' + orderId, (result)=> {
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
@@ -50,15 +50,41 @@ export default class OrderAll extends Component {
                 return;
             }
             this.props._this.setState({
-                page:1,
-                isloaded:false,
-                loaded:false,
-                listArray:[]
+                page: 1,
+                isloaded: false,
+                loaded: false,
+                listArray: []
             });
             this.props._this.loadData();
             Toast.show(result['result']['message']);
         })
     }
+
+    submitOrder(orderId) {
+        NetService.postFetchData(API.ORDERCONFIRM, 'orderId=' + orderId, (result)=> {
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+            this.props._this.setState({
+                page: 1,
+                isloaded: false,
+                loaded: false,
+                listArray: []
+            });
+            this.props._this.loadData();
+            Toast.show(result['result']['message']);
+        })
+    }
+
     componentDidMount() {
         prevThis = null
         this.setState({
@@ -71,7 +97,9 @@ export default class OrderAll extends Component {
                         <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.gList['Id'])}>
                             <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
                         </TouchableWithoutFeedback>
-                        <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
+                        <TouchableWithoutFeedback onPress={(orderId)=>this._toSubmit(this.props.gList['Id'])}>
+                            <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
+                        </TouchableWithoutFeedback>
                     </View>,
                     liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>待支付 </Text></View>
@@ -80,12 +108,11 @@ export default class OrderAll extends Component {
                 break;
             case 200:
                 this.setState({
-                    handle:<View style={{flexDirection:'row',marginTop:13}}>
-                                    <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.gList['Id'])}>
-                                        <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
-                                    </TouchableWithoutFeedback>
-                                </View>,
-
+                    handle: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.gList['Id'])}>
+                            <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
+                        </TouchableWithoutFeedback>
+                    </View>,
                     liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>待发货 </Text></View>
                     </View>
@@ -95,7 +122,9 @@ export default class OrderAll extends Component {
                 this.setState({
                     handle: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={styles.btn}><Text style={{color:'#898989'}}>查看物流</Text></View>
-                        <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>确认收货</Text></View>
+                        <TouchableWithoutFeedback onPress={(orderId)=>this.submitOrder(this.props.gList['Id'])}>
+                            <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>确认收货</Text></View>
+                        </TouchableWithoutFeedback>
                     </View>,
                     liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>已发货 </Text></View>
@@ -114,6 +143,30 @@ export default class OrderAll extends Component {
                 break;
 
         }
+    }
+
+    _toSubmit() {
+        let orderPayId = this.state.orderPayId
+        if (orderPayId === null) {
+            Toast.show('请选择支付类型!');
+            return;
+        }
+        this.props._this.setState({
+            loadding: <View
+                style={{flex:1,position:'absolute',top:-100,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
+                <View
+                    style={{width:200,height:140,backgroundColor:'rgba(0,0,0,0.5)',borderRadius:5,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'white'}}>正在加载,请等候……</Text>
+                </View>
+            </View>
+        });
+        /*let isWXAppInstalled = true;
+        WeChatPay.isWXAppInstalled((res)=> {
+            if (res) {
+                WeChatPay.order(result['OutTradeId'], this);//微信支付
+            }
+        });*/
+
     }
 
     componentDidUnMount() {

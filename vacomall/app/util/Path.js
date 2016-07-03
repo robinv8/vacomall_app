@@ -50,6 +50,9 @@ import OrderAll from '../OrderDetail/OrderAll';
 import OrderDFK from '../OrderDetail/OrderDFK';
 import OrderDFH from '../OrderDetail/OrderDFH';
 import OrderDSH from '../OrderDetail/OrderDSH';
+import OrderList from '../OrderDetail/OrderList';
+import OrderDetail from '../OrderDetail';
+import OrderDetailHeader from '../Order/OrderDetailHeader';
 /*---充值---*/
 import ChongZhiPage from '../ChongZhiPage';
 import * as ChongZhi from '../ChongZhiPage';
@@ -146,5 +149,8 @@ export {
     OrderDFH,
     OrderDSH,
     AppIntro,
-    IntroPage
+    IntroPage,
+    OrderList,
+    OrderDetail,
+    OrderDetailHeader
 };
