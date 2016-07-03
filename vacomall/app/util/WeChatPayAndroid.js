@@ -28,11 +28,12 @@ export function isWXAppInstalled(callback){
     );
 }
 
-export function order(id,module) {
+export function order(id,callback) {
     /!*获取首页基本数据*!/
    NetService.postFetchData(API.ORDER, 'orderId='+id, (result)=>{
        if(!result['success']){
            Toast.show(result['message']);
+           callback(result['success'])
            return;
        }
        result = result['result']['response'];
@@ -52,19 +53,9 @@ export function order(id,module) {
            timeStamp: timeStamp.toString(),
            sign: sign
        };
-       //Toast.show(module);
-       if(module==='chongzhi'){
-           ChongZhi.parentThis.setState({
-               loadding: null
-           });
-       }else{
-           module.setState({
-               loadding: null
-           });
-       }
 
        WeChatAndroid.weChatPay(payOptions,(err,sendReqOK) => {
-           getpayinfo(id,module);
+           getpayinfo(id,callback);
            //console.log(sendReqOK)
        });
        /*DeviceEventEmitter.addListener('finishedPay', function (event) {
@@ -78,24 +69,13 @@ export function order(id,module) {
        });*/
    });
 }
-function getpayinfo(id,module){
+function getpayinfo(id,callback){
     setTimeout(function () {
         NetService.postFetchData(API.GETPAYINFO, 'orderId=' + id, (result)=> {
             result = result['result'];
             if (result['isPay']) {
-                if(module==='chongzhi'){
-                    ChongZhi.parentThis.setState({
-                        loadding: null
-                    });
-                    Toast.show('微信支付成功!');
-                }else{
-                    const {navigator}=module.props;
-                    if (navigator) {
-                        navigator.push({
-                            component: PaySuccess,
-                            sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                        })
-                    }
+                if(callback!==undefined){
+                    callback(result);
                 }
             }
         });

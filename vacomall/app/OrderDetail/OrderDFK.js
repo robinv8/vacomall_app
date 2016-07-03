@@ -18,7 +18,7 @@ import React,{
     Dimensions,
     Navigator
 } from 'react-native';
-import {API,NetService,Toast,Login,OrderList} from '../util/Path';
+import {API,NetService,Toast,Login,OrderList,Loaddingpage} from '../util/Path';
 
 export default class OrderDFK extends Component {
     // 构造
@@ -52,7 +52,9 @@ export default class OrderDFK extends Component {
             })
             return;
         }
-        this.loadData();
+        setTimeout(()=>{
+            this.loadData();
+        },500)
     }
     loadData(){
         const {navigator}=this.props;
@@ -99,9 +101,7 @@ export default class OrderDFK extends Component {
     renderLoadingView() {
         return (
             <View style={{flex:1}}>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Image source={require('../../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
-                </View>
+                <Loaddingpage/>
             </View>
         );
     }

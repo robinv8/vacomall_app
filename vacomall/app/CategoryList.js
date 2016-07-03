@@ -14,7 +14,7 @@ import React, {
     Navigator,
     Image
 } from 'react-native';
-import {API,NetService,CategoryHeader,FirstCate,SubCate} from './util/Path';
+import {API,NetService,CategoryHeader,FirstCate,SubCate,Loaddingpage} from './util/Path';
 
 var cateMap = {}, beforeObj,fObj=[];
 export default class Category extends Component {
@@ -129,9 +129,7 @@ export default class Category extends Component {
         return (
             <View style={{flex:1}}>
                 <CategoryHeader navigator={this.props.navigator}/>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Image source={require('../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
-                </View>
+               <Loaddingpage/>
             </View>
         );
     }

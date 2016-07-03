@@ -19,7 +19,7 @@ import React, {
     ActivityIndicatorIOS,
     Navigator
 }from 'react-native'
-import {ListHeader, GoodsDetail, API, NetService, Toast,MainScreen} from './util/Path';
+import {ListHeader, GoodsDetail, API, NetService, Toast,MainScreen,Loaddingpage} from './util/Path';
 var SortItemArray = [];
 var beforeSortItem;
 var listFlag = 0;
@@ -242,9 +242,7 @@ export default class ListPage extends Component {
         return (
             <View style={{flex:1}}>
                 <ListHeader navigator={this.props.navigator} id={this.props.id} searchText={this.state.searchText}/>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Image source={require('../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
-                </View>
+                <Loaddingpage/>
             </View>
         );
     }

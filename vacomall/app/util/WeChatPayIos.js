@@ -31,11 +31,12 @@ export function isWXAppInstalled(callback) {
     });
 }
 
-export function order(id,module) {
+export function order(id,callback) {
     /!*获取首页基本数据*!/
     NetService.postFetchData(API.ORDER, 'orderId=' + id, (result)=>{
         if(!result['success']){
-            Toast.show(result['message']);
+            Toast.show(result['result']['message']);
+            callback(result['success'])
             return;
         }
         var result = result['result']['response'];
@@ -53,15 +54,7 @@ export function order(id,module) {
             timeStamp: timeStamp.toString(),
             sign: sign
         };
-        if(module==='chongzhi'){
-            ChongZhi.parentThis.setState({
-                loadding: null
-            });
-        }else{
-            module.setState({
-                loadding: null
-            });
-        }
+
         WeChatIos.weChatPay(payOptions, (res)=> {
 
         });
@@ -69,7 +62,8 @@ export function order(id,module) {
             'finishedPay',
             (res) => {
                 if (res.errCode == 0) { //充值成功
-                    getpayinfo(id,module);
+                    getpayinfo(id,callback);
+
                 } else if (res.errCode == -1) { //很多情况下是证书问题
                     Toast.show('支付失败,请稍后尝试');
                 } else if (res.errCode == -2) { //取消支付
@@ -79,25 +73,13 @@ export function order(id,module) {
         );
     });
 }
-function getpayinfo(id,module) {
+function getpayinfo(id,callback) {
     setTimeout(function () {
         NetService.postFetchData(API.GETPAYINFO, 'orderId=' + id, (result)=> {
             result = result['result'];
             if (result['isPay']) {
-
-                if(module==='chongzhi'){
-                    ChongZhi.parentThis.setState({
-                        loadding: null
-                    });
-                    Toast.show('微信支付成功!');
-                }else{
-                    const {navigator}=module.props;
-                    if (navigator) {
-                        navigator.push({
-                            component: PaySuccess,
-                            sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                        })
-                    }
+                if(callback!==undefined){
+                    callback(result);
                 }
             }
         });

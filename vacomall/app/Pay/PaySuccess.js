@@ -11,10 +11,11 @@ import React, {
     StyleSheet,
     StatusBar,
     Image,
-    PixelRatio
+    PixelRatio,
+    Navigator,
+    Alert
 }from 'react-native'
-var PPI = PixelRatio.get();
-var cartThis = [];
+import {MainScreen} from '../util/Path'
 export default class paySuccess extends Component {
     // 构造
     constructor(props) {
@@ -30,17 +31,11 @@ export default class paySuccess extends Component {
 
     componentDidMount() {
         var result = this.props.result;
-        /* this.setState({
-         CreateTime: result['CreateTime'],
-         OrderCode: result['OrderCode'],
-         OrderPayType: result['OrderPayType'],
-         OrderPayMoney: result['OrderPayMoney']
-         })*/
         this.setState({
-            CreateTime: 1,
-            OrderCode: 1,
-            OrderPayType: 1,
-            OrderPayMoney: 1
+            CreateTime: result['payTime'],
+            OrderCode: result['orderCode'],
+            OrderPayType: result['orderPayTitle'],
+            OrderPayMoney: result['orderPayMoney']
         })
     }
 

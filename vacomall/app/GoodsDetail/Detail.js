@@ -17,7 +17,7 @@ import React,{
     Navigator,
     Animated
 }from 'react-native';
-import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender} from '../util/Path';
+import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender,Loaddingpage} from '../util/Path';
 
 let shadeThis;
 export default class GoodsDetail extends Component {
@@ -189,10 +189,7 @@ export default class GoodsDetail extends Component {
     renderLoadingView() {
         return (
             <View style={{flex:1}}>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Image source={require('../../images/loading.gif')}
-                           style={{width:70,height:50,resizeMode:'stretch'}}/>
-                </View>
+                <Loaddingpage/>
             </View>
         );
     }

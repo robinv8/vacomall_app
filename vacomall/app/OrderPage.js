@@ -28,7 +28,8 @@ import {
     Login,
     PayHDFK,
     OrderDFK,
-    CartPage
+    CartPage,
+Loaddingpage
 } from './util/Path'
 
 let cartThis = [], WeChatPay;
@@ -142,6 +143,9 @@ export default class OrderPage extends Component {
                                 })
                             }
                         }
+                        _this.setState({
+                            loadding:null
+                        });
                         return;
                     }
                     if (navigator) {
@@ -151,7 +155,18 @@ export default class OrderPage extends Component {
                     }
                     result = result['result'];
                     if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
-                        WeChatPay.order(result['OutTradeId'], _this);//微信支付
+                        WeChatPay.order(result['OutTradeId'],(result)=>{
+                            _this.setState({
+                                loadding:null
+                            });
+                            if (navigator) {
+                                navigator.push({
+                                    component: PaySuccess,
+                                    sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                                    params:{result:result}
+                                })
+                            }
+                        });//微信支付
                     } else {
                         if (navigator) {
                             navigator.push({
@@ -168,7 +183,20 @@ export default class OrderPage extends Component {
                 });
             } else {
                 if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
-                    WeChatPay.order(_this.state.result['OutTradeId'], _this);//微信支付
+
+                    WeChatPay.order(_this.state.result['OutTradeId'],(result)=>{
+                        _this.setState({
+                            loadding:null
+                        });
+                        if (navigator) {
+                            navigator.push({
+                                component: PaySuccess,
+                                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                                params:{result:result}
+                            })
+                        }
+
+                    });
                 } else {
                     if (navigator) {
                         navigator.push({
@@ -354,9 +382,7 @@ export default class OrderPage extends Component {
         return (
             <View style={{flex:1}}>
                 <OrderHeader navigator={this.props.navigator} id={this.props.id}/>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Image source={require('../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
-                </View>
+                <Loaddingpage/>
             </View>
         );
     }

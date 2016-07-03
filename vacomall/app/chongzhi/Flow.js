@@ -120,7 +120,19 @@ export default class Flow extends Component {
                     }
                     return;
                 }
-                WeChatPay.order(result['result']['OutTradeId'],'chongzhi');
+                WeChatPay.order(result['result']['OutTradeId'],(result)=>{
+                    ChongZhi.parentThis.setState({
+                        loadding: null
+                    });
+                    if (navigator) {
+                        navigator.push({
+                            component: PaySuccess,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                            params:{result:result}
+                        })
+                    }
+
+                });
 
             });
         }

@@ -28,7 +28,9 @@ var API = {
     ORDERNUM:       API_ADDRESS + 'me/order/get/num',
     ORDERDETAIL:    API_ADDRESS + 'me/order/get',
     CANCELORDER:    API_ADDRESS + 'me/order/cancel',
-    ORDERCONFIRM:   API_ADDRESS + 'me/order/confirm'
+    ORDERCONFIRM:   API_ADDRESS + 'me/order/confirm',
+    ORDERDETAILINFO:    API_ADDRESS + 'me/order/detail',
+    ORDEREXPRESS    :API_ADDRESS + 'me/order/express'
 };
 
 module.exports = API;

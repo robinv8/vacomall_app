@@ -15,7 +15,7 @@ import React,{
     Dimensions,
     Navigator
 } from 'react-native';
-import {API,NetService,Toast,Login,OrderList} from '../util/Path';
+import {API,NetService,Toast,Login,OrderList,Loaddingpage} from '../util/Path';
 export default class OrderAll extends Component {
     // 构造
       constructor(props) {
@@ -39,7 +39,6 @@ export default class OrderAll extends Component {
     }
     componentDidMount() {
         let parentThis=this.props._this;
-
         if(parentThis.state.activePage!==0||this.state.isloaded){
             this.setState({
                 loaded:false,
@@ -47,7 +46,9 @@ export default class OrderAll extends Component {
             })
             return;
         }
-        this.loadData();
+        setTimeout(()=>{
+            this.loadData();
+        },500)
     }
     loadData(){
         const {navigator}=this.props;
@@ -94,9 +95,7 @@ export default class OrderAll extends Component {
     renderLoadingView() {
         return (
             <View style={{flex:1}}>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Image source={require('../../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
-                </View>
+                <Loaddingpage/>
             </View>
         );
     }
@@ -113,6 +112,7 @@ export default class OrderAll extends Component {
                     onEndReachedThreshold={100}
                     renderRow={(gList)=>this.renderGList(gList)}
                 />
+                {this.state.loadding}
             </View>
         )
     }

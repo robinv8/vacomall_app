@@ -15,7 +15,8 @@ import React, {
     Dimensions,
     Navigator
 } from 'react-native';
-import {API, NetService, Toast, Login} from '../util/Path';
+import {API, NetService, Toast, Login,OrderDetail,WeChatPayAndroid,WeChatPayIos,PaySuccess} from '../util/Path';
+let WeChatPay;
 export default class OrderList extends Component {
     // 构造
     constructor(props) {
@@ -36,6 +37,7 @@ export default class OrderList extends Component {
      <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
      </View>*/
     cancelOrder(orderId) {
+        const {navigator}=this.props._this.props;
         NetService.postFetchData(API.CANCELORDER, 'orderId=' + orderId, (result)=> {
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
@@ -61,6 +63,7 @@ export default class OrderList extends Component {
     }
 
     submitOrder(orderId) {
+        const {navigator}=this.props._this.props._this.props;
         NetService.postFetchData(API.ORDERCONFIRM, 'orderId=' + orderId, (result)=> {
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
@@ -86,6 +89,12 @@ export default class OrderList extends Component {
     }
 
     componentDidMount() {
+        if (Platform.OS === 'ios') {
+            WeChatPay = WeChatPayIos;
+        } else {
+            WeChatPay = WeChatPayAndroid;
+        }
+        WeChatPay.registerApp();//注册微信
         prevThis = null
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(this.props.gList['goods']),
@@ -108,11 +117,7 @@ export default class OrderList extends Component {
                 break;
             case 200:
                 this.setState({
-                    handle: <View style={{flexDirection:'row',marginTop:13}}>
-                        <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.gList['Id'])}>
-                            <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
-                        </TouchableWithoutFeedback>
-                    </View>,
+                    handle: null,
                     liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>待发货 </Text></View>
                     </View>
@@ -121,7 +126,6 @@ export default class OrderList extends Component {
             case 300:
                 this.setState({
                     handle: <View style={{flexDirection:'row',marginTop:13}}>
-                        <View style={styles.btn}><Text style={{color:'#898989'}}>查看物流</Text></View>
                         <TouchableWithoutFeedback onPress={(orderId)=>this.submitOrder(this.props.gList['Id'])}>
                             <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>确认收货</Text></View>
                         </TouchableWithoutFeedback>
@@ -133,9 +137,7 @@ export default class OrderList extends Component {
                 break;
             case 500:
                 this.setState({
-                    handle: <View style={{flexDirection:'row',marginTop:13}}>
-                        <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>找相似</Text></View>
-                    </View>,
+                    handle: null,
                     liststate: <View style={{flexDirection:'row',marginTop:13}}>
                         <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>请退款 </Text></View>
                     </View>
@@ -146,11 +148,8 @@ export default class OrderList extends Component {
     }
 
     _toSubmit() {
-        let orderPayId = this.state.orderPayId
-        if (orderPayId === null) {
-            Toast.show('请选择支付类型!');
-            return;
-        }
+        const {navigator}=this.props._this.props._this.props;
+        let orderPayId = this.props.gList['Id']
         this.props._this.setState({
             loadding: <View
                 style={{flex:1,position:'absolute',top:-100,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
@@ -160,12 +159,26 @@ export default class OrderList extends Component {
                 </View>
             </View>
         });
-        /*let isWXAppInstalled = true;
+
         WeChatPay.isWXAppInstalled((res)=> {
+            this.props._this.setState({
+                loadding:null
+            });
             if (res) {
-                WeChatPay.order(result['OutTradeId'], this);//微信支付
+                WeChatPay.order(orderPayId,(result)=>{
+                    this.props._this.setState({
+                        loadding:null
+                    });
+                    if (navigator) {
+                        navigator.push({
+                            component: PaySuccess,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                            params:{result:result}
+                        })
+                    }
+                });
             }
-        });*/
+        });
 
     }
 
@@ -174,17 +187,8 @@ export default class OrderList extends Component {
     }
 
     renderGList(gList) {
-        var _textLength = function (text) {
-            var rtnText = "";
-            if (text.length > 20) {
-                rtnText = text.substring(0, 20) + '…'
-            } else {
-                rtnText = text;
-            }
-            return rtnText;
-        }
         return (
-            <CartList gList={gList} liststate={this.state.liststate}/>
+            <CartList gList={gList} liststate={this.state.liststate} navigator={this.props._this.props._this.props.navigator} _this={this.props._this}/>
         )
     }
 
@@ -236,37 +240,50 @@ class CartList extends Component {
 
         return rtnText;
     }
-
+    toOrderDetail(OrderId){
+        this.props._this.setState({
+            isloaded:true
+        })
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: OrderDetail,
+                params:{orderId:OrderId}
+            })
+        }
+    }
     render() {
         return (
             <View style={styles.goods_view}>
-                <View style={[styles.goods_view_view,{borderBottomWidth:this.state.borderBottomWidth}]}>
-                    <View style={{flexDirection:'row',flex:7}}>
-                        <View
-                            style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
-                            <Image source={{uri:this.props.gList['SpuDefaultImage']}}
-                                   style={{height:82,width:82,resizeMode:'stretch'}}/>
+                <TouchableWithoutFeedback onPress={(OrderId)=>this.toOrderDetail(this.props.gList['OrdersId'])}>
+                    <View style={[styles.goods_view_view,{borderBottomWidth:this.state.borderBottomWidth}]}>
+                        <View style={{flexDirection:'row',flex:7}}>
+                            <View
+                                style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
+                                <Image source={{uri:this.props.gList['SpuDefaultImage']}}
+                                       style={{height:82,width:82,resizeMode:'stretch'}}/>
+                            </View>
+                            <View style={{flex:4,marginLeft:10,marginTop:5}}>
+                                <Text
+                                    style={{color:'#BFBFBF',fontSize:14}}>{this.texthandle(this.props.gList['SkuTitle'])}</Text>
+                                <Text
+                                    style={{color:'#BFBFBF',fontSize:12,marginTop:6}}>规格:{this.props.gList['SkuSpecification']}</Text>
+                            </View>
                         </View>
-                        <View style={{flex:4,marginLeft:10,marginTop:5}}>
-                            <Text
-                                style={{color:'#BFBFBF',fontSize:14}}>{this.texthandle(this.props.gList['SkuTitle'])}</Text>
-                            <Text
-                                style={{color:'#BFBFBF',fontSize:12,marginTop:6}}>规格:{this.props.gList['SkuSpecification']}</Text>
-                        </View>
-                    </View>
 
-                    <View
-                        style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
-                        <View>
-                            <Text style={{color:'#BFBFBF',fontSize:10}}>￥<Text
-                                style={{fontSize:14}}>{this.props.gList['SkuSalePrice']}</Text></Text>
+                        <View
+                            style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
+                            <View>
+                                <Text style={{color:'#BFBFBF',fontSize:10}}>￥<Text
+                                    style={{fontSize:14}}>{this.props.gList['SkuSalePrice']}</Text></Text>
+                            </View>
+                            <View style={{marginTop:5}}>
+                                <Text style={{color:'#C8C8C8',fontSize:16}}>×{this.props.gList['SkuNum']}</Text>
+                            </View>
+                            {this.props.liststate}
                         </View>
-                        <View style={{marginTop:5}}>
-                            <Text style={{color:'#C8C8C8',fontSize:16}}>×{this.props.gList['SkuNum']}</Text>
-                        </View>
-                        {this.props.liststate}
                     </View>
-                </View>
+                </TouchableWithoutFeedback>
             </View>
 
         );

@@ -13,8 +13,9 @@ import React, {
     Navigator,
     Platform,
     ScrollView,
+    Alert
 }from 'react-native';
-import {LinearGradient, Toast, Login, API, NetService, WeChatPayIos, WeChatPayAndroid, ChongZhi} from '../util/Path';
+import {LinearGradient, Toast, Login, API, NetService, WeChatPayIos, WeChatPayAndroid, ChongZhi,PaySuccess} from '../util/Path';
 
 
 let WeChatPay;
@@ -102,13 +103,14 @@ export default class HuaFei extends Component {
             }
         });
         function submitOrder(_this){
+            const {navigator}=_this.props;
             NetService.postFetchData(API.SUBMITCZ, 'phone=' + mobile + '&target=' + beforeThis.state.Target, (result)=> {
                 if (result['success'] === false) {
                     Toast.show(result['result']['message']);
                     ChongZhi.parentThis.setState({
                         loadding: null
                     });
-                    const {navigator}=_this.props;
+
                     if (result['result']['code'] === 303) {
                         if (navigator) {
                             navigator.push({
@@ -119,7 +121,19 @@ export default class HuaFei extends Component {
                     }
                     return;
                 }
-                WeChatPay.order(result['result']['OutTradeId'],'chongzhi');
+                WeChatPay.order(result['result']['OutTradeId'],(result)=>{
+                    ChongZhi.parentThis.setState({
+                        loadding: null
+                    });
+                    if (navigator) {
+                        navigator.push({
+                            component: PaySuccess,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                            params:{result:result}
+                        })
+                    }
+
+                });
 
             });
         }

@@ -14,7 +14,7 @@ import React,{
 }from 'react-native';
 
 
-import {MainScreen,IntroPage,OrderDetail,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage,CartPage,OrderPage,PaySuccess,PayHDFK,ChongZhiPage} from './app/util/Path';
+import {MainScreen,IntroPage,OrderDetail,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage,CartPage,OrderPage,PaySuccess,PayHDFK,ChongZhiPage,OrderExpress,Loaddingpage} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version'
@@ -40,8 +40,8 @@ export default class MainPage extends Component {
         let installed = await AsyncStorage.getItem('installedVersion');
         console.log(installed)
         if (installed == Version) {
-            defaultName = 'OrderDetail';
-            defaultComponent = OrderDetail;
+            defaultName = 'MainScreen';
+            defaultComponent = MainScreen;
         } else {
             defaultName = 'IntroPage';
             defaultComponent = IntroPage;

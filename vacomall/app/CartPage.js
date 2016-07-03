@@ -17,7 +17,7 @@ import React, {
     ToastAndroid,
     Navigator
 }from 'react-native'
-import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit,MainScreen} from './util/Path';
+import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit,MainScreen,Loaddingpage} from './util/Path';
 
 let cartThis = [], listFlag = 0;
 export default class CartPage extends Component {
@@ -400,9 +400,7 @@ export default class CartPage extends Component {
         return (
             <View style={{flex:1}}>
                 <CartHeader navigator={this.props.navigator} id={this.props.id} tab={this.props.tab}/>
-                <View style={{flex:1,justifyContent: 'center',alignItems: 'center',backgroundColor:'#F4F4F4'}}>
-                    <Image source={require('../images/loading.gif')} style={{width:70,height:50,resizeMode:'stretch'}}/>
-                </View>
+                <Loaddingpage/>
             </View>
         );
     }

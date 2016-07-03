@@ -53,6 +53,8 @@ import OrderDSH from '../OrderDetail/OrderDSH';
 import OrderList from '../OrderDetail/OrderList';
 import OrderDetail from '../OrderDetail';
 import OrderDetailHeader from '../Order/OrderDetailHeader';
+import OrderExpressHeader from '../Order/OrderExpressHeader';
+import OrderExpress from '../OrderExpress';
 /*---充值---*/
 import ChongZhiPage from '../ChongZhiPage';
 import * as ChongZhi from '../ChongZhiPage';
@@ -68,7 +70,7 @@ import Person from '../Person';
 //import ViewPull from '../ViewPull'
 
 import IntroPage from '../IntroPage';
-
+import Loaddingpage from '../Loaddingpage';
 /*---第三方组件---*/
 import TabNavigator from 'react-native-tab-navigator';
 import codePush from 'react-native-code-push';
@@ -152,5 +154,8 @@ export {
     IntroPage,
     OrderList,
     OrderDetail,
-    OrderDetailHeader
+    OrderDetailHeader,
+    OrderExpressHeader,
+    OrderExpress,
+    Loaddingpage
 };
