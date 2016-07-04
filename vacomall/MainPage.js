@@ -14,7 +14,7 @@ import React,{
 }from 'react-native';
 
 
-import {MainScreen,IntroPage,OrderDetail,codePush,Login,RetrievePwd,RetrievePwdHeader,CategoryList,Reactotron,GoodsDetail,Person,OrderSelectPage,CartPage,OrderPage,PaySuccess,PayHDFK,ChongZhiPage,OrderExpress,Loaddingpage} from './app/util/Path';
+import {MainScreen,IntroPage,OrderDetail,codePush,Login,ReturnSKU,ReturnSKUEdit,OrderSelectPage,Guess} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version'

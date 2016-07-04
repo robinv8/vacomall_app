@@ -33,7 +33,7 @@ export default class OrderDSH extends Component {
             listArray:[],
             loaded:false,
             isloaded:false,
-
+            isNull:false
         };
     }
     componentWillReceiveProps() {
@@ -57,7 +57,7 @@ export default class OrderDSH extends Component {
         },500)
     }
     loadData(){
-        const {navigator}=this.props;
+        const {navigator}=this.props._this.props;
         NetService.getFetchData(API.ORDERDETAIL+'?st=300&size=10&page='+this.state.page,(result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
@@ -72,14 +72,18 @@ export default class OrderDSH extends Component {
                 return;
             }
             let list = result['list'];
-            if (list.length !== 0) {
+            if (list.length!== 0) {
                 Array.prototype.push.apply(this.state.listArray, list)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
+                    loaded:true,
+                    isNull:true
                 });
+            }else{
                 this.setState({
-                    loaded:true
-                })
+                    loaded:true,
+                    isNull:false
+                });
             }
         })
     }
@@ -104,9 +108,23 @@ export default class OrderDSH extends Component {
             </View>
         );
     }
+    isNull() {
+        return (
+            <View
+                style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',flex:1}}>
+                <View style={{flexDirection:'row',alignItems: 'center',}}>
+                    <Text
+                        style={{color:'#3C3C3C'}}>未查到相关订单!</Text>
+                </View>
+            </View>
+        );
+    }
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
+        }
+        if (!this.state.isNull) {
+            return this.isNull();
         }
         return (
             <View style={{backgroundColor:'#FAFAFA',flex:1}}>
@@ -117,6 +135,7 @@ export default class OrderDSH extends Component {
                     onEndReachedThreshold={100}
                     renderRow={(gList)=>this.renderGList(gList)}
                 />
+                {this.state.loadding}
             </View>
         )
     }

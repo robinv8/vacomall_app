@@ -52,6 +52,9 @@ export default class Person extends Component {
         }
     }
 
+    componentDidUnMount() {
+        listFlag=0
+    }
     componentDidMount() {
         NetService.getFetchData(API.ORDERNUM, (result)=> {
             if (result['success'] === false) {

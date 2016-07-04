@@ -66,8 +66,10 @@ export function order(id,callback) {
 
                 } else if (res.errCode == -1) { //很多情况下是证书问题
                     Toast.show('支付失败,请稍后尝试');
+                    callback(false);
                 } else if (res.errCode == -2) { //取消支付
                     Toast.show("取消支付");
+                    callback(false);
                 }
             }
         );

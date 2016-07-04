@@ -106,7 +106,8 @@ export default class OrderList extends Component {
                         <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.gList['Id'])}>
                             <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
                         </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={(orderId)=>this._toSubmit(this.props.gList['Id'])}>
+                        <TouchableWithoutFeedback
+                            onPress={(orderId,OrderPayId)=>this._toSubmit(this.props.gList['Id'],this.props.gList['OrderPayId'])}>
                             <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
                         </TouchableWithoutFeedback>
                     </View>,
@@ -147,9 +148,13 @@ export default class OrderList extends Component {
         }
     }
 
-    _toSubmit() {
+    _toSubmit(orderId, OrderPayId) {
         const {navigator}=this.props._this.props._this.props;
-        let orderPayId = this.props.gList['Id']
+        if (OrderPayId !== 'd3d74b12b76045adaf86dd20cee00574') {
+            Toast.show('货到付款订单,请到PC端支付');
+            return;
+        }
+
         this.props._this.setState({
             loadding: <View
                 style={{flex:1,position:'absolute',top:-100,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
@@ -162,18 +167,21 @@ export default class OrderList extends Component {
 
         WeChatPay.isWXAppInstalled((res)=> {
             this.props._this.setState({
-                loadding:null
+                loadding: null
             });
             if (res) {
-                WeChatPay.order(orderPayId,(result)=>{
+                WeChatPay.order(orderId, (result)=> {
                     this.props._this.setState({
-                        loadding:null
+                        loadding: null
                     });
+                    if (!result) {
+                        return
+                    }
                     if (navigator) {
                         navigator.push({
                             component: PaySuccess,
                             sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params:{result:result}
+                            params: {result: result}
                         })
                     }
                 });
@@ -188,7 +196,8 @@ export default class OrderList extends Component {
 
     renderGList(gList) {
         return (
-            <CartList gList={gList} liststate={this.state.liststate} navigator={this.props._this.props._this.props.navigator} _this={this.props._this}/>
+            <CartList gList={gList} liststate={this.state.liststate}
+                      navigator={this.props._this.props._this.props.navigator} _this={this.props._this}/>
         )
     }
 
@@ -204,10 +213,12 @@ export default class OrderList extends Component {
                         enableEmptySections={true}
                         renderRow={(gList)=>this.renderGList(gList)}
                     />
-                    <View style={{height:100,justifyContent:'center',alignItems:'flex-end'}}>
-                        <View><Text style={{color:'#898989'}}>共计{this.props.gList['goods'].length}件商品 合计:<Text
-                            style={{color:'#FD3824',fontSize:12}}>￥</Text><Text
-                            style={{color:'#FD3824',fontSize:18}}>{this.props.gList['OrderPayMoney']}</Text></Text></View>
+                    <View style={{justifyContent:'center',alignItems:'flex-end',marginTop:17,marginBottom:20}}>
+                        <View>
+                            <Text style={{color:'#898989'}}>共计{this.props.gList['goods'].length}件商品 合计:<Text
+                                style={{color:'#FD3824',fontSize:12}}>￥</Text>
+                                <Text
+                                    style={{color:'#FD3824',fontSize:18}}>{this.props.gList['OrderPayMoney']}</Text></Text></View>
                         {this.state.handle}
                     </View>
                 </View>
@@ -240,18 +251,20 @@ class CartList extends Component {
 
         return rtnText;
     }
-    toOrderDetail(OrderId){
+
+    toOrderDetail(OrderId) {
         this.props._this.setState({
-            isloaded:true
+            isloaded: true
         })
         const {navigator}=this.props;
         if (navigator) {
             navigator.push({
                 component: OrderDetail,
-                params:{orderId:OrderId}
+                params: {orderId: OrderId}
             })
         }
     }
+
     render() {
         return (
             <View style={styles.goods_view}>

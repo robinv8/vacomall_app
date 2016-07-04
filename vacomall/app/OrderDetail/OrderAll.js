@@ -13,9 +13,9 @@ import React,{
     StatusBar,
     ListView,
     Dimensions,
-    Navigator
+    Navigator,ScrollView
 } from 'react-native';
-import {API,NetService,Toast,Login,OrderList,Loaddingpage} from '../util/Path';
+import {API,NetService,Toast,Login,OrderList,Loaddingpage,Guess,MainScreen} from '../util/Path';
 export default class OrderAll extends Component {
     // 构造
       constructor(props) {
@@ -28,7 +28,8 @@ export default class OrderAll extends Component {
             page:1,
             listArray:[],
             loaded:false,
-            isloaded:false
+            isloaded:false,
+            isNull:false
         };
       }
     componentWillReceiveProps() {
@@ -40,6 +41,7 @@ export default class OrderAll extends Component {
     componentDidMount() {
         let parentThis=this.props._this;
         if(parentThis.state.activePage!==0||this.state.isloaded){
+
             this.setState({
                 loaded:false,
                 isloaded:false
@@ -51,7 +53,7 @@ export default class OrderAll extends Component {
         },500)
     }
     loadData(){
-        const {navigator}=this.props;
+        const {navigator}=this.props._this.props;;
         NetService.getFetchData(API.ORDERDETAIL+'?size=5&page='+this.state.page,(result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
@@ -65,14 +67,18 @@ export default class OrderAll extends Component {
                 }
                 return;
             }
-            let list = result['list'];
-            if (list.length !== 0) {
+            let list =result['list'];
+            if (list.length!==0) {
                 Array.prototype.push.apply(this.state.listArray, list)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
+                    loaded:true,
+                    isNull:true
                 });
+            }else{
                 this.setState({
                     loaded:true,
+                    isNull:false
                 })
             }
         })
@@ -99,9 +105,23 @@ export default class OrderAll extends Component {
             </View>
         );
     }
+    isNull() {
+        return (
+            <View
+                style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',flex:1}}>
+                <View style={{flexDirection:'row',alignItems: 'center',}}>
+                    <Text
+                        style={{color:'#3C3C3C'}}>未查到相关订单!</Text>
+                </View>
+            </View>
+        );
+    }
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
+        }
+        if (!this.state.isNull) {
+            return this.isNull();
         }
         return (
             <View style={{backgroundColor:'#FAFAFA',flex:1}}>

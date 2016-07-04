@@ -1,8 +1,5 @@
 /**
- * Created by renyubin on 16/7/1.
- */
-/**
- * Created by renyubin on 16/6/25.
+ * Created by renyubin on 16/7/4.
  */
 'use strict';
 import React,{
@@ -16,12 +13,10 @@ import React,{
     StatusBar,
     ListView,
     Dimensions,
-    Navigator,
-    ScrollView
+    Navigator
 } from 'react-native';
-import {API,NetService,Toast,Login,OrderList,Loaddingpage,Guess,MainScreen} from '../util/Path';
-
-export default class OrderDFH extends Component {
+import {API,NetService,Toast,Login,ReturnListComponent,Loaddingpage} from '../util/Path';
+export default class ReturnSKU extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -33,8 +28,8 @@ export default class OrderDFH extends Component {
             page:1,
             listArray:[],
             loaded:false,
-            isNull:false,
-            isloaded:false
+            isloaded:false,
+            isNull:false
         };
     }
     componentWillReceiveProps() {
@@ -45,12 +40,11 @@ export default class OrderDFH extends Component {
     }
     componentDidMount() {
         let parentThis=this.props._this;
-
-        if(parentThis.state.activePage!==2||this.state.isloaded){
+        if(parentThis.state.activePage!==4||this.state.isloaded){
             this.setState({
                 loaded:false,
                 isloaded:false
-            })
+            });
             return;
         }
         setTimeout(()=>{
@@ -59,7 +53,7 @@ export default class OrderDFH extends Component {
     }
     loadData(){
         const {navigator}=this.props._this.props;
-        NetService.getFetchData(API.ORDERDETAIL+'?st=200&size=10&page='+this.state.page,(result)=>{
+        NetService.getFetchData(API.RETURNSKULIST,(result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
@@ -77,19 +71,18 @@ export default class OrderDFH extends Component {
                 Array.prototype.push.apply(this.state.listArray, list)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
-                });
-                this.setState({
                     loaded:true,
                     isNull:true
-                })
+                });
             }else{
                 this.setState({
                     loaded:true,
                     isNull:false
-                })
+                });
             }
         })
     }
+
     refresh() {
         this.setState({
             page: this.state.page + 1
@@ -97,16 +90,11 @@ export default class OrderDFH extends Component {
         this.loadData();
     }
     componentDidUnMount() {
-        this.setState({
-            listArray:[],
-            loaded:false,
-            isNull:false,
-            isloaded:false
-        })
+
     }
     renderGList(gList) {
         return (
-            <OrderList gList={gList} _this={this}/>
+            <ReturnListComponent gList={gList} _this={this}/>
         )
     }
     renderLoadingView() {
@@ -143,6 +131,7 @@ export default class OrderDFH extends Component {
                     onEndReachedThreshold={100}
                     renderRow={(gList)=>this.renderGList(gList)}
                 />
+                {this.state.loadding}
             </View>
         )
     }

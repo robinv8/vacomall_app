@@ -15,7 +15,7 @@ import React, {
     Navigator,
     ScrollView
 } from 'react-native';
-import {OrderExpressHeader,NetService,API} from './util/Path';
+import {OrderExpressHeader,NetService,API,Loaddingpage,Toast} from './util/Path';
 export default class OrderDetail extends Component {
     // 构造
     constructor(props) {
@@ -25,14 +25,14 @@ export default class OrderDetail extends Component {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2)=>row1 !== row2
             }),
-            loaded:false
+            loaded: false
         };
     }
 
     componentDidMount() {
-        prevThis=null;
-        setTimeout(()=>{
-            NetService.getFetchData(API.ORDEREXPRESS + '?orderId=e212070ef5bc4d7b8d9fe88bd967c190&skuCode=LZ160317-L-14-100', (result)=> {
+        prevThis = null;
+        setTimeout(()=> {
+            NetService.getFetchData(API.ORDEREXPRESS + '?orderId='+this.props.OrdersId+'&skuCode='+this.props.SkuCode, (result)=> {
                 if (result['success'] === false) {
                     Toast.show(result['result']['message']);
                     if (result['result']['code'] === 303) {
@@ -47,10 +47,10 @@ export default class OrderDetail extends Component {
                 }
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(result),
-                    loaded:true
+                    loaded: true
                 })
             })
-        },500)
+        }, 500)
 
     }
 
@@ -63,11 +63,13 @@ export default class OrderDetail extends Component {
     renderLoadingView() {
         return (
             <View style={{flex:1}}>
-                <OrderDetailHeader navigator={this.props.navigator} id={this.props.id} tab={this.props.tab}/>
+                <OrderExpressHeader navigator={this.props.navigator}/>
                 <Loaddingpage/>
             </View>
         );
     }
+
+    //style={{backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E6E6E6',flexDirection:'row',alignItems:'center',marginBottom:12}}>
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -83,18 +85,19 @@ export default class OrderDetail extends Component {
                             style={{height:80,width:80,resizeMode:'stretch',borderWidth:0.5,borderColor:'#EBEBEB',backgroundColor:'white',marginLeft:14,marginRight:13}}/>
                     </View>
                     <View>
-                        <Text style={{marginBottom:10,color:'#3C3C3C'}}>物流状态: <Text style={{color:'#16BD42'}}>{this.props.orderState}</Text></Text>
+                        <Text style={{marginBottom:10,color:'#3C3C3C'}}>物流状态: <Text
+                            style={{color:'#16BD42'}}>{this.props.orderState}</Text></Text>
                         <Text style={{color:'#BFBFBF'}}>订单号: <Text>{this.props.orderCode}</Text></Text>
                     </View>
                 </View>
-                <View
-                    style={{backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E6E6E6',flexDirection:'row',alignItems:'center',marginBottom:12}}>
-                    <ListView
-                        dataSource={this.state.dataSource}
-                        enableEmptySections={true}
-                        renderRow={(gList)=>this.renderGList(gList)}
-                    />
-                </View>
+
+                <ListView
+                    dataSource={this.state.dataSource}
+                    enableEmptySections={true}
+                    renderRow={(gList)=>this.renderGList(gList)}
+                    contentContainerStyle={{backgroundColor:'white',overflow:'hidden'}}
+                />
+
 
             </View>
         )
@@ -108,20 +111,20 @@ class CartList extends Component {
         // 初始状态
         this.state = {
             backgroundColor: 'rgba(68,219,94,0)',
-            mincolor:'#EAEAEA',
-            textColor:'#BFBFBF'
+            mincolor: '#EAEAEA',
+            textColor: '#BFBFBF'
         };
     }
 
     componentDidMount() {
         if (prevThis === null) {
             this.setState({
-                backgroundColor:'rgba(68,219,94,0.5)',
-                mincolor:'#16BD42',
-                textColor:'#16BD42'
+                backgroundColor: 'rgba(68,219,94,0.5)',
+                mincolor: '#16BD42',
+                textColor: '#16BD42'
             })
         }
-        prevThis=this;
+        prevThis = this;
     }
 
     render() {

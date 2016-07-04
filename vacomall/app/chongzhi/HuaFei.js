@@ -122,9 +122,13 @@ export default class HuaFei extends Component {
                     return;
                 }
                 WeChatPay.order(result['result']['OutTradeId'],(result)=>{
+
                     ChongZhi.parentThis.setState({
                         loadding: null
                     });
+                    if(!result){
+                        return
+                    }
                     if (navigator) {
                         navigator.push({
                             component: PaySuccess,

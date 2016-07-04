@@ -12,7 +12,7 @@ import React,{
     Platform,
     StatusBar
 } from 'react-native';
-import {ScrollableTabView,DefaultTabBar,OrderAll,OrderDFK,OrderDFH,OrderDSH} from './util/Path'
+import {ScrollableTabView,DefaultTabBar,OrderAll,OrderDFK,OrderDFH,OrderDSH,ReturnSKU} from './util/Path'
 export default class OrderSelectPage extends Component {
     // 构造
     constructor(props) {
@@ -112,7 +112,7 @@ export default class OrderSelectPage extends Component {
                     <OrderDFK tabLabel="待付款" _this={this}/>
                     <OrderDFH tabLabel="待发货" _this={this}/>
                     <OrderDSH tabLabel="待收货" _this={this}/>
-                    <View tabLabel="退换货" _this={this}/>
+                    <ReturnSKU tabLabel="退换货" _this={this}/>
                 </ScrollableTabView>
             </View>
         )

@@ -19,7 +19,7 @@ import React, {
     ActivityIndicatorIOS,
     Navigator
 }from 'react-native'
-import {ListHeader, GoodsDetail, API, NetService, Toast,MainScreen,Loaddingpage} from './util/Path';
+import {ListHeader, GoodsDetail, API, NetService, Toast,MainScreen,Loaddingpage,Guess} from './util/Path';
 var SortItemArray = [];
 var beforeSortItem;
 var listFlag = 0;
@@ -225,14 +225,7 @@ export default class ListPage extends Component {
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
-                <View
-                    style={styles.cnxh_view}>
-                    <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}/>
-                </View>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={(gList)=>this.renderGList(gList)}
-                    contentContainerStyle={styles.listview}/>
+                <Guess navigator={this.props.navigator}/>
 
             </ScrollView>
         );

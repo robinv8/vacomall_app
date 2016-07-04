@@ -16,7 +16,7 @@ import React, {
     Navigator,
     ScrollView
 } from 'react-native';
-import {API, NetService, Toast, Login,OrderDetailHeader,LinearGradient,WeChatPayAndroid,WeChatPayIos,PaySuccess,OrderExpress,Loaddingpage} from './util/Path';
+import {API, NetService, Toast, Login,OrderDetailHeader,LinearGradient,WeChatPayAndroid,WeChatPayIos,PaySuccess,OrderExpress,Loaddingpage,ReturnSKUEdit} from './util/Path';
 let WeChatPay;
 export default class OrderDetail extends Component {
     // 构造
@@ -36,8 +36,11 @@ export default class OrderDetail extends Component {
             handle: null,
             liststate: null,
             isExpress: false,
-            result:null,
+            result: null,
             loaded: false,
+            isReturn: false,
+            OrderStatus: null,
+            ReturnSku:false
         };
     }
 
@@ -48,8 +51,8 @@ export default class OrderDetail extends Component {
             WeChatPay = WeChatPayAndroid;
         }
         WeChatPay.registerApp();//注册微信
-        setTimeout(()=>{
-            NetService.getFetchData(API.ORDERDETAILINFO + '?orderId='+this.props.orderId, (result)=> {
+        setTimeout(()=> {
+            NetService.getFetchData(API.ORDERDETAILINFO + '?orderId=' + this.props.orderId, (result)=> {
                 const {navigator}=this.props;
                 if (result['success'] === false) {
                     Toast.show(result['message']);
@@ -65,8 +68,8 @@ export default class OrderDetail extends Component {
                     return;
                 }
                 this.setState({
-                    loaded:true,
-                    result:result,
+                    loaded: true,
+                    result: result,
                     orderState: <View
                         style={{flex:1,backgroundColor:'rgba(0,0,0,0)',justifyContent:'center',paddingLeft:29}}>
                         <Text
@@ -77,32 +80,28 @@ export default class OrderDetail extends Component {
                     ConsignessMoblie: result['consignee']['ConsignessMoblie'],
                     ConsignessAddress: result['consignee']['ConsignessCityName'] + ' ' + result['consignee']['ConsignessAddress'],
                     dataSource: this.state.dataSource.cloneWithRows(result['orders']['ordersGoods']),
-                    OrderPayMoney: result['orders']['OrderPayMoney']
+                    OrderPayMoney: result['orders']['OrderPayMoney'],
+                    OrderStatus: result['orders']['OrderStatus'],
+                    ReturnSku:result['orders']['ReturnSku']
                 })
-                switch (result['orders']['OrderStatus']) {
+                switch (this.state.OrderStatus) {
                     case 100:
                         this.setState({
-                            handle: <View style={{flexDirection:'row',marginTop:13,height:49,backgroundColor:'white',alignItems:'center',justifyContent:'flex-end'}}>
+                            handle: <View
+                                style={{flexDirection:'row',marginTop:13,height:49,backgroundColor:'white',alignItems:'center',justifyContent:'flex-end'}}>
                                 <TouchableWithoutFeedback onPress={(orderId)=>this.cancelOrder(this.props.orderId)}>
                                     <View style={styles.btn}><Text style={{color:'#898989'}}>取消订单</Text></View>
                                 </TouchableWithoutFeedback>
                                 <TouchableWithoutFeedback onPress={(orderId)=>this._toSubmit(this.props.orderId)}>
-                                    <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>去支付</Text></View>
+                                    <View style={[styles.btn,styles.btn1]}><Text
+                                        style={{color:'white'}}>去支付</Text></View>
                                 </TouchableWithoutFeedback>
-                            </View>,
-                            liststate: <View style={{flexDirection:'row',marginTop:13}}>
-                                <View style={[styles.min_btn]}><Text
-                                    style={{color:'#FF9700',fontSize:12}}>待支付 </Text></View>
                             </View>
                         })
                         break;
                     case 200:
                         this.setState({
                             handle: null,
-                            liststate: <View style={{flexDirection:'row',marginTop:13}}>
-                                <View style={[styles.min_btn]}><Text
-                                    style={{color:'#FF9700',fontSize:12}}>待发货 </Text></View>
-                            </View>
                         })
                         break;
                     case 300:
@@ -115,9 +114,6 @@ export default class OrderDetail extends Component {
                                             style={{color:'white'}}>确认收货</Text></View>
                                     </TouchableWithoutFeedback>
                                 </View>,
-                                liststate: <View style={{flexDirection:'row',marginTop:13}}>
-                                    <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>查看物流 </Text></View>
-                                </View>,
                                 isExpress: true
                             })
                         } else {
@@ -128,30 +124,29 @@ export default class OrderDetail extends Component {
                                         <View style={[styles.btn,styles.btn1]}><Text
                                             style={{color:'white'}}>确认收货</Text></View>
                                     </TouchableWithoutFeedback>
-                                </View>,
-                                liststate: <View style={{flexDirection:'row',marginTop:13}}>
-                                    <View style={[styles.min_btn]}><Text
-                                        style={{color:'#FF9700',fontSize:12}}>已发货 </Text></View>
                                 </View>
                             })
                         }
 
                         break;
-                    case 500:
+                    case 400:
                         this.setState({
                             handle: null,
-                            liststate: <View style={{flexDirection:'row',marginTop:13}}>
-                                <View style={[styles.min_btn]}><Text
-                                    style={{color:'#FF9700',fontSize:12}}>请退款 </Text></View>
-                            </View>
+                            isReturn: true
                         })
                         break;
-
+                    case 500:
+                        this.setState({
+                            handle: null
+                        })
+                        break;
                 }
             })
-        },500)
+        }, 500)
 
     }
+
+
     cancelOrder(orderId) {
         const {navigator}=this.props;
         NetService.postFetchData(API.CANCELORDER, 'orderId=' + orderId, (result)=> {
@@ -173,6 +168,7 @@ export default class OrderDetail extends Component {
             Toast.show(result['result']['message']);
         })
     }
+
     submitOrder(orderId) {
         const {navigator}=this.props;
         NetService.postFetchData(API.ORDERCONFIRM, 'orderId=' + orderId, (result)=> {
@@ -194,9 +190,10 @@ export default class OrderDetail extends Component {
             Toast.show(result['result']['message']);
         })
     }
+
     _toSubmit(orderId) {
         const {navigator}=this.props;
-        let orderPayId =orderId;
+        let orderPayId = orderId;
         this.setState({
             loadding: <View
                 style={{flex:1,position:'absolute',top:0,width:Dimensions.get('window').width,height:Dimensions.get('window').height,justifyContent:'center',alignItems:'center'}}>
@@ -209,15 +206,18 @@ export default class OrderDetail extends Component {
 
         WeChatPay.isWXAppInstalled((res)=> {
             if (res) {
-                WeChatPay.order(orderPayId,(result)=>{
+                WeChatPay.order(orderPayId, (result)=> {
                     this.setState({
-                        loadding:null
+                        loadding: null
                     });
+                    if (!result) {
+                        return
+                    }
                     if (navigator) {
                         navigator.push({
                             component: PaySuccess,
                             sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params:{result:result}
+                            params: {result: result}
                         })
                     }
                 });
@@ -226,20 +226,23 @@ export default class OrderDetail extends Component {
         });
 
     }
+
     renderGList(gList) {
         return (
-            <CartList gList={gList} liststate={this.state.liststate} isExpress={this.state.isExpress}  navigator={this.props.navigator} result={this.state.result}/>
+            <CartList gList={gList} OrderStatus={this.state.OrderStatus} isExpress={this.state.isExpress}
+                      isReturn={this.state.isReturn} ReturnSku={this.state.ReturnSku} navigator={this.props.navigator} result={this.state.result}/>
         )
     }
 
     renderLoadingView() {
         return (
             <View style={{flex:1}}>
-                <OrderDetailHeader navigator={this.props.navigator} id={this.props.id} tab={this.props.tab}/>
+                <OrderDetailHeader navigator={this.props.navigator}/>
                 <Loaddingpage/>
             </View>
         );
     }
+
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -307,15 +310,100 @@ export default class OrderDetail extends Component {
         )
     }
 }
-var prevThis = null;
 class CartList extends Component {
     // 构造
     constructor(props) {
         super(props);
         // 初始状态
         this.state = {
-            borderBottomWidth: 0.5
+            borderBottomWidth: 0.5,
+            liststate: null
         };
+    }
+
+    componentDidMount() {
+        switch (this.props.OrderStatus) {
+            case 100:
+                this.setState({
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback
+                            onPress={()=>this.selectExpress(this.props.gList['OrdersId'],this.props.gList['SkuCode'])}>
+                            <View style={[styles.min_btn]}><Text
+                                style={{color:'#898989',fontSize:12}}>查看物流 </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+
+                })
+                break;
+            case 200:
+                this.setState({
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback
+                            onPress={()=>this.selectExpress(this.props.gList['OrdersId'],this.props.gList['SkuCode'])}>
+                            <View style={[styles.min_btn]}><Text
+                                style={{color:'#898989',fontSize:12}}>查看物流 </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                })
+                break;
+            case 300:
+                this.setState({
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback
+                            onPress={()=>this.selectExpress(this.props.gList['OrdersId'],this.props.gList['SkuCode'])}>
+                            <View style={[styles.min_btn]}><Text
+                                style={{color:'#898989',fontSize:12}}>查看物流 </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                })
+
+                break;
+            case 400:
+                if(this.props.ReturnSku){
+                    this.setState({
+                        liststate: <View style={{flexDirection:'row',marginTop:13}}>
+                            <TouchableWithoutFeedback
+                                onPress={()=>this.selectExpress(this.props.gList['OrdersId'],this.props.gList['SkuCode'])}>
+                                <View style={[styles.min_btn,{marginRight:10}]}><Text
+                                    style={{color:'#898989',fontSize:12}}>查看物流 </Text>
+                                </View>
+                            </TouchableWithoutFeedback><TouchableWithoutFeedback
+                                onPress={()=>this.toReturnSKU(this.props.gList['Id'])}>
+                                <View style={[styles.min_btn]}><Text
+                                    style={{color:'#898989',fontSize:12}}>申请退货 </Text></View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    })
+                }else{
+                    this.setState({
+                        liststate: <View style={{flexDirection:'row',marginTop:13}}>
+                            <TouchableWithoutFeedback
+                                onPress={()=>this.selectExpress(this.props.gList['OrdersId'],this.props.gList['SkuCode'])}>
+                                <View style={[styles.min_btn]}><Text
+                                    style={{color:'#898989',fontSize:12}}>查看物流 </Text>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    })
+                }
+
+                break;
+            case 500:
+                this.setState({
+                    liststate: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback
+                            onPress={()=>this.toReturnSKU(this.props.gList['goodsId'])}>
+                            <View style={[styles.min_btn]}><Text
+                                style={{color:'#898989',fontSize:12}}>查看物流 </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                })
+                break;
+        }
     }
 
     texthandle(text) {
@@ -332,56 +420,65 @@ class CartList extends Component {
 
         return rtnText;
     }
-    selectExpress(OrdersId,SkuCode){
-        if(this.props.isExpress){
-            const {navigator}=this.props;
-            if (navigator) {
-                navigator.push({
-                    component: OrderExpress,
-                    params:{
-                        OrdersId:OrdersId,
-                        SkuCode:SkuCode,
-                        img:this.props.gList['SpuDefaultImage'],
-                        orderState:this.props.result['orders']['OrderStatusInfo'],
-                        orderCode:this.props.result['orders']['OrderCode']
-                    }
-                })
-            }
+
+    selectExpress(OrdersId, SkuCode) {
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: OrderExpress,
+                params: {
+                    OrdersId: OrdersId,
+                    SkuCode: SkuCode,
+                    img: this.props.gList['SpuDefaultImage'],
+                    orderState: this.props.result['orders']['OrderStatusInfo'],
+                    orderCode: this.props.result['orders']['OrderCode']
+                }
+            })
+        }
+    }
+
+    toReturnSKU(goodsId) {
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: ReturnSKUEdit,
+                params: {
+                    goodsId: goodsId
+                }
+            })
         }
     }
 
     render() {
         return (
             <View style={styles.goods_view}>
-                <TouchableWithoutFeedback onPress={(OrdersId,SkuCode)=>this.selectExpress(this.props.gList['OrdersId'],this.props.gList['SkuCode'])}>
-                    <View style={[styles.goods_view_view,{borderBottomWidth:this.state.borderBottomWidth}]}>
-                        <View style={{flexDirection:'row',flex:7}}>
-                            <View
-                                style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
-                                <Image source={{uri:this.props.gList['SpuDefaultImage']}}
-                                       style={{height:82,width:82,resizeMode:'stretch'}}/>
-                            </View>
-                            <View style={{flex:4,marginLeft:10,marginTop:5}}>
-                                <Text
-                                    style={{color:'#BFBFBF',fontSize:14}}>{this.texthandle(this.props.gList['SkuTitle'])}</Text>
-                                <Text
-                                    style={{color:'#BFBFBF',fontSize:12,marginTop:6}}>规格:{this.props.gList['SkuSpecification']}</Text>
-                            </View>
-                        </View>
-
+                <View style={[styles.goods_view_view,{borderBottomWidth:this.state.borderBottomWidth}]}>
+                    <View style={{flexDirection:'row',flex:7}}>
                         <View
-                            style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
-                            <View>
-                                <Text style={{color:'#BFBFBF',fontSize:10}}>￥<Text
-                                    style={{fontSize:14}}>{this.props.gList['SkuSalePrice']}</Text></Text>
-                            </View>
-                            <View style={{marginTop:5}}>
-                                <Text style={{color:'#C8C8C8',fontSize:16}}>×{this.props.gList['SkuNum']}</Text>
-                            </View>
-                            {this.props.liststate}
+                            style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
+                            <Image source={{uri:this.props.gList['SpuDefaultImage']}}
+                                   style={{height:82,width:82,resizeMode:'stretch'}}/>
+                        </View>
+                        <View style={{flex:4,marginLeft:10,marginTop:5}}>
+                            <Text
+                                style={{color:'#BFBFBF',fontSize:14}}>{this.texthandle(this.props.gList['SkuTitle'])}</Text>
+                            <Text
+                                style={{color:'#BFBFBF',fontSize:12,marginTop:6}}>规格:{this.props.gList['SkuSpecification']}</Text>
                         </View>
                     </View>
-                </TouchableWithoutFeedback>
+
+                    <View
+                        style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
+                        <View>
+                            <Text style={{color:'#BFBFBF',fontSize:10}}>￥<Text
+                                style={{fontSize:14}}>{this.props.gList['SkuSalePrice']}</Text></Text>
+                        </View>
+                        <View style={{marginTop:5}}>
+                            <Text style={{color:'#C8C8C8',fontSize:16}}>×{this.props.gList['SkuNum']}</Text>
+                        </View>
+                        {this.state.liststate}
+                    </View>
+                </View>
             </View>
 
         );
@@ -447,7 +544,7 @@ const styles = StyleSheet.create({
         width: 54,
         height: 20,
         borderWidth: 0.5,
-        borderColor: '#FF9700',
+        borderColor: '#898989',
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'

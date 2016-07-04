@@ -55,6 +55,10 @@ import OrderDetail from '../OrderDetail';
 import OrderDetailHeader from '../Order/OrderDetailHeader';
 import OrderExpressHeader from '../Order/OrderExpressHeader';
 import OrderExpress from '../OrderExpress';
+import ReturnSKU from '../OrderDetail/ReturnSKU';
+import ReturnSKUEdit from '../ReturnSKUEdit';
+import ReturnSKUEditHeader from '../ReturnSKUEdit/ReturnSKUEditHeader';
+import ReturnListComponent from '../OrderDetail/ReturnListComponent';
 /*---充值---*/
 import ChongZhiPage from '../ChongZhiPage';
 import * as ChongZhi from '../ChongZhiPage';
@@ -71,6 +75,7 @@ import Person from '../Person';
 
 import IntroPage from '../IntroPage';
 import Loaddingpage from '../Loaddingpage';
+import Guess from '../Guess';
 /*---第三方组件---*/
 import TabNavigator from 'react-native-tab-navigator';
 import codePush from 'react-native-code-push';
@@ -84,6 +89,7 @@ import ScrollableTabView,{DefaultTabBar}  from 'react-native-scrollable-tab-view
 import WeChatIos from 'react-native-wechat-ios';
 import WeChatAndroid from 'react-native-wechat-android';
 import AppIntro from 'react-native-app-intro';
+import Picker from 'react-native-picker';
 /*---自定义工具类---*/
 import API from './api';
 import * as NetService from './NetService';
@@ -157,5 +163,11 @@ export {
     OrderDetailHeader,
     OrderExpressHeader,
     OrderExpress,
-    Loaddingpage
+    Loaddingpage,
+    ReturnSKU,
+    ReturnSKUEdit,
+    ReturnSKUEditHeader,
+    Picker,
+    ReturnListComponent,
+    Guess
 };
