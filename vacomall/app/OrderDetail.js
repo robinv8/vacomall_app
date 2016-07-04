@@ -210,7 +210,7 @@ export default class OrderDetail extends Component {
                     this.setState({
                         loadding: null
                     });
-                    if (!result) {
+                    if(result==='false'){
                         return
                     }
                     if (navigator) {

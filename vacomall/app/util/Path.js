@@ -71,7 +71,8 @@ import PayHDFK from '../Pay/PayHDFK';
 import PayError from '../Pay/PayError';
 /*---个人中心---*/
 import Person from '../Person';
-//import ViewPull from '../ViewPull'
+import PersonSafe from '../Person/PersonSafe';
+import PersonInfo from '../Person/PersonInfo';
 
 import IntroPage from '../IntroPage';
 import Loaddingpage from '../Loaddingpage';
@@ -99,6 +100,7 @@ import * as WeChatPayIos from './WeChatPayIos';
 import * as WeChatPayAndroid from './WeChatPayAndroid';
 
 import BarCodeAndroid from './BarCodeAndroid'
+import BarCodeIos from './BarCodeIos'
 
 export {
     MainPage,
@@ -172,5 +174,8 @@ export {
     Picker,
     ReturnListComponent,
     Guess,
-    BarCodeAndroid
+    BarCodeAndroid,
+    BarCodeIos,
+    PersonSafe,
+    PersonInfo
 };

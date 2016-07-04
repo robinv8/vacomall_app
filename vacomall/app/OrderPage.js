@@ -159,6 +159,9 @@ export default class OrderPage extends Component {
                             _this.setState({
                                 loadding:null
                             });
+                            if(result==='false'){
+                                return
+                            }
                             if (navigator) {
                                 navigator.push({
                                     component: PaySuccess,
@@ -188,6 +191,9 @@ export default class OrderPage extends Component {
                         _this.setState({
                             loadding:null
                         });
+                        if(result==='false'){
+                            return
+                        }
                         if (navigator) {
                             navigator.push({
                                 component: PaySuccess,

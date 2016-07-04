@@ -126,7 +126,7 @@ export default class HuaFei extends Component {
                     ChongZhi.parentThis.setState({
                         loadding: null
                     });
-                    if(!result){
+                    if(result==='false'){
                         return
                     }
                     if (navigator) {

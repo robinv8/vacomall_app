@@ -14,7 +14,7 @@ import React,{
 }from 'react-native';
 
 
-import {MainScreen,IntroPage,OrderDetail,codePush,Login,ReturnSKU,ReturnSKUEdit,OrderSelectPage,Guess,BarCodeAndroid} from './app/util/Path';
+import {MainScreen,IntroPage,OrderDetail,codePush,Login,ReturnSKU,ReturnSKUEdit,OrderSelectPage,Guess,BarCodeAndroid,BarCodeIos,PersonInfo} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version'
@@ -40,8 +40,8 @@ export default class MainPage extends Component {
         let installed = await AsyncStorage.getItem('installedVersion');
         console.log(installed)
         if (installed == Version) {
-            defaultName = 'BarCodeAndroid';
-            defaultComponent = BarCodeAndroid;
+            defaultName = 'PersonInfo';
+            defaultComponent = PersonInfo;
         } else {
             defaultName = 'IntroPage';
             defaultComponent = IntroPage;

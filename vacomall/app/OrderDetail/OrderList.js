@@ -174,7 +174,7 @@ export default class OrderList extends Component {
                     this.props._this.setState({
                         loadding: null
                     });
-                    if (!result) {
+                    if(result==='false'){
                         return
                     }
                     if (navigator) {

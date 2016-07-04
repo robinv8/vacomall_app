@@ -124,6 +124,9 @@ export default class Flow extends Component {
                     ChongZhi.parentThis.setState({
                         loadding: null
                     });
+                    if(result==='false'){
+                        return
+                    }
                     if(!result){
                         return
                     }
