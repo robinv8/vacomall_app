@@ -98,6 +98,8 @@ import md5 from './md5.min';
 import * as WeChatPayIos from './WeChatPayIos';
 import * as WeChatPayAndroid from './WeChatPayAndroid';
 
+import BarCodeAndroid from './BarCodeAndroid'
+
 export {
     MainPage,
     MainScreen,//APP主入口
@@ -169,5 +171,6 @@ export {
     ReturnSKUEditHeader,
     Picker,
     ReturnListComponent,
-    Guess
+    Guess,
+    BarCodeAndroid
 };
