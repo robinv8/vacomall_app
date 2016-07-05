@@ -18,13 +18,6 @@ import React, {
 import {CartPage,Login,API,NetService,Toast} from '../util/Path';
 
 export default class Header extends Component {
-    _back() {
-        const {navigator}=this.props;
-        //const test=navigator.getCurrentRoutes();
-        if (navigator) {
-            navigator.pop()
-        }
-    }
     toCart() {
         const {navigator}=this.props;
         var _callback=function(result){

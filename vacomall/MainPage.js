@@ -40,8 +40,8 @@ export default class MainPage extends Component {
         let installed = await AsyncStorage.getItem('installedVersion');
         console.log(installed)
         if (installed == Version) {
-            defaultName = 'PersonInfo';
-            defaultComponent = PersonInfo;
+            defaultName = 'MainScreen';
+            defaultComponent = MainScreen;
         } else {
             defaultName = 'IntroPage';
             defaultComponent = IntroPage;

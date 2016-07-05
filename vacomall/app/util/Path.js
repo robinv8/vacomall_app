@@ -77,6 +77,7 @@ import PersonInfo from '../Person/PersonInfo';
 import IntroPage from '../IntroPage';
 import Loaddingpage from '../Loaddingpage';
 import Guess from '../Guess';
+
 /*---第三方组件---*/
 import TabNavigator from 'react-native-tab-navigator';
 import codePush from 'react-native-code-push';

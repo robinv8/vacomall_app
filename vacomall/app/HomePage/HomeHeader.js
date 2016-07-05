@@ -15,7 +15,7 @@ import React, {
     Alert,
     Dimensions
 }from 'react-native';
-import {API,NetService,CategoryList,Login,CartPage,ListPage,SearchPage,Toast} from '../util/Path';
+import {API,NetService,CategoryList,Login,CartPage,ListPage,SearchPage,Toast,BarCodeIos,BarCodeAndroid} from '../util/Path';
 
 export default class HomeHeader extends Component {
     // 构造
@@ -54,7 +54,6 @@ export default class HomeHeader extends Component {
     }
 
     updateState() {
-
         var _callback = function (result) {
             if (result['success'] === false) {
                 this._toLoginPage();
@@ -106,14 +105,29 @@ export default class HomeHeader extends Component {
             })
         }
     }
-
+    toBarCode(){
+        const {navigator}=this.props;
+        if (Platform.OS === 'ios') {
+            if (navigator) {
+                navigator.push({
+                    component: BarCodeIos,
+                })
+            }
+        } else {
+            if (navigator) {
+                navigator.push({
+                    component: BarCodeAndroid,
+                })
+            }
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
                 <StatusBar
                     barStyle="light-content"
                 />
-                <TouchableWithoutFeedback onPress={()=>this.updateState()} disabled={this.state.status}>
+                <TouchableWithoutFeedback onPress={()=>this.toBarCode()} disabled={this.state.status}>
                     <View style={styles.qrcode_view}>
                         <Image source={require('../../images/header/qrcode_icon.png')}
                                style={styles.qrcode_icon}/>
