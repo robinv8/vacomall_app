@@ -17,12 +17,6 @@ export default class GoodsDetail extends Component {
         };
       }
     _back() {
-        if(this.props.type==='barcode'){
-            this.props._this.setState({
-                isReturn:true
-            })
-        }
-
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop()
@@ -34,7 +28,7 @@ export default class GoodsDetail extends Component {
         let defaultComponent = Detail;
         return (
             <View style={{flex:1}}>
-                <DetailHeader id={this.props.id} _back={()=>this._back()}/>
+                <DetailHeader navigator={this.props.navigator} id={this.props.id} _back={()=>this._back()} type={this.props.type} _this={this.props._this}/>
                 <Navigator
                     initialRoute={{ name: defaultName, component: defaultComponent,params:{id:this.props.id,parentProps:this.props,_this1:this}}}
                     style={{backgroundColor:'white'}}

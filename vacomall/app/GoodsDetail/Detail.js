@@ -17,7 +17,7 @@ import React,{
     Navigator,
     Animated
 }from 'react-native';
-import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender,Loaddingpage} from '../util/Path';
+import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender,Loaddingpage,DetailHeader} from '../util/Path';
 
 let shadeThis;
 export default class GoodsDetail extends Component {

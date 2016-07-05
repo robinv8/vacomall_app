@@ -11,73 +11,94 @@ import React, {
     Text,
     Platform
 } from 'react-native';
-export default class PersonSafe extends Component{
+import {PersonInfo} from '../util/Path'
+export default class PersonSafe extends Component {
     _back() {
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop()
         }
     }
-    render(){
-        return(
-          <View style={{backgroundColor:'#F6F6F6',flex:1}}>
-              <View style={styles.container}>
-                  <TouchableWithoutFeedback onPress={()=>this._back()}>
-                      <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                          <Image source={require('../../images/back_icon.png')}
-                                 style={styles.backIcon}/>
-                      </View>
-                  </TouchableWithoutFeedback>
-                  <View style={styles.searchBox}>
-                      <Text style={{color: '#3C3C3C',fontSize: 18}}>更多设置</Text>
-                  </View>
-                  <TouchableWithoutFeedback onPress={()=>{}}>
-                      <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+    toPersonInfo(){
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: PersonInfo,
+            })
+        }
+    }
+    render() {
+        return (
+            <View style={{backgroundColor:'#F6F6F6',flex:1}}>
+                <View style={styles.container}>
+                    <TouchableWithoutFeedback onPress={()=>this._back()}>
+                        <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                            <Image source={require('../../images/back_icon.png')}
+                                   style={styles.backIcon}/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <View style={styles.searchBox}>
+                        <Text style={{color: '#3C3C3C',fontSize: 18}}>更多设置</Text>
+                    </View>
+                    <TouchableWithoutFeedback onPress={()=>{}}>
+                        <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
 
-                      </View>
-                  </TouchableWithoutFeedback>
-              </View>
-              <View>
-                  <View style={[styles.barwrap,{marginTop:17,height:62,flexDirection:'row',alignItems:'center',}]}>
-                      <View style={{flexDirection:'row',alignItems:'center'}}>
-                          <Image source={require('../../images/person_icon1.png')} style={styles.safe_icon}/>
-                          <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>个人安全中心</Text>
-                      </View>
-                      <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                          <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
-                      </View>
-                  </View>
-                  <View style={[styles.barwrap,{marginTop:17,paddingLeft:10,paddingRight:10}]}>
-                      <View style={[styles.barwrap,{height:62,flexDirection:'row',flex:1,alignItems:'center',}]}>
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
-                              <Image source={require('../../images/person_icon2.png')} style={[styles.safe_icon,{marginLeft:0}]}/>
-                              <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>关于万颗</Text>
-                          </View>
-                          <View style={{flex:1,alignItems:'flex-end'}}>
-                              <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
-                          </View>
-                      </View>
-                      <View style={[styles.barwrap,{height:62,flexDirection:'row',alignItems:'center',}]}>
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
-                              <Image source={require('../../images/person_icon3.png')} style={[styles.safe_icon,{marginLeft:0}]}/>
-                              <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>清除缓存</Text>
-                          </View>
-                          <View style={{flex:1,alignItems:'flex-end'}}>
-                              <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
-                          </View>
-                      </View>
-                  </View>
-                  <View style={[styles.barwrap,{marginTop:17,height:62,flexDirection:'row',alignItems:'center',}]}>
-                      <View style={{flexDirection:'row',alignItems:'center'}}>
-                          <Image source={require('../../images/person_icon4.png')} style={styles.safe_icon}/>
-                          <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>客服中心</Text>
-                      </View>
-                      <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                          <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
-                      </View>
-                  </View>
-              </View>
-          </View>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+                <View>
+                    <TouchableWithoutFeedback onPress={()=>this.toPersonInfo()}>
+                        <View
+                            style={[styles.barwrap,{marginTop:17,height:62,flexDirection:'row',alignItems:'center',backgroundColor:'white'}]}>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <Image source={require('../../images/person_icon1.png')} style={styles.safe_icon}/>
+                                <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>个人安全中心</Text>
+                            </View>
+                            <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
+                                <Image source={require('../../images/right_arrows_icon.png')}
+                                       style={styles.right_arrows}/>
+                            </View>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <View
+                        style={[styles.barwrap,{marginTop:17,paddingLeft:10,paddingRight:10,backgroundColor:'white'}]}>
+                        <View
+                            style={[styles.barwrap,{height:62,flexDirection:'row',flex:1,alignItems:'center',borderBottomWidth:0.5}]}>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <Image source={require('../../images/person_icon2.png')}
+                                       style={[styles.safe_icon,{marginLeft:0}]}/>
+                                <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>关于万颗</Text>
+                            </View>
+                            <View style={{flex:1,alignItems:'flex-end'}}>
+                                <Image source={require('../../images/right_arrows_icon.png')}
+                                       style={styles.right_arrows}/>
+                            </View>
+                        </View>
+                        <View
+                            style={[styles.barwrap,{height:62,flexDirection:'row',alignItems:'center',borderBottomWidth:0}]}>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <Image source={require('../../images/person_icon3.png')}
+                                       style={[styles.safe_icon,{marginLeft:0}]}/>
+                                <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>清除缓存</Text>
+                            </View>
+                            <View style={{flex:1,alignItems:'flex-end'}}>
+                                <Image source={require('../../images/right_arrows_icon.png')}
+                                       style={styles.right_arrows}/>
+                            </View>
+                        </View>
+                    </View>
+                    <View
+                        style={[styles.barwrap,{marginTop:17,height:62,flexDirection:'row',alignItems:'center',backgroundColor:'white'}]}>
+                        <View style={{flexDirection:'row',alignItems:'center'}}>
+                            <Image source={require('../../images/person_icon4.png')} style={styles.safe_icon}/>
+                            <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>客服中心</Text>
+                        </View>
+                        <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
+                            <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
+                        </View>
+                    </View>
+                </View>
+            </View>
         );
     }
 }
@@ -85,12 +106,12 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height:Platform.OS === 'ios' ? 64 : 40,
+        height: Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
-        borderBottomWidth:0.5,
-        borderBottomColor:'#B2B2B2',
-        justifyContent:'center'
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#B2B2B2',
+        justifyContent: 'center'
     },
     logo: {
         height: 25,
@@ -127,21 +148,20 @@ const styles = StyleSheet.create({
         width: 860,
         color: 'white'
     },
-    barwrap:{
-        backgroundColor:'white',
-        borderBottomWidth:0.5,
-        borderBottomColor:'#E2E2E2',
+    barwrap: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#E2E2E2',
 
     },
-    safe_icon:{
-        width:32,
-        height:32,
+    safe_icon: {
+        width: 32,
+        height: 32,
         resizeMode: 'stretch',
-        marginLeft:15
+        marginLeft: 15
     },
-    right_arrows:{
-        width:7.87,
-        height:14,
+    right_arrows: {
+        width: 7.87,
+        height: 14,
         resizeMode: 'stretch',
     }
 })

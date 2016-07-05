@@ -33,7 +33,8 @@ var API = {
     ORDEREXPRESS: API_ADDRESS + 'me/order/express',
     RETURNSKULIST: API_ADDRESS + 'me/returnsku/list',
     SUBMITRETURNSKU: API_ADDRESS + 'me/returnsku/submit',
-    CANCELRETURNSKU: API_ADDRESS + 'me/returnsku/cancel'
+    CANCELRETURNSKU: API_ADDRESS + 'me/returnsku/cancel',
+    PERSONINFO: API_ADDRESS + 'me'
 };
 
 module.exports = API;

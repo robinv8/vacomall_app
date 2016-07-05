@@ -77,6 +77,7 @@ import PersonInfo from '../Person/PersonInfo';
 import IntroPage from '../IntroPage';
 import Loaddingpage from '../Loaddingpage';
 import Guess from '../Guess';
+import AbortVacomall from '../AbortVacomall';
 
 /*---第三方组件---*/
 import TabNavigator from 'react-native-tab-navigator';
@@ -178,5 +179,6 @@ export {
     BarCodeAndroid,
     BarCodeIos,
     PersonSafe,
-    PersonInfo
+    PersonInfo,
+    AbortVacomall
 };

@@ -19,8 +19,8 @@ import {CartPage,Login,API,NetService,Toast} from '../util/Path';
 
 export default class Header extends Component {
     toCart() {
-        const {navigator}=this.props;
-        var _callback=function(result){
+        NetService.postFetchData(API.LOGINSTATE, "",(result)=>{
+            const {navigator}=this.props;
             if(result['success']===false){
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
@@ -39,8 +39,7 @@ export default class Header extends Component {
                     })
                 }
             }
-        }
-        NetService.postFetchData(API.LOGINSTATE, "",_callback.bind(this));
+        });
     }
     render() {
         return (

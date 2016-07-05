@@ -15,7 +15,7 @@ import React,{
     TouchableWithoutFeedback,
     Navigator
 }from 'react-native';
-import {Login,API,NetService,MenuButton,GoodsDetail,Toast,OrderSelectPage} from './util/Path';
+import {Login,API,NetService,MenuButton,GoodsDetail,Toast,OrderSelectPage,PersonSafe} from './util/Path';
 var listFlag = 0;
 export default class Person extends Component {
     // 构造
@@ -53,8 +53,9 @@ export default class Person extends Component {
     }
 
     componentDidUnMount() {
-        listFlag=0
+        listFlag = 0
     }
+
     componentDidMount() {
         NetService.getFetchData(API.ORDERNUM, (result)=> {
             if (result['success'] === false) {
@@ -228,7 +229,14 @@ export default class Person extends Component {
             })
         }
     }
-
+    toPersonSafe(){
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: PersonSafe,
+            })
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -245,9 +253,11 @@ export default class Person extends Component {
                                 <Image source={require('../images/header_img.png')} style={styles.header_img}/>
                                 <Text style={{fontSize:16,color:'white',backgroundColor:'rgba(0,0,0,0)',marginTop:5}}>HI!万小颗</Text>
                             </View>
-                            <View style={{height:50,paddingRight:13,paddingTop:14,alignItems:'flex-end',flex:1}}>
-                                <Image source={require('../images/setting.png')} style={styles.settingIcon}/>
-                            </View>
+                            <TouchableWithoutFeedback onPress={()=>this.toPersonSafe()}>
+                                <View style={{height:50,paddingRight:13,paddingTop:14,alignItems:'flex-end',flex:1}}>
+                                    <Image source={require('../images/setting.png')} style={styles.settingIcon}/>
+                                </View>
+                            </TouchableWithoutFeedback>
                         </View>
                         <View style={[styles.header_bottom,{opacity:0}]}>
                             <View style={styles.header_bottom_con}/>

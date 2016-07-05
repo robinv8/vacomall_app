@@ -11,12 +11,49 @@ import React, {
     Text,
     Platform
 } from 'react-native';
+import {NetService,API} from '../util/Path'
 export default class PersonInfo extends Component{
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            name:null,
+            mobile:null,
+            address:null
+        };
+      }
     _back() {
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop()
         }
+    }
+
+    componentDidMount() {
+        NetService.getFetchData(API.PERSONINFO,(result)=>{
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    const {navigator}=this.props;
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                        })
+                    }
+                    this.setState({
+                        refreshing: true
+                    })
+                }
+                return;
+            }
+            this.setState({
+                name:result['VillageName'],
+                mobile:result['VillageMobile'],
+                address:result['VillageAddress']
+            })
+        });
     }
     render(){
         return(
@@ -38,7 +75,7 @@ export default class PersonInfo extends Component{
                   </TouchableWithoutFeedback>
               </View>
               <View>
-                  <View style={[styles.barwrap,{marginTop:12,paddingLeft:10,paddingRight:10}]}>
+                  <View style={[styles.barwrap,{marginTop:12,paddingLeft:10,paddingRight:10,backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E2E2E2'}]}>
                       <View style={[styles.barwrap,{height:95,flexDirection:'row',flex:1,alignItems:'center',}]}>
                           <View style={{flexDirection:'row',alignItems:'center'}}>
                               <Text style={{color:'#3C3C3C',fontSize:16}}>万颗头像</Text>
@@ -53,35 +90,26 @@ export default class PersonInfo extends Component{
                               <Text style={{color:'#3C3C3C',fontSize:16}}>账号名称</Text>
                           </View>
                           <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                              <Text style={{marginRight:12,color:'#3C3C3C',fontSize:16}}>万小颗</Text>
+                              <Text style={{marginRight:12,color:'#3C3C3C',fontSize:16}}>{this.state.name}</Text>
                               <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
                           </View>
                       </View>
-                      <View style={[styles.barwrap,{height:49,flexDirection:'row',alignItems:'center',}]}>
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
-                              <Text style={{color:'#3C3C3C',fontSize:16}}>性别</Text>
-                          </View>
-                          <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                              <Text style={{marginRight:12,color:'#3C3C3C',fontSize:16}}>男</Text>
-                              <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
-                          </View>
-                      </View>
-                      <View style={[styles.barwrap,{height:49,flexDirection:'row',alignItems:'center',}]}>
+                      <View style={[styles.barwrap,{height:49,flexDirection:'row',alignItems:'center',borderBottomWidth:0}]}>
                           <View style={{flexDirection:'row',alignItems:'center'}}>
                               <Text style={{color:'#3C3C3C',fontSize:16}}>手机号</Text>
                           </View>
                           <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                              <Text style={{marginRight:12,color:'#3C3C3C',fontSize:16}}>13800000000</Text>
+                              <Text style={{marginRight:12,color:'#3C3C3C',fontSize:16}}>{this.state.mobile}</Text>
                               <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
                           </View>
                       </View>
                   </View>
-                  <View style={[styles.barwrap,{marginTop:20,height:49,flexDirection:'row',alignItems:'center',}]}>
+                  <View style={[styles.barwrap,{marginTop:20,height:49,flexDirection:'row',alignItems:'center',backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E2E2E2'}]}>
                       <View style={{flexDirection:'row',alignItems:'center'}}>
-                          <Text style={{marginLeft:10,color:'#BFBFBF',fontSize:16}}>客服中心</Text>
+                          <Text style={{marginLeft:10,color:'#BFBFBF',fontSize:16}}>收货地址</Text>
                       </View>
                       <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                          <Text style={{color:'#BFBFBF',fontSize:16}}>甘肃省张掖市甘州区上秦镇服务站</Text>
+                          <Text style={{color:'#BFBFBF',fontSize:16}}>{this.state.address}</Text>
                       </View>
                   </View>
               </View>
@@ -136,9 +164,9 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     barwrap:{
-        backgroundColor:'white',
+        //backgroundColor:'white',
         borderBottomWidth:0.5,
-        borderBottomColor:'#E2E2E2',
+        borderBottomColor:'#E7E7E7',
 
     },
     safe_icon:{
