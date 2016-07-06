@@ -228,14 +228,14 @@ export default class Login extends Component {
                                     value={this.state.pwd}
                                 />
                                 <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
-                                    <Image source={require('../images/login/visibility1.png')}
-                                           style={{width:20,height:13,resizeMode:'stretch',marginLeft:3,opacity:this.state.visible1}}/>
+                                    <Image source={require('../images/login/hidden_icon.png')}
+                                           style={{width:20,height:12,resizeMode:'stretch',marginLeft:3,opacity:this.state.visible1}}/>
                                 </TouchableWithoutFeedback>
                                 <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
                                     <View
                                         style={{width:30,height:32,position:'absolute',right:23,justifyContent:'center',alignItems:'center'}}>
-                                        <Image source={require('../images/login/visibility.png')}
-                                               style={{width:6,height:8,resizeMode:'stretch',opacity:this.state.visible}}/>
+                                        <Image source={require('../images/login/visibility1.png')}
+                                               style={{width:20,height:12,resizeMode:'stretch',opacity:this.state.visible}}/>
                                     </View>
                                 </TouchableWithoutFeedback>
                                 <TouchableWithoutFeedback onPress={(flag)=>this._clear('pwd')}>
