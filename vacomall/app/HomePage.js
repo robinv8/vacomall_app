@@ -49,7 +49,6 @@ export default class HomePage extends Component {
     }
 
 
-
     componentDidMount() {
         /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
@@ -142,11 +141,11 @@ export default class HomePage extends Component {
         }
         index_news_data.map(function (data, index) {
             newsArray.push(<View style={styles.news_centent} key={index}>
-                <Text>{data['ItemName']}</Text>
+                <Text style={{fontSize:12,color:'#3C3C3C'}}>{data['ItemName']}</Text>
             </View>)
         });
         newsArray.push(<View style={styles.news_centent} key={index_news_data.length}>
-            <Text>{index_news_data[0]['ItemName']}</Text>
+            <Text style={{fontSize:12,color:'#3C3C3C'}}>{index_news_data[0]['ItemName']}</Text>
         </View>)
         this.setState({
             news: <Animated.View key={0} style={[styles.news,{top:this.state.newsValue}]}>
@@ -312,9 +311,9 @@ export default class HomePage extends Component {
             <TouchableWithoutFeedback onPress={(id)=>this.toDetails(gList['Id'])}>
                 <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
                     <View
-                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
+                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3'}}>
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
-                               style={{width: 150,height: 150,marginBottom:10}}/>
+                               style={{width: 205,height: 205}}/>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
                         <View style={{marginBottom:1,height:32}}>
@@ -344,7 +343,6 @@ export default class HomePage extends Component {
     }
 
 
-
     _guessCallback(result) {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(result)
@@ -357,6 +355,7 @@ export default class HomePage extends Component {
             contentHeight: h
         });
     }
+
     handleScroll(event:Object) {
         if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height - 100 > this.state.contentHeight && this.state.guessFlag === false) {
             NetService.getFetchData(API.GUESS, (result)=>this._guessCallback(result));
@@ -399,11 +398,15 @@ export default class HomePage extends Component {
                             <View style={styles.ad_topic}>
                                 <Image style={styles.headline}
                                        source={require('../images/Headline.png')}/>
+                                <View style={{width:1,height:17,backgroundColor:'#979797',marginRight:10}}/>
                                 <View style={{flex:1,height:30,overflow:'hidden'}}>
                                     {this.state.news}
                                 </View>
                             </View>
-                            <View style={styles.ad_more}><Text style={styles.ad_more_text}>更多></Text></View>
+                            <View style={{marginRight:6}}>
+                                <Image source={require('../images/updown_icon.png')}
+                                                                 style={{width:7,height:13,resizeMode: 'stretch'}}/>
+                            </View>
                         </View>
                     </View>
 
@@ -414,7 +417,7 @@ export default class HomePage extends Component {
                         </View>
                         {this.state.indexCSH}
                     </View>
-                    <View style={[styles.chaoshihui,{height:236}]}>
+                    <View style={[styles.chaoshihui,{height:237}]}>
                         <View style={styles.chaoshihui_title}>
                             <Image source={require('../images/ppzg_tit.png')}
                                    style={[styles.csh_tit,{width:96,height:22}]}/>
@@ -455,14 +458,14 @@ const styles = StyleSheet.create({
     },
     seckill: {
         flex: 1,
-        height: 197,
+        height: 201,
         backgroundColor: 'white',
         flexDirection: 'row',
         shadowColor: 'rgb(0,0,0)',
         shadowOpacity: 0.1,
         shadowRadius: 0,
         shadowOffset: {
-            height: 1,
+            height: 0.5,
             width: 0
         }
     },
@@ -472,7 +475,7 @@ const styles = StyleSheet.create({
         borderRightColor: '#E5E5E5',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        height: 197
+        height: 201
     },
     seckill_1_img: {
         width: (Dimensions.get('window').width / 2) - 2,
@@ -538,10 +541,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    ad_more_text: {
-        color: '#FF7B00',
-        fontSize: 10
-    },
+
     listview: {
         flexDirection: 'row',
         flexWrap: 'wrap'
@@ -581,20 +581,13 @@ const styles = StyleSheet.create({
     headline: {
         width: 59,
         height: 14,
-        marginRight: 10
+        marginRight: 5
     },
     chaoshihui: {
         marginTop: 12,
         flex: 1,
         height: 240,
-        backgroundColor: 'white',
-        shadowColor: "rgb(0,0,0)",
-        shadowOpacity: 0.1,
-        shadowRadius: 0,
-        shadowOffset: {
-            height: 0.5,
-            width: 0
-        }
+        backgroundColor: 'white'
     },
     chaoshihui_title: {
         height: 38,

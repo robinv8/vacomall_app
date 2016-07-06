@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 5,
         borderRadius: 5,
-        backgroundColor: '#007728',
+        backgroundColor: '#09982E',
         alignItems: 'center',
     },
     scanIcon: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
         width: 14.54,
         height: 12.87,
         resizeMode: 'stretch',
-        backgroundColor: '#00702d'
+        backgroundColor: '#09982E'
     },
     searchText: {
         flex: 1,

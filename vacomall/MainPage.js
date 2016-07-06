@@ -10,7 +10,8 @@ import React,{
     Navigator,
     AppState,
     StatusBar,
-    AsyncStorage
+    AsyncStorage,
+
 }from 'react-native';
 
 

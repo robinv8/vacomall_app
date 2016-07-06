@@ -12,10 +12,11 @@ import React, { Component ,
     Platform,
     StatusBar,
     TouchableWithoutFeedback,
-    Navigator
+    Navigator,
+    Animated
 } from 'react-native';
 import Camera from 'react-native-camera';
-import {GoodsDetail,Toast} from './Path'
+import {GoodsDetail,Toast,LinearGradient} from './Path'
 export default class BarCodeIos extends Component {
     // 构造
     constructor(props) {
@@ -23,10 +24,12 @@ export default class BarCodeIos extends Component {
         // 初始状态
         this.state = {
             isScan: false,
-            isLoad:false,
-            isReturn:false
+            isLoad: false,
+            isReturn: false,
+            fadeAnim: new Animated.Value(0)
         };
     }
+
     _back() {
         const {navigator}=this.props;
         if (navigator) {
@@ -36,26 +39,47 @@ export default class BarCodeIos extends Component {
 
     componentWillReceiveProps() {
         this.setState({
-            isScan:false,
+            isScan: false,
             //isLoad:false,
         })
-        if(this.state.isReturn){
+        if (this.state.isReturn) {
             this.setTime()
         }
-       // this.setTime()
+        // this.setTime()
     }
 
     componentDidMount() {
-        this.setTime()
-    }
-    setTime(){
-        setTimeout(()=>{
+        this.setTime();
+        Animated.timing(          // Uses easing functions
+            this.state.fadeAnim,    // The value to drive
+            {
+                toValue: Dimensions.get('window').height * 0.40,
+                duration: 1500, // 动画时间
+            }         // Configuration
+        ).start();
+        setInterval(()=>{
             this.setState({
-                isLoad:true,
-                isReturn:false
+                fadeAnim:new Animated.Value(0)
             })
-        },1000)
+            Animated.timing(          // Uses easing functions
+                this.state.fadeAnim,    // The value to drive
+                {
+                    toValue: Dimensions.get('window').height * 0.40,
+                    duration: 1500, // 动画时间
+                }         // Configuration
+            ).start();
+        },1500)
     }
+
+    setTime() {
+        setTimeout(()=> {
+            this.setState({
+                isLoad: true,
+                isReturn: false
+            })
+        }, 1000)
+    }
+
     renderLoadingView() {
         return (
             <View style={{flex:1,backgroundColor:'black'}}>
@@ -85,8 +109,9 @@ export default class BarCodeIos extends Component {
             </View>
         );
     }
+
     render() {
-        if(!this.state.isLoad){
+        if (!this.state.isLoad) {
             return this.renderLoadingView();
         }
         return (
@@ -135,6 +160,10 @@ export default class BarCodeIos extends Component {
                                     <Image source={require('../../images/bottom_right.png')}
                                            style={{width:16,height:16}}/>
                                 </View>
+                                <Animated.View style={{marginTop:this.state.fadeAnim,width:Dimensions.get('window').width * 0.7}}>
+                                    <Image source={require('../../images/code_line.png')}
+                                           style={{resizeMode: 'stretch',width:Dimensions.get('window').width * 0.7}}/>
+                                </Animated.View>
                             </View>
                             <View
                                 style={styles.left_shade}/>
@@ -154,23 +183,23 @@ export default class BarCodeIos extends Component {
     onBarCodeRead(result) {
         if (!this.state.isScan) {
             this.setState({
-                isLoad:false
+                isLoad: false
             })
             const {navigator}=this.props;
             let data = JSON.parse(result['data']);
-            switch (data['t']){
+            switch (data['t']) {
                 case 0:
                     if (navigator) {
                         navigator.push({
-                            component:GoodsDetail,
-                            params:{id:data['g'],type:'barcode',_this:this}
+                            component: GoodsDetail,
+                            params: {id: data['g'], type: 'barcode', _this: this}
                         })
                     }
                     break;
             }
         }
         this.setState({
-            isScan:true
+            isScan: true
         })
     }
 

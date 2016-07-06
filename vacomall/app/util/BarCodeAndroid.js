@@ -11,9 +11,10 @@ import React, {
     Platform,
     Text,
     Navigator,
-    Dimensions
+    Dimensions,
+    Animated
 } from 'react-native';
-import BarcodeScanner from 'react-native-barcodescanner';
+//import BarcodeScanner from 'react-native-barcodescanner';
 import {GoodsDetail,Toast} from './Path'
 export default class BarCodeAndroid extends Component {
     constructor(props) {
@@ -24,7 +25,8 @@ export default class BarCodeAndroid extends Component {
             cameraType: 'back',
             isScan: false,
             isLoad:false,
-            isReturn:false
+            isReturn:false,
+            fadeAnim: new Animated.Value(0)
         };
     }
     _back() {
@@ -45,6 +47,25 @@ export default class BarCodeAndroid extends Component {
 
     componentDidMount() {
         this.setTime();
+        Animated.timing(          // Uses easing functions
+            this.state.fadeAnim,    // The value to drive
+            {
+                toValue: Dimensions.get('window').height * 0.40,
+                duration: 1500, // 动画时间
+            }         // Configuration
+        ).start();
+        setInterval(()=>{
+            this.setState({
+                fadeAnim:new Animated.Value(0)
+            })
+            Animated.timing(          // Uses easing functions
+                this.state.fadeAnim,    // The value to drive
+                {
+                    toValue: Dimensions.get('window').height * 0.40,
+                    duration: 1500, // 动画时间
+                }         // Configuration
+            ).start();
+        },1500)
     }
     setTime(){
         setTimeout(()=>{
@@ -161,6 +182,10 @@ export default class BarCodeAndroid extends Component {
                                     <Image source={require('../../images/bottom_right.png')}
                                            style={{width:16,height:16}}/>
                                 </View>
+                                <Animated.View style={{marginTop:this.state.fadeAnim,width:Dimensions.get('window').width * 0.7}}>
+                                    <Image source={require('../../images/code_line.png')}
+                                           style={{resizeMode: 'stretch',width:Dimensions.get('window').width * 0.7}}/>
+                                </Animated.View>
                             </View>
                             <View
                                 style={styles.left_shade}/>
