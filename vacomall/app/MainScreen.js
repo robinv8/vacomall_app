@@ -94,6 +94,12 @@ export default class MainScreen extends Component {
     };
 
     componentDidMount() {
+        if(this.props.Ad!==undefined){
+            this.setState({
+                ad:this.props.Ad
+            })
+        }
+
         if (Platform.OS === 'android') {
             BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));
         }

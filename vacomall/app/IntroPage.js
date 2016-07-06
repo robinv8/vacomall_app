@@ -44,7 +44,10 @@ export default class IntroPage extends Component {
                 if (navigator) {
                     navigator.resetTo({
                         component: MainScreen,
-                        sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                        sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        params:{
+                            Ad:null//不加载广告
+                        }
                     })
                 }
             },3000)
