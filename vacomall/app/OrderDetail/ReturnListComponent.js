@@ -90,7 +90,7 @@ export default class ReturnListComponent extends Component {
                     <View style={{justifyContent:'center',alignItems:'flex-end',marginTop:17,marginBottom:20}}>
                         <View><Text style={{color:'#898989'}}>共计{this.props.gList['SkuNum']}件商品 合计:<Text
                             style={{color:'#FD3824',fontSize:12}}>￥</Text><Text
-                            style={{color:'#FD3824',fontSize:18}}>{this.props.gList['OrderPayMoney']}</Text></Text></View>
+                            style={{color:'#FD3824',fontSize:18}}>{this.props.gList['ReturnMoney']}</Text></Text></View>
                         {this.state.handle}
                     </View>
                 </View>

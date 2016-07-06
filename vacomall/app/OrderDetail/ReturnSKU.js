@@ -67,18 +67,25 @@ export default class ReturnSKU extends Component {
                 return;
             }
             let list = result['list'];
-            if (list.length!== 0) {
+            if (list.length !== 0) {
                 Array.prototype.push.apply(this.state.listArray, list)
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
                     loaded:true,
                     isNull:true
                 });
-            }else{
-                this.setState({
-                    loaded:true,
-                    isNull:false
-                });
+            } else {
+                if (this.state.listArray.length > 0) {
+                    this.setState({
+                        isNull:true,
+                        loaded: true,
+                    });
+                }else{
+                    this.setState({
+                        isNull:false,
+                        loaded: true,
+                    });
+                }
             }
         })
     }

@@ -9,9 +9,12 @@ import React, {
     TouchableWithoutFeedback,
     Image,
     Text,
-    Platform
+    Platform,
+    Alert,
+    Navigator,
+    AsyncStorage
 } from 'react-native';
-import {PersonInfo} from '../util/Path'
+import {PersonInfo,NetService,API,Toast,Login} from '../util/Path'
 export default class PersonSafe extends Component {
     _back() {
         const {navigator}=this.props;
@@ -19,13 +22,49 @@ export default class PersonSafe extends Component {
             navigator.pop()
         }
     }
-    toPersonInfo(){
+
+    toPersonInfo() {
         const {navigator}=this.props;
         if (navigator) {
             navigator.push({
                 component: PersonInfo,
             })
         }
+    }
+
+    quitAlert() {
+        var _this = this;
+        const {navigator}=this.props;
+
+        function quit() {
+            NetService.postFetchData(API.LOGOUT, '', _callback);
+        };
+        function _callback(result) {
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                return;
+            }
+            Toast.show('退出成功!');
+            if (navigator) {
+                navigator.push({
+                    component: Login,
+                    sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                })
+            }
+        }
+
+        Alert.alert(
+            '提示',
+            '是否退出登录?',
+            [
+                {text: '否'},
+                {text: '是', onPress: () => quit()},
+            ]
+        )
+    }
+    async cancelStore(){
+        await AsyncStorage.clear()
+        Toast.show('缓存已清除!')
     }
     render() {
         return (
@@ -74,29 +113,40 @@ export default class PersonSafe extends Component {
                                        style={styles.right_arrows}/>
                             </View>
                         </View>
-                        <View
-                            style={[styles.barwrap,{height:62,flexDirection:'row',alignItems:'center',borderBottomWidth:0}]}>
-                            <View style={{flexDirection:'row',alignItems:'center'}}>
-                                <Image source={require('../../images/person_icon3.png')}
-                                       style={[styles.safe_icon,{marginLeft:0}]}/>
-                                <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>清除缓存</Text>
+                        <TouchableWithoutFeedback onPress={()=>this.cancelStore()}>
+                            <View
+                                style={[styles.barwrap,{height:62,flexDirection:'row',alignItems:'center',borderBottomWidth:0}]}>
+                                <View style={{flexDirection:'row',alignItems:'center'}}>
+                                    <Image source={require('../../images/person_icon3.png')}
+                                           style={[styles.safe_icon,{marginLeft:0}]}/>
+                                    <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>清除缓存</Text>
+                                </View>
+                                <View style={{flex:1,alignItems:'flex-end'}}>
+                                    <Image source={require('../../images/right_arrows_icon.png')}
+                                           style={styles.right_arrows}/>
+                                </View>
                             </View>
-                            <View style={{flex:1,alignItems:'flex-end'}}>
+                        </TouchableWithoutFeedback>
+                    </View>
+                    <TouchableWithoutFeedback onPress={()=>{Toast.show('即将开放,敬请期待……')}}>
+                        <View
+                            style={[styles.barwrap,{marginTop:17,height:62,flexDirection:'row',alignItems:'center',backgroundColor:'white'}]}>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <Image source={require('../../images/person_icon4.png')} style={styles.safe_icon}/>
+                                <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>客服中心</Text>
+                            </View>
+                            <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
                                 <Image source={require('../../images/right_arrows_icon.png')}
                                        style={styles.right_arrows}/>
                             </View>
                         </View>
-                    </View>
-                    <View
-                        style={[styles.barwrap,{marginTop:17,height:62,flexDirection:'row',alignItems:'center',backgroundColor:'white'}]}>
-                        <View style={{flexDirection:'row',alignItems:'center'}}>
-                            <Image source={require('../../images/person_icon4.png')} style={styles.safe_icon}/>
-                            <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>客服中心</Text>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={()=>this.quitAlert()}>
+                        <View
+                            style={[styles.barwrap,{marginTop:17,height:48,flexDirection:'row',alignItems:'center',backgroundColor:'white',justifyContent:'center'}]}>
+                            <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>退出登录</Text>
                         </View>
-                        <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                            <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
-                        </View>
-                    </View>
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
         );

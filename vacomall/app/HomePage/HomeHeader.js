@@ -67,36 +67,7 @@ export default class HomeHeader extends Component {
 
     }
 
-    quitAlert() {
-        var _this = this;
-        const {navigator}=this.props;
 
-        function quit() {
-            NetService.postFetchData(API.LOGOUT, '', _callback);
-        };
-        function _callback(result) {
-            if (result['success'] === false) {
-                Toast.show(result['result']['message']);
-                return;
-            }
-            Toast.show('退出成功!');
-            if (navigator) {
-                navigator.push({
-                    component: Login,
-                    sceneConfig: Navigator.SceneConfigs.FadeAndroid
-                })
-            }
-        }
-
-        Alert.alert(
-            '提示',
-            '是否退出登录?',
-            [
-                {text: '否'},
-                {text: '是', onPress: () => quit()},
-            ]
-        )
-    }
     toCate(){
         const {navigator}=this.props;
         if (navigator) {

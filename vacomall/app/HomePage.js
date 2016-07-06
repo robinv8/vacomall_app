@@ -313,7 +313,7 @@ export default class HomePage extends Component {
                 <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
-                        <Image source={{uri:gList['SpuDefaultImage']}}
+                        <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
                                style={{width: 150,height: 150,marginBottom:10}}/>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
@@ -343,15 +343,7 @@ export default class HomePage extends Component {
         listFlag = 0;
     }
 
-    handleScroll(event:Object) {
-        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height - 100 > this.state.contentHeight && this.state.guessFlag === false) {
-            NetService.getFetchData(API.GUESS, (result)=>this._guessCallback(result));
-            this.setState({
-                guessFlag: true
-            })
-        }
-        //event.nativeEvent.contentOffset+'-'+
-    }
+
 
     _guessCallback(result) {
         this.setState({
@@ -365,9 +357,14 @@ export default class HomePage extends Component {
             contentHeight: h
         });
     }
-
-    onDownFunc() {
-
+    handleScroll(event:Object) {
+        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height - 100 > this.state.contentHeight && this.state.guessFlag === false) {
+            NetService.getFetchData(API.GUESS, (result)=>this._guessCallback(result));
+            this.setState({
+                guessFlag: true
+            })
+        }
+        //event.nativeEvent.contentOffset+'-'+
     }
 
     render() {
@@ -458,7 +455,7 @@ const styles = StyleSheet.create({
     },
     seckill: {
         flex: 1,
-        height: 201,
+        height: 197,
         backgroundColor: 'white',
         flexDirection: 'row',
         shadowColor: 'rgb(0,0,0)',
@@ -474,7 +471,8 @@ const styles = StyleSheet.create({
         borderRightWidth: 0.5,
         borderRightColor: '#E5E5E5',
         alignItems: 'center',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        height: 197
     },
     seckill_1_img: {
         width: (Dimensions.get('window').width / 2) - 2,

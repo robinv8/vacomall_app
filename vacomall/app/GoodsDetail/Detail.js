@@ -36,7 +36,8 @@ export default class GoodsDetail extends Component {
             num: '1',
             contentHeight: null,
             guessFlag: false,
-            shadeThis:null
+            shadeThis:null,
+            imgdetails:null
         };
 
     }
@@ -65,7 +66,7 @@ export default class GoodsDetail extends Component {
             loaded: true
         })
         this.setState({
-            webImgData: result['imageDetails'][0]['SpuDetail']
+            webImgData: result['imageDetails']
         })
     }
 
@@ -88,82 +89,82 @@ export default class GoodsDetail extends Component {
         }
         return (
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
-                <View style={{flex:1}}>
-                    <ScrollView
-                        style={{flex:1}}
-                    >
-                        <DetailSwiper swiperData={this.state.swiperData}/>
-                        <View>
-                            <View style={{backgroundColor:'white',padding:10,marginBottom:10,paddingBottom:0}}>
-                                <View style={styles.goods_name}>
-                                    <View style={{flex:8}}>
+                <ScrollView
+                    style={{marginBottom:49,}}
+                    onContentSizeChange={(w,h)=>this._ContentSizeChange(w,h)}
+                    onScroll={(event)=>this.handleScroll(event)}
+                >
+                    <DetailSwiper swiperData={this.state.swiperData}/>
+                    <View>
+                        <View style={{backgroundColor:'white',padding:10,marginBottom:10,paddingBottom:0}}>
+                            <View style={styles.goods_name}>
+                                <View style={{flex:8}}>
+                                    <Text
+                                        style={{color:'#3C3C3C',lineHeight:20}}>{this.state.details['GoodsItemTitle']}</Text>
+                                </View>
+                                <View style={{justifyContent:'center',flex:2,alignItems:'center'}}>
+                                    <Image source={require('../../images/share_icon.png')}
+                                           style={styles.share_icon}/>
+                                    <Text style={{color:'#979797',fontSize:12}}>分享</Text>
+                                </View>
+                            </View>
+                            <View style={styles.price_view}>
+                                <View
+                                    style={{flex:1,flexDirection:'row'}}>
+                                    <View style={styles.price_con}>
+                                        <Text style={[styles.price,{fontSize:16,marginTop:3}]}>￥</Text>
                                         <Text
-                                            style={{color:'#3C3C3C',lineHeight:20}}>{this.state.details['GoodsItemTitle']}</Text>
+                                            style={[styles.price,{fontSize: 22,marginTop:-4}]}>{this.state.price}</Text>
                                     </View>
-                                    <View style={{justifyContent:'center',flex:2,alignItems:'center'}}>
-                                        <Image source={require('../../images/share_icon.png')}
-                                               style={styles.share_icon}/>
-                                        <Text style={{color:'#979797',fontSize:12}}>分享</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.price_view}>
                                     <View
-                                        style={{flex:1,flexDirection:'row'}}>
-                                        <View style={styles.price_con}>
-                                            <Text style={[styles.price,{fontSize:16,marginTop:3}]}>￥</Text>
-                                            <Text
-                                                style={[styles.price,{fontSize: 22,marginTop:-4}]}>{this.state.price}</Text>
-                                        </View>
-                                        <View
-                                            style={[styles.price_con,{flex:1,justifyContent:'flex-start',marginLeft:2}]}>
-                                            <Text
-                                                style={[styles.bef_text,styles.bef_price]}>市场价￥{this.state.details['GoodsItemTagPrice']}</Text>
-                                        </View>
-                                    </View>
-
-                                    <View style={styles.sales}>
-                                        <View style={styles.freight}><Text
-                                            style={{fontSize:14,color:'#BFBFBF'}}>快递:0.00</Text></View>
-                                        <View style={[styles.freight,{alignItems:'flex-end',marginRight:5}]}><Text
-                                            style={{fontSize:14,color:'#BFBFBF'}}>月销:{this.state.details['GoodsItemSales']}笔</Text></View>
+                                        style={[styles.price_con,{flex:1,justifyContent:'flex-start',marginLeft:2}]}>
+                                        <Text
+                                            style={[styles.bef_text,styles.bef_price]}>市场价￥{this.state.details['GoodsItemTagPrice']}</Text>
                                     </View>
                                 </View>
+
+                                <View style={styles.sales}>
+                                    <View style={styles.freight}><Text
+                                        style={{fontSize:14,color:'#BFBFBF'}}>快递:0.00</Text></View>
+                                    <View style={[styles.freight,{alignItems:'flex-end',marginRight:5}]}><Text
+                                        style={{fontSize:14,color:'#BFBFBF'}}>月销:{this.state.details['GoodsItemSales']}笔</Text></View>
+                                </View>
+                            </View>
+                        </View>
+                        <View
+                            style={{flexDirection:'row',padding:10,marginBottom:10,paddingBottom:0,paddingTop:0,backgroundColor:'white',height:44,alignItems:'center'}}>
+                            <View
+                                style={{flexDirection:'row',flex:1,justifyContent:'flex-start',alignItems:'center'}}>
+                                <Image source={require('../../images/detail/right.png')}
+                                       style={styles.exp_img}></Image>
+                                <Text style={styles.exp_text}>免运费</Text>
+                            </View>
+                            <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
+                                <Image source={require('../../images/detail/right.png')}
+                                       style={styles.exp_img}/>
+                                <Text style={styles.exp_text}>包邮</Text>
+                            </View>
+                            <View style={{flexDirection:'row',flex:2,alignItems:'center'}}>
+                                <Image source={require('../../images/detail/right.png')}
+                                       style={styles.exp_img}/>
+                                <Text style={styles.exp_text}>支持货到付款</Text>
                             </View>
                             <View
-                                style={{flexDirection:'row',padding:10,marginBottom:10,paddingBottom:0,paddingTop:0,backgroundColor:'white',height:44,alignItems:'center'}}>
-                                <View
-                                    style={{flexDirection:'row',flex:1,justifyContent:'flex-start',alignItems:'center'}}>
-                                    <Image source={require('../../images/detail/right.png')}
-                                           style={styles.exp_img}></Image>
-                                    <Text style={styles.exp_text}>免运费</Text>
-                                </View>
-                                <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
-                                    <Image source={require('../../images/detail/right.png')}
-                                           style={styles.exp_img}/>
-                                    <Text style={styles.exp_text}>包邮</Text>
-                                </View>
-                                <View style={{flexDirection:'row',flex:2,alignItems:'center'}}>
-                                    <Image source={require('../../images/detail/right.png')}
-                                           style={styles.exp_img}/>
-                                    <Text style={styles.exp_text}>支持货到付款</Text>
-                                </View>
-                                <View
-                                    style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
-                                    <Image source={require('../../images/detail/right.png')}
-                                           style={styles.exp_img}/>
-                                    <Text style={styles.exp_text}>七天无理由退货</Text>
-                                </View>
+                                style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
+                                <Image source={require('../../images/detail/right.png')}
+                                       style={styles.exp_img}/>
+                                <Text style={styles.exp_text}>七天无理由退货</Text>
                             </View>
+                        </View>
 
-                        </View>
-                        <GoodsSpec _this2={this}/>
-                        <View
-                            style={{paddingLeft:5,height:40,justifyContent:'center',alignItems:'center'}}>
-                            <Text>继续拖动,查看图文详情</Text>
-                        </View>
-                        <DetailImg webImgData={this.state.webImgData} navigator={this.props._this1.props.navigator}/>
-                    </ScrollView>
-                </View>
+                    </View>
+                    <GoodsSpec _this2={this}/>
+                    <View
+                        style={{paddingLeft:5,height:40,justifyContent:'center',alignItems:'center',}}>
+                        <Text>继续拖动,查看图文详情</Text>
+                    </View>
+                    {this.state.imgdetails}
+                </ScrollView>
                 <View>
                     <View
                         style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width}}>
@@ -184,8 +185,20 @@ export default class GoodsDetail extends Component {
             </View>
         );
     }
-
-
+    _ContentSizeChange(w, h) {
+        this.setState({
+            contentHeight: h
+        });
+    }
+    handleScroll(event:Object) {
+        console.log(event.nativeEvent.contentOffset.y + Dimensions.get('window').height+' '+this.state.contentHeight)
+        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height> this.state.contentHeight && this.state.guessFlag === false) {
+            this.setState({
+                guessFlag: true,
+                imgdetails:<DetailImg webImgData={this.state.webImgData} navigator={this.props._this1.props.navigator}/>
+            })
+        }
+    }
     renderLoadingView() {
         return (
             <View style={{flex:1}}>

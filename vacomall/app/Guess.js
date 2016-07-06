@@ -77,7 +77,7 @@ export default class Guess extends Component{
                 <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
-                        <Image source={{uri:gList['SpuDefaultImage']}}
+                        <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
                                style={{width: 150,height: 150,marginBottom:10}}/>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>

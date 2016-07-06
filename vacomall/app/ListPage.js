@@ -98,21 +98,15 @@ export default class ListPage extends Component {
         } else {
             if (this.state.listArray.length > 0) {
                 this.setState({
-                    isNull:false,
+                    isNull:true,
                     loaded: true,
                 });
             } else {
                 this.setState({
-                    isNull:true,
+                    isNull:false,
                     loaded: true,
                 });
-                NetService.getFetchData(API.GUESS, (result)=> {
-                    this.setState({
-                        dataSource: this.state.dataSource.cloneWithRows(result)
-                    });
-                });
             }
-
         }
     }
 
@@ -226,7 +220,6 @@ export default class ListPage extends Component {
                     </TouchableWithoutFeedback>
                 </View>
                 <Guess navigator={this.props.navigator}/>
-
             </ScrollView>
         );
     }
@@ -272,7 +265,7 @@ export default class ListPage extends Component {
                 <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
-                        <Image source={{uri:gList['SpuDefaultImage']}}
+                        <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
                                style={{width: 150,height: 150,marginBottom:10}}></Image>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
