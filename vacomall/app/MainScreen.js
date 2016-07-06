@@ -11,7 +11,8 @@ import React, {
     TouchableHighlight,
     Navigator,
     Platform,
-    BackAndroid
+    BackAndroid,
+    Dimensions
 } from 'react-native';
 import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator,Toast} from './util/Path';
 const HOME = 'home';
@@ -26,7 +27,7 @@ const CART_FOCUS = require('../images/tabs/cart_focus.png');
 const PERSONAL = 'personal';
 const PERSONAL_NORMAL = require('../images/tabs/personal_normal.png');
 const PERSONAL_FOCUS = require('../images/tabs/personal_focus.png');
-
+const {width,height}=Dimensions.get('window');
 
 export default class MainScreen extends Component {
     // 构造
@@ -36,7 +37,16 @@ export default class MainScreen extends Component {
         this.state = {
             selectedTab: HOME,
             navigator: null,
-            active: null
+            active: null,
+            ad:<View style={{position:'absolute',width:width,height:height,top:0,backgroundColor:'white'}}>
+                <View style={{flex:8}}>
+                    <Image source={require('../images/ad.png')} style={{width:width,height:height*0.8,resizeMode:'stretch'}}/>
+                </View>
+                <View style={{flex:2,justifyContent:'center',alignItems:'center'}}>
+                    <Image source={require('../images/ad_logo.png')} style={{width:172,height:57,resizeMode:'stretch'}}/>
+                    <Image source={require('../images/ad_url.png')} style={{width:113,height:13,resizeMode:'stretch',marginTop:26}}/>
+                </View>
+            </View>
         };
     }
 
@@ -96,12 +106,11 @@ export default class MainScreen extends Component {
             </View>
         )
     }
-
     render() {
         return (
             <View style={{flex: 1}}>
                 <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab}>
-                    {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}/>)}
+                    {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator} _this={this}/>)}
                     {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage
                         navigator={this.props.navigator}/>)}
                     {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator}
@@ -110,6 +119,7 @@ export default class MainScreen extends Component {
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person
                         navigator={this.props.navigator}/>)}
                 </TabNavigator>
+                {this.state.ad}
             </View >
         );
     }

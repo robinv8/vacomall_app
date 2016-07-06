@@ -18,7 +18,7 @@ import React,{
     RefreshControl,ListView
 }from 'react-native';
 import {API,NetService,md5,Login,HtmlRender,GoodsDetail,Guess} from '../util/Path';
-let dataArray = [];
+let imgdata='';
 export default class DetailImg extends Component {
     // 构造
     constructor(props) {
@@ -27,16 +27,16 @@ export default class DetailImg extends Component {
         this.state = {
             HTML: null,
             guessFlag: false,
-            webImgData:[]
+            webImgData:null
         };
     }
 
     componentDidMount() {
         this.props.webImgData.map(function(data,index){
-            dataArray.push('<img src='+data+'>')
+            imgdata+='<img src='+data+'>';
         })
         this.setState({
-            webImgData:dataArray
+            webImgData:imgdata
         })
     }
 

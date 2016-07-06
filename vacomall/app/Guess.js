@@ -76,12 +76,12 @@ export default class Guess extends Component{
             <TouchableWithoutFeedback onPress={(id)=>this.toDetails(gList['Id'])}>
                 <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
                     <View
-                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
+                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3'}}>
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
-                               style={{width: 150,height: 150,marginBottom:10}}/>
+                               style={{width: Dimensions.get('window').width/2-3,height: Dimensions.get('window').width/2-3}}/>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
-                        <View style={{marginBottom:1,height:32}}>
+                        <View style={{marginBottom:1,height:32,paddingTop:5}}>
                             <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
                         <View style={{flex:1,flexDirection:'row'}}>

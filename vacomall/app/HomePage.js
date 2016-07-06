@@ -35,7 +35,6 @@ export default class HomePage extends Component {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2)=>row1 !== row2
             }),
-            loaded: false,
             news: null,
             isRefreshing: false,
             newsValue: new Animated.Value(0),
@@ -45,11 +44,16 @@ export default class HomePage extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        this.timer&clearInterval(this.timer);
     }
 
 
     componentDidMount() {
+        setTimeout(()=>{
+            this.props._this.setState({
+                ad:null
+            })
+        },3000)
         /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
     }
@@ -313,10 +317,10 @@ export default class HomePage extends Component {
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3'}}>
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
-                               style={{width: 205,height: 205}}/>
+                               style={{width: Dimensions.get('window').width/2-3,height: Dimensions.get('window').width/2-3}}/>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
-                        <View style={{marginBottom:1,height:32}}>
+                        <View style={{marginBottom:1,height:32,paddingTop:5}}>
                             <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
                         <View style={{flex:1,flexDirection:'row'}}>
@@ -365,7 +369,7 @@ export default class HomePage extends Component {
         }
         //event.nativeEvent.contentOffset+'-'+
     }
-
+    
     render() {
         return (
             <View style={{flex:1}}>

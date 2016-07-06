@@ -31,6 +31,7 @@ export default class BarCodeIos extends Component {
     }
 
     _back() {
+        this.interval &&clearInterval(this.interval)
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop()
@@ -57,7 +58,8 @@ export default class BarCodeIos extends Component {
                 duration: 1500, // 动画时间
             }         // Configuration
         ).start();
-        setInterval(()=>{
+        this.interval=setInterval(()=>{
+            //console.log(1)
             this.setState({
                 fadeAnim:new Animated.Value(0)
             })

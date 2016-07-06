@@ -82,12 +82,14 @@ export default class HomeHeader extends Component {
             if (navigator) {
                 navigator.push({
                     component: BarCodeIos,
+                    sceneConfig:Navigator.SceneConfigs.FloatFromLeft
                 })
             }
         } else {
             if (navigator) {
                 navigator.push({
                     component: BarCodeAndroid,
+                    sceneConfig:Navigator.SceneConfigs.FloatFromLeft
                 })
             }
         }
