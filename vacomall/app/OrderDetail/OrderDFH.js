@@ -58,6 +58,11 @@ export default class OrderDFH extends Component {
         },500)
     }
     loadData(){
+        if(this.state.page===1){
+            this.setState({
+                listArray:[]
+            })
+        }
         const {navigator}=this.props._this.props;
         NetService.getFetchData(API.ORDERDETAIL+'?st=200&size=10&page='+this.state.page,(result)=>{
             if (result['success'] === false) {

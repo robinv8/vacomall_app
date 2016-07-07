@@ -39,13 +39,7 @@ export default class MainScreen extends Component {
             navigator: null,
             active: null,
             ad:<View style={{position:'absolute',width:width,height:height,top:0,backgroundColor:'white'}}>
-                <View style={{flex:8}}>
-                    <Image source={require('../images/ad.png')} style={{width:width,height:height*0.8,resizeMode:'stretch'}}/>
-                </View>
-                <View style={{flex:2,justifyContent:'center',alignItems:'center'}}>
-                    <Image source={require('../images/ad_logo.png')} style={{width:172,height:57,resizeMode:'stretch'}}/>
-                    <Image source={require('../images/ad_url.png')} style={{width:113,height:13,resizeMode:'stretch',marginTop:26}}/>
-                </View>
+                    <Image source={require('../images/ad.png')} style={{width:width,height:height-20,resizeMode:'stretch'}}/>
             </View>
         };
     }

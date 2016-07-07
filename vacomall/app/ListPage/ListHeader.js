@@ -48,7 +48,7 @@ export default class Header extends Component {
     _toSearchPage() {
         const {navigator}=this.props;
         if (navigator) {
-            navigator.push({
+            navigator.replace({
                 component: SearchPage,
                 sceneConfig: Navigator.SceneConfigs.FadeAndroid,
                 params: {searchText: this.props.searchText}
@@ -84,7 +84,7 @@ export default class Header extends Component {
                         placeholderTextColor={'#7A797B'}
                         value={this.state.searchText}
                         style={styles.inputText}/>
-                    <Image source={require('../../images/header/clear.png')} style={styles.clearIcon}/>
+                    <Image source={require('../../images/close_icon.png')} style={styles.clearIcon}/>
                 </View>
                 <TouchableWithoutFeedback onPress={()=>this.toHome()}>
                     <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
@@ -102,7 +102,9 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === 'ios' ? 20 : 0,
         height: Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderBottomWidth:0.5,
+        borderBottomColor:'#D3D3D3',
     },
     logo: {
         height: 25,
@@ -119,8 +121,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     scanIcon: {
-        height: 19,
-        width: 21,
+        height: 22,
+        width: 23,
         resizeMode: 'stretch'
     },
     searchIcon: {
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     },
     backIcon: {
         width: 14,
-        height: 20,
+        height: 22,
         resizeMode: 'stretch',
     },
     inputText: {

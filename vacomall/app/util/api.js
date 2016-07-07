@@ -34,6 +34,8 @@ var API = {
     RETURNSKULIST: API_ADDRESS + 'me/returnsku/list',
     SUBMITRETURNSKU: API_ADDRESS + 'me/returnsku/submit',
     CANCELRETURNSKU: API_ADDRESS + 'me/returnsku/cancel',
+    DELETERETURNSKU:API_ADDRESS +'me/returnsku/delete',
+    CONFIRMRETURNSKU:API_ADDRESS+'me/returnsku/confirm',
     PERSONINFO: API_ADDRESS + 'me'
 };
 

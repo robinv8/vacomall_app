@@ -27,6 +27,8 @@ MERGED from com.facebook.react:react-native:0.24.1:11:5
 MERGED from com.facebook.react:react-native:0.24.1:11:5
 MERGED from com.facebook.react:react-native:0.24.1:11:5
 MERGED from com.facebook.react:react-native:0.24.1:11:5
+MERGED from com.facebook.react:react-native:0.24.1:11:5
+MERGED from com.facebook.react:react-native:0.24.1:11:5
 	android:name
 		ADDED from AndroidManifest.xml:7:22
 uses-permission#android.permission.ACCESS_NETWORK_STATE
@@ -47,6 +49,44 @@ ADDED from AndroidManifest.xml:11:5
 		ADDED from AndroidManifest.xml:11:22
 uses-sdk
 ADDED from AndroidManifest.xml:13:5
+MERGED from vacomall:react-native-barcodescanner:unspecified:7:5
+MERGED from com.facebook.react:react-native:0.24.1:7:5
+MERGED from com.facebook.fresco:fresco:0.8.1:5:5
+MERGED from com.facebook.fresco:imagepipeline:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.facebook.fresco:drawee:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:imagepipeline-okhttp:0.8.1:5:5
+MERGED from com.facebook.fresco:imagepipeline:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:recyclerview-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.android.support:appcompat-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from vacomall:react-native-camera:unspecified:7:5
+MERGED from com.facebook.react:react-native:0.24.1:7:5
+MERGED from com.facebook.fresco:fresco:0.8.1:5:5
+MERGED from com.facebook.fresco:imagepipeline:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.facebook.fresco:drawee:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:imagepipeline-okhttp:0.8.1:5:5
+MERGED from com.facebook.fresco:imagepipeline:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:recyclerview-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.android.support:appcompat-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
 MERGED from vacomall:react-native-wechat-android:unspecified:5:5
 MERGED from com.facebook.react:react-native:0.24.1:7:5
 MERGED from com.facebook.fresco:fresco:0.8.1:5:5
@@ -163,6 +203,22 @@ MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from com.android.support:appcompat-v7:23.0.1:22:5
 MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.facebook.react:react-native:0.24.1:13:5
+MERGED from org.webkit:android-jsc:r174650:2:3
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.facebook.react:react-native:0.24.1:13:5
+MERGED from org.webkit:android-jsc:r174650:2:3
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from vacomall:react-native-code-push:unspecified:13:5
 MERGED from com.android.support:appcompat-v7:23.0.1:22:5
 MERGED from com.android.support:support-v4:23.0.1:22:5
@@ -247,5 +303,29 @@ ADDED from AndroidManifest.xml:37:9
 		ADDED from AndroidManifest.xml:40:17
 	android:name
 		ADDED from AndroidManifest.xml:38:17
+uses-permission#android.permission.CAMERA
+ADDED from vacomall:react-native-barcodescanner:unspecified:11:5
+MERGED from vacomall:react-native-camera:unspecified:11:5
+	android:name
+		ADDED from vacomall:react-native-barcodescanner:unspecified:11:22
+uses-feature#android.hardware.camera
+ADDED from vacomall:react-native-barcodescanner:unspecified:13:5
+MERGED from vacomall:react-native-camera:unspecified:13:5
+	android:required
+		ADDED from vacomall:react-native-barcodescanner:unspecified:15:9
+	android:name
+		ADDED from vacomall:react-native-barcodescanner:unspecified:14:9
+uses-feature#android.hardware.camera.front
+ADDED from vacomall:react-native-barcodescanner:unspecified:16:5
+	android:required
+		ADDED from vacomall:react-native-barcodescanner:unspecified:18:9
+	android:name
+		ADDED from vacomall:react-native-barcodescanner:unspecified:17:9
 android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
 IMPLIED from AndroidManifest.xml:1:1 reason: org.webkit.android_jsc requested WRITE_EXTERNAL_STORAGE
+uses-feature#android.hardware.camera.autofocus
+ADDED from vacomall:react-native-camera:unspecified:16:5
+	android:required
+		ADDED from vacomall:react-native-camera:unspecified:18:9
+	android:name
+		ADDED from vacomall:react-native-camera:unspecified:17:9

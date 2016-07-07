@@ -97,6 +97,12 @@ export default class Login extends Component {
     }
 
     toPage() {
+        let _this=this.props._this;
+        if(_this!==undefined){
+            _this.setState({
+                isrefresh: true
+            })
+        }
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop();
@@ -164,6 +170,9 @@ export default class Login extends Component {
             navigator.resetTo({
                 component: MainScreen,
                 sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump,
+                params:{
+                    Ad:null//不加载广告
+                }
             });
         }
     }

@@ -53,8 +53,13 @@ export default class OrderAll extends Component {
         },500)
     }
     loadData(){
+        if(this.state.page===1){
+            this.setState({
+                listArray:[]
+            })
+        }
         const {navigator}=this.props._this.props;;
-        NetService.getFetchData(API.ORDERDETAIL+'?size=5&page='+this.state.page,(result)=>{
+        NetService.getFetchData(API.ORDERDETAIL+'?st=400&size=5&page='+this.state.page,(result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {

@@ -45,7 +45,7 @@ export default class ReturnListComponent extends Component {
     }
 
     _cancelReturnSKU(returnSkuId) {
-        NetService.postFetchData(API.CANCELRETURNSKU,'returnSkuId='+returnSkuId,(result)=>{
+        NetService.postFetchData(API.CANCELRETURNSKU, 'returnSkuId=' + returnSkuId, (result)=> {
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 ChongZhi.parentThis.setState({
@@ -105,8 +105,107 @@ class CartList extends Component {
         super(props);
         // 初始状态
         this.state = {
-            borderBottomWidth: 1.5
+            borderBottomWidth: 1.5,
+            liststate: null,
+            handel:null
         };
+    }
+    cancelReturnSKU(returnSkuId){
+        NetService.postFetchData(API.CANCELRETURNSKU,'returnSkuId='+returnSkuId,(result)=>{
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+            Toast.show(result['result']['message']);
+        })
+    }
+    deleteReturnSKU(returnSkuId){
+        NetService.postFetchData(API.DELETERETURNSKU,'returnSkuId='+returnSkuId,(result)=>{
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+            Toast.show(result['result']['message']);
+        })
+    }
+    confirmReturnSKU(returnSkuId){
+        NetService.postFetchData(API.DELETERETURNSKU,'returnSkuId='+returnSkuId,(result)=>{
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        })
+                    }
+                }
+                return;
+            }
+            Toast.show(result['result']['message']);
+        })
+    }
+    componentDidMount() {
+        this.setState({
+            liststate: <View style={{flexDirection:'row',marginTop:13}}>
+                <View style={[styles.min_btn]}><Text style={{color:'#FF9700',fontSize:12}}>{this.props.gList['ReturnStateInfo']} </Text></View>
+            </View>
+        })
+        switch (this.props.gList['ReturnState']){
+            case 10://退款中
+                this.setState({
+                    handle: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback onPress={(returnSkuId)=>this.cancelReturnSKU(this.props.gList['Id'])}>
+                            <View style={styles.btn}><Text style={{color:'#898989'}}>取消退款</Text></View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                });
+                break;
+            case 11://已确认
+                this.setState({
+                    handle: null
+                })
+                break;
+            case 15://已收货
+                this.setState({
+                    handle: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback onPress={(returnSkuId)=>this.confirmReturnSKU(this.props.gList['Id'])}>
+                            <View style={styles.btn}><Text style={{color:'#898989'}}>确认收款</Text></View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                })
+                break;
+            case 20://已完成
+                this.setState({
+                    handle: null
+                })
+                break;
+            case 90://已取消
+                this.setState({
+                    handle: <View style={{flexDirection:'row',marginTop:13}}>
+                        <TouchableWithoutFeedback onPress={(returnSkuId)=>this.deleteReturnSKU(this.props.gList['Id'])}>
+                            <View style={styles.btn}><Text style={{color:'#898989'}}>删除</Text></View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                })
+                break;
+        }
     }
 
     texthandle(text) {
@@ -128,33 +227,33 @@ class CartList extends Component {
     render() {
         return (
             <View style={styles.goods_view}>
-                    <View style={[styles.goods_view_view,{borderBottomWidth:this.state.borderBottomWidth}]}>
-                        <View style={{flexDirection:'row',flex:7}}>
-                            <View
-                                style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
-                                <Image source={{uri:this.props.gList['SpuDefaultImage']}}
-                                       style={{height:82,width:82,resizeMode:'stretch'}}/>
-                            </View>
-                            <View style={{flex:4,marginLeft:10,marginTop:5}}>
-                                <Text
-                                    style={{color:'#BFBFBF',fontSize:14}}>{this.texthandle(this.props.gList['SkuTitle'])}</Text>
-                                <Text
-                                    style={{color:'#BFBFBF',fontSize:12,marginTop:6}}>规格:{this.props.gList['SkuSpecification']}</Text>
-                            </View>
-                        </View>
-
+                <View style={[styles.goods_view_view,{borderBottomWidth:this.state.borderBottomWidth}]}>
+                    <View style={{flexDirection:'row',flex:7}}>
                         <View
-                            style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
-                            <View>
-                                <Text style={{color:'#BFBFBF',fontSize:10}}>￥<Text
-                                    style={{fontSize:14}}>{this.props.gList['SkuSalePrice']}</Text></Text>
-                            </View>
-                            <View style={{marginTop:5}}>
-                                <Text style={{color:'#C8C8C8',fontSize:16}}>×{this.props.gList['SkuNum']}</Text>
-                            </View>
-                            {this.props.liststate}
+                            style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
+                            <Image source={{uri:this.props.gList['SpuDefaultImage']}}
+                                   style={{height:82,width:82,resizeMode:'stretch'}}/>
+                        </View>
+                        <View style={{flex:4,marginLeft:10,marginTop:5}}>
+                            <Text
+                                style={{color:'#BFBFBF',fontSize:14}}>{this.texthandle(this.props.gList['SkuTitle'])}</Text>
+                            <Text
+                                style={{color:'#BFBFBF',fontSize:12,marginTop:6}}>规格:{this.props.gList['SkuSpecification']}</Text>
                         </View>
                     </View>
+
+                    <View
+                        style={{flex:2,alignItems:'flex-end',paddingRight:2,height:114,paddingTop:20,justifyContent:'flex-start'}}>
+                        <View>
+                            <Text style={{color:'#BFBFBF',fontSize:10}}>￥<Text
+                                style={{fontSize:14}}>{this.props.gList['SkuSalePrice']}</Text></Text>
+                        </View>
+                        <View style={{marginTop:5}}>
+                            <Text style={{color:'#C8C8C8',fontSize:16}}>×{this.props.gList['SkuNum']}</Text>
+                        </View>
+                        {this.state.liststate}
+                    </View>
+                </View>
             </View>
 
         );

@@ -19,7 +19,6 @@ import React,{
 }from 'react-native';
 import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender,Loaddingpage,DetailHeader} from '../util/Path';
 
-let shadeThis;
 export default class GoodsDetail extends Component {
     // 构造
     constructor(props) {
@@ -37,38 +36,36 @@ export default class GoodsDetail extends Component {
             contentHeight: null,
             guessFlag: false,
             shadeThis:null,
-            imgdetails:null
+            imgdetails:null,
         };
 
     }
 
     componentDidMount() {
-        var _this = this;
-        setTimeout(function () {
-            NetService.postFetchData(API.DETAIL, 'id=' + _this.props.id, (result)=>_this._callback(result));
+        setTimeout(()=>{
+            NetService.postFetchData(API.DETAIL, 'id=' + this.props.id, (result)=>{
+                if (result['success'] === false) {
+                    Toast.show(result['result']['message']);
+                    return;
+                }
+                var result = result['result'];
+                this.setState({
+                    swiperData: result['images'],
+                    resultData: result
+                });
+                this.setDetails(result['details']);
+
+                this.setState({
+                    loaded: true
+                })
+                this.setState({
+                    webImgData: result['imageDetails']
+                })
+            });
             //NetService.postFetchData(API.DETAIL, 'id=0ce43cfa29994a77b8572a788c1d2715', (result)=>_this._callback(result));
         }, 400);
     }
 
-    _callback(result) {
-        if (result['success'] === false) {
-            Toast.show(result['result']['message']);
-            return;
-        }
-        var result = result['result'];
-        this.setState({
-            swiperData: result['images'],
-            resultData: result
-        });
-        this.setDetails(result['details']);
-
-        this.setState({
-            loaded: true
-        })
-        this.setState({
-            webImgData: result['imageDetails']
-        })
-    }
 
     setDetails(data) {
         this.setState({

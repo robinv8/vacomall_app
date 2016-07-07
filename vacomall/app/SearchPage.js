@@ -63,7 +63,10 @@ export default class Header extends Component {
         let searchText=this.props.searchText;
         if(searchText!==undefined){
             this.setState({
-                text:searchText
+                text:searchText,
+                clear: <TouchableWithoutFeedback onPress={()=>this._clear()}>
+                    <Image source={require('../images/close_icon.png')} style={styles.clearIcon}/>
+                </TouchableWithoutFeedback>
             })
         }
         this._getSearchArray();
@@ -86,7 +89,7 @@ export default class Header extends Component {
         } else {
             this.setState({
                 clear: <TouchableWithoutFeedback onPress={()=>_this._clear()}>
-                    <Image source={require('../images/header/clear.png')} style={styles.clearIcon}/>
+                    <Image source={require('../images/close_icon.png')} style={styles.clearIcon}/>
                 </TouchableWithoutFeedback>,
                 text: text
             })
@@ -123,7 +126,7 @@ export default class Header extends Component {
         }
         const {navigator}=this.props;
         if (navigator) {
-            navigator.push({
+            navigator.replace({
                 component: ListPage,
                 params: {
                     text: text,
@@ -204,7 +207,7 @@ export default class Header extends Component {
                         <TextInput
                             keyboardType='web-search'
                             placeholder='创维家电直送 好礼不停'
-                            placeholderTextColor={'#d2d2d2'}
+                            placeholderTextColor={'#7A797B'}
                             onChangeText={(text)=>this._onChange(text)}
                             style={styles.inputText}
                             value={this.state.text}
@@ -215,11 +218,11 @@ export default class Header extends Component {
                         {this.state.clear}
                     </View>
                     <TouchableWithoutFeedback onPress={()=>this._pop()}>
-                        <Text style={{fontSize:16,color:'#3C3C3C',marginBottom:8}}>取消</Text>
+                        <Text style={{fontSize:16,color:'#3C3C3C',marginBottom:0}}>取消</Text>
                     </TouchableWithoutFeedback>
                 </View>
                 <View
-                    style={{height:28,borderBottomWidth:1,borderBottomColor:'#e0e0e0',marginLeft:15,marginRight:15}}>
+                    style={{height:28,borderBottomWidth:0.5,borderBottomColor:'#CFCFCF',marginLeft:15,marginRight:15}}>
                     <Text style={{color:'#B6B6B6',fontSize:16}}>历史搜索</Text>
                 </View>
                 {this.state.list}
@@ -254,9 +257,9 @@ const styles = StyleSheet.create({
         padding:3,
         borderRadius:3,
         borderWidth:1,
-        borderColor:'#F08200',
-        height:30,
-        width:120,
+        borderColor:'#FF9700',
+        height:28,
+        width:108,
         justifyContent:'center',
         alignItems:'center'
     },
@@ -299,7 +302,7 @@ const styles = StyleSheet.create({
     },
     searchText: {
         height: 40,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderBottomColor: '#CFCFCF',
         justifyContent: 'center',
         marginLeft: 15,

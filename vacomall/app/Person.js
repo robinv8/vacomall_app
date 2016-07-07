@@ -65,10 +65,8 @@ export default class Person extends Component {
                     if (navigator) {
                         navigator.push({
                             component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid
-                        })
-                        this.setState({
-                            isrefresh: true
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                            params:{_this:this}
                         })
                     }
                 }
@@ -83,7 +81,7 @@ export default class Person extends Component {
                     this.setState({
                         dfk: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfk.length > 1 ? dfk.substring(0, 1) + '+' : dfk}</Text>
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfk.length > 2 ? dfk.substring(0, 1) + '+' : dfk}</Text>
                         </View>
                     })
                 }
@@ -93,7 +91,7 @@ export default class Person extends Component {
                     this.setState({
                         dfh: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfh.length > 1 ? dfh.substring(0, 1) + '+' : dfh}</Text>
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfh.length > 2 ? dfh.substring(0, 1) + '+' : dfh}</Text>
                         </View>
                     })
                 }
@@ -103,17 +101,17 @@ export default class Person extends Component {
                     this.setState({
                         dsh: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dsh.length > 1 ? dsh.substring(0, 1) + '+' : dsh}</Text>
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dsh.length > 2 ? dsh.substring(0, 1) + '+' : dsh}</Text>
                         </View>
                     })
                 }
-                let thh = result[300];
-                if (dfk > 0) {
+                let thh = result[400];
+                if (thh > 0) {
                     thh = thh.toString();
                     this.setState({
                         thh: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{thh.length > 1 ? thh.substring(0, 1) + '+' : thh}</Text>
+                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{thh.length > 2 ? thh.substring(0, 1) + '+' : thh}</Text>
                         </View>
                     })
                 }
@@ -229,7 +227,8 @@ export default class Person extends Component {
             })
         }
     }
-    toPersonSafe(){
+
+    toPersonSafe() {
         const {navigator}=this.props;
         if (navigator) {
             navigator.push({
@@ -237,6 +236,7 @@ export default class Person extends Component {
             })
         }
     }
+
     render() {
         return (
             <View style={styles.container}>
@@ -249,10 +249,13 @@ export default class Person extends Component {
                             <View style={{height:50,paddingLeft:12,paddingTop:14,flex:1}}>
 
                             </View>
-                            <View style={{alignItems:'center',marginTop:20}}>
-                                <Image source={require('../images/header_img.png')} style={styles.header_img}/>
-                                <Text style={{fontSize:16,color:'white',backgroundColor:'rgba(0,0,0,0)',marginTop:5}}>HI!万小颗</Text>
-                            </View>
+                            <TouchableWithoutFeedback onPress={()=>this.toPersonSafe()}>
+                                <View style={{alignItems:'center',marginTop:20}}>
+                                    <Image source={require('../images/header_img.png')} style={styles.header_img}/>
+                                    <Text
+                                        style={{fontSize:16,color:'white',backgroundColor:'rgba(0,0,0,0)',marginTop:5}}>HI!万小颗</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={()=>this.toPersonSafe()}>
                                 <View style={{height:50,paddingRight:13,paddingTop:14,alignItems:'flex-end',flex:1}}>
                                     <Image source={require('../images/setting.png')} style={styles.settingIcon}/>

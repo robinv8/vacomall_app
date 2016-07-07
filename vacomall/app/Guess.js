@@ -33,6 +33,15 @@ export default class Guess extends Component{
     }
     toDetails(id) {
         const {navigator}=this.props;
+        if(this.props.type==='goodsdetail'){
+            if (navigator) {
+                navigator.replace({
+                    component: GoodsDetail,
+                    params: {id: id}
+                })
+            }
+            return;
+        }
         if (navigator) {
             navigator.push({
                 component: GoodsDetail,

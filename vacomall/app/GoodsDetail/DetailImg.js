@@ -17,8 +17,16 @@ import React,{
     Navigator,
     RefreshControl,ListView
 }from 'react-native';
+const {width,height}=Dimensions.get('window');
 import {API,NetService,md5,Login,HtmlRender,GoodsDetail,Guess} from '../util/Path';
-let imgdata='';
+import {
+    LazyloadScrollView,
+    LazyloadListView,
+    LazyloadView,
+    LazyloadImage
+} from 'react-native-lazyload';
+import HTMLView from 'react-native-htmlview'
+let imgdata = [];
 export default class DetailImg extends Component {
     // 构造
     constructor(props) {
@@ -27,37 +35,41 @@ export default class DetailImg extends Component {
         this.state = {
             HTML: null,
             guessFlag: false,
-            webImgData:null
+            webImgData: null
         };
     }
 
+
     componentDidMount() {
-        this.props.webImgData.map(function(data,index){
-            imgdata+='<img src='+data+'>';
+        imgdata=[];
+        this.props.webImgData.map(function (data, index) {
+            imgdata.push(<Image key={index} source={{uri:data+'@h_400'}} style={[styles.img]}/>);
         })
         this.setState({
-            webImgData:imgdata
+            webImgData: imgdata
         })
     }
 
+    /*<HtmlRender
+     value={this.state.webImgData}
+     stylesheet={styles}
+     />*/
     render() {
         return (
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
                 <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}>
-                    <HtmlRender
-                        value={this.state.webImgData}
-                        stylesheet={styles}
-                    />
-                    <Guess navigator={this.props.navigator}/>
+                    {this.state.webImgData}
+                    <Guess navigator={this.props.navigator} type={'goodsdetail'}/>
                 </ScrollView>
             </View>
         );
     }
 }
+
 const styles = StyleSheet.create({
     img: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').width,
+        width: width,
+        height:width,
         resizeMode: 'stretch'
     },
     p: {

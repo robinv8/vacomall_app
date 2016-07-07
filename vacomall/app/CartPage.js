@@ -19,7 +19,7 @@ import React, {
 }from 'react-native'
 import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit,MainScreen,Loaddingpage,Guess} from './util/Path';
 
-let cartThis = [], listFlag = 0;
+let cartThis = [];
 export default class CartPage extends Component {
     // 构造
     constructor(props) {
@@ -53,7 +53,10 @@ export default class CartPage extends Component {
         if (navigator) {
             navigator.resetTo({
                 component: MainScreen,
-                sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                params:{
+                    Ad:null//不加载广告
+                }
             })
         }
     }

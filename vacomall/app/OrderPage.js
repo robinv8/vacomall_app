@@ -57,7 +57,8 @@ export default class OrderPage extends Component {
             text: '',
             loadding: null,
             isSubmitOrder: false,
-            result: null
+            result: null,
+            paytype:null
         };
     }
 
@@ -119,6 +120,7 @@ export default class OrderPage extends Component {
                 </View>
             </View>
         });
+
         let isWXAppInstalled = true;
         if (orderPayId === 'd3d74b12b76045adaf86dd20cee00574') {
             WeChatPay.isWXAppInstalled((res)=> {
@@ -130,6 +132,9 @@ export default class OrderPage extends Component {
             submitOrder(this);
         }
         function submitOrder(_this) {
+            _this.setState({
+                paytype:orderPayId
+            })
             const {navigator}=_this.props;
             if (!_this.state.isSubmitOrder) {
                 NetService.postFetchData(API.SUBMIT, 'orderPayId=' + orderPayId + '&orderRemark=' + _this.state.text, (result)=> {
@@ -219,6 +224,10 @@ export default class OrderPage extends Component {
 
 
     checkpay(paystyle, orderPayId) {
+        if(this.state.paytype!==orderPayId&&this.state.paytype!==null){
+            Toast.show('不能修改支付类型!')
+            return;
+        }
         switch (paystyle) {
             case 'wx':
                 this.setState({

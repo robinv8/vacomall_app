@@ -317,9 +317,9 @@ export default class HomePage extends Component {
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3'}}>
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
-                               style={{width: Dimensions.get('window').width/2-3,height: Dimensions.get('window').width/2-3}}/>
+                               style={{width: Dimensions.get('window').width/2-3,height: Dimensions.get('window').width/2-3,resizeMode: 'stretch'}}/>
                     </View>
-                    <View style={{marginLeft:7,marginRight:4}}>
+                    <View style={{marginLeft:7,marginRight:4,height:62}}>
                         <View style={{marginBottom:1,height:32,paddingTop:5}}>
                             <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 0,
         shadowOffset: {
-            height: 0.5,
+            height: 1,
             width: 0
         }
     },
@@ -608,7 +608,7 @@ const styles = StyleSheet.create({
     },
     cnxh_view: {
         alignItems: 'center',
-        height: 40,
+        height: 52,
         justifyContent: 'center'
     },
     cnxh_view_img: {

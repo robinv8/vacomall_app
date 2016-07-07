@@ -72,8 +72,12 @@ export default class ListPage extends Component {
     }
 
     getListData() {
+        if(this.state.page===1){
+            this.setState({
+                listArray:[],
+            });
+        }
         if (this.props.id === null) {
-
             NetService.postFetchData(API.SEARCH, 'wd=' + this.props.text + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
         } else {
             NetService.postFetchData(API.LIST, 'cart=' + this.props.id + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
@@ -93,7 +97,7 @@ export default class ListPage extends Component {
                 dataSource: this.state.dataSource.cloneWithRows(this.state.listArray),
                 loaded: true,
                 isRefreshing: false,
-                isNull: false
+                isNull: true
             })
         } else {
             if (this.state.listArray.length > 0) {
@@ -160,7 +164,7 @@ export default class ListPage extends Component {
             listArray:[]
         })
         this.getListData();
-
+        this._listView.scrollTo({y:0})
     }
     toHome() {
         const {navigator}=this.props;
@@ -168,20 +172,21 @@ export default class ListPage extends Component {
             navigator.popToTop()
         }
     }
+
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
         }
-        if (this.state.isNull) {
+        if (!this.state.isNull) {
             return this.isNull();
         }
-
         return (
             <View style={{flex:1,backgroundColor:'#F6F6F6'}}>
                 <ListHeader navigator={this.props.navigator} id={this.props.id} searchText={this.state.searchText}/>
 
                 {this.state.sortItem}
                 <ListView
+                    ref={component => this._listView = component}
                     initialListSize={10}
                     dataSource={this.state.dataSource}
                     renderRow={(gList)=>this.renderGList(gList)}
@@ -264,12 +269,12 @@ export default class ListPage extends Component {
             <TouchableWithoutFeedback onPress={(id)=>this.toDetails(gList['Id'])}>
                 <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
                     <View
-                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
+                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3'}}>
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
-                               style={{width: 150,height: 150,marginBottom:10}}></Image>
+                               style={{width: Dimensions.get('window').width/2-3,height: Dimensions.get('window').width/2-3,resizeMode: 'stretch'}}></Image>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
-                        <View style={{marginBottom:1,height:32}}>
+                        <View style={{marginBottom:1,height:32,paddingTop:5}}>
                             <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
                         <View style={{flex:1,flexDirection:'row'}}>

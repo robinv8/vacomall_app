@@ -29,7 +29,7 @@ export default class ReturnSKU extends Component {
             listArray:[],
             loaded:false,
             isloaded:false,
-            isNull:false
+            isNull:false,
         };
     }
     componentWillReceiveProps() {
@@ -52,8 +52,13 @@ export default class ReturnSKU extends Component {
         },500)
     }
     loadData(){
+        if(this.state.page===1){
+            this.setState({
+                listArray:[]
+            })
+        }
         const {navigator}=this.props._this.props;
-        NetService.getFetchData(API.RETURNSKULIST,(result)=>{
+        NetService.getFetchData(API.RETURNSKULIST+'??page='+this.state.page+'&size=5',(result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
@@ -101,7 +106,7 @@ export default class ReturnSKU extends Component {
     }
     renderGList(gList) {
         return (
-            <ReturnListComponent gList={gList} _this={this}/>
+            <ReturnListComponent gList={gList} _this={this} />
         )
     }
     renderLoadingView() {
@@ -143,3 +148,15 @@ export default class ReturnSKU extends Component {
         )
     }
 }
+const styles = StyleSheet.create({
+    min_btn: {
+        width: 54,
+        height: 20,
+        borderWidth: 0.5,
+        borderColor: '#FF9700',
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+})

@@ -14,7 +14,7 @@ import React, {
     Navigator,
     AsyncStorage
 } from 'react-native';
-import {PersonInfo,NetService,API,Toast,Login} from '../util/Path'
+import {PersonInfo,NetService,API,Toast,Login,AbortVacomall} from '../util/Path'
 export default class PersonSafe extends Component {
     _back() {
         const {navigator}=this.props;
@@ -31,7 +31,14 @@ export default class PersonSafe extends Component {
             })
         }
     }
-
+    toAbortvacomall(){
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: AbortVacomall,
+            })
+        }
+    }
     quitAlert() {
         var _this = this;
         const {navigator}=this.props;
@@ -62,10 +69,12 @@ export default class PersonSafe extends Component {
             ]
         )
     }
-    async cancelStore(){
+
+    async cancelStore() {
         await AsyncStorage.clear()
         Toast.show('缓存已清除!')
     }
+
     render() {
         return (
             <View style={{backgroundColor:'#F6F6F6',flex:1}}>
@@ -101,18 +110,20 @@ export default class PersonSafe extends Component {
                     </TouchableWithoutFeedback>
                     <View
                         style={[styles.barwrap,{marginTop:17,paddingLeft:10,paddingRight:10,backgroundColor:'white'}]}>
-                        <View
-                            style={[styles.barwrap,{height:62,flexDirection:'row',flex:1,alignItems:'center',borderBottomWidth:0.5}]}>
-                            <View style={{flexDirection:'row',alignItems:'center'}}>
-                                <Image source={require('../../images/person_icon2.png')}
-                                       style={[styles.safe_icon,{marginLeft:0}]}/>
-                                <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>关于万颗</Text>
+                        <TouchableWithoutFeedback onPress={()=>this.toAbortvacomall()}>
+                            <View
+                                style={[styles.barwrap,{height:62,flexDirection:'row',flex:1,alignItems:'center',borderBottomWidth:0.5}]}>
+                                <View style={{flexDirection:'row',alignItems:'center'}}>
+                                    <Image source={require('../../images/person_icon2.png')}
+                                           style={[styles.safe_icon,{marginLeft:0}]}/>
+                                    <Text style={{marginLeft:10,color:'#3C3C3C',fontSize:16}}>关于万颗</Text>
+                                </View>
+                                <View style={{flex:1,alignItems:'flex-end'}}>
+                                    <Image source={require('../../images/right_arrows_icon.png')}
+                                           style={styles.right_arrows}/>
+                                </View>
                             </View>
-                            <View style={{flex:1,alignItems:'flex-end'}}>
-                                <Image source={require('../../images/right_arrows_icon.png')}
-                                       style={styles.right_arrows}/>
-                            </View>
-                        </View>
+                        </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>this.cancelStore()}>
                             <View
                                 style={[styles.barwrap,{height:62,flexDirection:'row',alignItems:'center',borderBottomWidth:0}]}>

@@ -77,6 +77,8 @@ function getpayinfo(id,callback){
                 if(callback!==undefined){
                     callback(result);
                 }
+            }else{
+                callback('false');
             }
         });
     }, 3000)
