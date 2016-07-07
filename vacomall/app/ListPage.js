@@ -36,7 +36,7 @@ export default class ListPage extends Component {
             }),
             loaded: false,
             page: 1,
-            size: 600,
+            size: 100,
             sort: 0,
             listArray: [],
             sortItem: null,
@@ -160,6 +160,7 @@ export default class ListPage extends Component {
                 beforeSortItem = SortItemArray[2];
                 break;
         }
+        listFlag=0;
         this.setState({
             listArray:[]
         })
