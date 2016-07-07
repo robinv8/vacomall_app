@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
     },
     cnxh_view: {
         alignItems: 'center',
-        height: 40,
+        marginTop:16,
+        marginBottom:16,
         justifyContent: 'center'
     },
     cnxh_view_img: {

@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     scanIcon: {
-        height: 19,
-        width: 21,
+        height: 22,
+        width: 23,
         resizeMode: 'stretch'
     },
     backIcon: {

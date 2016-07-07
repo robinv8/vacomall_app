@@ -19,13 +19,6 @@ import React,{
 }from 'react-native';
 const {width,height}=Dimensions.get('window');
 import {API,NetService,md5,Login,HtmlRender,GoodsDetail,Guess} from '../util/Path';
-import {
-    LazyloadScrollView,
-    LazyloadListView,
-    LazyloadView,
-    LazyloadImage
-} from 'react-native-lazyload';
-import HTMLView from 'react-native-htmlview'
 let imgdata = [];
 export default class DetailImg extends Component {
     // 构造

@@ -58,5 +58,4 @@ const styles = StyleSheet.create({
         height: 414,
         resizeMode: 'stretch',
     },
-
 });

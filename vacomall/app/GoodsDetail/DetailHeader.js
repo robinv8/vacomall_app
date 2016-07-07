@@ -41,6 +41,13 @@ export default class Header extends Component {
             }
         });
     }
+    /*
+    * <TouchableWithoutFeedback onPress={()=>{}}>
+     <View style={{flexDirection:'row',alignItems: 'center',justifyContent: 'center', marginRight:15}}>
+     <Image source={require('../../images/more_icon.png')} style={styles.moreIcon}/>
+     </View>
+     </TouchableWithoutFeedback>
+    * */
     render() {
         return (
             <View style={styles.container}>
@@ -59,13 +66,8 @@ export default class Header extends Component {
                 </View>
                 <View style={{flex:2,flexDirection:'row',justifyContent:'flex-end'}}>
                     <TouchableWithoutFeedback onPress={()=>this.toCart()}>
-                        <View style={{alignItems: 'center',justifyContent: 'center', marginRight:16}}>
+                        <View style={{flex:1,height:50,alignItems: 'flex-end',justifyContent: 'center',marginRight:15}}>
                             <Image source={require('../../images/black_cart.png')} style={styles.scanIcon}/>
-                        </View>
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={()=>{}}>
-                        <View style={{flexDirection:'row',alignItems: 'center',justifyContent: 'center', marginRight:15}}>
-                            <Image source={require('../../images/more_icon.png')} style={styles.moreIcon}/>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:0.5,
-        borderBottomColor:'#B2B2B2',
+        borderBottomColor:'#D3D3D3',
         justifyContent:'center'
     },
     logo: {

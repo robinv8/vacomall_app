@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
     spec_view: {
         marginBottom: 10,
         paddingBottom: 15,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderBottomColor: '#E7E7E7',
         marginTop: 14,
         marginLeft: 10,

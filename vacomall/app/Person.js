@@ -15,7 +15,7 @@ import React,{
     TouchableWithoutFeedback,
     Navigator
 }from 'react-native';
-import {Login,API,NetService,MenuButton,GoodsDetail,Toast,OrderSelectPage,PersonSafe} from './util/Path';
+import {Login,API,NetService,MenuButton,GoodsDetail,Toast,OrderSelectPage,PersonSafe,Guess} from './util/Path';
 var listFlag = 0;
 export default class Person extends Component {
     // 构造
@@ -342,14 +342,7 @@ export default class Person extends Component {
                             })}
                         </View>
                     </View>
-                    <View
-                        style={styles.cnxh_view}>
-                        <Image source={require('../images/cnxh_tit.png')} style={styles.cnxh_view_img}/>
-                    </View>
-                    <ListView
-                        dataSource={this.state.dataSource}
-                        renderRow={(gList)=>this.renderGList(gList)}
-                        contentContainerStyle={styles.listview}/>
+                    <Guess navigator={this.props.navigator}/>
                 </ScrollView>
             </View>
         );
