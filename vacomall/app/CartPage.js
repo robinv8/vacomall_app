@@ -37,13 +37,11 @@ export default class CartPage extends Component {
             }),
             opacity: 0,
             isedit: false,
-            button: <TouchableWithoutFeedback onPress={()=>this._toOrder()}>
-                <View style={[styles.bom,{width:110,backgroundColor:'#16BD42',justifyContent:'center'}]}>
-                    <Text style={{fontSize:14,color:'white'}}>去结算</Text>
-                </View>
-            </TouchableWithoutFeedback>,
+            num: 0,
+            button: null,
             editdata: null,
-            refreshing: false
+            isrefresh: true,
+
 
         }
     }
@@ -54,19 +52,17 @@ export default class CartPage extends Component {
             navigator.resetTo({
                 component: MainScreen,
                 sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                params:{
-                    Ad:null//不加载广告
+                params: {
+                    Ad: null//不加载广告
                 }
             })
         }
     }
 
     componentWillReceiveProps() {
-        this.setState({
-            refreshing: this.props.active
-        })
-        if (this.state.refreshing) {
-            this.componentWillMount(()=> {
+
+        if (this.props.active && this.state.isrefresh) {
+            this.componentDidMount(()=> {
                 this._editsubmit();
             });
         }
@@ -74,40 +70,39 @@ export default class CartPage extends Component {
     }
 
 
-    componentWillMount(callback) {
-        this.setState({
-            refreshing: false
-        })
+    componentDidMount(callback) {
         cartThis = [];
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows([])
+            dataSource: this.state.dataSource.cloneWithRows([]),
         });
         NetService.postFetchData(API.GETCART, '', (result)=> {
             if (result['success'] === false) {
+                this.setState({
+                    isrefresh: false
+                })
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
                     const {navigator}=this.props;
                     if (navigator) {
                         navigator.push({
                             component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                            params: {_this: this}
                         })
                     }
-                    this.setState({
-                        refreshing: true
-                    })
                 }
                 return;
             } else {
                 result = result['result'];
-                if (result['cartList'].length !== 0) {
-
+                let length=result['cartList'].length
+                if (length !== 0) {
                     this.setState({
                         dataSource: this.state.dataSource.cloneWithRows(result['cartList']),
                         loaded: true,
                         isNull: true,
                         gList: result['cartList'],
-                        price: result['cartTotalMoney']
+                        price: result['cartTotalMoney'],
+                        num: length
                     });
                     if (callback !== undefined) {
                         callback();
@@ -119,6 +114,13 @@ export default class CartPage extends Component {
                     });
                 }
             }
+            this.setState({
+                button: <TouchableWithoutFeedback onPress={()=>this._toOrder()}>
+                    <View style={[styles.bom,{width:110,backgroundColor:'#16BD42',justifyContent:'center'}]}>
+                        <Text style={{fontSize:14,color:'white'}}>结算({this.state.num})</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            });
         });
     }
 
@@ -170,7 +172,7 @@ export default class CartPage extends Component {
 
     _toOrder() {
         this.setState({
-            refreshing: false
+            isrefresh: false
         });
         var _this = this;
         if (this.state.gList.length === 0) {
@@ -241,7 +243,7 @@ export default class CartPage extends Component {
             isedit: true,
             button: <TouchableWithoutFeedback onPress={()=>this._toOrder()}>
                 <View style={[styles.bom,{width:110,backgroundColor:'#16BD42',justifyContent:'center'}]}>
-                    <Text style={{fontSize:14,color:'white'}}>去结算</Text>
+                    <Text style={{fontSize:14,color:'white'}}>结算({this.state.num})</Text>
                 </View>
             </TouchableWithoutFeedback>,
             editdata: null
@@ -322,7 +324,7 @@ export default class CartPage extends Component {
                 <View>
                     <View style={{flexDirection:'row',height:49,backgroundColor:'white'}}>
                         <View
-                            style={[styles.bom,{flex:2,flexDirection:'row', paddingLeft:10, paddingRight:10,borderTopColor:'rgba(0,0,0,0.1)', borderTopWidth:1}]}>
+                            style={[styles.bom,{flex:2,flexDirection:'row', paddingLeft:10, paddingRight:10}]}>
                             <View
                                 style={{opacity:this.state.opacity===0?1:0,flexDirection:'row',height:49,alignItems:'center',left:10,position:'absolute'}}>
                                 <Text style={{fontSize:12}}>总价:</Text>
@@ -457,7 +459,7 @@ class CartList extends Component {
             rtnText = text.substring(0, index);
         }
         if (rtnText.length > 30) {
-            rtnText = rtnText.substring(0, 25)+'……'
+            rtnText = rtnText.substring(0, 25) + '……'
         } else {
             rtnText = rtnText;
         }

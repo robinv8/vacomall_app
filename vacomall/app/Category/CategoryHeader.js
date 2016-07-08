@@ -69,13 +69,8 @@ const styles = StyleSheet.create({
         height: Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
-        shadowColor: 'rgb(178,178,178)',
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        shadowOffset: {
-            height: 0.5,
-            width: 0
-        }
+        borderBottomWidth:0.5,
+        borderBottomColor:'#D3D3D3',
     },
     searchBox: {
         height: 28,

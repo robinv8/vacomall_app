@@ -33,7 +33,7 @@ export default class Person extends Component {
             dfh: null,
             dsh: null,
             thh: null,
-            isrefresh: false
+            isrefresh:true
         };
     }
 
@@ -47,18 +47,17 @@ export default class Person extends Component {
     }
 
     componentWillReceiveProps() {
-        if (this.state.isrefresh) {
+        if (this.props.active&&this.state.isrefresh) {
             this.componentDidMount()
         }
-    }
-
-    componentDidUnMount() {
-        listFlag = 0
     }
 
     componentDidMount() {
         NetService.getFetchData(API.ORDERNUM, (result)=> {
             if (result['success'] === false) {
+                this.setState({
+                    isrefresh:false
+                })
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
                     const {navigator}=this.props;
@@ -72,9 +71,6 @@ export default class Person extends Component {
                 }
                 return;
             } else {
-                this.setState({
-                    isrefresh: false
-                })
                 let dfk = result[100];
                 if (dfk > 0) {
                     dfk = dfk.toString();
@@ -119,12 +115,6 @@ export default class Person extends Component {
                 NetService.getFetchData(API.HOME + '?keys=INDEX_CAT', (result)=> {
                     console.log(result)
                     this.cathandle(result);
-                });
-
-                NetService.getFetchData(API.GUESS, (result)=> {
-                    this.setState({
-                        dataSource: this.state.dataSource.cloneWithRows(result)
-                    });
                 });
             }
         });

@@ -36,7 +36,7 @@ export default class DetailImg extends Component {
     componentDidMount() {
         imgdata=[];
         this.props.webImgData.map(function (data, index) {
-            imgdata.push(<Image key={index} source={{uri:data+'@h_400'}} style={[styles.img]}/>);
+            imgdata.push(<CustomImage key={index} uri={data}/>);
         })
         this.setState({
             webImgData: imgdata
@@ -58,11 +58,33 @@ export default class DetailImg extends Component {
         );
     }
 }
-
+class CustomImage extends Component{
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            w:0,
+            h:0
+        };
+      }
+    componentWillMount() {
+        Image.getSize(this.props.uri,(w,h)=>{
+            this.setState({
+                w:w,
+                h:h
+            })
+        })
+    }
+    render(){
+        return(
+            <Image source={{uri:this.props.uri+'@h_300'}} style={[styles.img,{height:width*this.state.h/this.state.w}]}/>
+        );
+    }
+}
 const styles = StyleSheet.create({
     img: {
         width: width,
-        height:width,
         resizeMode: 'stretch'
     },
     p: {

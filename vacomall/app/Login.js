@@ -41,6 +41,12 @@ export default class Login extends Component {
 
     componentDidMount() {
         this._loadInitialState();
+        let _this=this.props._this;
+        if(_this!==undefined){
+            _this.setState({
+                isrefresh: true,
+            })
+        }
     }
 
     async _loadInitialState() {
@@ -96,13 +102,8 @@ export default class Login extends Component {
         this.toPage();
     }
 
+
     toPage() {
-        let _this=this.props._this;
-        if(_this!==undefined){
-            _this.setState({
-                isrefresh: true
-            })
-        }
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop();

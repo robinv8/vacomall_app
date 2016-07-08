@@ -63,7 +63,7 @@ export default class GoodsDetail extends Component {
                 })
             });
             //NetService.postFetchData(API.DETAIL, 'id=0ce43cfa29994a77b8572a788c1d2715', (result)=>_this._callback(result));
-        }, 400);
+        }, 500);
     }
 
 

@@ -40,7 +40,6 @@ import SubCate from '../Category/SubCate';
 /*---购物车相关模块---*/
 import CartPage from '../CartPage';
 import CartHeader from '../Cart/CartHeader';
-import EditCartHeader from '../EditCart/EditCartHeader';
 /*---订单支付相关模块---*/
 import OrderPage from '../OrderPage';
 import OrderHeader from '../Order/OrderHeader';
@@ -145,7 +144,6 @@ export {
     Person,
     CartHeader,
     OrderPage,
-    EditCartHeader,
     ListViewRowEdit,
     ScrollableTabView,
     DefaultTabBar,

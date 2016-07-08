@@ -15,7 +15,7 @@ import React,{
 }from 'react-native';
 
 
-import {MainScreen,IntroPage,OrderDetail,codePush,Login,ReturnSKU,ReturnSKUEdit,OrderSelectPage,Guess,BarCodeAndroid,BarCodeIos,PersonSafe,PersonInfo,Person,AbortVacomall} from './app/util/Path';
+import {MainScreen,IntroPage,codePush,Login,PaySuccess} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version'

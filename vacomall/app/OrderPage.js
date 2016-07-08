@@ -261,12 +261,12 @@ export default class OrderPage extends Component {
             return this.renderLoadingView();
         }
         return (
-            <View style={{flex:1,backgroundColor:'#f4f4f4'}}>
+            <View style={{flex:1,backgroundColor:'#FAFAFA'}}>
                 <View style={{flex:1}}>
                     <OrderHeader navigator={this.props.navigator}/>
                     <ScrollView style={{flex:1}}>
                         <View
-                            style={{height:84,backgroundColor:'white',flexDirection:'row',padding:12,paddingTop:17,paddingBottom:15}}>
+                            style={{height:84,backgroundColor:'white',flexDirection:'row',padding:12,paddingTop:17,paddingBottom:15,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
 
                             <View style={{flex:9,justifyContent:'center'}}>
                                 <View style={{flexDirection:'row',marginBottom:15}}>
@@ -290,7 +290,7 @@ export default class OrderPage extends Component {
                             initialListSize={14}
                             dataSource={this.state.dataSource}
                             renderRow={(gList)=>this.renderGList(gList)}
-                            style={{marginTop:12}}
+                            style={{marginTop:12,borderBottomWidth:1,borderBottomColor:'#E6E6E6',}}
                         />
                         <View
                             style={{flex:1,backgroundColor:'white',marginTop:11,paddingLeft:10,paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
@@ -321,14 +321,14 @@ export default class OrderPage extends Component {
                                         onChangeText={(text)=>this._onChange(text)}
                                         underlineColorAndroid='transparent'
                                         value={this.state.text}
-                                        style={{height:47,paddingLeft:14,fontSize:14,paddingTop:Dimensions.OS==='ios'?0:12}}
+                                        style={{height:47,paddingLeft:14,fontSize:14,paddingTop:Platform.OS==='ios'?0:12}}
                                     />
                                 </View>
                             </View>
                             <View style={[styles.ordernews,{justifyContent:'flex-end',borderBottomWidth:0}]}>
                                 <View style={{flexDirection:'row'}}>
                                     <Text style={{fontSize:12,marginTop:5}}>共计:</Text>
-                                    <Text style={[styles.price,{marginTop:5}]}>￥</Text>
+                                    <Text style={[styles.price,{marginTop:6}]}>￥</Text>
                                     <Text
                                         style={[styles.price,{fontSize: 18}]}>{this.state.money}</Text>
                                 </View>
@@ -336,7 +336,7 @@ export default class OrderPage extends Component {
                         </View>
                         <View
                             style={{flex:1,backgroundColor:'white',marginTop:11,paddingLeft:10,paddingRight:10,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
-                            <View style={[styles.ordernews,{height:38}]}>
+                            <View style={[styles.ordernews,{height:38,borderBottomWidth: 0.3,borderBottomColor: 'rgba(191,191,191,0.5)',marginLeft:-10,marginRight:-10,paddingLeft:10}]}>
                                 <View style={{flex:1}}>
                                     <Text style={{color:'#3C3C3C'}}>选择付款方式</Text>
                                 </View>
@@ -375,8 +375,8 @@ export default class OrderPage extends Component {
                 <View>
                     <View style={{flexDirection:'row',height:49,backgroundColor:'white'}}>
                         <View
-                            style={[styles.bom,{flex:2, paddingLeft:10, borderTopColor:'#DBDBDB', borderTopWidth:1, flexDirection:'row', justifyContent:'flex-end',paddingRight:10}]}>
-                            <Text style={{fontSize:12,marginTop:4}}>总价:</Text>
+                            style={[styles.bom,{flex:2, paddingLeft:10, flexDirection:'row', justifyContent:'flex-end',paddingRight:10}]}>
+                            <Text style={{fontSize:12,marginTop:1}}>共计:</Text>
                             <Text style={[styles.price,{marginTop:4}]}>￥</Text>
                             <Text
                                 style={[styles.price,{fontSize: 18}]}>{this.state.money}</Text>
@@ -535,7 +535,7 @@ const styles = StyleSheet.create({
     },
     ordernews: {
         height: 47,
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 0.3,
         borderBottomColor: 'rgba(191,191,191,0.5)',
         flexDirection: 'row',
         alignItems: 'center'

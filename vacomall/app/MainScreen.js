@@ -37,12 +37,15 @@ export default class MainScreen extends Component {
         this.state = {
             selectedTab: HOME,
             navigator: null,
-            active: null,
-            ad:<View style={{position:'absolute',width:width,height:height,top:0,backgroundColor:'white'}}>
-                    <Image source={require('../images/ad.png')} style={{width:width,height:height-20,resizeMode:'stretch'}}/>
-            </View>
+            active: false,
+            ad: <View style={{position:'absolute',width:width,height:height,top:0,backgroundColor:'white'}}>
+                <Image source={require('../images/ad.png')}
+                       style={{width:width,height:height-20,resizeMode:'stretch'}}/>
+            </View>,
+            beforeView: null
         };
     }
+
 
     _renderTabItem(img, selectedImg, tag, childView) {
         return (
@@ -50,7 +53,12 @@ export default class MainScreen extends Component {
                 selected={this.state.selectedTab === tag}
                 renderIcon={() => <Image style={styles.tabIcon} source={img}/>}
                 renderSelectedIcon={() => <Image style={styles.tabIcon} source={selectedImg}/>}
-                onPress={() => this.setState({ selectedTab: tag ,active:true})}
+                onPress={() =>{
+                    this.setState({
+                        selectedTab: tag ,
+                        active:true
+                    })
+                } }
             >
                 {childView}
             </TabNavigator.Item>
@@ -70,17 +78,27 @@ export default class MainScreen extends Component {
             var displayName = routers[routers.length - 1]['component']['displayName'];
             if (displayName === 'Login') {
                 this.setState({
-                    selectedTab:HOME
+                    selectedTab: HOME
                 });
                 navigator.popToTop();
             } else {
+                let params=routers[routers.length-1]['params'];
+                let beforeThis=undefined
+                if(params!==undefined){
+                    beforeThis=params['_this'];
+                }
+                if(beforeThis!==undefined){
+                    beforeThis.setState({
+                        isrefresh:true
+                    })
+                }
                 navigator.pop();
             }
             return true;
         }
-        if(this.state.selectedTab!==HOME){
+        if (this.state.selectedTab !== HOME) {
             this.setState({
-                selectedTab:HOME
+                selectedTab: HOME
             });
             return true;
         }
@@ -88,9 +106,9 @@ export default class MainScreen extends Component {
     };
 
     componentDidMount() {
-        if(this.props.Ad!==undefined){
+        if (this.props.Ad !== undefined) {
             this.setState({
-                ad:this.props.Ad
+                ad: this.props.Ad
             })
         }
 
@@ -106,18 +124,20 @@ export default class MainScreen extends Component {
             </View>
         )
     }
+
     render() {
         return (
             <View style={{flex: 1}}>
                 <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab}>
-                    {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator} _this={this}/>)}
+                    {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}
+                                                                                  _this={this}/>)}
                     {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage
                         navigator={this.props.navigator}/>)}
                     {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator}
                                                                                   tab={true}
                                                                                   active={this.state.active}/>)}
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person
-                        navigator={this.props.navigator}/>)}
+                        navigator={this.props.navigator} active={this.state.active}/>)}
                 </TabNavigator>
                 {this.state.ad}
             </View >

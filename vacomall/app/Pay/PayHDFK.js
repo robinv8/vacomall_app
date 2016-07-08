@@ -49,7 +49,15 @@ export default class PayHDFK extends Component {
             })
         }
     }
-
+    toOrderDetail(orderId){
+        const {navigator}=this.props;
+        if (navigator) {
+            navigator.push({
+                component: OrderDetail,
+                param:{orderId:orderId}
+            })
+        }
+    }
     render() {
         return (
             <View style={{flex:1,backgroundColor:'white'}}>
@@ -78,7 +86,7 @@ export default class PayHDFK extends Component {
                         </View>
                         <View style={{alignItems:'center',marginTop:23}}>
                             <Text style={{color:'#3C3C3C',fontSize:18}}>下单成功!</Text>
-                            <Text style={{color:'#898989',fontSize:16,marginTop:15}}>我们尽快安排帮您发货!</Text>
+                            <Text style={{color:'#898989',fontSize:16,marginTop:15}}>我们尽快安排帮您发货~</Text>
                         </View>
                     </View>
                 </View>
@@ -116,6 +124,16 @@ export default class PayHDFK extends Component {
                         </View>
                     </View>
                 </View>
+                <View style={{alignItems:'center',marginTop:40}}>
+                    <TouchableWithoutFeedback onPress={(orderId)=>this.toOrderDetail(this.state.OrderId)}>
+                        <View
+                            style={{flexDirection:'row',borderWidth:1,borderColor:'#16BD42',width:96,height:32,borderRadius:5,justifyContent:'center',alignItems:'center'}}>
+                            <Image source={require('../../images/green_left_arrow.png')}
+                                   style={{width:12,height:16,marginRight:2}}/>
+                            <Text style={{color:'#16BD42',fontSize:16}}>订单详情</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
             </View>
         )
     }
@@ -127,8 +145,8 @@ const styles = StyleSheet.create({
         height: Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#B2B2B2',
+        borderBottomWidth:0.5,
+        borderBottomColor:'#D3D3D3',
         justifyContent: 'center'
     },
     logo: {
@@ -144,8 +162,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     scanIcon: {
-        height: 20,
-        width: 19,
+        height: 22,
+        width: 23,
         resizeMode: 'stretch'
     },
     searchIcon: {
@@ -170,9 +188,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 35,
         borderBottomColor: '#BFBFBF',
-        borderBottomWidth: 0.5,
-        marginLeft: 50,
-        marginRight: 50,
+        borderBottomWidth: 1,
+        width:270,
         alignItems: 'center'
     },
     text: {
