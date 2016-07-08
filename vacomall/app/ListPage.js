@@ -115,7 +115,6 @@ export default class ListPage extends Component {
     }
 
     _sort(num) {
-        listFlag = 0;
         this.setState({
             sort: num,
             page: 1,

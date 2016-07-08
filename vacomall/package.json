@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "react": "^0.14.8",
+    "react": "^0.14.5",
     "react-native": "^0.24.1",
     "react-native-app-intro": "^1.1.3",
     "react-native-barcodescanner": "^3.0.0",

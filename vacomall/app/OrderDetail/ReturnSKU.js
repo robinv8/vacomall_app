@@ -58,7 +58,7 @@ export default class ReturnSKU extends Component {
             })
         }
         const {navigator}=this.props._this.props;
-        NetService.getFetchData(API.RETURNSKULIST+'??page='+this.state.page+'&size=5',(result)=>{
+        NetService.getFetchData(API.RETURNSKULIST+'?page='+this.state.page+'&size=5',(result)=>{
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {

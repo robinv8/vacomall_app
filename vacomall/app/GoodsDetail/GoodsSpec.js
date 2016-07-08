@@ -343,7 +343,7 @@ export class Shade extends Component {
                     <View style={{backgroundColor:'white'}}>
                         <TouchableWithoutFeedback onPress={()=>this._addCart()}>
                             <View
-                                style={{backgroundColor:'#16BD42',flex:1,height:40,justifyContent:'center',alignItems:'center',borderRadius:2,margin:12,marginBottom:9,}}>
+                                style={{backgroundColor:'#16BD42',flex:1,height:46,justifyContent:'center',alignItems:'center',borderRadius:2,margin:12,marginBottom:9,}}>
                                 <Text style={{fontSize:18,color:'white'}}>完成</Text>
                             </View>
                         </TouchableWithoutFeedback>
