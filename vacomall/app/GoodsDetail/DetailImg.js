@@ -19,6 +19,7 @@ import React,{
 }from 'react-native';
 const {width,height}=Dimensions.get('window');
 import {API,NetService,md5,Login,HtmlRender,GoodsDetail,Guess} from '../util/Path';
+
 let imgdata = [];
 export default class DetailImg extends Component {
     // 构造
@@ -69,16 +70,16 @@ class CustomImage extends Component{
         };
       }
     componentWillMount() {
-        Image.getSize(this.props.uri,(w,h)=>{
+       /* Image.getSize(this.props.uri,(w,h)=>{
             this.setState({
                 w:w,
                 h:h
             })
-        })
+        })*/
     }
     render(){
         return(
-            <Image source={{uri:this.props.uri+'@h_300'}} style={[styles.img,{height:width*this.state.h/this.state.w}]}/>
+            <Image source={{uri:this.props.uri+'@h_300'}} onLoaded={(data)=>this.onLoaded()} style={[styles.img,{height:width}]}/>
         );
     }
 }

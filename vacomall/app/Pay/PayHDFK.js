@@ -13,7 +13,7 @@ import React, {
     Image,
     Navigator
 }from 'react-native'
-import {MainScreen} from '../util/Path'
+import {MainScreen,OrderDetail} from '../util/Path'
 var cartThis = [];
 export default class PayHDFK extends Component {
     // 构造
@@ -34,8 +34,16 @@ export default class PayHDFK extends Component {
             CreateTime: result['CreateTime'],
             OrderCode: result['OrderCode'],
             OrderPayType: result['OrderPayType'],
-            OrderPayMoney: result['OrderPayMoney']
+            OrderPayMoney: result['OrderPayMoney'],
+            OrderId: result['Id'],
         })
+       /* this.setState({
+            CreateTime: '2016-5-40 10:30',
+            OrderCode: 9999999999999999,
+            OrderPayType: '微信支付',
+            OrderPayMoney: '9999.99',
+            OrderId: '2121',
+        })*/
 
     }
 
@@ -45,16 +53,19 @@ export default class PayHDFK extends Component {
         if (navigator) {
             navigator.resetTo({
                 component: MainScreen,
-                sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                params:{
+                    Ad:null//不加载广告
+                }
             })
         }
     }
-    toOrderDetail(orderId){
+    toOrderDetail(){
         const {navigator}=this.props;
         if (navigator) {
             navigator.push({
                 component: OrderDetail,
-                param:{orderId:orderId}
+                params:{orderId:this.state.OrderId}
             })
         }
     }
@@ -90,7 +101,7 @@ export default class PayHDFK extends Component {
                         </View>
                     </View>
                 </View>
-                <View style={{marginTop:15}}>
+                <View style={{marginTop:15,alignItems:'center'}}>
                     <View style={styles.orderList}>
                         <View style={{flex:1,}}>
                             <Text style={styles.text}>订单编号</Text>
@@ -125,7 +136,7 @@ export default class PayHDFK extends Component {
                     </View>
                 </View>
                 <View style={{alignItems:'center',marginTop:40}}>
-                    <TouchableWithoutFeedback onPress={(orderId)=>this.toOrderDetail(this.state.OrderId)}>
+                    <TouchableWithoutFeedback onPress={()=>this.toOrderDetail()}>
                         <View
                             style={{flexDirection:'row',borderWidth:1,borderColor:'#16BD42',width:96,height:32,borderRadius:5,justifyContent:'center',alignItems:'center'}}>
                             <Image source={require('../../images/green_left_arrow.png')}

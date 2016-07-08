@@ -25,25 +25,20 @@ export default class paySuccess extends Component {
             CreateTime: '',
             OrderCode: '',
             OrderPayType: '',
-            OrderPayMoney: ''
+            OrderPayMoney: '',
+            OrderId:''
         };
     }
 
     componentDidMount() {
         var result = this.props.result;
-        /*this.setState({
+        console.log(result['orderPayId'])
+        this.setState({
             CreateTime: result['payTime'],
             OrderCode: result['orderCode'],
             OrderPayType: result['orderPayTitle'],
             OrderPayMoney: result['orderPayMoney'],
-            OrderId: result['orderId'],
-        })*/
-        this.setState({
-            CreateTime: '2016-5-40 10:30',
-            OrderCode: 9999999999999999,
-            OrderPayType: '微信支付',
-            OrderPayMoney: '9999.99',
-            OrderId: '2121',
+            OrderId: result['Id'],
         })
     }
 
@@ -53,16 +48,19 @@ export default class paySuccess extends Component {
         if (navigator) {
             navigator.resetTo({
                 component: MainScreen,
-                sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                params:{
+                    Ad:null//不加载广告
+                }
             })
         }
     }
-    toOrderDetail(orderId){
+    toOrderDetail(){
         const {navigator}=this.props;
         if (navigator) {
             navigator.push({
                 component: OrderDetail,
-                param:{orderId:orderId}
+                params:{orderId:this.state.OrderId}
             })
         }
     }
@@ -133,7 +131,7 @@ export default class paySuccess extends Component {
                     </View>
                 </View>
                 <View style={{alignItems:'center',marginTop:40}}>
-                    <TouchableWithoutFeedback onPress={(orderId)=>this.toOrderDetail(this.state.OrderId)}>
+                    <TouchableWithoutFeedback onPress={()=>this.toOrderDetail()}>
                         <View
                             style={{flexDirection:'row',borderWidth:1,borderColor:'#16BD42',width:96,height:32,borderRadius:5,justifyContent:'center',alignItems:'center'}}>
                             <Image source={require('../../images/green_left_arrow.png')}
