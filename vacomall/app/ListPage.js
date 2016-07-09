@@ -80,7 +80,7 @@ export default class ListPage extends Component {
         if (this.props.id === null) {
             NetService.postFetchData(API.SEARCH, 'wd=' + this.props.text + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
         } else {
-            NetService.postFetchData(API.LIST, 'cart=' + this.props.id + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
+            NetService.postFetchData(API.LIST, 'cid=' + this.props.Target + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
         }
         //NetService.postFetchData(API.LIST, 'cart=02dea4921ef5402a871d198925ac7a88&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
     }

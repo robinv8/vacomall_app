@@ -40,9 +40,7 @@ export default class CartPage extends Component {
             num: 0,
             button: null,
             editdata: null,
-            isrefresh: true,
-
-
+            isrefresh:true
         }
     }
 
@@ -59,16 +57,13 @@ export default class CartPage extends Component {
         }
     }
 
-    componentWillReceiveProps() {
-
-        if (this.props.active && this.state.isrefresh) {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.active&&this.state.isrefresh) {
             this.componentDidMount(()=> {
                 this._editsubmit();
             });
         }
-        //this.props.active=false;
     }
-
 
     componentDidMount(callback) {
         cartThis = [];
@@ -76,10 +71,10 @@ export default class CartPage extends Component {
             dataSource: this.state.dataSource.cloneWithRows([]),
         });
         NetService.postFetchData(API.GETCART, '', (result)=> {
+            this.setState({
+                isrefresh:false
+            })
             if (result['success'] === false) {
-                this.setState({
-                    isrefresh: false
-                })
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
                     const {navigator}=this.props;
@@ -171,9 +166,6 @@ export default class CartPage extends Component {
     }
 
     _toOrder() {
-        this.setState({
-            isrefresh: false
-        });
         var _this = this;
         if (this.state.gList.length === 0) {
             Toast.show('购物车数量为0,不能结算!');
@@ -276,7 +268,7 @@ export default class CartPage extends Component {
                     return;
                 }
                 Toast.show(result['result']['message']);
-                this.componentWillMount(()=> {
+                this.componentDidMount(()=> {
                     this._edit()
                 });
 

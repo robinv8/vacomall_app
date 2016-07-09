@@ -74,6 +74,7 @@ export default class MainScreen extends Component {
     onBackAndroid() {
         const {navigator} = this.props;
         const routers = navigator.getCurrentRoutes();
+        console.log(routers)
         if (routers.length > 1) {
             var displayName = routers[routers.length - 1]['component']['displayName'];
             if (displayName === 'Login') {
@@ -106,6 +107,7 @@ export default class MainScreen extends Component {
     };
 
     componentDidMount() {
+        console.log(this)
         if (this.props.Ad !== undefined) {
             this.setState({
                 ad: this.props.Ad

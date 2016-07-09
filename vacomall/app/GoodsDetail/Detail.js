@@ -87,7 +87,9 @@ export default class GoodsDetail extends Component {
         return (
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
                 <ScrollView
+                    endFillColor="red"
                     style={{marginBottom:49,}}
+                    //scrollEventThrottle={1}
                     onContentSizeChange={(w,h)=>this._ContentSizeChange(w,h)}
                     onScroll={(event)=>this.handleScroll(event)}
                 >
@@ -178,13 +180,16 @@ export default class GoodsDetail extends Component {
         );
     }
     _ContentSizeChange(w, h) {
-        this.setState({
-            contentHeight: h
-        });
+        if(this.beforeH===undefined){
+            this.setState({
+                contentHeight: h
+            });
+            this.beforeH=true;
+        }
     }
     handleScroll(event:Object) {
-        console.log(event.nativeEvent.contentOffset.y + Dimensions.get('window').height+' '+this.state.contentHeight)
-        if (event.nativeEvent.contentOffset.y + Dimensions.get('window').height> this.state.contentHeight && this.state.guessFlag === false) {
+        console.log((event.nativeEvent.contentOffset.y+this.state.contentHeight).toString()+'--'+(Dimensions.get('window').height+113).toString())
+        if (event.nativeEvent.contentOffset.y+this.state.contentHeight >Dimensions.get('window').height+100 && this.state.guessFlag === false) {
             this.setState({
                 guessFlag: true,
                 imgdetails:<DetailImg webImgData={this.state.webImgData} navigator={this.props._this1.props.navigator}/>

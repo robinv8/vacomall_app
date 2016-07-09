@@ -79,7 +79,7 @@ class CustomImage extends Component{
     }
     render(){
         return(
-            <Image source={{uri:this.props.uri+'@h_300'}} onLoaded={(data)=>this.onLoaded()} style={[styles.img,{height:width}]}/>
+            <Image source={{uri:this.props.uri+'@h_500'}} onLoaded={(data)=>this.onLoaded()} style={[styles.img,{height:width}]}/>
         );
     }
 }

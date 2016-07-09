@@ -29,7 +29,7 @@ export default class SubCate extends Component {
         var rows = [];
         const _this=this;
         this.props.item.map(function (data, index) {
-            rows.push(<Third key={index} name={data['Title']} icon={data['Icon']} id={data['Id']} navigator={_this.props.navigator}/>)
+            rows.push(<Third key={index} name={data['Title']} icon={data['Icon']} Target={data['Target']} navigator={_this.props.navigator}/>)
         });
         this.setState({
             third: rows
@@ -50,18 +50,18 @@ export default class SubCate extends Component {
     }
 }
 class Third extends Component {
-    _selectGoodsList(id){
+    _selectGoodsList(Target){
         const {navigator}=this.props;
         if(navigator){
             navigator.push({
                 component:ListPage,
-                params:{id:id}
+                params:{Target:Target}
             })
         }
     }
     render() {
         return (
-            <TouchableWithoutFeedback onPress={(id)=>this._selectGoodsList(this.props.id)}>
+            <TouchableWithoutFeedback onPress={(Target)=>this._selectGoodsList(this.props.Target)}>
                 <View
                     style={styles.third}>
                     <Image source={{uri:this.props.icon}} style={{width:124,height:124,resizeMode:'stretch'}}/>

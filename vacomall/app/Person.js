@@ -46,8 +46,8 @@ export default class Person extends Component {
         }
     }
 
-    componentWillReceiveProps() {
-        if (this.props.active&&this.state.isrefresh) {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.active&&this.state.isrefresh) {
             this.componentDidMount()
         }
     }

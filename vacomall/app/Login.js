@@ -41,14 +41,11 @@ export default class Login extends Component {
 
     componentDidMount() {
         this._loadInitialState();
-        let _this=this.props._this;
-        if(_this!==undefined){
-            _this.setState({
-                isrefresh: true,
-            })
-        }
     }
 
+    componentDidUnMount() {
+        console.log(21)
+    }
     async _loadInitialState() {
         var uname = await AsyncStorage.getItem('uname');
         var pwd = await AsyncStorage.getItem('pwd');
@@ -92,6 +89,12 @@ export default class Login extends Component {
         var uname = this.state.uname;
         var pwd = this.state.pwd;
         this._saveValue_One(uname, pwd);
+        let _this=this.props._this;
+        if(_this!==undefined){
+            _this.setState({
+                isrefresh: true,
+            })
+        }
     }
 
     //进行储存数据_ONE
