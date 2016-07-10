@@ -43,9 +43,6 @@ export default class Login extends Component {
         this._loadInitialState();
     }
 
-    componentDidUnMount() {
-        console.log(21)
-    }
     async _loadInitialState() {
         var uname = await AsyncStorage.getItem('uname');
         var pwd = await AsyncStorage.getItem('pwd');
@@ -108,9 +105,35 @@ export default class Login extends Component {
 
     toPage() {
         const {navigator}=this.props;
-        if (navigator) {
-            navigator.pop();
+        if(this.props.name!==undefined){
+            switch (this.props.name){
+                case 'Person':
+                    if (navigator) {
+                        navigator.replace({
+                            component: MainScreen,
+                            params:{
+                                initTab:'personal'
+                            }
+                        })
+                    }
+                    break;
+                case 'CartPage':
+                    if (navigator) {
+                        navigator.replace({
+                            component: MainScreen,
+                            params:{
+                                initTab:'cart'
+                            }
+                        })
+                    }
+                    break;
+            }
+        }else{
+            if (navigator) {
+                navigator.pop();
+            }
         }
+
     }
 
     _visibleCut(flag, text) {
@@ -174,9 +197,6 @@ export default class Login extends Component {
             navigator.resetTo({
                 component: MainScreen,
                 sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump,
-                params:{
-                    Ad:null//不加载广告
-                }
             });
         }
     }

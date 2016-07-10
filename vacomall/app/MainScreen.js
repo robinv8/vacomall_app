@@ -14,7 +14,7 @@ import React, {
     BackAndroid,
     Dimensions
 } from 'react-native';
-import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator,Toast} from './util/Path';
+import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator,Toast,CodePush} from './util/Path';
 const HOME = 'home';
 const HOME_NORMAL = require('../images/tabs/home_normal.png');
 const HOME_FOCUS = require('../images/tabs/home_focus.png');
@@ -38,10 +38,6 @@ export default class MainScreen extends Component {
             selectedTab: HOME,
             navigator: null,
             active: false,
-            ad: <View style={{position:'absolute',width:width,height:height,top:0,backgroundColor:'white'}}>
-                <Image source={require('../images/ad.png')}
-                       style={{width:width,height:height-20,resizeMode:'stretch'}}/>
-            </View>,
             beforeView: null
         };
     }
@@ -83,14 +79,14 @@ export default class MainScreen extends Component {
                 });
                 navigator.popToTop();
             } else {
-                let params=routers[routers.length-1]['params'];
-                let beforeThis=undefined
-                if(params!==undefined){
-                    beforeThis=params['_this'];
+                let params = routers[routers.length - 1]['params'];
+                let beforeThis = undefined
+                if (params !== undefined) {
+                    beforeThis = params['_this'];
                 }
-                if(beforeThis!==undefined){
+                if (beforeThis !== undefined) {
                     beforeThis.setState({
-                        isrefresh:true
+                        isrefresh: true
                     })
                 }
                 navigator.pop();
@@ -106,14 +102,15 @@ export default class MainScreen extends Component {
         return false;
     };
 
-    componentDidMount() {
-        console.log(this)
-        if (this.props.Ad !== undefined) {
+    componentWillMount() {
+        let initTab=this.props.initTab;
+        if(initTab!==undefined){
             this.setState({
-                ad: this.props.Ad
+                selectedTab:initTab
             })
         }
-
+    }
+    componentDidMount() {
         if (Platform.OS === 'android') {
             BackAndroid.addEventListener('hardwareBackPress', (BackAndroid)=>this.onBackAndroid(BackAndroid));
         }
@@ -141,7 +138,6 @@ export default class MainScreen extends Component {
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person
                         navigator={this.props.navigator} active={this.state.active}/>)}
                 </TabNavigator>
-                {this.state.ad}
             </View >
         );
     }

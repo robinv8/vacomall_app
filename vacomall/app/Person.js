@@ -33,7 +33,8 @@ export default class Person extends Component {
             dfh: null,
             dsh: null,
             thh: null,
-            isrefresh:true
+            isrefresh:true,
+            guess:null
         };
     }
 
@@ -46,31 +47,32 @@ export default class Person extends Component {
         }
     }
 
+    
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.active+' '+this.state.isrefresh)
         if (nextProps.active&&this.state.isrefresh) {
-            this.componentDidMount()
+            this.componentWillMount()
         }
     }
-
-    componentDidMount() {
+    
+    componentWillMount() {
         NetService.getFetchData(API.ORDERNUM, (result)=> {
             if (result['success'] === false) {
-                this.setState({
-                    isrefresh:false
-                })
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
                     const {navigator}=this.props;
                     if (navigator) {
-                        navigator.push({
+                        navigator.replace({
                             component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params:{_this:this}
+                            params:{name:'Person'}
                         })
                     }
                 }
                 return;
             } else {
+                this.setState({
+                    guess: <Guess navigator={this.props.navigator}/>
+                })
                 let dfk = result[100];
                 if (dfk > 0) {
                     dfk = dfk.toString();
@@ -78,7 +80,7 @@ export default class Person extends Component {
                         dfk: <View style={styles.bub}>
                             <Text
                                 style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfk.length > 2 ? dfk.substring(0, 1) + '+' : dfk}</Text>
-                        </View>
+                        </View>,
                     })
                 }
                 let dfh = result[200];
@@ -113,7 +115,6 @@ export default class Person extends Component {
                 }
                 /*获取首页基本数据*/
                 NetService.getFetchData(API.HOME + '?keys=INDEX_CAT', (result)=> {
-                    console.log(result)
                     this.cathandle(result);
                 });
             }
@@ -332,7 +333,7 @@ export default class Person extends Component {
                             })}
                         </View>
                     </View>
-                    <Guess navigator={this.props.navigator}/>
+                    {this.state.guess}
                 </ScrollView>
             </View>
         );

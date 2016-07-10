@@ -54,9 +54,6 @@ export default class PayHDFK extends Component {
             navigator.resetTo({
                 component: MainScreen,
                 sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                params:{
-                    Ad:null//不加载广告
-                }
             })
         }
     }

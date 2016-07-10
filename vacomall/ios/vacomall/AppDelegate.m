@@ -12,13 +12,13 @@
 #import "RCTRootView.h"
 
 #import "RCTWeChat.h"
-
+#import "CodePush.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-
+  [NSThread sleepForTimeInterval:3.0];
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
@@ -33,8 +33,12 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.110:8081/index.ios.bundle?platform=ios&dev=true"];
-
+ 
+#ifdef DEBUG
+   jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.110:8081/index.ios.bundle?platform=ios&dev=true"];
+#else
+  jsCodeLocation = [CodePush bundleURL];
+#endif
   /**
    * OPTION 2
    * Load from pre-bundled file on disk. The static bundle is automatically
@@ -49,7 +53,6 @@
                                                       moduleName:@"vacomall"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;

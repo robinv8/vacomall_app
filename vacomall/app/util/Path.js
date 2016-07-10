@@ -80,7 +80,7 @@ import AbortVacomall from '../AbortVacomall';
 
 /*---第三方组件---*/
 import TabNavigator from 'react-native-tab-navigator';
-import codePush from 'react-native-code-push';
+import CodePush from 'react-native-code-push';
 import Swiper from 'react-native-swiper2';
 import Toast from 'react-native-root-toast';
 import WebViewBridge from 'react-native-webview-bridge';
@@ -92,7 +92,6 @@ import WeChatIos from 'react-native-wechat-ios';
 import WeChatAndroid from 'react-native-wechat-android';
 import AppIntro from 'react-native-app-intro';
 import Picker from 'react-native-picker';
-import HTML from 'react-native-fence-html';
 /*---自定义工具类---*/
 import API from './api';
 import * as NetService from './NetService';
@@ -107,7 +106,7 @@ import BarCodeIos from './BarCodeIos'
 export {
     MainPage,
     MainScreen,//APP主入口
-    codePush,//热更新
+    CodePush,//热更新
     HomePage,//首页
     HomeHeader,//首页头部
     Swiper,//图片轮播
@@ -180,5 +179,4 @@ export {
     PersonSafe,
     PersonInfo,
     AbortVacomall,
-    HTML
 };

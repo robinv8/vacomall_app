@@ -31,6 +31,7 @@
 		8084F0721D10F99100A3A4D7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0711D10F99100A3A4D7 /* Security.framework */; };
 		8084F0821D10F99F00A3A4D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0811D10F99F00A3A4D7 /* UIKit.framework */; };
 		8084F0841D10F9AF00A3A4D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0831D10F9AF00A3A4D7 /* Foundation.framework */; };
+		8089F8011D31E8B800235A1C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8089F8001D31E8B800235A1C /* libz.tbd */; };
 		8094B6491CE6BEFB00BF2414 /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8094B6471CE6BEBE00BF2414 /* libReact-Native-Webview-Bridge.a */; };
 		80AF23C21CFC1E6900555550 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 80AF23C11CFC1E6900555550 /* Base.lproj */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -182,6 +183,7 @@
 		8084F0711D10F99100A3A4D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8084F0811D10F99F00A3A4D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8084F0831D10F9AF00A3A4D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8089F8001D31E8B800235A1C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8094B6381CE6BEBE00BF2414 /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../node_modules/react-native-webview-bridge/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
 		80AF23C11CFC1E6900555550 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = vacomall/Base.lproj; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8089F8011D31E8B800235A1C /* libz.tbd in Frameworks */,
 				805364A61D21191E003A3BE5 /* libRCTWeChat.a in Frameworks */,
 				8084F0841D10F9AF00A3A4D7 /* Foundation.framework in Frameworks */,
 				8084F0821D10F99F00A3A4D7 /* UIKit.framework in Frameworks */,
@@ -354,6 +357,7 @@
 		8084F0441D10280300A3A4D7 /* FrameWork */ = {
 			isa = PBXGroup;
 			children = (
+				8089F8001D31E8B800235A1C /* libz.tbd */,
 				8084F0831D10F9AF00A3A4D7 /* Foundation.framework */,
 				8084F0811D10F99F00A3A4D7 /* UIKit.framework */,
 				8084F0711D10F99100A3A4D7 /* Security.framework */,
@@ -872,6 +876,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -965,6 +970,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1017,6 +1023,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

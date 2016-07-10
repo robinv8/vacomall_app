@@ -49,11 +49,6 @@ export default class HomePage extends Component {
 
 
     componentDidMount() {
-        setTimeout(()=>{
-            this.props._this.setState({
-                ad:null
-            })
-        },3000)
         /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
     }

@@ -50,14 +50,12 @@ export default class CartPage extends Component {
             navigator.resetTo({
                 component: MainScreen,
                 sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                params: {
-                    Ad: null//不加载广告
-                }
             })
         }
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.active+' '+this.state.isrefresh)
         if (nextProps.active&&this.state.isrefresh) {
             this.componentDidMount(()=> {
                 this._editsubmit();
@@ -71,18 +69,14 @@ export default class CartPage extends Component {
             dataSource: this.state.dataSource.cloneWithRows([]),
         });
         NetService.postFetchData(API.GETCART, '', (result)=> {
-            this.setState({
-                isrefresh:false
-            })
             if (result['success'] === false) {
                 Toast.show(result['result']['message']);
                 if (result['result']['code'] === 303) {
                     const {navigator}=this.props;
                     if (navigator) {
-                        navigator.push({
+                        navigator.replace({
                             component: Login,
-                            sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                            params: {_this: this}
+                            params:{name:'CartPage'}
                         })
                     }
                 }

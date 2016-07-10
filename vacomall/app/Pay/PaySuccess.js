@@ -49,9 +49,6 @@ export default class paySuccess extends Component {
             navigator.resetTo({
                 component: MainScreen,
                 sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                params:{
-                    Ad:null//不加载广告
-                }
             })
         }
     }
