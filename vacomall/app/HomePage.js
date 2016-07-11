@@ -44,7 +44,7 @@ export default class HomePage extends Component {
     }
 
     componentWillUnmount() {
-        this.timer&clearInterval(this.timer);
+        this.timer & clearInterval(this.timer);
     }
 
 
@@ -52,7 +52,43 @@ export default class HomePage extends Component {
         /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
     }
+    toNextPage(id,Xtype){
+        const {navigator}=this.props;
+        switch (Xtype) {
+            case 10:
+                if (navigator) {
+                    navigator.push({
+                        component: GoodsDetail,
+                        params: {id: id}
+                    })
+                }
+                break;
+            case 20:
+                if (navigator) {
+                    navigator.push({
+                        component: ListPage,
+                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
+                        params: {Target: id}
+                    })
+                }
+                break;
+            case 30:
+                if (text === "") {
+                    return;
+                }
+                if (navigator) {
+                    navigator.push({
+                        component: ListPage,
+                        params: {
+                            text: text,
+                            Target: null
+                        }
+                    })
+                }
+                break;
+        }
 
+    }
     /*异步请求后的回调*/
     _callback(result) {
         this.setState({isRefreshing: false});
@@ -64,10 +100,10 @@ export default class HomePage extends Component {
         }
         var imgArray = [];
         var _this = this;
-        index_img.map(function (data, index) {
+        index_img.map((data,index)=>{
             switch (data['Xtype']) {
                 case 10:
-                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={()=>_this.toDetails(data['Target'])}>
+                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
                             <View style={styles.wrapper}>
                                 <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
                             </View>
@@ -76,7 +112,7 @@ export default class HomePage extends Component {
                     break;
                 case 20:
                     imgArray.push(<TouchableWithoutFeedback key={index}
-                                                            onPress={()=>_this._selectGoodsList(data['Target'])}>
+                                                            onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
                             <View style={styles.wrapper}>
                                 <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
                             </View>
@@ -85,7 +121,7 @@ export default class HomePage extends Component {
                     break;
                 case 30:
                     imgArray.push(<TouchableWithoutFeedback key={index}
-                                                            onPress={()=>_this.historyOnSubmit(data['Target'])}>
+                                                            onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
                             <View style={styles.wrapper}>
                                 <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
                             </View>
@@ -94,8 +130,7 @@ export default class HomePage extends Component {
                     break;
             }
 
-        });
-
+        })
         this.setState({
             swiper: <Swiper autoplay={false} height={170} paginationStyle={{bottom: 5}}>
                 {imgArray}
@@ -172,99 +207,91 @@ export default class HomePage extends Component {
         }, 3000)
 
         /*天天9块9*/
-        var index_99_data = result['INDEX_99']['items'];
+        let index_99_data = result['INDEX_99']['items'];
         if (index_99_data.length === 0) {
             return;
         }
         this.setState({
             index99: <View style={[styles.seckill,{marginTop: 12}]}>
-                <View style={styles.seckill_1}>
-                    <Image source={{uri:index_99_data[0]['ItemImg']}} style={styles.seckill_1_img}/>
-                </View>
+                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_99_data[0]['Target'],index_99_data[0]['Xtype'])}>
+                    <View style={styles.seckill_1}>
+                        <Image source={{uri:index_99_data[0]['ItemImg']}} style={styles.seckill_1_img}/>
+                    </View>
+                </TouchableWithoutFeedback>
                 <View style={styles.seckill_2}>
-                    <View style={styles.seckill_3}>
-                        <Image source={{uri:index_99_data[1]['ItemImg']}}
-                               style={styles.seckill_2_img}/>
-                    </View>
-                    <View style={[styles.seckill_2]}>
-                        <Image source={{uri:index_99_data[2]['ItemImg']}}
-                               style={styles.seckill_3_img}/>
-                    </View>
+                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_99_data[1]['Target'],index_99_data[1]['Xtype'])}>
+                        <View style={styles.seckill_3}>
+                            <Image source={{uri:index_99_data[1]['ItemImg']}}
+                                   style={styles.seckill_2_img}/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_99_data[2]['Target'],index_99_data[2]['Xtype'])}>
+                        <View style={[styles.seckill_2]}>
+                            <Image source={{uri:index_99_data[2]['ItemImg']}}
+                                   style={styles.seckill_3_img}/>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
         });
         /*超实惠*/
-        var index_csh_data = result['INDEX_CSH']['items'];
+        let index_csh_data = result['INDEX_CSH']['items'];
         if (index_csh_data.length === 0) {
             return;
         }
         this.setState({
             indexCSH: <View style={styles.seckill}>
-                <View style={styles.seckill_1}>
-                    <Image source={{uri:index_99_data[0]['ItemImg']}}
-                           style={styles.seckill_1_img}/>
-                </View>
+                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[0]['Target'],index_csh_data[0]['Xtype'])}>
+                    <View style={styles.seckill_1}>
+                        <Image source={{uri:index_99_data[0]['ItemImg']}}
+                               style={styles.seckill_1_img}/>
+                    </View>
+                </TouchableWithoutFeedback>
                 <View style={styles.seckill_2}>
-                    <View style={styles.seckill_3}>
-                        <Image source={{uri:index_99_data[1]['ItemImg']}}
-                               style={styles.seckill_2_img}/>
-                    </View>
-                    <View style={[styles.seckill_2]}>
-                        <Image source={{uri:index_99_data[2]['ItemImg']}}
-                               style={styles.seckill_3_img}/>
-                    </View>
+                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[1]['Target'],index_csh_data[1]['Xtype'])}>
+                        <View style={styles.seckill_3}>
+                            <Image source={{uri:index_99_data[1]['ItemImg']}}
+                                   style={styles.seckill_2_img}/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[2]['Target'],index_csh_data[2]['Xtype'])}>
+                        <View style={[styles.seckill_2]}>
+                            <Image source={{uri:index_99_data[2]['ItemImg']}}
+                                   style={styles.seckill_3_img}/>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
         });
         /*品牌直供*/
-        var index_brand_data = result['INDEX_BRAND']['items'];
+        let index_brand_data = result['INDEX_BRAND']['items'];
         if (index_brand_data.length === 0) {
             return;
         }
         this.setState({
             indexBrand: <View style={styles.seckill}>
-                <View style={[styles.seckill_1,{justifyContent:'center'}]}>
-                    <Image source={{uri:index_brand_data[0]['ItemImg']}}
-                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
-                </View>
-                <View style={[styles.seckill_1,{justifyContent:'center'}]}>
-                    <Image source={{uri:index_brand_data[1]['ItemImg']}}
-                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
-                </View>
-                <View style={[styles.seckill_1,{justifyContent:'center',borderRightWidth:0}]}>
-                    <Image source={{uri:index_brand_data[2]['ItemImg']}}
-                           style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
-                </View>
+                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_brand_data[0]['Target'],index_brand_data[0]['Xtype'])}>
+                    <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                        <Image source={{uri:index_brand_data[0]['ItemImg']}}
+                               style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_brand_data[1]['Target'],index_brand_data[1]['Xtype'])}>
+                    <View style={[styles.seckill_1,{justifyContent:'center'}]}>
+                        <Image source={{uri:index_brand_data[1]['ItemImg']}}
+                               style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_brand_data[2]['Target'],index_brand_data[2]['Xtype'])}>
+                    <View style={[styles.seckill_1,{justifyContent:'center',borderRightWidth:0}]}>
+                        <Image source={{uri:index_brand_data[2]['ItemImg']}}
+                               style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         });
     }
 
-    _selectGoodsList(id) {
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.push({
-                component: ListPage,
-                sceneConfig: Navigator.SceneConfigs.FloatFromRight,
-                params: {id: id}
-            })
-        }
-    }
-
-    historyOnSubmit(text) {
-        if (text === "") {
-            return;
-        }
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.push({
-                component: ListPage,
-                params: {
-                    text: text,
-                    id: null
-                }
-            })
-        }
-    }
 
     _goToCate() {
         const {navigator}=this.props;
@@ -276,17 +303,6 @@ export default class HomePage extends Component {
         }
     }
 
-    toDetails(id) {
-        const {navigator}=this.props;
-        const routers = navigator.getCurrentRoutes();
-        console.log(navigator)
-        if (navigator) {
-            navigator.push({
-                component: GoodsDetail,
-                params: {id: id}
-            })
-        }
-    }
 
     renderGList(gList) {
         var _textLength = function (text) {
@@ -364,7 +380,7 @@ export default class HomePage extends Component {
         }
         //event.nativeEvent.contentOffset+'-'+
     }
-    
+
     render() {
         return (
             <View style={{flex:1}}>
@@ -404,7 +420,7 @@ export default class HomePage extends Component {
                             </View>
                             <View style={{marginRight:6}}>
                                 <Image source={require('../images/updown_icon.png')}
-                                                                 style={{width:7,height:13,resizeMode: 'stretch'}}/>
+                                       style={{width:7,height:13,resizeMode: 'stretch'}}/>
                             </View>
                         </View>
                     </View>

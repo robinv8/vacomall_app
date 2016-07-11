@@ -77,7 +77,7 @@ export default class ListPage extends Component {
                 listArray:[],
             });
         }
-        if (this.props.id === null) {
+        if (this.props.Target === null) {
             NetService.postFetchData(API.SEARCH, 'wd=' + this.props.text + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));
         } else {
             NetService.postFetchData(API.LIST, 'cid=' + this.props.Target + '&page=' + this.state.page + '&size=' + this.state.size + '&sort=' + this.state.sort, (result)=>this._callback(result));

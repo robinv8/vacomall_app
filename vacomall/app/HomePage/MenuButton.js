@@ -12,7 +12,7 @@ import React, {
     StyleSheet,
     Navigator
 } from 'react-native';
-import {ListPage,CategoryList} from '../util/Path';
+import {ListPage,CategoryList,GoodsDetail} from '../util/Path';
 export default class MenuButton extends React.Component {
     // 构造
       constructor(props) {
@@ -26,6 +26,37 @@ export default class MenuButton extends React.Component {
     _selectGoodsList(id){
         const {navigator}=this.props;
         switch (this.props.Xtype){
+            case 10:
+                if (navigator) {
+                    navigator.push({
+                        component: GoodsDetail,
+                        params: {id: id}
+                    })
+                }
+                break;
+            case 20:
+                if (navigator) {
+                    navigator.push({
+                        component: ListPage,
+                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
+                        params: {Target: id}
+                    })
+                }
+                break;
+            case 30:
+                if (text === "") {
+                    return;
+                }
+                if (navigator) {
+                    navigator.push({
+                        component: ListPage,
+                        params: {
+                            text: text,
+                            Target: null
+                        }
+                    })
+                }
+                break;
             case 50:
                 if(navigator){
                     navigator.push({
