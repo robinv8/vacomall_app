@@ -73,14 +73,11 @@ export default class HomePage extends Component {
                 }
                 break;
             case 30:
-                if (text === "") {
-                    return;
-                }
                 if (navigator) {
                     navigator.push({
                         component: ListPage,
                         params: {
-                            text: text,
+                            text: id,//关键字搜索
                             Target: null
                         }
                     })
@@ -147,14 +144,14 @@ export default class HomePage extends Component {
         index_cat_data.map(function (data, index) {
             if (index < 4) {
                 catArray1.push(<MenuButton key={index}
-                                           id={data['GroupId']}
+                                           id={data['Target']}
                                            imgUrl={data['ItemImg']}
                                            Xtype={data['Xtype']}
                                            showText={data['ItemName']}
                                            navigator={_this.props.navigator}/>)
             } else if (index < 8) {
                 catArray2.push(<MenuButton key={index}
-                                           id={data['GroupId']}
+                                           id={data['Target']}
                                            imgUrl={data['ItemImg']}
                                            Xtype={data['Xtype']}
                                            showText={data['ItemName']}
@@ -380,7 +377,16 @@ export default class HomePage extends Component {
         }
         //event.nativeEvent.contentOffset+'-'+
     }
-
+    toDetails(id) {
+        const {navigator}=this.props;
+        console.log(navigator)
+        if (navigator) {
+            navigator.push({
+                component: GoodsDetail,
+                params: {id: id}
+            })
+        }
+    }
     render() {
         return (
             <View style={{flex:1}}>

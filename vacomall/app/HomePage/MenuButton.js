@@ -44,14 +44,11 @@ export default class MenuButton extends React.Component {
                 }
                 break;
             case 30:
-                if (text === "") {
-                    return;
-                }
                 if (navigator) {
                     navigator.push({
                         component: ListPage,
                         params: {
-                            text: text,
+                            text: id,//关键字搜索
                             Target: null
                         }
                     })
