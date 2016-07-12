@@ -14,7 +14,7 @@ import React, {
     Dimensions,
     Animated
 } from 'react-native';
-import BarcodeScanner from 'react-native-barcodescanner';
+//import BarcodeScanner from 'react-native-barcodescanner';
 import {GoodsDetail,Toast} from './Path'
 export default class BarCodeAndroid extends Component {
     constructor(props) {
@@ -30,6 +30,10 @@ export default class BarCodeAndroid extends Component {
         };
     }
     _back() {
+        this.setState({
+            isLoad:false
+        })
+        this.interval &&clearInterval(this.interval)
         const {navigator}=this.props;
         if (navigator) {
             navigator.pop()

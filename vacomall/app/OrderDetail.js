@@ -322,6 +322,9 @@ class CartList extends Component {
     }
 
     componentDidMount() {
+        if(this.props.result['orders']['OrderExtType']===2){
+            return;
+        }
         switch (this.props.OrderStatus) {
             case 100:
                 this.setState({

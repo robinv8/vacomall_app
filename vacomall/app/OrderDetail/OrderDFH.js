@@ -43,6 +43,9 @@ export default class OrderDFH extends Component {
         })
         this.componentDidMount();
     }
+    componentDidUnMount() {
+        console.log(21)
+    }
     componentDidMount() {
         let parentThis=this.props._this;
 

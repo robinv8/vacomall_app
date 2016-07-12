@@ -31,6 +31,9 @@ export default class BarCodeIos extends Component {
     }
 
     _back() {
+        this.setState({
+            isLoad:false
+        })
         this.interval &&clearInterval(this.interval)
         const {navigator}=this.props;
         if (navigator) {

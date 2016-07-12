@@ -20,6 +20,8 @@ import React,{
 }from 'react-native';
 const {width,height}=Dimensions.get('window');
 import {API,NetService,md5,Login,HtmlRender,GoodsDetail,Guess} from '../util/Path';
+import imagesize from 'imagesize';
+
 let imgdata = [];
 export default class DetailImg extends Component {
     // 构造
@@ -64,8 +66,15 @@ export default class DetailImg extends Component {
         console.log(this.props.webImgData)
         this.props.webImgData.map(function (data, index) {
             imgdata += '<img src="' + data + '"/>';
+            var request = http.get(data, function (response) {
+                imagesize(response, function (err, result) {
+                    // do something with result
+
+                    // we don't need more data
+                    request.abort();
+                });
+            });
         })
-        console.log(imgdata)
         this.setState({
             webImgData: `
 <!DOCTYPE html>\n
@@ -98,7 +107,6 @@ export default class DetailImg extends Component {
     }
 
     onNavigationStateChange(navState) {
-        console.log(navState)
         this.setState({
             height: navState.target
         });
@@ -134,6 +142,9 @@ class CustomImage extends Component {
         };
     }
 
+    componentDidMount() {
+
+    }
     render() {
         return (
             <Image source={{uri:this.props.uri+'@h_500'}} onLoaded={(data)=>this.onLoaded()}

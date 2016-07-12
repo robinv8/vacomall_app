@@ -130,7 +130,7 @@ export default class Header extends Component {
                 component: ListPage,
                 params: {
                     text: text,
-                    id: null
+                    Target: null
                 }
             })
         }
@@ -179,7 +179,7 @@ export default class Header extends Component {
                 component: ListPage,
                 params: {
                     text: this.state.text,
-                    id: null
+                    Target: null
                 }
             })
         }
