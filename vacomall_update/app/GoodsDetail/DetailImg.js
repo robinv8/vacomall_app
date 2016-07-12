@@ -15,13 +15,11 @@ import React,{
     WebView,
     ViewPagerAndroid,
     Navigator,
-    RefreshControl,
-    ListView,
+    RefreshControl,ListView
 }from 'react-native';
 const {width,height}=Dimensions.get('window');
 import {API,NetService,md5,Login,HtmlRender,GoodsDetail,Guess} from '../util/Path';
-import imagesize from 'imagesize';
-
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 let imgdata = [];
 export default class DetailImg extends Component {
     // 构造
@@ -29,126 +27,64 @@ export default class DetailImg extends Component {
         super(props);
         // 初始状态
         this.state = {
-            height: 0,
+            HTML: null,
             guessFlag: false,
-            webImgData: `
-<!DOCTYPE html>\n
-<html>
-  <head>
-    <title>Hello Static World</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=320, user-scalable=no">
-    <style type="text/css">
-      body {
-        margin: 0;
-        padding: 0;
-        font: 62.5% arial, sans-serif;
-        background: #ccc;
-      }
-      h1 {
-        padding: 45px;
-        margin: 0;
-        text-align: center;
-        color: #33f;
-      }
-    </style>
-  </head>
-  <body>
-  </body>
-</html>
-`
+            webImgData: null
         };
     }
 
 
     componentDidMount() {
-        imgdata = '';
-        console.log(this.props.webImgData)
+        imgdata=[];
         this.props.webImgData.map(function (data, index) {
-            imgdata += '<img src="' + data + '"/>';
-            var request = http.get(data, function (response) {
-                imagesize(response, function (err, result) {
-                    // do something with result
-
-                    // we don't need more data
-                    request.abort();
-                });
-            });
+            imgdata.push(<CustomImage key={index} uri={data}/>);
         })
         this.setState({
-            webImgData: `
-<!DOCTYPE html>\n
-<html>
-  <head>
-    <title>Hello Static World</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <style type="text/css">
-      body {
-        margin: 0;
-        padding: 0;
-        width:`+width+`;
-        font: 62.5% arial, sans-serif;
-        background: #ccc;
-        overflow: hidden;
-      }
-      img:{
-      width:100%;
-      height:100%
-      }
-    </style>
-  </head>
-  <body>
-    ` + imgdata + `
-  </body>
-</html>
-`
+            webImgData: imgdata
         })
     }
 
-    onNavigationStateChange(navState) {
-        this.setState({
-            height: navState.target
-        });
-    }
-
+    /*<HtmlRender
+     value={this.state.webImgData}
+     stylesheet={styles}
+     />*/
     render() {
         return (
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
-                <WebView
-                    onNavigationStateChange={(navState)=>this.onNavigationStateChange(navState)}
-                    source={{html:this.state.webImgData}}
-                    style={{
-            backgroundColor: 'white',
-            height: this.state.height,
-            width:width
-          }}
-                />
                 <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}>
+                    {this.state.webImgData}
                     <Guess navigator={this.props.navigator} type={'goodsdetail'}/>
                 </ScrollView>
             </View>
         );
     }
 }
-class CustomImage extends Component {
+class CustomImage extends Component{
     // 构造
     constructor(props) {
         super(props);
         // 初始状态
         this.state = {
-            w: 0,
-            h: 0
+            w:0,
+            h:0
         };
     }
-
-    componentDidMount() {
-
+    getSource(assetNumber) {
+        let source = resolveAssetSource(assetNumber)
+        console.log(source.width, source.height);
     }
-    render() {
-        return (
-            <Image source={{uri:this.props.uri+'@h_500'}} onLoaded={(data)=>this.onLoaded()}
-                   style={[styles.img,{height:width}]}/>
+    componentWillMount() {
+        this.getSource({uri:this.props.uri+'@h_300'})
+        Image.getSize(this.props.uri,(w,h)=>{
+            this.setState({
+                w:w,
+                h:h
+            })
+        })
+    }
+    render(){
+        return(
+            <Image source={{uri:this.props.uri+'@h_300'}} style={[styles.img,{height:width*this.state.h/this.state.w}]}/>
         );
     }
 }

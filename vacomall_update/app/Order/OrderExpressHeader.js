@@ -1,8 +1,8 @@
 /**
  * Created by renyubin on 16/5/4.
  */
-import React, {
-    Component,
+import React,{Component} from 'react';
+import {
     Image,
     TextInput,
     View,

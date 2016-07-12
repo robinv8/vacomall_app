@@ -2,8 +2,8 @@
  * Created by ren on 16/4/12.
  */
 'use strict';
-import React, {
-    Component,
+import React,{Component} from 'react';
+import {
     Text,
     View,
     PropTypes,

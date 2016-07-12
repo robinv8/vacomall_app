@@ -2,9 +2,8 @@
  * Created by renyubin on 16/4/23.
  */
 'use strict';
-
-import React,{
-    Component,
+import React,{Component} from 'react';
+import {
     View,
     Text,
     Navigator,
@@ -22,6 +21,7 @@ let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version';
 const {width,height}=Dimensions.get('window');
+console.ignoredYellowBox = ['Warning: ...'];
 export default class MainPage extends Component {
     // 构造
     constructor(props) {

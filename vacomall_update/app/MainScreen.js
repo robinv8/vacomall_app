@@ -2,8 +2,8 @@
  * Created by renyubin on 16/5/28.
  */
 'use strict';
-import React, {
-    Component,
+import React,{Component} from 'react';
+import {
     View,
     StyleSheet,
     Text,

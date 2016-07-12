@@ -1,8 +1,8 @@
 /**
  * Created by renyubin on 16/4/23.
  */
-import React,{
-    Component,
+import React,{Component} from 'react';
+import {
     View,
     Text,
     StyleSheet,
