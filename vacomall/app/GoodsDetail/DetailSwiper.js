@@ -6,9 +6,11 @@ import React,
     Component,
     View,
     StyleSheet,
-    Image
+    Image,
+    Dimensions
 }from 'react-native';
 import {Swiper} from '../util/Path';
+const {width,height}=Dimensions.get('window');
 export default class DetailSwiper extends Component{
     // 构造
       constructor(props) {
@@ -31,18 +33,18 @@ export default class DetailSwiper extends Component{
         });
         if(imagesArray.length===1){
             this.setState({
-                swiper: <Swiper height={414} autoplay={false} paginationStyle={{bottom: 5,flex:1}}>{imagesArray}</Swiper>
+                swiper: <Swiper height={width} autoplay={false} paginationStyle={{bottom: 5,flex:1}}>{imagesArray}</Swiper>
             })
         }else{
             this.setState({
-                swiper: <Swiper height={414} autoplay={true} paginationStyle={{bottom: 5,flex:1}}>{imagesArray}</Swiper>
+                swiper: <Swiper height={width} autoplay={true} paginationStyle={{bottom: 5,flex:1}}>{imagesArray}</Swiper>
             })
         }
 
     }
     render(){
         return(
-            <View style={{height:414}}>
+            <View style={{height:width}}>
                 {this.state.swiper}
             </View>
         )

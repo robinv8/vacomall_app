@@ -81,7 +81,7 @@ export default class OrderDetail extends Component {
                     style={{height:115,backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E6E6E6',flexDirection:'row',alignItems:'center',marginBottom:12}}>
                     <View>
                         <Image
-                            source={{uri:this.props.img}}
+                            source={{uri:this.props.img+'@h_200'}}
                             style={{height:80,width:80,resizeMode:'stretch',borderWidth:0.5,borderColor:'#EBEBEB',backgroundColor:'white',marginLeft:14,marginRight:13}}/>
                     </View>
                     <View>

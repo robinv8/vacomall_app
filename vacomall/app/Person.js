@@ -227,7 +227,23 @@ export default class Person extends Component {
             })
         }
     }
-
+/*
+* <View style={[styles.header_bottom,{opacity:0}]}>
+ <View style={styles.header_bottom_con}/>
+ <View style={styles.header_bottom_con}>
+ <Text style={{color:'#CAEFDA'}}>购物券:</Text>
+ <Text
+ style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>55</Text>
+ <Text style={{color:'white',fontSize:12}}>张</Text>
+ </View>
+ <View style={[styles.header_bottom_con,{borderRightWidth:0}]}>
+ <Text style={{color:'#CAEFDA'}}>优惠券:</Text>
+ <Text
+ style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>4</Text>
+ <Text style={{color:'white',fontSize:12}}>张</Text>
+ </View>
+ </View>
+* */
     render() {
         return (
             <View style={styles.container}>
@@ -253,21 +269,7 @@ export default class Person extends Component {
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
-                        <View style={[styles.header_bottom,{opacity:0}]}>
-                            <View style={styles.header_bottom_con}/>
-                            <View style={styles.header_bottom_con}>
-                                <Text style={{color:'#CAEFDA'}}>购物券:</Text>
-                                <Text
-                                    style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>55</Text>
-                                <Text style={{color:'white',fontSize:12}}>张</Text>
-                            </View>
-                            <View style={[styles.header_bottom_con,{borderRightWidth:0}]}>
-                                <Text style={{color:'#CAEFDA'}}>优惠券:</Text>
-                                <Text
-                                    style={{fontFamily:'DIN Condensed',fontWeight:'bold',fontSize:28,color:'white',paddingTop:5}}>4</Text>
-                                <Text style={{color:'white',fontSize:12}}>张</Text>
-                            </View>
-                        </View>
+
                     </Image>
                     <View style={{backgroundColor:'white',marginBottom:10}}>
                         <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail('all')}>
