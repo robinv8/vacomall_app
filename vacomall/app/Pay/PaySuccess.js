@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:1,
-        borderBottomColor:'rgba(213,213,213,0.5)',
+        borderBottomColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)',
         justifyContent: 'center'
     },
     logo: {

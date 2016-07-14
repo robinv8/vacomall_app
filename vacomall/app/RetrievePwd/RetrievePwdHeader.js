@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:0.5,
-        borderBottomColor:'#D3D3D3',
+        borderBottomColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)',
     },
     searchBox: {
         height: 28,

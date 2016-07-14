@@ -61,9 +61,9 @@ export default class ListPage extends Component {
                 <SortItem text={'综合排序'} color={'#EF8200'} img={require('../images/sort_icon_hover.png')}
                           onclick={(num)=>this._sort(0)}/>
                 <SortItem text={'价格'} color={'#555555'} img={require('../images/sort_icon.png')}
-                          onclick={(num)=>this._sort(3)}/>
-                <SortItem text={'销量'} color={'#555555'} img={require('../images/sort_icon.png')}
                           onclick={(num)=>this._sort(2)}/>
+                <SortItem text={'销量'} color={'#555555'} img={require('../images/sort_icon.png')}
+                          onclick={(num)=>this._sort(3)}/>
             </View>
         });
         setTimeout(()=> {
@@ -72,9 +72,9 @@ export default class ListPage extends Component {
     }
 
     getListData() {
-        if(this.state.page===1){
+        if (this.state.page === 1) {
             this.setState({
-                listArray:[],
+                listArray: [],
             });
         }
         if (this.props.Target === null) {
@@ -102,12 +102,12 @@ export default class ListPage extends Component {
         } else {
             if (this.state.listArray.length > 0) {
                 this.setState({
-                    isNull:true,
+                    isNull: true,
                     loaded: true,
                 });
             } else {
                 this.setState({
-                    isNull:false,
+                    isNull: false,
                     loaded: true,
                 });
             }
@@ -115,6 +115,9 @@ export default class ListPage extends Component {
     }
 
     _sort(num) {
+        if (num === this.state.sort) {
+            return;
+        }
         this.setState({
             sort: num,
             page: 1,
@@ -136,7 +139,7 @@ export default class ListPage extends Component {
 
                 beforeSortItem = SortItemArray[0];
                 break;
-            case 3:
+            case 2:
                 SortItemArray[1].setState({
                     color: '#EF8200',
                     img: require('../images/sort_icon_hover.png')
@@ -147,7 +150,7 @@ export default class ListPage extends Component {
                 });
                 beforeSortItem = SortItemArray[1];
                 break;
-            case 2:
+            case 3:
                 SortItemArray[2].setState({
                     color: '#EF8200',
                     img: require('../images/sort_icon_hover.png')
@@ -159,13 +162,14 @@ export default class ListPage extends Component {
                 beforeSortItem = SortItemArray[2];
                 break;
         }
-        listFlag=0;
+        listFlag = 0;
         this.setState({
-            listArray:[]
+            listArray: []
         })
         this.getListData();
-        this._listView.scrollTo({y:0})
+        this._listView.scrollTo({y: 0})
     }
+
     toHome() {
         const {navigator}=this.props;
         if (navigator) {
@@ -197,7 +201,7 @@ export default class ListPage extends Component {
             </View>
         )
     }
-    
+
 
     refresh() {
         this.setState({
@@ -371,6 +375,7 @@ const styles = StyleSheet.create({
         height: 32,
         borderBottomColor: '#E7E7E7',
         borderBottomWidth: 1,
+        marginBottom: 10
     },
     sortItemView: {
         flexDirection: 'row',

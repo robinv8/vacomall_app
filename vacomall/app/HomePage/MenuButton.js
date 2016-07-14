@@ -62,6 +62,8 @@ export default class MenuButton extends React.Component {
                     });
                 }
                 break;
+            default:
+                break
         }
 
     }

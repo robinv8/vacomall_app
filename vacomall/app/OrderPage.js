@@ -264,7 +264,7 @@ export default class OrderPage extends Component {
             <View style={{flex:1,backgroundColor:'#FAFAFA'}}>
                 <View style={{flex:1}}>
                     <OrderHeader navigator={this.props.navigator}/>
-                    <ScrollView style={{flex:1}}>
+                    <ScrollView style={{flex:1,marginBottom:49}}>
                         <View
                             style={{height:84,backgroundColor:'white',flexDirection:'row',padding:12,paddingTop:17,paddingBottom:15,borderBottomWidth:1,borderBottomColor:'#E6E6E6'}}>
 
@@ -373,7 +373,7 @@ export default class OrderPage extends Component {
                     </ScrollView>
                 </View>
                 <View>
-                    <View style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:'rgba(213,213,213,0.5)'}}>
+                    <View style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)'}}>
                         <View
                             style={[styles.bom,{flex:2, paddingLeft:10, flexDirection:'row', justifyContent:'flex-end',paddingRight:10}]}>
                             <Text style={{fontSize:12,marginTop:1}}>共计:</Text>

@@ -125,6 +125,15 @@ export default class HomePage extends Component {
                         </TouchableWithoutFeedback>
                     );
                     break;
+                default:
+                    imgArray.push(<TouchableWithoutFeedback key={index}
+                                                            onPress={(id,Xtype)=>{}}>
+                            <View style={styles.wrapper}>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    );
+                    break;
             }
 
         })
@@ -419,7 +428,7 @@ export default class HomePage extends Component {
                             <View style={styles.ad_topic}>
                                 <Image style={styles.headline}
                                        source={require('../images/Headline.png')}/>
-                                <View style={{width:1,height:17,backgroundColor:'#979797',marginRight:10}}/>
+                                <View style={{width:1,height:17,backgroundColor:'#979797',}}/>
                                 <View style={{flex:1,height:30,overflow:'hidden'}}>
                                     {this.state.news}
                                 </View>

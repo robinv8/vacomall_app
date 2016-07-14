@@ -15,7 +15,7 @@ import React, {
     TouchableOpacity,
     TouchableWithoutFeedback,
     ToastAndroid,
-    Navigator
+    Navigator,Platform
 }from 'react-native'
 import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit,MainScreen,Loaddingpage,Guess} from './util/Path';
 
@@ -309,7 +309,7 @@ export default class CartPage extends Component {
                     </View>
                 </ScrollView>
                 <View>
-                    <View style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:'rgba(213,213,213,0.5)'}}>
+                    <View style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)'}}>
                         <View
                             style={[styles.bom,{flex:2,flexDirection:'row', paddingLeft:10, paddingRight:10}]}>
                             <View

@@ -133,14 +133,14 @@ export default class Person extends Component {
         index_cat_data.map(function (data, index) {
             if (index < 4) {
                 catArray1.push(<MenuButton key={index}
-                                           id={data['GroupId']}
+                                           id={data['Target']}
                                            imgUrl={data['ItemImg']}
                                            Xtype={data['Xtype']}
                                            showText={data['ItemName']}
                                            navigator={_this.props.navigator}/>)
             } else if (index < 8) {
                 catArray2.push(<MenuButton key={index}
-                                           id={data['GroupId']}
+                                           id={data['Target']}
                                            imgUrl={data['ItemImg']}
                                            Xtype={data['Xtype']}
                                            showText={data['ItemName']}

@@ -15,7 +15,7 @@ import React,{
     WebView,
     ViewPagerAndroid,
     Navigator,
-    Animated
+    Animated,Platform
 }from 'react-native';
 import {API,NetService,Login,DetailImg,Toast,DetailSwiper,GoodsSpec,HtmlRender,Loaddingpage,DetailHeader} from '../util/Path';
 
@@ -37,6 +37,7 @@ export default class GoodsDetail extends Component {
             guessFlag: false,
             shadeThis:null,
             imgdetails:null,
+            isgoods:false
         };
 
     }
@@ -45,7 +46,14 @@ export default class GoodsDetail extends Component {
         setTimeout(()=>{
             NetService.postFetchData(API.DETAIL, 'id=' + this.props.id, (result)=>{
                 if (result['success'] === false) {
-                    Toast.show(result['result']['message']);
+                    if(result['result']['code']===550){
+                        this.setState({
+                            loaded: true,
+                        })
+                    }else{
+                        Toast.show(result['result']['message']);
+                    }
+
                     return;
                 }
                 var result = result['result'];
@@ -56,7 +64,8 @@ export default class GoodsDetail extends Component {
                 this.setDetails(result['details']);
 
                 this.setState({
-                    loaded: true
+                    loaded: true,
+                    isgoods:true
                 })
                 this.setState({
                     webImgData: result['imageDetails']
@@ -83,6 +92,9 @@ export default class GoodsDetail extends Component {
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
+        }
+        if (!this.state.isgoods) {
+            return this.isGoods();
         }
         return (
             <View style={{flex:1,backgroundColor:'#F4F4F4'}}>
@@ -161,7 +173,7 @@ export default class GoodsDetail extends Component {
                 </ScrollView>
                 <View>
                     <View
-                        style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:'rgba(213,213,213,0.5)'}}>
+                        style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)'}}>
                         <View
                             style={[styles.bom,{flex:1, paddingLeft:10, flexDirection:'row', justifyContent:'flex-start',backgroundColor:'white'}]}>
                             <Text style={{fontSize:12}}>总价:</Text>
@@ -200,6 +212,13 @@ export default class GoodsDetail extends Component {
         return (
             <View style={{flex:1}}>
                 <Loaddingpage/>
+            </View>
+        );
+    }
+    isGoods(){
+        return (
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text>该商品已下架~</Text>
             </View>
         );
     }

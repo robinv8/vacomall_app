@@ -82,7 +82,7 @@ export default class OrderDetail extends Component {
                     <View>
                         <Image
                             source={{uri:this.props.img+'@h_200'}}
-                            style={{height:80,width:80,resizeMode:'stretch',borderWidth:0.5,borderColor:'#EBEBEB',backgroundColor:'white',marginLeft:14,marginRight:13}}/>
+                            style={{height:80,width:80,resizeMode:'cover',borderWidth:1,borderColor:'#EBEBEB',backgroundColor:'white',marginLeft:14,marginRight:13}}/>
                     </View>
                     <View>
                         <Text style={{marginBottom:10,color:'#3C3C3C'}}>物流状态: <Text

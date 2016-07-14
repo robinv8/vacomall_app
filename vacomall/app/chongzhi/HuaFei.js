@@ -152,7 +152,7 @@ export default class HuaFei extends Component {
                 </View>
                 <View
                     style={{height:38,backgroundColor:'white',justifyContent:'center',paddingLeft:10,borderBottomWidth:0.5,borderBottomColor:'#DFDFDF'}}>
-                    <Text style={{color:'#3C3C3C'}}>目前充值服务近支持微信支付</Text>
+                    <Text style={{color:'#3C3C3C'}}>目前充值服务仅支持微信支付</Text>
                 </View>
                 <View
                     style={{height:56,backgroundColor:'white',alignItems:'center',paddingLeft:10,flexDirection:'row',paddingRight:12,borderBottomWidth:0.5,borderBottomColor:'#E6E6E6'}}>
