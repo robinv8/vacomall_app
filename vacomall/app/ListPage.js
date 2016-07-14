@@ -45,7 +45,7 @@ export default class ListPage extends Component {
     }
 
     componentWillMount() {
-        if (this.props.id === null) {
+        if (this.props.Target === null) {
             this.setState({
                 searchText: this.props.text
             })

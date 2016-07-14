@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
         height:Platform.OS === 'ios' ? 64 : 40,
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
-        borderBottomWidth:0.5,
-        borderBottomColor:'#D3D3D3',
+        borderBottomWidth:1,
+        borderBottomColor:'rgba(213,213,213,0.5)',
         justifyContent:'center'
     },
     logo: {

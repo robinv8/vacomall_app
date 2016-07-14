@@ -161,7 +161,7 @@ export default class GoodsDetail extends Component {
                 </ScrollView>
                 <View>
                     <View
-                        style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width}}>
+                        style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:'rgba(213,213,213,0.5)'}}>
                         <View
                             style={[styles.bom,{flex:1, paddingLeft:10, flexDirection:'row', justifyContent:'flex-start',backgroundColor:'white'}]}>
                             <Text style={{fontSize:12}}>总价:</Text>

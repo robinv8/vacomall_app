@@ -373,7 +373,7 @@ export default class OrderPage extends Component {
                     </ScrollView>
                 </View>
                 <View>
-                    <View style={{flexDirection:'row',height:49,backgroundColor:'white'}}>
+                    <View style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:'rgba(213,213,213,0.5)'}}>
                         <View
                             style={[styles.bom,{flex:2, paddingLeft:10, flexDirection:'row', justifyContent:'flex-end',paddingRight:10}]}>
                             <Text style={{fontSize:12,marginTop:1}}>共计:</Text>

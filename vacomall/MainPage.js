@@ -36,6 +36,10 @@ export default class MainPage extends Component {
 
 
     componentWillMount() {
+        /*this.setState({
+            isUpdate:false
+        });
+        this._loadInitialState();*/
         CodePush.notifyApplicationReady();
         //访问慢,不稳定
         CodePush.checkForUpdate()

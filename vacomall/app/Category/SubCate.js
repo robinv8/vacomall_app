@@ -41,7 +41,7 @@ export default class SubCate extends Component {
             <View>
                 <View
                     style={styles.sublist}><Text style={[styles.text]}>{this.props.name}</Text></View>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row',flexWrap: 'wrap'}}>
                     {this.state.third}
                 </View>
             </View>
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
         marginRight: 5,
         backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom:5
     },
     text: {
         fontSize: 14,

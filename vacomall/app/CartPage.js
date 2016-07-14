@@ -285,6 +285,7 @@ export default class CartPage extends Component {
                             _editsubmit={()=>this._editsubmit()} tab={this.props.tab} topEvent={true}/>
                 <ScrollView
                     scrollsToTop={true}
+                    style={{marginBottom:49}}
                     removeClippedSubviews={true}>
                     <View style={{backgroundColor:'white'}}>
                         <TouchableWithoutFeedback onPress={()=>this._checked()}>
@@ -302,13 +303,13 @@ export default class CartPage extends Component {
                         renderRow={(gList)=>this.renderGList(gList)}
                     />
                     <View
-                        style={{flexDirection:'row',height: 49,backgroundColor:'white',justifyContent:'flex-end',alignItems:'center',paddingRight:15,borderBottomWidth:1,borderBottomColor:'#e2e2e2'}}>
+                        style={{flexDirection:'row',height: 49,backgroundColor:'white',justifyContent:'flex-end',alignItems:'center',paddingRight:15,borderBottomWidth:0.5,borderBottomColor:'#e2e2e2'}}>
                         <Text>共计:<Text style={styles.price}>￥<Text
                             style={{fontSize:18}}>{this.state.price}</Text></Text></Text>
                     </View>
                 </ScrollView>
                 <View>
-                    <View style={{flexDirection:'row',height:49,backgroundColor:'white'}}>
+                    <View style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:'rgba(213,213,213,0.5)'}}>
                         <View
                             style={[styles.bom,{flex:2,flexDirection:'row', paddingLeft:10, paddingRight:10}]}>
                             <View
