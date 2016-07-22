@@ -23,7 +23,9 @@
         android:name="android.hardware.camera.front"
         android:required="false" />
 
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <uses-feature
         android:name="android.hardware.camera.autofocus"

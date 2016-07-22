@@ -14,7 +14,7 @@ import React, {
     Dimensions,
     Animated
 } from 'react-native';
-//import BarcodeScanner from 'react-native-barcodescanner';
+import BarcodeScanner from 'react-native-barcodescanner';
 import {GoodsDetail,Toast} from './Path'
 export default class BarCodeAndroid extends Component {
     constructor(props) {
@@ -81,12 +81,16 @@ export default class BarCodeAndroid extends Component {
     }
 
     barcodeReceived(e) {
-        if (!this.state.isScan) {
+        /*if (!this.state.isScan) {
             this.setState({
                 isLoad:false
             })
+            Toast.show(JSON.stringify(e))
             const {navigator}=this.props;
             let data = JSON.parse(e.data);
+            if(data['t']===undefined){
+                return;
+            }
             switch (data['t']){
                 case 0:
                     if (navigator) {
@@ -101,7 +105,7 @@ export default class BarCodeAndroid extends Component {
         }
         this.setState({
             isScan:true
-        })
+        })*/
     }
     renderLoadingView() {
         return (

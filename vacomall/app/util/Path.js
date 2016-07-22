@@ -83,7 +83,6 @@ import TabNavigator from 'react-native-tab-navigator';
 import CodePush from 'react-native-code-push';
 import Swiper from 'react-native-swiper2';
 import Toast from 'react-native-root-toast';
-import WebViewBridge from 'react-native-webview-bridge';
 import LinearGradient from 'react-native-linear-gradient';
 import Reactotron from 'reactotron';
 import ListViewRowEdit from 'react-native-listview-row-edit';
@@ -130,7 +129,6 @@ export {
     DetailImg,//商品详情图片
     GoodsSpec,//商品规格
     md5,
-    WebViewBridge,//htmlview
     LinearGradient,//渐变色
     RetrievePwd,//找回密码
     RetrievePwdHeader,//找回密码

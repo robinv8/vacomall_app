@@ -186,12 +186,15 @@ export default class BarCodeIos extends Component {
     }
 
     onBarCodeRead(result) {
-        if (!this.state.isScan) {
+        /*if (!this.state.isScan) {
             this.setState({
                 isLoad: false
             })
             const {navigator}=this.props;
             let data = JSON.parse(result['data']);
+            if(data['t']===undefined){
+                return;
+            }
             switch (data['t']) {
                 case 0:
                     if (navigator) {
@@ -205,7 +208,7 @@ export default class BarCodeIos extends Component {
         }
         this.setState({
             isScan: true
-        })
+        })*/
     }
 
 

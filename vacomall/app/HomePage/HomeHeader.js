@@ -77,7 +77,7 @@ export default class HomeHeader extends Component {
         }
     }
     toBarCode(){
-        const {navigator}=this.props;
+        /*const {navigator}=this.props;
         if (Platform.OS === 'ios') {
             if (navigator) {
                 navigator.push({
@@ -92,7 +92,7 @@ export default class HomeHeader extends Component {
                     sceneConfig:Navigator.SceneConfigs.FloatFromLeft
                 })
             }
-        }
+        }*/
     }
     render() {
         return (

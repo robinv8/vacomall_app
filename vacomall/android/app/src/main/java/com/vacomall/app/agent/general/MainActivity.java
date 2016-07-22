@@ -7,7 +7,6 @@ import com.heng.wechat.WeChatPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import java.util.Arrays;
 import java.util.List;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -44,7 +43,6 @@ public class MainActivity extends ReactActivity {
             new BarcodeScannerPackage(),
             new RCTCameraPackage(),
             new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG),
-             new WebViewBridgePackage(),
              new LinearGradientPackage(),
             new WeChatPackage()
         );
