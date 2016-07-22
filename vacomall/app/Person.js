@@ -103,7 +103,7 @@ export default class Person extends Component {
                         </View>
                     })
                 }
-                let thh = result[400];
+                let thh = result[600];
                 if (thh > 0) {
                     thh = thh.toString();
                     this.setState({
