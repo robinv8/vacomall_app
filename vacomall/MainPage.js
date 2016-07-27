@@ -13,15 +13,17 @@ import React,{
     AsyncStorage,
     Dimensions,
     Image,
-    Platform
+    Platform,
+    Alert
 }from 'react-native';
 
 
-import {MainScreen,IntroPage,Login,PaySuccess,PayHDFK,CodePush,Toast} from './app/util/Path';
+import {MainScreen,IntroPage,Login,PaySuccess,PayHDFK,CodePush,Toast,API,NetService} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version';
 const {width,height}=Dimensions.get('window');
+import WebIntent from 'react-native-webintent';
 export default class MainPage extends Component {
     // 构造
     constructor(props) {
@@ -36,11 +38,30 @@ export default class MainPage extends Component {
 
 
     componentWillMount() {
-        /*this.setState({
-            isUpdate:false
+        NetService.getFetchData(API.UPDATEVERSION, (result)=> {
+            console.log(Version+':'+result['Ver'])
+            if (Version !== result['Ver']) {
+                Alert.alert('新版本',
+                    result['VerDesc'],
+                    [
+                        {text: '否', onPress: () =>{
+                            this.setState({
+                                isUpdate:false
+                            });
+                            this._loadInitialState();
+                        }},
+                        {text: '是', onPress: () => WebIntent.open(result['VerUrl'])},
+                    ]
+                );
+            }else{
+                this.setState({
+                    isUpdate:false
+                });
+                this._loadInitialState();
+            }
         });
-        this._loadInitialState();*/
-        CodePush.notifyApplicationReady();
+
+        /*CodePush.notifyApplicationReady();
         //访问慢,不稳定
         CodePush.checkForUpdate()
             .then((update) => {
@@ -60,7 +81,7 @@ export default class MainPage extends Component {
                         installMode: CodePush.InstallMode.IMMEDIATE
                     });
                 }
-            });
+            });*/
     }
     async _loadInitialState() {
         let installed = await AsyncStorage.getItem('installedVersion');

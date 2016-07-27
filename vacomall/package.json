@@ -20,6 +20,7 @@
     "react-native-storage": "0.0.16",
     "react-native-swiper2": "^2.0.6",
     "react-native-tab-navigator": "^0.3.2",
+    "react-native-webintent": "^1.0.4",
     "react-native-wechat-android": "^2.0.1",
     "react-native-wechat-ios": "^0.3.0"
   },

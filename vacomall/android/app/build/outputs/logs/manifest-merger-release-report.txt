@@ -28,6 +28,7 @@ MERGED from com.facebook.react:react-native:0.24.1:11:5
 MERGED from com.facebook.react:react-native:0.24.1:11:5
 MERGED from com.facebook.react:react-native:0.24.1:11:5
 MERGED from com.facebook.react:react-native:0.24.1:11:5
+MERGED from com.facebook.react:react-native:0.24.1:11:5
 	android:name
 		ADDED from AndroidManifest.xml:7:22
 uses-permission#android.permission.ACCESS_NETWORK_STATE
@@ -165,6 +166,25 @@ MERGED from com.android.support:recyclerview-v7:23.0.1:20:5
 MERGED from com.android.support:support-v4:23.0.1:20:5
 MERGED from com.android.support:appcompat-v7:23.0.1:20:5
 MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from vacomall:RNWebIntent:unspecified:7:5
+MERGED from com.facebook.react:react-native:0.24.1:7:5
+MERGED from com.facebook.fresco:fresco:0.8.1:5:5
+MERGED from com.facebook.fresco:imagepipeline:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.facebook.fresco:drawee:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:imagepipeline-okhttp:0.8.1:5:5
+MERGED from com.facebook.fresco:imagepipeline:0.8.1:5:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.facebook.fresco:fbcore:0.8.1:5:5
+MERGED from com.android.support:recyclerview-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.android.support:appcompat-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
 	android:targetSdkVersion
 		ADDED from AndroidManifest.xml:15:13
 		INJECTED from AndroidManifest.xml:0:0
@@ -209,6 +229,14 @@ MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.facebook.react:react-native:0.24.1:13:5
+MERGED from org.webkit:android-jsc:r174650:2:3
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from com.android.support:support-v4:23.0.1:22:5
 MERGED from com.android.support:appcompat-v7:23.0.1:22:5
 MERGED from com.android.support:support-v4:23.0.1:22:5

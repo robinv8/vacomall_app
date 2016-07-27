@@ -14,7 +14,7 @@ import React, {
     Dimensions,
     Platform
 } from 'react-native';
-import {ListPage,} from '../util/Path';
+import {ListPage,GoodsDetail} from '../util/Path';
 export default class SubCate extends Component {
     // 构造
     constructor(props) {
@@ -29,7 +29,7 @@ export default class SubCate extends Component {
         var rows = [];
         const _this=this;
         this.props.item.map(function (data, index) {
-            rows.push(<Third key={index} name={data['Title']} icon={data['Icon']} Target={data['Target']} navigator={_this.props.navigator}/>)
+            rows.push(<Third key={index} name={data['Title']} icon={data['Icon']} Xtype={data['Xtype']} Target={data['Target']} navigator={_this.props.navigator}/>)
         });
         this.setState({
             third: rows
@@ -52,11 +52,45 @@ export default class SubCate extends Component {
 class Third extends Component {
     _selectGoodsList(Target){
         const {navigator}=this.props;
-        if(navigator){
-            navigator.push({
-                component:ListPage,
-                params:{Target:Target}
-            })
+        switch (this.props.Xtype){
+            case 10:
+                if (navigator) {
+                    navigator.push({
+                        component: GoodsDetail,
+                        params: {id: Target}
+                    })
+                }
+                break;
+            case 20:
+                if (navigator) {
+                    navigator.push({
+                        component: ListPage,
+                        sceneConfig: Navigator.SceneConfigs.FloatFromRight,
+                        params: {Target: Target}
+                    })
+                }
+                break;
+            case 30:
+                if (navigator) {
+                    navigator.push({
+                        component: ListPage,
+                        params: {
+                            text: Target,//关键字搜索
+                            Target: null
+                        }
+                    })
+                }
+                break;
+            case 50:
+                if(navigator){
+                    navigator.push({
+                        component:CategoryList,
+                        //sceneConfig:Navigator.SceneConfigs.FloatFromRight
+                    });
+                }
+                break;
+            default:
+                break
         }
     }
     render() {

@@ -10,6 +10,7 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.List;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.ivanph.webintent.RNWebIntentPackage;
 public class MainActivity extends ReactActivity {
 
     /**
@@ -44,7 +45,8 @@ public class MainActivity extends ReactActivity {
             new RCTCameraPackage(),
             new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG),
              new LinearGradientPackage(),
-            new WeChatPackage()
+            new WeChatPackage(),
+            new RNWebIntentPackage()
         );
     }
 }
