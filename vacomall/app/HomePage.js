@@ -39,7 +39,9 @@ export default class HomePage extends Component {
             isRefreshing: false,
             newsValue: new Animated.Value(0),
             newsFlag: 1,
-            guessFlag: false
+            guessFlag: false,
+            index99:null,
+            indexCSH:null
         };
     }
 
@@ -249,20 +251,20 @@ export default class HomePage extends Component {
             indexCSH: <View style={styles.seckill}>
                 <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[0]['Target'],index_csh_data[0]['Xtype'])}>
                     <View style={styles.seckill_1}>
-                        <Image source={{uri:index_99_data[0]['ItemImg']}}
+                        <Image source={{uri:index_csh_data[0]['ItemImg']}}
                                style={styles.seckill_1_img}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.seckill_2}>
                     <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[1]['Target'],index_csh_data[1]['Xtype'])}>
                         <View style={styles.seckill_3}>
-                            <Image source={{uri:index_99_data[1]['ItemImg']}}
+                            <Image source={{uri:index_csh_data[1]['ItemImg']}}
                                    style={styles.seckill_2_img}/>
                         </View>
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[2]['Target'],index_csh_data[2]['Xtype'])}>
                         <View style={[styles.seckill_2]}>
-                            <Image source={{uri:index_99_data[2]['ItemImg']}}
+                            <Image source={{uri:index_csh_data[2]['ItemImg']}}
                                    style={styles.seckill_3_img}/>
                         </View>
                     </TouchableWithoutFeedback>
