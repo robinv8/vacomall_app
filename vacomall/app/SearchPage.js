@@ -231,7 +231,7 @@ export default class Header extends Component {
                         <View
                             style={styles.clear_btn}>
                             <Text
-                            style={{fontSize:12,color:'#EF8200'}}>清楚历史记录</Text></View>
+                            style={{fontSize:12,color:'#EF8200'}}>清除历史记录</Text></View>
                     </TouchableWithoutFeedback>
                 </View>
             </View>

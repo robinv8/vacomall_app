@@ -20,9 +20,9 @@ import React, {
     ToastAndroid,
     Animated
 } from 'react-native';
-import {HomeHeader,Swiper,MenuButton,GoodsDetail,ListPage,API,NetService} from './util/Path';
+import {HomeHeader, Swiper, MenuButton, GoodsDetail, ListPage, API, NetService} from './util/Path';
 var listFlag = 0;
-
+const {width, height}=Dimensions.get('window');
 export default class HomePage extends Component {
     // 构造
     constructor(props) {
@@ -40,8 +40,8 @@ export default class HomePage extends Component {
             newsValue: new Animated.Value(0),
             newsFlag: 1,
             guessFlag: false,
-            index99:null,
-            indexCSH:null
+            index99: null,
+            indexCSH: null
         };
     }
 
@@ -54,7 +54,8 @@ export default class HomePage extends Component {
         /*获取首页基本数据*/
         NetService.getFetchData(API.HOME + '?keys=INDEX_CAT,INDEX_SCROLL_IMG,INDEX_NEWS,INDEX_99,INDEX_CSH,INDEX_BRAND', (result)=>this._callback(result));
     }
-    toNextPage(id,Xtype){
+
+    toNextPage(id, Xtype) {
         const {navigator}=this.props;
         switch (Xtype) {
             case 10:
@@ -88,6 +89,7 @@ export default class HomePage extends Component {
         }
 
     }
+
     /*异步请求后的回调*/
     _callback(result) {
         this.setState({isRefreshing: false});
@@ -99,10 +101,11 @@ export default class HomePage extends Component {
         }
         var imgArray = [];
         var _this = this;
-        index_img.map((data,index)=>{
+        index_img.map((data, index)=> {
             switch (data['Xtype']) {
                 case 10:
-                    imgArray.push(<TouchableWithoutFeedback key={index} onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
+                    imgArray.push(<TouchableWithoutFeedback key={index}
+                                                            onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
                             <View style={styles.wrapper}>
                                 <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
                             </View>
@@ -140,7 +143,7 @@ export default class HomePage extends Component {
 
         })
         this.setState({
-            swiper: <Swiper autoplay={false} height={170} paginationStyle={{bottom: 5}}>
+            swiper: <Swiper autoplay={true} height={170} paginationStyle={{bottom: 5}}>
                 {imgArray}
             </Swiper>
         });
@@ -221,19 +224,22 @@ export default class HomePage extends Component {
         }
         this.setState({
             index99: <View style={[styles.seckill,{marginTop: 12}]}>
-                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_99_data[0]['Target'],index_99_data[0]['Xtype'])}>
+                <TouchableWithoutFeedback
+                    onPress={(id,Xtype)=>this.toNextPage(index_99_data[0]['Target'],index_99_data[0]['Xtype'])}>
                     <View style={styles.seckill_1}>
                         <Image source={{uri:index_99_data[0]['ItemImg']}} style={styles.seckill_1_img}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.seckill_2}>
-                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_99_data[1]['Target'],index_99_data[1]['Xtype'])}>
+                    <TouchableWithoutFeedback
+                        onPress={(id,Xtype)=>this.toNextPage(index_99_data[1]['Target'],index_99_data[1]['Xtype'])}>
                         <View style={styles.seckill_3}>
                             <Image source={{uri:index_99_data[1]['ItemImg']}}
                                    style={styles.seckill_2_img}/>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_99_data[2]['Target'],index_99_data[2]['Xtype'])}>
+                    <TouchableWithoutFeedback
+                        onPress={(id,Xtype)=>this.toNextPage(index_99_data[2]['Target'],index_99_data[2]['Xtype'])}>
                         <View style={[styles.seckill_2]}>
                             <Image source={{uri:index_99_data[2]['ItemImg']}}
                                    style={styles.seckill_3_img}/>
@@ -249,20 +255,23 @@ export default class HomePage extends Component {
         }
         this.setState({
             indexCSH: <View style={styles.seckill}>
-                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[0]['Target'],index_csh_data[0]['Xtype'])}>
+                <TouchableWithoutFeedback
+                    onPress={(id,Xtype)=>this.toNextPage(index_csh_data[0]['Target'],index_csh_data[0]['Xtype'])}>
                     <View style={styles.seckill_1}>
                         <Image source={{uri:index_csh_data[0]['ItemImg']}}
                                style={styles.seckill_1_img}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.seckill_2}>
-                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[1]['Target'],index_csh_data[1]['Xtype'])}>
+                    <TouchableWithoutFeedback
+                        onPress={(id,Xtype)=>this.toNextPage(index_csh_data[1]['Target'],index_csh_data[1]['Xtype'])}>
                         <View style={styles.seckill_3}>
                             <Image source={{uri:index_csh_data[1]['ItemImg']}}
                                    style={styles.seckill_2_img}/>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_csh_data[2]['Target'],index_csh_data[2]['Xtype'])}>
+                    <TouchableWithoutFeedback
+                        onPress={(id,Xtype)=>this.toNextPage(index_csh_data[2]['Target'],index_csh_data[2]['Xtype'])}>
                         <View style={[styles.seckill_2]}>
                             <Image source={{uri:index_csh_data[2]['ItemImg']}}
                                    style={styles.seckill_3_img}/>
@@ -278,22 +287,25 @@ export default class HomePage extends Component {
         }
         this.setState({
             indexBrand: <View style={styles.seckill}>
-                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_brand_data[0]['Target'],index_brand_data[0]['Xtype'])}>
+                <TouchableWithoutFeedback
+                    onPress={(id,Xtype)=>this.toNextPage(index_brand_data[0]['Target'],index_brand_data[0]['Xtype'])}>
                     <View style={[styles.seckill_1,{justifyContent:'center'}]}>
                         <Image source={{uri:index_brand_data[0]['ItemImg']}}
-                               style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
+                               style={[styles.seckill_1_img,{width:(width-1) / 3,height:width/2}]}/>
                     </View>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_brand_data[1]['Target'],index_brand_data[1]['Xtype'])}>
+                <TouchableWithoutFeedback
+                    onPress={(id,Xtype)=>this.toNextPage(index_brand_data[1]['Target'],index_brand_data[1]['Xtype'])}>
                     <View style={[styles.seckill_1,{justifyContent:'center'}]}>
                         <Image source={{uri:index_brand_data[1]['ItemImg']}}
-                               style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
+                               style={[styles.seckill_1_img,{width:(width-1) / 3,height:width/2}]}/>
                     </View>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={(id,Xtype)=>this.toNextPage(index_brand_data[2]['Target'],index_brand_data[2]['Xtype'])}>
+                <TouchableWithoutFeedback
+                    onPress={(id,Xtype)=>this.toNextPage(index_brand_data[2]['Target'],index_brand_data[2]['Xtype'])}>
                     <View style={[styles.seckill_1,{justifyContent:'center',borderRightWidth:0}]}>
                         <Image source={{uri:index_brand_data[2]['ItemImg']}}
-                               style={[styles.seckill_1_img,{width:(Dimensions.get('window').width-1) / 3,height:197}]}/>
+                               style={[styles.seckill_1_img,{width:(width-1) / 3,height:width/2}]}/>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
@@ -388,6 +400,7 @@ export default class HomePage extends Component {
         }
         //event.nativeEvent.contentOffset+'-'+
     }
+
     toDetails(id) {
         const {navigator}=this.props;
         console.log(navigator)
@@ -398,6 +411,7 @@ export default class HomePage extends Component {
             })
         }
     }
+
     render() {
         return (
             <View style={{flex:1}}>
@@ -430,7 +444,7 @@ export default class HomePage extends Component {
                             <View style={styles.ad_topic}>
                                 <Image style={styles.headline}
                                        source={require('../images/Headline.png')}/>
-                                <View style={{width:1,height:17,backgroundColor:'#979797',}}/>
+                                <View style={{width:1,height:17,backgroundColor:'#979797',marginRight:10}}/>
                                 <View style={{flex:1,height:30,overflow:'hidden'}}>
                                     {this.state.news}
                                 </View>
@@ -449,7 +463,7 @@ export default class HomePage extends Component {
                         </View>
                         {this.state.indexCSH}
                     </View>
-                    <View style={[styles.chaoshihui,{height:237}]}>
+                    <View style={[styles.chaoshihui,{height: width/2+38}]}>
                         <View style={styles.chaoshihui_title}>
                             <Image source={require('../images/ppzg_tit.png')}
                                    style={[styles.csh_tit,{width:96,height:22}]}/>
@@ -490,7 +504,7 @@ const styles = StyleSheet.create({
     },
     seckill: {
         flex: 1,
-        height: 201,
+        height: width / 2,
         backgroundColor: 'white',
         flexDirection: 'row',
         shadowColor: 'rgb(0,0,0)',
@@ -507,21 +521,21 @@ const styles = StyleSheet.create({
         borderRightColor: '#E5E5E5',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        height: 201
+        height: width / 2
     },
     seckill_1_img: {
-        width: (Dimensions.get('window').width / 2) - 2,
-        height: 200,
+        width: (width / 2) - 2,
+        height: (width / 2),
         resizeMode: 'stretch'
     },
     seckill_2_img: {
-        width: Dimensions.get('window').width / 2,
-        height: 100,
+        width: width / 2,
+        height: width / 4-4,
         resizeMode: 'stretch'
     },
     seckill_3_img: {
-        width: Dimensions.get('window').width / 2,
-        height: 100,
+        width: width / 2,
+        height: width / 4-1,
         resizeMode: 'stretch'
     },
     seckill_2: {
@@ -579,7 +593,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     goods_view: {
-        width: (Dimensions.get('window').width) / 2 - 3,
+        width: (width) / 2 - 3,
         backgroundColor: 'white',
         marginBottom: 5,
         shadowColor: "rgb(0,0,0)",
@@ -618,7 +632,6 @@ const styles = StyleSheet.create({
     chaoshihui: {
         marginTop: 12,
         flex: 1,
-        height: 240,
         backgroundColor: 'white'
     },
     chaoshihui_title: {

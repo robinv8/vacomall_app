@@ -112,6 +112,7 @@ export default class Category extends Component {
     }
 
     _getSubRows() {
+        this._scrollview.scrollTo({y: 0})
         var rows = [];
         var _getGoodsList = this._getGoodsList;
         var _this = this;
@@ -145,7 +146,10 @@ export default class Category extends Component {
                     <ScrollView style={styles.firstCate}>
                         {this.state.firstRows}
                     </ScrollView>
-                    <ScrollView style={styles.subScroll}>{this.state.subRows}</ScrollView>
+                    <ScrollView
+                        ref={component => this._scrollview = component}
+                        style={styles.subScroll}
+                    >{this.state.subRows}</ScrollView>
                 </View>
             </View>
         );
