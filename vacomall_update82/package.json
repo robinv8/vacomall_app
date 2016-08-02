@@ -1,0 +1,30 @@
+{
+  "name": "vacomall",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react": "^0.14.5",
+    "react-native": "^0.24.1",
+    "react-native-app-intro": "^1.1.3",
+    "react-native-barcodescanner": "^3.0.0",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-code-push": "^1.10.6-beta",
+    "react-native-linear-gradient": "^1.5.9",
+    "react-native-listview-row-edit": "^1.0.1",
+    "react-native-picker": "^2.0.5",
+    "react-native-root-toast": "^1.0.3",
+    "react-native-scrollable-tab-view": "^0.4.4",
+    "react-native-storage": "0.0.16",
+    "react-native-swiper2": "^2.0.6",
+    "react-native-tab-navigator": "^0.3.2",
+    "react-native-webintent": "^1.0.4",
+    "react-native-wechat-android": "^2.0.1",
+    "react-native-wechat-ios": "^0.3.0"
+  },
+  "devDependencies": {
+    "reactotron": "^0.6.1"
+  }
+}
