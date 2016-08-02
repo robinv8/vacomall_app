@@ -1,7 +1,0 @@
-<resources>
-
-
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey"></string>
-
-    <string name="app_name">万颗商城</string>
-</resources>
