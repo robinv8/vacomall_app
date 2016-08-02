@@ -38,17 +38,19 @@ export default class IntroPage extends Component {
     onSkipBtnHandle = (index) => {
         // Alert.alert('Skip');
         // console.log(index);
-        clearTimeout(this.timer)
-        const {navigator}=this.props;
-        if (navigator) {
-            navigator.resetTo({
-                component: MainScreen,
-                sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                params: {
-                    Ad: null//不加载广告
-                }
-            })
-        }
+    }
+    onSkipBtn(){
+      clearTimeout(this.timer)
+      const {navigator}=this.props;
+      if (navigator) {
+          navigator.resetTo({
+              component: MainScreen,
+              sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+              params: {
+                  Ad: null//不加载广告
+              }
+          })
+      }
     }
     doneBtnHandle = () => {
         // Alert.alert('Done');
@@ -62,18 +64,18 @@ export default class IntroPage extends Component {
 
     onSlideChangeHandle = (index, total) => {
         if (index === 2) {
-            this.timer = setTimeout(()=> {
-                const {navigator}=this.props;
-                if (navigator) {
-                    navigator.resetTo({
-                        component: MainScreen,
-                        sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-                        params: {
-                            Ad: null//不加载广告
-                        }
-                    })
-                }
-            }, 4000)
+            // this.timer = setTimeout(()=> {
+            //     const {navigator}=this.props;
+            //     if (navigator) {
+            //         navigator.resetTo({
+            //             component: MainScreen,
+            //             sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+            //             params: {
+            //                 Ad: null//不加载广告
+            //             }
+            //         })
+            //     }
+            // }, 4000)
 
         } else {
             clearTimeout(this.timer)
@@ -109,17 +111,16 @@ export default class IntroPage extends Component {
                                                 style={{width:Dimensions.get('window').width,height:Dimensions.get('window').height,resizeMode: 'stretch'}}/></View>
                     </View>
                     <View style={[styles.slide,{ backgroundColor: '#FFFFFF' }]}>
-                        <TouchableWithoutFeedback onPress={()=>this.onSkipBtnHandle()}>
-                            <View
-                                style={{marginTop:20,position:'absolute',right:14,top:0,width:48,height:24,borderRadius:23,backgroundColor:'rgba(0,0,0,0.5)',justifyContent:'center',alignItems:'center'}}>
-                                <Text style={{color:'white',fontSize:12}}>跳过</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
                         <View level={10}><Image source={require('../images/intro3.png')}
                                                 style={{width:Dimensions.get('window').width,height:Dimensions.get('window').height,resizeMode: 'stretch'}}/></View>
                     </View>
                 </AppIntro>
-
+                <TouchableWithoutFeedback onPress={()=>this.onSkipBtn()}>
+                    <View
+                        style={{marginTop:20,position:'absolute',right:14,top:0,width:48,height:24,borderRadius:23,backgroundColor:'rgba(0,0,0,0.5)',justifyContent:'center',alignItems:'center'}}>
+                        <Text style={{color:'white',fontSize:12}}>跳过</Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         );
     }
