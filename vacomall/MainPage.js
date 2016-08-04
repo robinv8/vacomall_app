@@ -18,7 +18,7 @@ import React,{
 }from 'react-native';
 
 
-import {MainScreen,IntroPage,Login,PaySuccess,PayHDFK,CodePush,Toast,API,NetService} from './app/util/Path';
+import {MainScreen,IntroPage,Toast,API,NetService} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version';
@@ -61,27 +61,6 @@ export default class MainPage extends Component {
             }
         });
 
-        /*CodePush.notifyApplicationReady();
-        //访问慢,不稳定
-        CodePush.checkForUpdate()
-            .then((update) => {
-                if (!update) {
-                    console.log('APP已是最新版')
-                    this.setState({
-                        isUpdate:false
-                    });
-                    this._loadInitialState();
-                } else {
-                    console.log('正在更新~')
-                    this.setState({
-                        isUpdate:true,
-                        isUpdateStatus:'更新后内容更精彩……'
-                    })
-                    CodePush.sync({
-                        installMode: CodePush.InstallMode.IMMEDIATE
-                    });
-                }
-            });*/
     }
     async _loadInitialState() {
         let installed = await AsyncStorage.getItem('installedVersion');

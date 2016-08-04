@@ -5,154 +5,98 @@
         jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-wechat-android/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="b6d3f0df4b843be1c19a1bda887f262ee9efddec">
+        sha1="88f066b39f81a621265b879208cc012cf9d5e250">
         <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-af2666f8cd17ded11967d9fdcb9383210c548c78.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-camera/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="ccb9db0dbb3fe3380607f4a4d7a912564813041e">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-e21665f4d2c5de1f6db66781bd568db8bcc6feff.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-wechat-android/unspecified/jars/libs/libammsdk.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="47f4993168154fa73377d7470b9f6887d48a8023">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/libammsdk-88807d50177a1e176e07269ef01ad1c282904249.jar" />
-    </item>
-    <item
-        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.2.3/1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14/jackson-core-2.2.3.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.2.3-45e04216c7ca6e825bc9d5c6a5f93462f8b953e9.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.8.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="845a5b3a624946b2068963ba656c117fc453701c">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-5f55c05c22a285af31447bd4babf1acec5192aee.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/org.webkit/android-jsc/r174650/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="12b885b3ed1fc74a51f671ad40867aa91271843d">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-715aa7bcc22357718fd41554ff234094df717329.jar" />
     </item>
     <item
         jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.24.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="d12931c7b260dda5ba99b8c89cd6ec2a104abed3">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-ad399d53d2ab68f2594c1456e3b51fcf23246526.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-b58511a8afce0c1eb996abd2367f4b8c25575e44.jar" />
-    </item>
-    <item
-        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/library-2.4.0-6ac80f3738d23f2df063ce8058ef9f9300284ed1.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-barcodescanner/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="b22280ca43ba92e14ab1b19f8ab63805b96d5f61">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-0c32cfc3769dbd35d5261ac8c80a035c9be883ff.jar" />
-    </item>
-    <item
-        jar="/Users/ren/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-48e7947ded4d2729313847ab54a0d06845f5a68f.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-ad399d53d2ab68f2594c1456e3b51fcf23246526.jar" />
     </item>
     <item
         jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-4e6fd22a0603b493e63c593b83ecf0822ea70f47.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-4e6fd22a0603b493e63c593b83ecf0822ea70f47.jar" />
     </item>
     <item
-        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-ws/2.5.0/e9753b7dcae5deca92e871c5c759067070b07bc/okhttp-ws-2.5.0.jar"
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-camera/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="0e9753b7dcae5deca92e871c5c759067070b07bc">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/okhttp-ws-2.5.0-c886d991faaf9d3a933ef5d509c191a95effefd2.jar" />
+        sha1="8c2b1c9cec38b42421bb607fc17578ce375a144b">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-e21665f4d2c5de1f6db66781bd568db8bcc6feff.jar" />
     </item>
     <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.2.3/1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14/jackson-core-2.2.3.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-0ff212ad61e1c1ca4384f0cd596101d8e844bb8a.jar" />
+        sha1="1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/jackson-core-2.2.3-45e04216c7ca6e825bc9d5c6a5f93462f8b953e9.jar" />
     </item>
     <item
-        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-wechat-android/unspecified/jars/libs/libammsdk.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="98476622f10715998eacf9240d6b479f12c66143">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/okio-1.6.0-9c4878af78f2e23c3491359201b70e93f17f846c.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.24.1/jars/libs/infer-annotations-1.5.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="50bae83a0680cb90776a4d36bb6aa4911a84fd8b">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/infer-annotations-1.5-3b063a24485649c685d1a5ec5cb600db91844096.jar" />
+        sha1="47f4993168154fa73377d7470b9f6887d48a8023">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/libammsdk-88807d50177a1e176e07269ef01ad1c282904249.jar" />
     </item>
     <item
         jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp/0.8.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="0d5d69b03cb7d68b81543f6483ed04ccb0e2235b">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-786f89e1f90f1d282e0e5f1b0c0cbfede52bdde6.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-786f89e1f90f1d282e0e5f1b0c0cbfede52bdde6.jar" />
+    </item>
+    <item
+        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-ws/2.5.0/e9753b7dcae5deca92e871c5c759067070b07bc/okhttp-ws-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0e9753b7dcae5deca92e871c5c759067070b07bc">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/okhttp-ws-2.5.0-c886d991faaf9d3a933ef5d509c191a95effefd2.jar" />
+    </item>
+    <item
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-b58511a8afce0c1eb996abd2367f4b8c25575e44.jar" />
+    </item>
+    <item
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-0ff212ad61e1c1ca4384f0cd596101d8e844bb8a.jar" />
     </item>
     <item
         jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.8.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="4af24c040b21980e0a80a505816c648e36705bd9">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-76a18c4d9e0e94240f413fa7921e6e0d989ccc39.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-76a18c4d9e0e94240f413fa7921e6e0d989ccc39.jar" />
     </item>
     <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-barcodescanner/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-3f8366a74d91494fc5d37b09f833a3f298b23ae1.jar" />
+        sha1="9cdeea612cafcf7f7277a7edbd0123aec2c8389d">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-0c32cfc3769dbd35d5261ac8c80a035c9be883ff.jar" />
     </item>
     <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-code-push/unspecified/jars/classes.jar"
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.8.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="08b80c4a162f5be9ea3a1613e409b96b13fdad58">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-b4b1377c1919ccc2132f5c80c8f2fade965fbcb0.jar" />
-    </item>
-    <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-linear-gradient/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="b5c0ea18f7b73081a874b52a568e3b185ada2075">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-3aae63a4a3db6cc1a199c4719e0a91960a0df1a0.jar" />
+        sha1="9178570a3a28c95fabd3bc746cd68efe99ad2b47">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-bf4e4149672b9dec7bcc23335dec14162f7b9c4f.jar" />
     </item>
     <item
         jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/RNWebIntent/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="54fb1631a54eb03357b9acd8d1bc9c06df5fe493">
+        sha1="dec1061d53f551414afecfb858a0ac758c816b7a">
         <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-f9b4244097fd5415db8f147f90cc04fe7f6f7d32.jar" />
     </item>
     <item
@@ -160,42 +104,91 @@
         jumboMode="false"
         revision="23.0.1"
         sha1="129874135e6081269ace2312092031558865de12">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.4-5b84f2485c7d584d091ee0374da975c2d9753856.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/bolts-android-1.1.4-5b84f2485c7d584d091ee0374da975c2d9753856.jar" />
     </item>
     <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.8.1/jars/classes.jar"
+        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="9178570a3a28c95fabd3bc746cd68efe99ad2b47">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-bf4e4149672b9dec7bcc23335dec14162f7b9c4f.jar" />
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/okio-1.6.0-9c4878af78f2e23c3491359201b70e93f17f846c.jar" />
+    </item>
+    <item
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/vacomall/react-native-linear-gradient/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c78dd85a763a2562f56e7912df3fe14f8956d4c9">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-3aae63a4a3db6cc1a199c4719e0a91960a0df1a0.jar" />
     </item>
     <item
         jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.2.1/2287494d4f5f9f3a9a2bb6980e3f32053721b315/core-3.2.1.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="2287494d4f5f9f3a9a2bb6980e3f32053721b315">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/core-3.2.1-9c42eb4e09df59e9430aa5f8088301af1bf58913.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/core-3.2.1-9c42eb4e09df59e9430aa5f8088301af1bf58913.jar" />
+    </item>
+    <item
+        jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/library-2.4.0-6ac80f3738d23f2df063ce8058ef9f9300284ed1.jar" />
+    </item>
+    <item
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.24.1/jars/libs/infer-annotations-1.5.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="50bae83a0680cb90776a4d36bb6aa4911a84fd8b">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/infer-annotations-1.5-3b063a24485649c685d1a5ec5cb600db91844096.jar" />
+    </item>
+    <item
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="845a5b3a624946b2068963ba656c117fc453701c">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-5f55c05c22a285af31447bd4babf1acec5192aee.jar" />
     </item>
     <item
         jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.5.0/4de2b4ed3445c37ec1720a7d214712e845a24636/okhttp-2.5.0.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/okhttp-2.5.0-49d604de338ddb23f63d3abf1e88bd7f0564c6d0.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/okhttp-2.5.0-49d604de338ddb23f63d3abf1e88bd7f0564c6d0.jar" />
     </item>
     <item
-        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.8.1/jars/classes.jar"
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/org.webkit/android-jsc/r174650/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="3836ecca4e31e18ea8fbae8e822d49777b0db4f7">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/classes-aedb65c841fb556a42a3e10096000ae04e35f19c.jar" />
+        sha1="12b885b3ed1fc74a51f671ad40867aa91271843d">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-715aa7bcc22357718fd41554ff234094df717329.jar" />
     </item>
     <item
         jar="/Users/ren/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
-        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0-7b1ed13c92d4576f11bf51babf3bcbf1c9f4e9dc.jar" />
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/jsr305-3.0.0-7b1ed13c92d4576f11bf51babf3bcbf1c9f4e9dc.jar" />
+    </item>
+    <item
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/internal_impl-23.0.1-3f8366a74d91494fc5d37b09f833a3f298b23ae1.jar" />
+    </item>
+    <item
+        jar="/Users/ren/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/support-annotations-23.0.1-10128b8af0c792108a8127880375e68935ab4bc6.jar" />
+    </item>
+    <item
+        jar="/Users/ren/reactproject/vacomall/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3836ecca4e31e18ea8fbae8e822d49777b0db4f7">
+        <dex dex="/Users/ren/reactproject/vacomall/android/app/build/intermediates/pre-dexed/release/classes-aedb65c841fb556a42a3e10096000ae04e35f19c.jar" />
     </item>
 
 </items>

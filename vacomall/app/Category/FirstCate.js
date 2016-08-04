@@ -2,8 +2,10 @@
  * Created by ren on 16/4/12.
  */
 'use strict';
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     Text,
     View,
     TouchableWithoutFeedback,

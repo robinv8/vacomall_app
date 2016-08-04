@@ -20,7 +20,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; settings = {ATTRIBUTES = (Required, ); }; };
-		34C89A346BD74E75905537B5 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F09EF14212F449C8E7F2A66 /* libCodePush.a */; };
 		8019A6C21D0D19E6007A87F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C11D0D19E6007A87F7 /* SystemConfiguration.framework */; };
 		8019A6C41D0D1A06007A87F7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C31D0D1A05007A87F7 /* CoreTelephony.framework */; };
 		8019A6C81D0D1A79007A87F7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C51D0D1A79007A87F7 /* libsqlite3.dylib */; };
@@ -122,13 +121,6 @@
 			remoteGlobalIDString = D38ECF511C192AC800BDD8AE;
 			remoteInfo = RCTWeChat;
 		};
-		8094B61F1CE49DB700BF2414 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = CodePush;
-		};
 		80D2AFD61D2A9336005B4513 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 980A02573492467EA92B8E3F /* RCTCamera.xcodeproj */;
@@ -179,9 +171,7 @@
 		80AF23C11CFC1E6900555550 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = vacomall/Base.lproj; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		980A02573492467EA92B8E3F /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
-		9F09EF14212F449C8E7F2A66 /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
 		A159B737CEBA43EF869FA3F5 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
-		E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,7 +207,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				34C89A346BD74E75905537B5 /* libCodePush.a in Frameworks */,
 				BA6402CF223543759C760C80 /* libRCTCamera.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,14 +349,6 @@
 			name = FrameWork;
 			sourceTree = "<group>";
 		};
-		8094B61C1CE49DB700BF2414 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8094B6201CE49DB700BF2414 /* libCodePush.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		80D2AFD01D2A9336005B4513 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,7 +372,6 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */,
 				980A02573492467EA92B8E3F /* RCTCamera.xcodeproj */,
 			);
 			name = Libraries;
@@ -499,10 +479,6 @@
 				{
 					ProductGroup = 80492FDD1CFDAC9400651A92 /* Products */;
 					ProjectRef = 80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */;
-				},
-				{
-					ProductGroup = 8094B61C1CE49DB700BF2414 /* Products */;
-					ProjectRef = E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -637,13 +613,6 @@
 			fileType = archive.ar;
 			path = libRCTWeChat.a;
 			remoteRef = 805364A21D21191A003A3BE5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8094B6201CE49DB700BF2414 /* libCodePush.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libCodePush.a;
-			remoteRef = 8094B61F1CE49DB700BF2414 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		80D2AFD71D2A9336005B4513 /* libRCTCamera.a */ = {

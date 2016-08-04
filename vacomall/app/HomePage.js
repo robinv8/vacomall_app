@@ -107,7 +107,7 @@ export default class HomePage extends Component {
                     imgArray.push(<TouchableWithoutFeedback key={index}
                                                             onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]+'@h_200'}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     );
@@ -116,7 +116,7 @@ export default class HomePage extends Component {
                     imgArray.push(<TouchableWithoutFeedback key={index}
                                                             onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]+'@h_200'}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     );
@@ -125,7 +125,7 @@ export default class HomePage extends Component {
                     imgArray.push(<TouchableWithoutFeedback key={index}
                                                             onPress={(id,Xtype)=>this.toNextPage(data['Target'],data['Xtype'])}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]+'@h_200'}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     );
@@ -134,7 +134,7 @@ export default class HomePage extends Component {
                     imgArray.push(<TouchableWithoutFeedback key={index}
                                                             onPress={(id,Xtype)=>{}}>
                             <View style={styles.wrapper}>
-                                <Image style={styles.slide} source={{uri:data["ItemImg"]}}/>
+                                <Image style={styles.slide} source={{uri:data["ItemImg"]+'@h_200'}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     );

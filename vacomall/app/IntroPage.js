@@ -64,18 +64,18 @@ export default class IntroPage extends Component {
 
     onSlideChangeHandle = (index, total) => {
         if (index === 2) {
-            // this.timer = setTimeout(()=> {
-            //     const {navigator}=this.props;
-            //     if (navigator) {
-            //         navigator.resetTo({
-            //             component: MainScreen,
-            //             sceneConfig: Navigator.SceneConfigs.FadeAndroid,
-            //             params: {
-            //                 Ad: null//不加载广告
-            //             }
-            //         })
-            //     }
-            // }, 4000)
+            this.timer = setTimeout(()=> {
+                const {navigator}=this.props;
+                if (navigator) {
+                    navigator.resetTo({
+                        component: MainScreen,
+                        sceneConfig: Navigator.SceneConfigs.FadeAndroid,
+                        params: {
+                            Ad: null//不加载广告
+                        }
+                    })
+                }
+            }, 4000)
 
         } else {
             clearTimeout(this.timer)

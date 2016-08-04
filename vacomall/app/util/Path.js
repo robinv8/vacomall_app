@@ -80,11 +80,9 @@ import AbortVacomall from '../AbortVacomall';
 
 /*---第三方组件---*/
 import TabNavigator from 'react-native-tab-navigator';
-import CodePush from 'react-native-code-push';
 import Swiper from 'react-native-swiper2';
 import Toast from 'react-native-root-toast';
 import LinearGradient from 'react-native-linear-gradient';
-import Reactotron from 'reactotron';
 import ListViewRowEdit from 'react-native-listview-row-edit';
 import ScrollableTabView,{DefaultTabBar}  from 'react-native-scrollable-tab-view';
 import WeChatIos from 'react-native-wechat-ios';
@@ -105,7 +103,6 @@ import BarCodeIos from './BarCodeIos'
 export {
     MainPage,
     MainScreen,//APP主入口
-    CodePush,//热更新
     HomePage,//首页
     HomeHeader,//首页头部
     Swiper,//图片轮播
@@ -136,7 +133,6 @@ export {
     WeChatPayAndroid,
     ChongZhi,
     ChongZhiPage,
-    Reactotron,
     TabNavigator,
     Person,
     CartHeader,

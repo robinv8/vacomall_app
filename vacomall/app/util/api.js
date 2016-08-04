@@ -2,7 +2,7 @@
  * Created by renyubin on 16/4/24.
  */
 //var API_ADDRESS ='http://api.m.vacomall.com/';//'http://api.m.vacomall.com/';//'http://10.8.8.106:8099/';
-var API_ADDRESS ='http://testapivacomall.bceapp.com/'; //'http://api.m.vacomall.com/';
+var API_ADDRESS ='http://api.m.vacomall.com/';//'http://testapivacomall.bceapp.com/';
 var API_ADDRESS1 = 'http://polarbear.duapp.com/';
 var API_ADDRESS2 = 'http://wxpay.weixin.qq.com/';
 var DEBUG = true;
