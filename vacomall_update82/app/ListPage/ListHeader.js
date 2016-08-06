@@ -1,8 +1,10 @@
 /**
  * Created by renyubin on 16/4/25.
  */
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     Image,
     TextInput,
     View,
@@ -17,6 +19,8 @@ import React, {
 }from 'react-native';
 import {SearchPage, CartPage, API, NetService, Login} from '../util/Path';
 
+import {cutColor,mainColor} from '../util/global';
+import {getHeight} from '../util/response';
 
 export default class Header extends Component {
     // 构造
@@ -70,7 +74,7 @@ export default class Header extends Component {
                     barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this._back()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                    <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
                         <Image source={require('../../images/back_icon.png')}
                                style={styles.backIcon}/>
                     </View>
@@ -87,7 +91,7 @@ export default class Header extends Component {
                     <Image source={require('../../images/close_icon.png')} style={styles.clearIcon}/>
                 </View>
                 <TouchableWithoutFeedback onPress={()=>this.toHome()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                    <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
                         <Image source={require('../../images/home_icon.png')}
                                style={styles.scanIcon}/>
                     </View>
@@ -99,21 +103,15 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 64 : 40,
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height: Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:1,
-        borderBottomColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)',
-    },
-    logo: {
-        height: 25,
-        width: 64,
-        resizeMode: 'stretch'
-
+        borderBottomColor:'#d3d3d3',
     },
     searchBox: {
-        height: 28,
+        height: getHeight(28),
         flexDirection: 'row',
         flex: 6,
         borderRadius: 2,
@@ -121,35 +119,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     scanIcon: {
-        height: 22,
-        width: 23,
+        height: getHeight(22),
+        width: getHeight(23),
         resizeMode: 'stretch'
     },
     searchIcon: {
-        marginLeft: 10,
-        marginRight: 8,
-        width: 15,
-        height: 12.87,
+        marginLeft: getHeight(5.45),
+        marginRight: getHeight(5.45),
+        width: getHeight(15),
+        height: getHeight(12.87),
         resizeMode: 'stretch',
     },
     clearIcon: {
-        marginLeft: 10,
-        marginRight: 10,
-        width: 14,
-        height: 14,
+        marginLeft: getHeight(10),
+        marginRight: getHeight(10),
+        width: getHeight(14),
+        height: getHeight(14),
         resizeMode: 'stretch',
     },
     backIcon: {
-        width: 14,
-        height: 22,
-        resizeMode: 'stretch',
+        width: getHeight(14),
+        height: getHeight(22),
     },
     inputText: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0)',
-        fontSize: 13.32,
-        paddingTop: Platform.OS === 'ios' ? 0 : 10,
-        paddingLeft: 0,
+        fontSize: getHeight(13.32),
+        padding:0,
         color: '#7A797B',
     }
 })

@@ -1,16 +1,7 @@
 package com.vacomall.app.agent.general;
 
 import com.facebook.react.ReactActivity;
-import com.eguma.barcodescanner.BarcodeScannerPackage;
-import com.lwansbrough.RCTCamera.RCTCameraPackage;
-import com.heng.wechat.WeChatPackage;
-import com.microsoft.codepush.react.CodePush;
-import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-import java.util.Arrays;
-import java.util.List;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.ivanph.webintent.RNWebIntentPackage;
+
 public class MainActivity extends ReactActivity {
 
     /**
@@ -20,33 +11,5 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "vacomall";
-    }
-    /**
-     * Returns whether dev mode should be enabled.
-     * This enables e.g. the dev menu.
-     */
-    @Override
-    protected boolean getUseDeveloperSupport() {
-        return BuildConfig.DEBUG;
-    }
-    @Override
-    protected String getJSBundleFile() {
-        return CodePush.getBundleUrl();
-    }
-    /**
-     * A list of packages used by the app. If the app uses additional views
-     * or modules besides the default ones, add more packages here.
-     */
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new BarcodeScannerPackage(),
-            new RCTCameraPackage(),
-            new CodePush("Idqe7bozfUH5KYzHMDhUKXtWu2yoE105Te3ZW", this, BuildConfig.DEBUG),
-             new LinearGradientPackage(),
-            new WeChatPackage(),
-            new RNWebIntentPackage()
-        );
     }
 }

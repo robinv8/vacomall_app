@@ -1,8 +1,10 @@
 /**
  * Created by ren on 16/7/5.
  */
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     View,
     StatusBar,
     StyleSheet,
@@ -11,7 +13,7 @@ import React, {
     Text,
     Platform
 } from 'react-native';
-import {NetService,API} from '../util/Path'
+import {NetService,API,Login} from '../util/Path'
 export default class PersonInfo extends Component{
     // 构造
       constructor(props) {

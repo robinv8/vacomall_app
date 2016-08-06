@@ -2,8 +2,10 @@
  * Created by renyubin on 16/5/28.
  */
 'use strict';
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     View,
     StyleSheet,
     Text,
@@ -15,6 +17,8 @@ import React, {
     Dimensions
 } from 'react-native';
 import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator,Toast,CodePush} from './util/Path';
+import {endCutColor,cutColor,backgColor,priceColor} from './util/global';
+import {getHeight} from './util/response';
 const HOME = 'home';
 const HOME_NORMAL = require('../images/tabs/home_normal.png');
 const HOME_FOCUS = require('../images/tabs/home_focus.png');
@@ -126,8 +130,7 @@ export default class MainScreen extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab}>
+                <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} sceneStyle={{ paddingBottom:0}}>
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}
                                                                                   _this={this}/>)}
                     {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage
@@ -138,23 +141,18 @@ export default class MainScreen extends Component {
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person
                         navigator={this.props.navigator} active={this.state.active}/>)}
                 </TabNavigator>
-            </View >
         );
     }
 }
 
 const styles = StyleSheet.create({
     tab: {
-        backgroundColor: 'rgba(250,250,250,0.5)',
         alignItems: 'center',
-        height: 49,
-        borderTopWidth: Platform.OS === 'ios' ? 1 : 0.5,
-        borderTopColor: 'rgba(0,0,0,0.1)'
+        height:getHeight(49)
     },
     tabIcon: {
-        width: 41,
-        height: 35,
-        resizeMode: 'stretch',
-        top: 7
+        width: getHeight(45),
+        height:getHeight(40),
+        top:getHeight(6)
     }
 })

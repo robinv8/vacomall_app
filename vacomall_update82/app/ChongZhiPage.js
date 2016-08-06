@@ -1,9 +1,10 @@
 /**
  * Created by renyubin on 16/6/16.
  */
-import React,
-{
+import React,{
     Component,
+}from 'react';
+import {
     View,
     Text,
     StyleSheet,
@@ -15,7 +16,8 @@ import React,
     Dimensions
 }from 'react-native';
 import {Flow,HuaFei,ScrollableTabView,DefaultTabBar,API,NetService} from './util/Path';
-
+import {cutColor,mainColor} from './util/global';
+import {getHeight} from './util/response';
 export let parentThis;
 
 export default class ChongZhiPage extends Component {
@@ -77,7 +79,7 @@ export default class ChongZhiPage extends Component {
                     />
 
                     <View style={styles.searchBox}>
-                        <Text style={{color: '#3C3C3C',fontSize: 18}}>手机充值</Text>
+                        <Text style={{color: '#3C3C3C',fontSize: getHeight(18)}}>手机充值</Text>
                     </View>
                 </View>
                 <View style={styles.input_view}>
@@ -93,13 +95,13 @@ export default class ChongZhiPage extends Component {
                 </View>
                 <View style={{flex:1,backgroundColor:'#fafafa'}}>
                     <ScrollableTabView
-                        tabBarTextStyle={{fontSize:16}}
+                        tabBarTextStyle={{fontSize:getHeight(16)}}
                         tabBarInactiveTextColor="#BFBFBF"
                         tabBarActiveTextColor='#16BD42'
                         tabBarUnderlineColor='#16BD42'
                         tabBarBackgroundColor='white'
                         scrollWithoutAnimation={true}
-                        renderTabBar={() => <DefaultTabBar underlineHeight={2} style={{borderBottomWidth:2,borderBottomColor:'#BFBFBF',height:60,paddingTop:10}}/>}>
+                        renderTabBar={() => <DefaultTabBar underlineHeight={2} style={{borderBottomWidth:2,borderBottomColor:'#BFBFBF',height:getHeight(60),paddingTop:getHeight(10)}}/>}>
                         {this.state.HuaFei}
                         {this.state.Flow}
                     </ScrollableTabView>
@@ -112,16 +114,15 @@ export default class ChongZhiPage extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 64 : 40,
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height: Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:1,
-        borderBottomColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)',
+        borderBottomColor:'#d3d3d3',
         justifyContent: 'center'
     },
     searchBox: {
-
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -132,23 +133,22 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         borderBottomColor: '#E5E5E5',
         justifyContent: 'center',
-        height: 49,
+        height: getHeight(49),
         alignItems: 'center',
         marginLeft: 0,
-        marginBottom: 11
+        marginBottom: getHeight(11)
     },
     textinput: {
-        paddingLeft: 12,
-        height: 48,
+        paddingLeft: getHeight(12),
+        height: getHeight(48),
         backgroundColor: 'white',
-        fontSize: 18,
+        fontSize: getHeight(18),
         flex: 1
     },
     clearIcon: {
-        marginLeft: 10,
-        marginRight: 10,
-        width: 14,
-        height: 14,
-        resizeMode: 'stretch',
+        marginLeft: getHeight(10),
+        marginRight: getHeight(10),
+        width: getHeight(14),
+        height: getHeight(14)
     },
 })

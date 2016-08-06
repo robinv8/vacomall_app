@@ -2,8 +2,10 @@
  * Created by renyubin on 16/5/4.
  */
 'use strict';
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     View,
     Platform,
     Text,

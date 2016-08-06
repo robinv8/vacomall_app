@@ -2,8 +2,10 @@
  * Created by renyubin on 16/4/25.
  */
 'use strict';
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     View,
     Text,
     ListView,
@@ -20,6 +22,8 @@ import React, {
     Navigator
 }from 'react-native'
 import {ListHeader, GoodsDetail, API, NetService, Toast,MainScreen,Loaddingpage,Guess} from './util/Path';
+import {cutColor,mainColor} from './util/global';
+import {getHeight} from './util/response';
 var SortItemArray = [];
 var beforeSortItem;
 var listFlag = 0;
@@ -189,15 +193,15 @@ export default class ListPage extends Component {
                 <ListHeader navigator={this.props.navigator} id={this.props.id} searchText={this.state.searchText}/>
 
                 {this.state.sortItem}
-                <ListView
-                    ref={component => this._listView = component}
-                    initialListSize={10}
-                    dataSource={this.state.dataSource}
-                    renderRow={(gList)=>this.renderGList(gList)}
-                    onEndReached={()=>this.refresh()}
-                    onEndReachedThreshold={100}
-                    contentContainerStyle={styles.listview}
-                />
+                    <ListView
+                        ref={component => this._listView = component}
+                        initialListSize={10}
+                        dataSource={this.state.dataSource}
+                        renderRow={(gList)=>this.renderGList(gList)}
+                        onEndReached={()=>this.refresh()}
+                        onEndReachedThreshold={100}
+                        contentContainerStyle={styles.listview}
+                    />
             </View>
         )
     }
@@ -264,7 +268,7 @@ export default class ListPage extends Component {
         }
         var listMarginRight = 0;
         if (listFlag % 2 === 0) {
-            listMarginRight = 5;
+            listMarginRight = getHeight(4);
         } else {
             listMarginRight = 0;
         }
@@ -275,16 +279,16 @@ export default class ListPage extends Component {
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3'}}>
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
-                               style={{width: Dimensions.get('window').width/2-3,height: Dimensions.get('window').width/2-3,resizeMode: 'stretch'}}></Image>
+                               style={{width: getHeight(205),height: getHeight(204.5),resizeMode: 'stretch'}}></Image>
                     </View>
                     <View style={{marginLeft:7,marginRight:4}}>
-                        <View style={{marginBottom:1,height:32,paddingTop:5}}>
-                            <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
+                        <View style={{marginBottom:1,height:getHeight(32),paddingTop:5}}>
+                            <Text style={{fontSize:getHeight(12),color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
                         <View style={{flex:1,flexDirection:'row'}}>
                             <View style={{flex:1,marginBottom:5}}>
                                 <Text style={styles.price}><Text
-                                    style={{fontSize:12}}>￥</Text>{gList['GoodsItemSalePrice']}
+                                    style={{fontSize:getHeight(12)}}>￥</Text>{gList['GoodsItemSalePrice']}
                                 </Text>
                             </View>
                             <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end',marginBottom:5}}>
@@ -339,14 +343,15 @@ class SortItem extends Component {
 }
 const styles = StyleSheet.create({
     goods_view: {
-        width: (Dimensions.get('window').width) / 2 - 3,
+        width: getHeight(205),
+        height:getHeight(268),
         backgroundColor: 'white',
-        marginBottom: 5,
+        marginBottom: getHeight(5),
         shadowColor: "rgb(0,0,0)",
         shadowOpacity: 0.1,
         shadowRadius: 0,
         shadowOffset: {
-            height: 0.5,
+            height: 1,
             width: 0
         }
     },
@@ -355,15 +360,16 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     price: {
-        color: '#e43777'
+        color: '#e43777',
+        fontSize:getHeight(18)
     },
     sort: {
         backgroundColor: '#efefef',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 0,
-        width: 100,
-        height: 30,
+        width: getHeight(100),
+        height: getHeight(30),
         borderRadius: 3,
         flexDirection: 'row'
     },
@@ -372,57 +378,57 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         backgroundColor: '#FAFAFA',
-        height: 32,
+        height: getHeight(32),
         borderBottomColor: '#E7E7E7',
-        borderBottomWidth: 1,
-        marginBottom: 10
+        borderBottomWidth: 0.5,
+        marginBottom: getHeight(10)
     },
     sortItemView: {
         flexDirection: 'row',
         justifyContent: 'center',
         flex: 1,
-        height: 32,
+        height: getHeight(32),
         alignItems: 'center'
     },
     sortItem: {
         flex: 1,
-        height: 32,
+        height: getHeight(32),
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
     },
     sortItem_text: {
         color: '#3C3C3C',
-        fontSize: 14
+        fontSize: getHeight(14)
     },
     sortItem_img: {
-        width: 7,
-        height: 8,
+        width: getHeight(7),
+        height: getHeight(8),
         resizeMode: 'stretch',
         marginLeft: 3
     },
     sortText: {
-        fontSize: 12,
+        fontSize: getHeight(12),
         color: '#555555'
     },
 
     cnxh_view: {
         alignItems: 'center',
-        height: 40,
+        height: getHeight(40),
         justifyContent: 'center'
     },
     cnxh_view_img: {
-        width: 96,
-        height: 20,
+        width: getHeight(96),
+        height: getHeight(20),
         resizeMode: 'stretch',
     },
     price1: {
         color: '#FF0200',
-        fontSize: 18
+        fontSize: getHeight(18)
     },
     bprice: {
         color: '#BFBFBF',
-        fontSize: 12,
+        fontSize: getHeight(12),
         justifyContent: 'flex-end'
     },
 })

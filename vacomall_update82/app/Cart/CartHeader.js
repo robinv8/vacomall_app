@@ -1,8 +1,10 @@
 /**
  * Created by renyubin on 16/4/25.
  */
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     Image,
     TextInput,
     View,

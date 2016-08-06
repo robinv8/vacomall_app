@@ -2,11 +2,13 @@
  * Created by renyubin on 16/6/2.
  */
 'use strict';
-import React, {
+import React,{
+    Component,
+}from 'react';
+import {
     View,
     Text,
     ListView,
-    Component,
     StyleSheet,
     ScrollView,
     TouchableOpacity,
@@ -15,7 +17,8 @@ import React, {
     Image
 } from 'react-native';
 import {API,NetService,CategoryHeader,FirstCate,SubCate,Loaddingpage} from './util/Path';
-
+import {endCutColor,cutColor,backgColor,priceColor} from './util/global';
+import {getHeight} from './util/response';
 var cateMap = {}, beforeObj,fObj=[];
 export default class Category extends Component {
     constructor(props) {
@@ -163,12 +166,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     firstCate: {
-        width: 103,
-        marginTop: 1
+        flex:1,
+        marginTop: 1,
     },
     subScroll: {
-        flex: 2.68,
-        marginLeft: 9,
+        flex:2.4,
+        marginLeft: getHeight(9),
         marginTop: 1
     }
 })

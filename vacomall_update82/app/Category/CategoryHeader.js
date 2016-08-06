@@ -1,8 +1,10 @@
 /**
  * Created by renyubin on 16/6/2.
  */
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     Image,
     TextInput,
     View,
@@ -15,8 +17,8 @@ import React, {
     Navigator,
     ToastAndroid
 }from 'react-native';
-import {API,NetService,Toast,Login} from '../util/Path';
-
+import {endCutColor} from '../util/global';
+import {getHeight} from '../util/response';
 export default class Header extends Component {
     _back() {
         const {navigator}=this.props;
@@ -47,12 +49,12 @@ export default class Header extends Component {
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
-                    <Text style={{color:'#3C3C3C',fontSize:18}}>
+                    <Text style={{color:'#3C3C3C',fontSize:getHeight(18)}}>
                         分类
                     </Text>
                 </View>
                 <TouchableWithoutFeedback onPress={()=>this.toHome()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                    <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
                         <Image source={require('../../images/home_icon.png')}
                                style={styles.scanIcon}/>
                     </View>
@@ -65,27 +67,25 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 64 : 40,
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height: Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:1,
-        borderBottomColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)',
+        borderBottomColor:'#d3d3d3',
     },
     searchBox: {
-        height: 28,
+        height: getHeight(28),
         flex: 6,
         justifyContent: 'center',
         alignItems: 'center',
     },
     scanIcon: {
-        height: 22,
-        width: 23,
-        resizeMode: 'stretch'
+        height: getHeight(22),
+        width: getHeight(23),
     },
     backIcon: {
-        width: 14,
-        height: 20,
-        resizeMode: 'stretch',
+        width: getHeight(14),
+        height: getHeight(20),
     },
 });

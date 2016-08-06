@@ -4,9 +4,11 @@
  */
 
 'use strict';
-import React,{
+import React from 'react';
+import {
     AppRegistry,
 } from 'react-native';
 import MainPage from './MainPage';
 
+import {HomePage,PayError,CategoryList,SearchPage} from './app/util/Path'
 AppRegistry.registerComponent('vacomall', () => MainPage);

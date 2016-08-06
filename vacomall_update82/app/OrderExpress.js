@@ -1,8 +1,10 @@
 /**
  * Created by renyubin on 16/6/25.
  */'use strict';
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     View,
     StyleSheet,
     Image,
@@ -15,7 +17,7 @@ import React, {
     Navigator,
     ScrollView
 } from 'react-native';
-import {OrderExpressHeader,NetService,API,Loaddingpage,Toast} from './util/Path';
+import {OrderExpressHeader,NetService,API,Loaddingpage,Toast,Login} from './util/Path';
 export default class OrderDetail extends Component {
     // 构造
     constructor(props) {

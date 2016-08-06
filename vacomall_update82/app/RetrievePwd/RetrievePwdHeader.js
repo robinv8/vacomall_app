@@ -2,9 +2,10 @@
  * Created by renyubin on 16/6/20.
  */
 'use strict';
-import React,
-{
+import React,{
     Component,
+}from 'react';
+import {
     View,
     TouchableWithoutFeedback,
     Image,
@@ -15,7 +16,7 @@ import React,
 } from 'react-native';
 import {API,NetService} from '../util/Path';
 
-export default class RetrievePwd extends Component {
+export default class RetrievePwdHeader extends Component {
     _back() {
         const {navigator}=this.props;
         //const test=navigator.getCurrentRoutes();

@@ -2,8 +2,10 @@
  * Created by ren on 16/4/12.
  */
 'use strict';
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     Text,
     View,
     PropTypes,
@@ -15,6 +17,7 @@ import React, {
     Platform
 } from 'react-native';
 import {ListPage,GoodsDetail} from '../util/Path';
+import {getHeight} from '../util/response';
 export default class SubCate extends Component {
     // 构造
     constructor(props) {
@@ -98,7 +101,7 @@ class Third extends Component {
             <TouchableWithoutFeedback onPress={(Target)=>this._selectGoodsList(this.props.Target)}>
                 <View
                     style={styles.third}>
-                    <Image source={{uri:this.props.icon}} style={{width:124,height:124,resizeMode:'stretch'}}/>
+                    <Image source={{uri:this.props.icon+'@h_300'}} style={{width:getHeight(124),height:getHeight(124)}}/>
                     <Text style={[styles.Thirdtext]}>{this.props.name}</Text>
                 </View>
             </TouchableWithoutFeedback>
@@ -108,24 +111,24 @@ class Third extends Component {
 const styles = StyleSheet.create({
     sublist: {
         flex: 1,
-        height: 50,
+        height: getHeight(51),
         justifyContent: 'center',
     },
     third: {
-        height: 168,
-        width: Platform.OS === 'ios' ? (Dimensions.get('window').width - 130) / 2 : (Dimensions.get('window').width - 115) / 2,
-        marginRight: 5,
+        height: getHeight(168),
+        width: getHeight(137),
+        marginRight: getHeight(5),
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom:5
+        marginBottom:getHeight(5)
     },
     text: {
-        fontSize: 14,
+        fontSize: getHeight(14),
         color: '#3C3C3C',
     },
     Thirdtext: {
-        fontSize: 12,
+        fontSize: getHeight(12),
         color: '#3C3C3C',
         marginTop: 8
     }

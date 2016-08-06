@@ -3,6 +3,8 @@
  */
 import React,{
     Component,
+}from 'react';
+import {
     Navigator,
     View
 }from 'react-native';

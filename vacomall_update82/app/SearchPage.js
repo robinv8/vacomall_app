@@ -1,8 +1,10 @@
 /**
  * Created by renyubin on 16/4/25.
  */
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     Image,
     TextInput,
     View,
@@ -16,9 +18,9 @@ import React, {
     Alert
 }from 'react-native';
 import ListPage from './ListPage';
-var PPI = PixelRatio.get();
 import Storage from 'react-native-storage';
-
+import {cutColor,mainColor} from './util/global';
+import {getHeight} from './util/response';
 var storage = new Storage({
     //最大容量，默认值1000条数据循环存储
     size: 1000,
@@ -116,7 +118,7 @@ export default class Header extends Component {
                 });
             }
         }).catch(err => {
-            searchArray = err;
+            //searchArray = err;
 
         })
     }
@@ -218,12 +220,14 @@ export default class Header extends Component {
                         {this.state.clear}
                     </View>
                     <TouchableWithoutFeedback onPress={()=>this._pop()}>
-                        <Text style={{fontSize:16,color:'#3C3C3C',marginBottom:0}}>取消</Text>
+                        <View>
+                            <Text style={{fontSize:getHeight(16),color:'#3C3C3C',marginBottom:0}}>取消</Text>
+                        </View>
                     </TouchableWithoutFeedback>
                 </View>
                 <View
-                    style={{height:28,borderBottomWidth:0.5,borderBottomColor:'#CFCFCF',marginLeft:15,marginRight:15}}>
-                    <Text style={{color:'#B6B6B6',fontSize:16}}>历史搜索</Text>
+                    style={{height:getHeight(28),borderBottomWidth:0.5,borderBottomColor:'#CFCFCF',marginLeft:getHeight(13),marginRight:getHeight(15)}}>
+                    <Text style={{color:'#B6B6B6',fontSize:getHeight(16)}}>历史搜索</Text>
                 </View>
                 {this.state.list}
                 <View style={{flex:1,alignItems:'center',marginTop:28}}>
@@ -231,7 +235,7 @@ export default class Header extends Component {
                         <View
                             style={styles.clear_btn}>
                             <Text
-                            style={{fontSize:12,color:'#EF8200'}}>清除历史记录</Text></View>
+                            style={{fontSize:getHeight(12),color:'#EF8200'}}>清除历史记录</Text></View>
                     </TouchableWithoutFeedback>
                 </View>
             </View>
@@ -241,30 +245,24 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height:Platform.OS === 'ios' ? 64 : 40,
+        paddingLeft: getHeight(10),
+        paddingRight: getHeight(10),
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height:Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         alignItems: 'center',
-    },
-    logo: {
-        height: 25,
-        width: 64,
-        resizeMode: 'stretch'
-
     },
     clear_btn:{
         padding:3,
         borderRadius:3,
         borderWidth:1,
         borderColor:'#FF9700',
-        height:28,
-        width:108,
+        height:getHeight(28),
+        width:getHeight(108),
         justifyContent:'center',
         alignItems:'center'
     },
     searchBox: {
-        height: 28,
+        height: getHeight(28),
         flexDirection: 'row',
         flex: 1,
         borderRadius: 5,
@@ -275,30 +273,29 @@ const styles = StyleSheet.create({
 
     },
     scanIcon: {
-        height: 26.7,
-        width: 26.7,
-        resizeMode: 'stretch'
+        height: getHeight(26.7),
+        width: getHeight(26.7)
     },
     searchIcon: {
-        marginLeft: 10,
-        marginRight: 8,
-        width: 15,
-        height: 12.87,
-        resizeMode: 'stretch',
+        marginLeft: getHeight(5.95),
+        marginRight: getHeight(0.95),
+        width: getHeight(15),
+        height: getHeight(12.87)
     },
     clearIcon: {
-        marginLeft: 10,
-        marginRight: 10,
-        width: 14,
-        height: 14,
-        resizeMode: 'stretch',
+        marginLeft: getHeight(10),
+        marginRight: getHeight(10),
+        width: getHeight(14),
+        height: getHeight(14)
     },
     inputText: {
         backgroundColor: 'rgba(0,0,0,0)',
-        fontSize: 14,
-        paddingTop:Platform.OS === 'ios' ? 0 : 10,
+        fontSize: getHeight(14),
         flex:1,
         color: '#7A797B',
+        height:getHeight(28),
+        justifyContent:'center',
+        padding:0
     },
     searchText: {
         height: 40,

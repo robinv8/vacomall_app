@@ -5,6 +5,8 @@
 
 import React,{
     Component,
+}from 'react';
+import {
     View,
     Text,
     Navigator,
@@ -15,10 +17,10 @@ import React,{
     Image,
     Platform,
     Alert
-}from 'react-native';
+} from 'react-native';
 
 
-import {MainScreen,IntroPage,Login,PaySuccess,PayHDFK,CodePush,Toast,API,NetService} from './app/util/Path';
+import {MainScreen,IntroPage,Toast,API,NetService} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version';

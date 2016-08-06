@@ -17,24 +17,20 @@
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; settings = {ATTRIBUTES = (Required, ); }; };
-		34C89A346BD74E75905537B5 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F09EF14212F449C8E7F2A66 /* libCodePush.a */; };
-		8019A6C21D0D19E6007A87F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C11D0D19E6007A87F7 /* SystemConfiguration.framework */; };
-		8019A6C41D0D1A06007A87F7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C31D0D1A05007A87F7 /* CoreTelephony.framework */; };
-		8019A6C81D0D1A79007A87F7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C51D0D1A79007A87F7 /* libsqlite3.dylib */; };
-		8019A6C91D0D1A79007A87F7 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8019A6C61D0D1A79007A87F7 /* libc++.1.dylib */; };
-		80492FE21CFDAC9C00651A92 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */; };
-		805364A61D21191E003A3BE5 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 805364A31D21191A003A3BE5 /* libRCTWeChat.a */; };
-		8084F0461D10284800A3A4D7 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0451D10284800A3A4D7 /* libz.1.dylib */; };
-		8084F0721D10F99100A3A4D7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0711D10F99100A3A4D7 /* Security.framework */; };
-		8084F0821D10F99F00A3A4D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0811D10F99F00A3A4D7 /* UIKit.framework */; };
-		8084F0841D10F9AF00A3A4D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8084F0831D10F9AF00A3A4D7 /* Foundation.framework */; };
-		8089F8011D31E8B800235A1C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8089F8001D31E8B800235A1C /* libz.tbd */; };
-		80AF23C21CFC1E6900555550 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 80AF23C11CFC1E6900555550 /* Base.lproj */; };
+		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		BA6402CF223543759C760C80 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A159B737CEBA43EF869FA3F5 /* libRCTCamera.a */; };
+		9234B8D8CC1E43DE8A0A2816 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D17284BB13F54271B9E3A4F0 /* libRCTCamera.a */; };
+		A511F0481D55C47E0028FD59 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A511F01F1D55BA8A0028FD59 /* libRCTWeChat.a */; };
+		A511F0561D55C53C0028FD59 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A511F0551D55C53C0028FD59 /* SystemConfiguration.framework */; };
+		A511F0591D55C5630028FD59 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A511F0581D55C5630028FD59 /* CoreTelephony.framework */; };
+		A511F05B1D55C6210028FD59 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A511F05A1D55C6210028FD59 /* libz.1.dylib */; };
+		A511F05D1D55C6490028FD59 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A511F05C1D55C6490028FD59 /* libsqlite3.dylib */; };
+		A511F05F1D55C6650028FD59 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A511F05E1D55C6650028FD59 /* libc++.1.dylib */; };
+		A55DC43F1D51DF9800DD8432 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A55DC43E1D51DE4600DD8432 /* libBVLinearGradient.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,40 +104,33 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
-		80492FE01CFDAC9500651A92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = BVLinearGradient;
-		};
-		805364A21D21191A003A3BE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D38ECF511C192AC800BDD8AE;
-			remoteInfo = RCTWeChat;
-		};
-		8094B61F1CE49DB700BF2414 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = CodePush;
-		};
-		80D2AFD61D2A9336005B4513 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 980A02573492467EA92B8E3F /* RCTCamera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
-			remoteInfo = RCTCamera;
-		};
 		832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
+		};
+		A511F01E1D55BA8A0028FD59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A511F01A1D55BA880028FD59 /* RCTWeChat.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D38ECF511C192AC800BDD8AE;
+			remoteInfo = RCTWeChat;
+		};
+		A55DC42E1D51DD4300DD8432 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32DE60DF4A0C4D38A21C6F05 /* RCTCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RCTCamera;
+		};
+		A55DC43D1D51DE4600DD8432 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A55DC4391D51DE4500DD8432 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -160,28 +149,22 @@
 		13B07F961A680F5B00A75B9A /* vacomall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vacomall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = vacomall/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = vacomall/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = vacomall/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = vacomall/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = vacomall/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		32DE60DF4A0C4D38A21C6F05 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		8019A6C11D0D19E6007A87F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8019A6C31D0D1A05007A87F7 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		8019A6C51D0D1A79007A87F7 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /usr/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
-		8019A6C61D0D1A79007A87F7 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "/usr/lib/libc++.1.dylib"; sourceTree = "<absolute>"; };
-		80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
-		805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat-ios/RCTWeChat/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
-		8084F0451D10284800A3A4D7 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
-		8084F0711D10F99100A3A4D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		8084F0811D10F99F00A3A4D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		8084F0831D10F9AF00A3A4D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		8089F8001D31E8B800235A1C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		80AF23C11CFC1E6900555550 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = vacomall/Base.lproj; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		980A02573492467EA92B8E3F /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
-		9F09EF14212F449C8E7F2A66 /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
-		A159B737CEBA43EF869FA3F5 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
-		E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
+		A511F01A1D55BA880028FD59 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat-ios/RCTWeChat/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
+		A511F0551D55C53C0028FD59 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A511F0581D55C5630028FD59 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		A511F05A1D55C6210028FD59 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
+		A511F05C1D55C6490028FD59 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /usr/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
+		A511F05E1D55C6650028FD59 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "/usr/lib/libc++.1.dylib"; sourceTree = "<absolute>"; };
+		A55DC4391D51DE4500DD8432 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
+		D17284BB13F54271B9E3A4F0 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,17 +180,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8089F8011D31E8B800235A1C /* libz.tbd in Frameworks */,
-				805364A61D21191E003A3BE5 /* libRCTWeChat.a in Frameworks */,
-				8084F0841D10F9AF00A3A4D7 /* Foundation.framework in Frameworks */,
-				8084F0821D10F99F00A3A4D7 /* UIKit.framework in Frameworks */,
-				8084F0721D10F99100A3A4D7 /* Security.framework in Frameworks */,
-				8084F0461D10284800A3A4D7 /* libz.1.dylib in Frameworks */,
-				8019A6C81D0D1A79007A87F7 /* libsqlite3.dylib in Frameworks */,
-				8019A6C91D0D1A79007A87F7 /* libc++.1.dylib in Frameworks */,
-				8019A6C41D0D1A06007A87F7 /* CoreTelephony.framework in Frameworks */,
-				8019A6C21D0D19E6007A87F7 /* SystemConfiguration.framework in Frameworks */,
-				80492FE21CFDAC9C00651A92 /* libBVLinearGradient.a in Frameworks */,
+				A511F05F1D55C6650028FD59 /* libc++.1.dylib in Frameworks */,
+				A511F05D1D55C6490028FD59 /* libsqlite3.dylib in Frameworks */,
+				A511F05B1D55C6210028FD59 /* libz.1.dylib in Frameworks */,
+				A511F0591D55C5630028FD59 /* CoreTelephony.framework in Frameworks */,
+				A511F0561D55C53C0028FD59 /* SystemConfiguration.framework in Frameworks */,
+				A511F0481D55C47E0028FD59 /* libRCTWeChat.a in Frameworks */,
+				A55DC43F1D51DF9800DD8432 /* libBVLinearGradient.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -217,8 +197,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				34C89A346BD74E75905537B5 /* libCodePush.a in Frameworks */,
-				BA6402CF223543759C760C80 /* libRCTCamera.a in Frameworks */,
+				9234B8D8CC1E43DE8A0A2816 /* libRCTCamera.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,12 +280,12 @@
 		13B07FAE1A68108700A75B9A /* vacomall */ = {
 			isa = PBXGroup;
 			children = (
-				80AF23C11CFC1E6900555550 /* Base.lproj */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = vacomall;
@@ -328,59 +307,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		80492FDD1CFDAC9400651A92 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		805364941D21191A003A3BE5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				805364A31D21191A003A3BE5 /* libRCTWeChat.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		8084F0441D10280300A3A4D7 /* FrameWork */ = {
-			isa = PBXGroup;
-			children = (
-				8089F8001D31E8B800235A1C /* libz.tbd */,
-				8084F0831D10F9AF00A3A4D7 /* Foundation.framework */,
-				8084F0811D10F99F00A3A4D7 /* UIKit.framework */,
-				8084F0711D10F99100A3A4D7 /* Security.framework */,
-				8084F0451D10284800A3A4D7 /* libz.1.dylib */,
-				8019A6C51D0D1A79007A87F7 /* libsqlite3.dylib */,
-				8019A6C61D0D1A79007A87F7 /* libc++.1.dylib */,
-				8019A6C31D0D1A05007A87F7 /* CoreTelephony.framework */,
-				8019A6C11D0D19E6007A87F7 /* SystemConfiguration.framework */,
-			);
-			name = FrameWork;
-			sourceTree = "<group>";
-		};
-		8094B61C1CE49DB700BF2414 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8094B6201CE49DB700BF2414 /* libCodePush.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		80D2AFD01D2A9336005B4513 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				80D2AFD71D2A9336005B4513 /* libRCTCamera.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */,
-				80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */,
+				A511F01A1D55BA880028FD59 /* RCTWeChat.xcodeproj */,
+				A55DC4391D51DE4500DD8432 /* BVLinearGradient.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -391,8 +322,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */,
-				980A02573492467EA92B8E3F /* RCTCamera.xcodeproj */,
+				32DE60DF4A0C4D38A21C6F05 /* RCTCamera.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -408,7 +338,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				8084F0441D10280300A3A4D7 /* FrameWork */,
+				A511F0571D55C5430028FD59 /* framework */,
 				13B07FAE1A68108700A75B9A /* vacomall */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* vacomallTests */,
@@ -423,6 +353,42 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* vacomall.app */,
 				00E356EE1AD99517003FC87E /* vacomallTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A511F01B1D55BA880028FD59 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A511F01F1D55BA8A0028FD59 /* libRCTWeChat.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A511F0571D55C5430028FD59 /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				A511F05E1D55C6650028FD59 /* libc++.1.dylib */,
+				A511F05C1D55C6490028FD59 /* libsqlite3.dylib */,
+				A511F05A1D55C6210028FD59 /* libz.1.dylib */,
+				A511F0581D55C5630028FD59 /* CoreTelephony.framework */,
+				A511F0551D55C53C0028FD59 /* SystemConfiguration.framework */,
+			);
+			name = framework;
+			sourceTree = "<group>";
+		};
+		A55DC42A1D51DD4300DD8432 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A55DC42F1D51DD4300DD8432 /* libRCTCamera.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A55DC43A1D51DE4500DD8432 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A55DC43E1D51DE4600DD8432 /* libBVLinearGradient.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -472,15 +438,12 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 730;
+				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
-					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 3S99SNPE9H;
 					};
 				};
 			};
@@ -497,20 +460,16 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 80492FDD1CFDAC9400651A92 /* Products */;
-					ProjectRef = 80492FDC1CFDAC9400651A92 /* BVLinearGradient.xcodeproj */;
-				},
-				{
-					ProductGroup = 8094B61C1CE49DB700BF2414 /* Products */;
-					ProjectRef = E6EE8196E4F943CEB40A90C7 /* CodePush.xcodeproj */;
+					ProductGroup = A55DC43A1D51DE4500DD8432 /* Products */;
+					ProjectRef = A55DC4391D51DE4500DD8432 /* BVLinearGradient.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
-					ProductGroup = 80D2AFD01D2A9336005B4513 /* Products */;
-					ProjectRef = 980A02573492467EA92B8E3F /* RCTCamera.xcodeproj */;
+					ProductGroup = A55DC42A1D51DD4300DD8432 /* Products */;
+					ProjectRef = 32DE60DF4A0C4D38A21C6F05 /* RCTCamera.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -545,8 +504,8 @@
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
 				},
 				{
-					ProductGroup = 805364941D21191A003A3BE5 /* Products */;
-					ProjectRef = 805364931D21191A003A3BE5 /* RCTWeChat.xcodeproj */;
+					ProductGroup = A511F01B1D55BA880028FD59 /* Products */;
+					ProjectRef = A511F01A1D55BA880028FD59 /* RCTWeChat.xcodeproj */;
 				},
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
@@ -625,39 +584,32 @@
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		80492FE11CFDAC9500651A92 /* libBVLinearGradient.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBVLinearGradient.a;
-			remoteRef = 80492FE01CFDAC9500651A92 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		805364A31D21191A003A3BE5 /* libRCTWeChat.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTWeChat.a;
-			remoteRef = 805364A21D21191A003A3BE5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8094B6201CE49DB700BF2414 /* libCodePush.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libCodePush.a;
-			remoteRef = 8094B61F1CE49DB700BF2414 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		80D2AFD71D2A9336005B4513 /* libRCTCamera.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTCamera.a;
-			remoteRef = 80D2AFD61D2A9336005B4513 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		832341B51AAA6A8300B99B32 /* libRCTText.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A511F01F1D55BA8A0028FD59 /* libRCTWeChat.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTWeChat.a;
+			remoteRef = A511F01E1D55BA8A0028FD59 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A55DC42F1D51DD4300DD8432 /* libRCTCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCamera.a;
+			remoteRef = A55DC42E1D51DD4300DD8432 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A55DC43E1D51DE4600DD8432 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = A55DC43D1D51DE4600DD8432 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -674,8 +626,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80AF23C21CFC1E6900555550 /* Base.lproj in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,15 +678,23 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13B07FB21A68108700A75B9A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			path = vacomall;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -746,7 +706,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vacomall.app/vacomall";
 			};
@@ -757,10 +716,6 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = vacomallTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -768,7 +723,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vacomall.app/vacomall";
 			};
@@ -779,25 +733,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
-				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 				);
 				INFOPLIST_FILE = vacomall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vacomall;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_NAME = vacomall;
-				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -806,121 +756,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 				);
 				INFOPLIST_FILE = vacomall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vacomall;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_NAME = vacomall;
-				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
-		};
-		8025E98D1D1786E800DC43E7 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = NO;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
-					"$(SRCROOT)/../node_modules/react-native-wechat-ios/RCTWeChat/**",
-					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "35e00b11-eafe-41f0-b8bf-1ce472f59dc3";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = AdHoc;
-		};
-		8025E98E1D1786E800DC43E7 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
-					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
-				);
-				INFOPLIST_FILE = vacomall/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vacomall;
-				PRODUCT_NAME = vacomall;
-				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = NO;
-			};
-			name = AdHoc;
-		};
-		8025E98F1D1786E800DC43E7 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = vacomallTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vacomall.app/vacomall";
-			};
-			name = AdHoc;
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -941,9 +792,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -962,15 +811,11 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
-					"$(SRCROOT)/../node_modules/react-native-wechat-ios/RCTWeChat/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "35e00b11-eafe-41f0-b8bf-1ce472f59dc3";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -994,7 +839,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1008,14 +852,10 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
-					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
-					"$(SRCROOT)/../node_modules/react-native-wechat-ios/RCTWeChat/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "35e00b11-eafe-41f0-b8bf-1ce472f59dc3";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1029,7 +869,6 @@
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
 				00E356F71AD99517003FC87E /* Release */,
-				8025E98F1D1786E800DC43E7 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1039,7 +878,6 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
-				8025E98E1D1786E800DC43E7 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1049,7 +887,6 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
-				8025E98D1D1786E800DC43E7 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

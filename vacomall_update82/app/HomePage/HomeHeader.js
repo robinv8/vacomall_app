@@ -1,6 +1,8 @@
 'use strict';
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     Image,
     TextInput,
     View,
@@ -15,19 +17,15 @@ import React, {
     Alert,
     Dimensions
 }from 'react-native';
-import {API,NetService,CategoryList,Login,CartPage,ListPage,SearchPage,Toast,BarCodeIos,BarCodeAndroid} from '../util/Path';
-
+import {API,NetService,CategoryList,Login,Response,Global,CartPage,ListPage,SearchPage,Toast,BarCodeIos,BarCodeAndroid} from '../util/Path';
+import {mainColor} from '../util/global';
+import {getHeight} from '../util/response';
 export default class HomeHeader extends Component {
     // 构造
     constructor(props) {
         super(props);
         // 初始状态
         this.state = {
-            login: <TouchableWithoutFeedback onPress={()=>this._toLoginPage()}>
-                <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#00702d'}}>登录</Text>
-                </View>
-            </TouchableWithoutFeedback>,
             status: false
         };
     }
@@ -124,23 +122,24 @@ export default class HomeHeader extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 64 : 50,
-        backgroundColor: '#16BD42',
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height: Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
+        backgroundColor: mainColor,
         alignItems: 'center',
     },
     qrcode_view:{
-        flex:1,height:50,
+        flex:1,
+        height:getHeight(50),
         justifyContent:'center',
         alignItems:'center'
     },
     qrcode_icon:{
-        height:22,
-        width:29,
+        height:getHeight(22),
+        width:getHeight(29),
         resizeMode:'stretch'
     },
     searchBox: {
-        height: 28,
+        height: getHeight(28),
         flexDirection: 'row',
         flex: 5,
         borderRadius: 5,
@@ -148,26 +147,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     scanIcon: {
-        height: 18,
-        width: 27,
+        height: getHeight(18),
+        width: getHeight(27),
         resizeMode: 'stretch'
     },
     searchIcon: {
         marginLeft: 5,
         marginRight: 5,
-        width: 14.54,
-        height: 12.87,
+        width: getHeight(14.54),
+        height: getHeight(12.87),
         resizeMode: 'stretch',
         backgroundColor: '#09982E'
     },
     searchText: {
         flex: 1,
-        fontSize: 13.32,
+        fontSize: getHeight(13.23),
         color: 'white'
     },
     cate_view:{
         flex:1,
-        height:64,
+        height:getHeight(64),
         justifyContent:'center',
         alignItems:'center'
     }

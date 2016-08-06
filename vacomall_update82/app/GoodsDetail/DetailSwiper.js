@@ -1,9 +1,10 @@
 /**
  * Created by renyubin on 16/6/4.
  */
-import React,
-    {
+import React,{
     Component,
+}from 'react';
+import {
     View,
     StyleSheet,
     Image,

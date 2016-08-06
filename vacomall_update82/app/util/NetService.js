@@ -22,11 +22,11 @@ export function postFetchData(apiUrl,body,callback) {
     }).done();
 }
 export function getFetchData(apiUrl,callback) {
-    console.log(apiUrl)
+    console.log(apiUrl);
     fetch(apiUrl, {
         method: 'get',
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
         }
     }).then((response) => response.json())
         .then((responseJson) => {

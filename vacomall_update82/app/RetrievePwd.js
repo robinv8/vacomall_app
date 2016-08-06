@@ -2,9 +2,10 @@
  * Created by renyubin on 16/6/20.
  */
 'use strict';
-import React,
-{
+import React,{
     Component,
+}from 'react';
+import {
     View
 } from 'react-native';
 import {RetrievePwdHeader} from './util/Path';

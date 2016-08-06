@@ -1,8 +1,10 @@
 /**
  * Created by renyubin on 16/7/5.
  */
-import React, {
+import React,{
     Component,
+}from 'react';
+import {
     View,
     StatusBar,
     StyleSheet,
@@ -12,6 +14,7 @@ import React, {
     Platform,
     ScrollView
 } from 'react-native';
+import {PersonInfo} from './util/Path'
 export default class PersonSafe extends Component {
     _back() {
         const {navigator}=this.props;
