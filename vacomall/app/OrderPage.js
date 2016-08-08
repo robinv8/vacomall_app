@@ -126,6 +126,10 @@ export default class OrderPage extends Component {
             WeChatPay.isWXAppInstalled((res)=> {
                 if (res) {
                     submitOrder(this);
+                }else{
+                    this.setState({
+                        loadding:null
+                    });
                 }
             });
         } else {
@@ -168,7 +172,7 @@ export default class OrderPage extends Component {
                                 return
                             }
                             if (navigator) {
-                                navigator.push({
+                                navigator.replace({
                                     component: PaySuccess,
                                     sceneConfig: Navigator.SceneConfigs.FadeAndroid,
                                     params:{result:result}
@@ -177,7 +181,7 @@ export default class OrderPage extends Component {
                         });//微信支付
                     } else {
                         if (navigator) {
-                            navigator.push({
+                            navigator.replace({
                                 component: PayHDFK,
                                 sceneConfig: Navigator.SceneConfigs.FloatFromRight,
                                 params: {result: result}

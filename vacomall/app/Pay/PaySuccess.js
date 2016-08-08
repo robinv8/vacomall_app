@@ -16,7 +16,7 @@ import React, {
     Alert
 }from 'react-native'
 import {MainScreen,OrderDetail} from '../util/Path'
-export default class paySuccess extends Component {
+export default class PaySuccess extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -137,7 +137,6 @@ export default class paySuccess extends Component {
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
-
             </View>
         )
     }

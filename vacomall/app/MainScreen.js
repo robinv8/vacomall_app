@@ -72,8 +72,8 @@ export default class MainScreen extends Component {
         const routers = navigator.getCurrentRoutes();
         console.log(routers)
         if (routers.length > 1) {
-            var displayName = routers[routers.length - 1]['component']['displayName'];
-            if (displayName === 'Login') {
+            var displayName = routers[routers.length - 1]['component']['name'];
+            if (displayName === 'Login'||displayName==='PayHDFK'||displayName==='PaySuccess') {
                 this.setState({
                     selectedTab: HOME
                 });
