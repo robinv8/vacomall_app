@@ -33,7 +33,7 @@ import {
     CartPage,
     Loaddingpage
 } from './util/Path'
-
+import {getHeight} from './util/response';
 let cartThis = [], WeChatPay;
 export default class OrderPage extends Component {
     // 构造
@@ -52,9 +52,9 @@ export default class OrderPage extends Component {
             num: "",
             flag: true,
             wx: <Image source={require('../images/check_icon.png')}
-                       style={{width: 18, height: 18, resizeMode: 'stretch'}}/>,
+                       style={{width: getHeight(18), height: getHeight(18), resizeMode: 'stretch'}}/>,
             hdfk: <Image source={require('../images/check_icon.png')}
-                         style={{width: 18, height: 18, resizeMode: 'stretch'}}/>,
+                         style={{width: getHeight(18), height: getHeight(18), resizeMode: 'stretch'}}/>,
             orderPayId: null,
             text: '',
             loadding: null,
@@ -126,8 +126,8 @@ export default class OrderPage extends Component {
                 }}>
                 <View
                     style={{
-                        width: 200,
-                        height: 140,
+                        width: getHeight(200),
+                        height: getHeight(140),
                         backgroundColor: 'rgba(0,0,0,0.5)',
                         borderRadius: 5,
                         justifyContent: 'center',
@@ -249,18 +249,18 @@ export default class OrderPage extends Component {
             case 'wx':
                 this.setState({
                     wx: <Image source={require('../images/checked_icon.png')}
-                               style={{width: 18, height: 18, resizeMode: 'stretch'}}/>,
+                               style={{width: getHeight(18), height: getHeight(18), resizeMode: 'stretch'}}/>,
                     hdfk: <Image source={require('../images/check_icon.png')}
-                                 style={{width: 18, height: 18, resizeMode: 'stretch'}}/>,
+                                 style={{width: getHeight(18), height: getHeight(18), resizeMode: 'stretch'}}/>,
                     orderPayId: orderPayId
                 });
                 break;
             case 'hdfk':
                 this.setState({
                     wx: <Image source={require('../images/check_icon.png')}
-                               style={{width: 18, height: 18, resizeMode: 'stretch'}}/>,
+                               style={{width: getHeight(18), height: getHeight(18), resizeMode: 'stretch'}}/>,
                     hdfk: <Image source={require('../images/checked_icon.png')}
-                                 style={{width: 18, height: 18, resizeMode: 'stretch'}}/>,
+                                 style={{width: getHeight(18), height: getHeight(18), resizeMode: 'stretch'}}/>,
                     orderPayId: orderPayId
                 });
                 break;
@@ -281,74 +281,74 @@ export default class OrderPage extends Component {
             <View style={{flex: 1, backgroundColor: '#FAFAFA'}}>
                 <View style={{flex: 1}}>
                     <OrderHeader navigator={this.props.navigator}/>
-                    <ScrollView style={{flex: 1, marginBottom: 49}}>
+                    <ScrollView style={{flex: 1, marginBottom: getHeight(49)}}>
                         <View
                             style={{
-                                height: 84,
+                                height: getHeight(84),
                                 backgroundColor: 'white',
                                 flexDirection: 'row',
-                                padding: 12,
-                                paddingTop: 17,
-                                paddingBottom: 15,
+                                padding: getHeight(12),
+                                paddingTop: getHeight(17),
+                                paddingBottom: getHeight(15),
                                 borderBottomWidth: 1,
                                 borderBottomColor: '#E6E6E6'
                             }}>
 
                             <View style={{flex: 9, justifyContent: 'center'}}>
-                                <View style={{flexDirection: 'row', marginBottom: 15}}>
+                                <View style={{flexDirection: 'row', marginBottom: getHeight(15)}}>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-                                        <Text style={{color: '#BFBFBF'}}>收货人:</Text><View style={{marginLeft: 21}}><Text
-                                        style={{color: '#BFBFBF'}}>{this.state.name}</Text></View>
+                                        <Text style={{color: '#BFBFBF',fontSize:getHeight(14)}}>收货人:</Text><View style={{marginLeft: getHeight(21)}}><Text
+                                        style={{color: '#BFBFBF',fontSize:getHeight(14)}}>{this.state.name}</Text></View>
                                     </View>
                                     <View style={{alignItems: 'flex-end', flex: 1}}>
-                                        <Text style={{color: '#BFBFBF'}}>{this.state.mobile}</Text>
+                                        <Text style={{color: '#BFBFBF',fontSize:getHeight(14)}}>{this.state.mobile}</Text>
                                     </View>
                                 </View>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text style={{color: '#BFBFBF'}}>收货地址:</Text>
-                                    <View style={{marginLeft: 21}}><Text
-                                        style={{color: '#BFBFBF'}}>{this.state.address}</Text></View>
+                                    <Text style={{color: '#BFBFBF',fontSize:getHeight(14)}}>收货地址:</Text>
+                                    <View style={{marginLeft: getHeight(21)}}><Text
+                                        style={{color: '#BFBFBF',fontSize:getHeight(14)}}>{this.state.address}</Text></View>
                                 </View>
                             </View>
                         </View>
-
-                        <ListView
-                            initialListSize={14}
-                            dataSource={this.state.dataSource}
-                            renderRow={(gList)=>this.renderGList(gList)}
-                            style={{marginTop: 12, borderBottomWidth: 1, borderBottomColor: '#E6E6E6',}}
-                        />
+                        <View>
+                            <ListView
+                                initialListSize={14}
+                                dataSource={this.state.dataSource}
+                                renderRow={(gList)=>this.renderGList(gList)}
+                                style={{marginTop: getHeight(12), borderBottomWidth: 1, borderBottomColor: '#E6E6E6',paddingBottom:1}}
+                            />
+                        </View>
                         <View
                             style={{
-                                flex: 1,
                                 backgroundColor: 'white',
-                                marginTop: 11,
-                                paddingLeft: 10,
-                                paddingRight: 10,
+                                marginTop: getHeight(11),
+                                paddingLeft: getHeight(10),
+                                paddingRight: getHeight(10),
                                 borderBottomWidth: 1,
                                 borderBottomColor: '#E6E6E6'
                             }}>
                             <View style={styles.ordernews}>
                                 <View style={{flex: 1}}>
-                                    <Text style={{color: '#3C3C3C'}}>保障服务</Text>
+                                    <Text style={{color: '#3C3C3C',fontSize:getHeight(14)}}>保障服务</Text>
                                 </View>
                                 <View style={{alignItems: 'flex-end', flex: 1}}>
-                                    <Text style={{fontSize: 12}}>送货上门免安装</Text>
+                                    <Text style={{fontSize: getHeight(12)}}>送货上门免安装</Text>
                                 </View>
                             </View>
                             <View style={styles.ordernews}>
                                 <View style={{flex: 1}}>
-                                    <Text style={{color: '#3C3C3C'}}>运费</Text>
+                                    <Text style={{color: '#3C3C3C',fontSize:getHeight(14)}}>运费</Text>
                                 </View>
                                 <View style={{alignItems: 'flex-end', flex: 1}}>
-                                    <Text style={{fontSize: 12}}>免运费</Text>
+                                    <Text style={{fontSize: getHeight(12)}}>免运费</Text>
                                 </View>
                             </View>
                             <View style={styles.ordernews}>
                                 <View>
-                                    <Text style={{color: '#3C3C3C'}}>买家留言:</Text>
+                                    <Text style={{color: '#3C3C3C',fontSize:getHeight(14)}}>买家留言:</Text>
                                 </View>
-                                <View style={{alignItems: 'flex-end', flex: 1}}>
+                                <View style={{flex: 1}}>
                                     <TextInput
                                         placeholder='选填,可填写您需要的备注信息'
                                         placeholderTextColor={'#BFBFBF'}
@@ -356,20 +356,21 @@ export default class OrderPage extends Component {
                                         underlineColorAndroid='transparent'
                                         value={this.state.text}
                                         style={{
-                                            height: 47,
-                                            paddingLeft: 14,
-                                            fontSize: 14,
-                                            paddingTop: Platform.OS === 'ios' ? 0 : 12
+                                            height: getHeight(47),
+                                            paddingLeft: getHeight(14),
+                                            fontSize: getHeight(14),
+                                            padding:0,
+                                            width:getHeight(414-100)
                                         }}
                                     />
                                 </View>
                             </View>
-                            <View style={[styles.ordernews, {justifyContent: 'flex-end', borderBottomWidth: 0}]}>
+                            <View style={[styles.ordernews, {justifyContent: 'flex-end', borderBottomWidth: 0,height:getHeight(47)}]}>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text style={{fontSize: 12, marginTop: 5}}>共计:</Text>
-                                    <Text style={[styles.price, {marginTop: 6}]}>￥</Text>
+                                    <Text style={{fontSize: getHeight(12), marginTop: getHeight(5)}}>共计:</Text>
+                                    <Text style={[styles.price, {marginTop: getHeight(6)}]}>￥</Text>
                                     <Text
-                                        style={[styles.price, {fontSize: 18}]}>{this.state.money}</Text>
+                                        style={[styles.price, {fontSize: getHeight(18)}]}>{this.state.money}</Text>
                                 </View>
                             </View>
                         </View>
@@ -377,30 +378,30 @@ export default class OrderPage extends Component {
                             style={{
                                 flex: 1,
                                 backgroundColor: 'white',
-                                marginTop: 11,
-                                paddingLeft: 10,
-                                paddingRight: 10,
+                                marginTop: getHeight(11),
+                                paddingLeft: getHeight(10),
+                                paddingRight: getHeight(10),
                                 borderBottomWidth: 1,
                                 borderBottomColor: '#E6E6E6'
                             }}>
                             <View style={[styles.ordernews, {
-                                height: 38,
-                                borderBottomWidth: 0.3,
-                                borderBottomColor: 'rgba(191,191,191,0.5)',
-                                marginLeft: -10,
-                                marginRight: -10,
-                                paddingLeft: 10
+                                height: getHeight(38),
+                                borderBottomWidth: 0.5,
+                                borderBottomColor: '#f0f0f0',
+                                marginLeft: getHeight(-10),
+                                marginRight: getHeight(-10),
+                                paddingLeft: getHeight(10)
                             }]}>
                                 <View style={{flex: 1}}>
-                                    <Text style={{color: '#3C3C3C'}}>选择付款方式</Text>
+                                    <Text style={{color: '#3C3C3C',fontSize:getHeight(14)}}>选择付款方式</Text>
                                 </View>
                             </View>
-                            <View style={[styles.ordernews, {height: 57}]}>
+                            <View style={[styles.ordernews, {height: getHeight(57)}]}>
                                 <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
                                     <Image source={require('../images/wechat_icon.png')}
-                                           style={{width: 25, height: 25, resizeMode: 'stretch', marginRight: 10}}
+                                           style={{width: getHeight(25), height: getHeight(25), resizeMode: 'stretch', marginRight: getHeight(10)}}
                                     />
-                                    <Text>微信支付</Text>
+                                    <Text style={{fontSize:getHeight(14)}}>微信支付</Text>
                                 </View>
                                 <TouchableWithoutFeedback
                                     onPress={()=>this.checkpay('wx', 'd3d74b12b76045adaf86dd20cee00574')}>
@@ -409,12 +410,12 @@ export default class OrderPage extends Component {
                                     </View>
                                 </TouchableWithoutFeedback>
                             </View>
-                            <View style={[styles.ordernews, {borderBottomWidth: 0, height: 57}]}>
+                            <View style={[styles.ordernews, {borderBottomWidth: 0, height: getHeight(57)}]}>
                                 <View style={{flexDirection: 'row', flex: 5, alignItems: 'center'}}>
                                     <Image source={require('../images/hdfk.png')}
-                                           style={{width: 25, height: 25, resizeMode: 'stretch', marginRight: 10}}
+                                           style={{width: getHeight(25), height: getHeight(25), resizeMode: 'stretch', marginRight: getHeight(10)}}
                                     />
-                                    <Text>货到付款</Text>
+                                    <Text style={{fontSize:getHeight(14)}}>货到付款</Text>
                                 </View>
                                 <TouchableWithoutFeedback
                                     onPress={()=>this.checkpay('hdfk', '7be9eb00370b4dd99ddd129708fec4d8')}>
@@ -429,7 +430,7 @@ export default class OrderPage extends Component {
                 <View>
                     <View style={{
                         flexDirection: 'row',
-                        height: 49,
+                        height: getHeight(49),
                         backgroundColor: 'white',
                         position: 'absolute',
                         bottom: 0,
@@ -440,19 +441,19 @@ export default class OrderPage extends Component {
                         <View
                             style={[styles.bom, {
                                 flex: 2,
-                                paddingLeft: 10,
+                                paddingLeft: getHeight(10),
                                 flexDirection: 'row',
                                 justifyContent: 'flex-end',
-                                paddingRight: 10
+                                paddingRight: getHeight(10)
                             }]}>
-                            <Text style={{fontSize: 12, marginTop: 1}}>共计:</Text>
-                            <Text style={[styles.price, {marginTop: 4}]}>￥</Text>
+                            <Text style={{fontSize: getHeight(12), marginTop: 1}}>共计:</Text>
+                            <Text style={[styles.price, {marginTop: getHeight(4)}]}>￥</Text>
                             <Text
-                                style={[styles.price, {fontSize: 18}]}>{this.state.money}</Text>
+                                style={[styles.price, {fontSize: getHeight(18)}]}>{this.state.money}</Text>
                         </View>
                         <TouchableWithoutFeedback onPress={()=>this._toSubmit()}>
-                            <View style={[styles.bom, {width: 110, backgroundColor: '#16BD42'}]}>
-                                <Text style={{fontSize: 14, color: 'white'}}>立即支付({this.state.num})</Text>
+                            <View style={[styles.bom, {width: getHeight(110), backgroundColor: '#16BD42'}]}>
+                                <Text style={{fontSize: getHeight(14), color: 'white'}}>立即支付({this.state.num})</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
@@ -520,39 +521,39 @@ class CartList extends Component {
                     <View style={{flexDirection: 'row', flex: 7}}>
                         <View
                             style={{
-                                height: 84,
-                                width: 84,
+                                height: getHeight(84),
+                                width: getHeight(84),
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 borderWidth: 0.5,
-                                borderColor: 'rgba(191,191,191,0.5)',
+                                borderColor: '#efefef',
                                 borderRadius: 3
                             }}>
                             <Image source={{uri: this.props.gList['imgUrl']}}
-                                   style={{height: 82, width: 82, resizeMode: 'stretch'}}/>
+                                   style={{height: getHeight(82), width: getHeight(81), resizeMode: 'stretch'}}/>
                         </View>
-                        <View style={{flex: 4, marginLeft: 10}}>
+                        <View style={{flex: 4, marginLeft: getHeight(10)}}>
                             <Text
                                 style={{
                                     color: '#898989',
-                                    fontSize: 14,
-                                    height: 63
+                                    fontSize: getHeight(14),
+                                    height: getHeight(63)
                                 }}>{this.texthandle(this.props.gList['name'])}</Text>
                             <Text
                                 style={{
                                     color: '#C8C8C8',
-                                    fontSize: 12
+                                    fontSize: getHeight(12)
                                 }}>规格:{this.props.gList['skuSpecification'].substring(0, 30)}</Text>
                         </View>
                     </View>
 
-                    <View style={{flex: 2, alignItems: 'flex-end', paddingRight: 2}}>
-                        <View style={{height: 60}}>
-                            <Text style={{color: '#FF0200', fontSize: 12}}>￥<Text
-                                style={{fontSize: 18}}>{this.props.gList['price']}</Text></Text>
+                    <View style={{flex: 2, alignItems: 'flex-end', paddingRight: getHeight(2)}}>
+                        <View style={{height: getHeight(60)}}>
+                            <Text style={{color: '#FF0200', fontSize: getHeight(12)}}>￥<Text
+                                style={{fontSize: getHeight(18)}}>{this.props.gList['price']}</Text></Text>
                         </View>
                         <View>
-                            <Text style={{color: '#C8C8C8', fontSize: 16}}>×{this.props.gList['buySum']}</Text>
+                            <Text style={{color: '#C8C8C8', fontSize: getHeight(16)}}>×{this.props.gList['buySum']}</Text>
                         </View>
                     </View>
                 </View>
@@ -565,35 +566,35 @@ const styles = StyleSheet.create({
 
     goods_view: {
         backgroundColor: 'white',
-        height: 115,
+        height: getHeight(115),
         flex: 1
     },
 
     goods_view_view: {
-        height: 115,
+        height: getHeight(115),
         flexDirection: 'row',
-        marginLeft: 10,
-        marginRight: 10,
-        borderBottomColor: 'rgba(191,191,191,0.5)',
-        paddingTop: 14,
-        paddingBottom: 16,
+        marginLeft: getHeight(10),
+        marginRight: getHeight(10),
+        borderBottomColor: '#efefef',
+        paddingTop: getHeight(14),
+        paddingBottom: getHeight(16),
         alignItems: 'center'
     },
     price: {
         color: '#FF0200',
-        fontSize: 12
+        fontSize: getHeight(12)
     },
     sort: {
         backgroundColor: '#efefef',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 0,
-        width: 100,
-        height: 30,
+        width: getHeight(100),
+        height: getHeight(30),
         borderRadius: 3
     },
     sortText: {
-        fontSize: 12
+        fontSize: getHeight(12)
     },
     bom: {
         justifyContent: 'center',
@@ -601,26 +602,14 @@ const styles = StyleSheet.create({
 
     },
     check: {
-        width: 18,
-        height: 18,
-        marginRight: 7,
-    },
-    goods_view1: {
-        width: (Dimensions.get('window').width) / 2 - 3,
-        backgroundColor: 'white',
-        marginBottom: 5,
-        shadowColor: "rgb(0,0,0)",
-        shadowOpacity: 0.1,
-        shadowRadius: 0,
-        shadowOffset: {
-            height: 0.5,
-            width: 0
-        }
+        width: getHeight(18),
+        height: getHeight(18),
+        marginRight: getHeight(7),
     },
     ordernews: {
-        height: 47,
-        borderBottomWidth: 0.3,
-        borderBottomColor: 'rgba(191,191,191,0.5)',
+        height: getHeight(45),
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#efefef',
         flexDirection: 'row',
         alignItems: 'center'
     }

@@ -18,6 +18,7 @@ import {
     Navigator
 }from 'react-native';
 import {Login,API,NetService,MenuButton,GoodsDetail,Toast,OrderSelectPage,PersonSafe,Guess} from './util/Path';
+import {getHeight} from './util/response';
 var listFlag = 0;
 export default class Person extends Component {
     // 构造
@@ -27,9 +28,6 @@ export default class Person extends Component {
         this.state = {
             catArray1: [],
             catArray2: [],
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2)=>row1 !== row2
-            }),
             all: 0,
             dfk: null,
             dfh: null,
@@ -81,7 +79,7 @@ export default class Person extends Component {
                     this.setState({
                         dfk: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfk.length > 2 ? dfk.substring(0, 1) + '+' : dfk}</Text>
+                                style={{fontSize:getHeight(11.05),color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfk.length > 2 ? dfk.substring(0, 1) + '+' : dfk}</Text>
                         </View>,
                     })
                 }
@@ -91,7 +89,7 @@ export default class Person extends Component {
                     this.setState({
                         dfh: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfh.length > 2 ? dfh.substring(0, 1) + '+' : dfh}</Text>
+                                style={{fontSize:getHeight(11.05),color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dfh.length > 2 ? dfh.substring(0, 1) + '+' : dfh}</Text>
                         </View>
                     })
                 }
@@ -101,7 +99,7 @@ export default class Person extends Component {
                     this.setState({
                         dsh: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dsh.length > 2 ? dsh.substring(0, 1) + '+' : dsh}</Text>
+                                style={{fontSize:getHeight(11.05),color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{dsh.length > 2 ? dsh.substring(0, 1) + '+' : dsh}</Text>
                         </View>
                     })
                 }
@@ -111,7 +109,7 @@ export default class Person extends Component {
                     this.setState({
                         thh: <View style={styles.bub}>
                             <Text
-                                style={{fontSize:11.05,color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{thh.length > 2 ? thh.substring(0, 1) + '+' : thh}</Text>
+                                style={{fontSize:getHeight(11.05),color:'white',backgroundColor:'rgba(0,0,0,0)'}}>{thh.length > 2 ? thh.substring(0, 1) + '+' : thh}</Text>
                         </View>
                     })
                 }
@@ -165,51 +163,7 @@ export default class Person extends Component {
         }
     }
 
-    renderGList(gList) {
-        var _textLength = function (text) {
-            var rtnText = "";
-            if (text.length > 20) {
-                rtnText = text.substring(0, 25)
-            } else {
-                rtnText = text;
-            }
-            return rtnText;
-        };
-        var listMarginRight = 0;
-        if (listFlag % 2 === 0) {
-            listMarginRight = 5;
-        } else {
-            listMarginRight = 0;
-        }
-        listFlag++;
 
-        return (
-            <TouchableWithoutFeedback onPress={(id)=>this.toDetails(gList['Id'])}>
-                <View style={[styles.goods_view,{marginRight:listMarginRight}]}>
-                    <View
-                        style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3',marginBottom:5}}>
-                        <Image source={{uri:gList['SpuDefaultImage']}}
-                               style={{width: 150,height: 150,marginBottom:10}}/>
-                    </View>
-                    <View style={{marginLeft:7,marginRight:4}}>
-                        <View style={{marginBottom:1,height:32}}>
-                            <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
-                        </View>
-                        <View style={{flex:1,flexDirection:'row'}}>
-                            <View style={{flex:1,marginBottom:5}}>
-                                <Text style={styles.price}><Text
-                                    style={{fontSize:12}}>￥</Text>{gList['GoodsItemSalePrice']}
-                                </Text>
-                            </View>
-                            <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end',marginBottom:5}}>
-                                <Text style={styles.bprice}>{gList['GoodsItemSales']}人已付款</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
-        )
-    }
 
     toDetails(id) {
         const {navigator}=this.props;
@@ -255,69 +209,69 @@ export default class Person extends Component {
                 <ScrollView style={styles.personHead}>
                     <Image source={require('../images/person_background.png')} style={styles.personHead_img}>
                         <View style={{flexDirection:'row',flex:1}}>
-                            <View style={{height:50,paddingLeft:12,paddingTop:14,flex:1}}>
+                            <View style={{height:getHeight(50),paddingLeft:getHeight(12),paddingTop:getHeight(14),flex:1}}>
 
                             </View>
                             <TouchableWithoutFeedback onPress={()=>this.toPersonSafe()}>
-                                <View style={{alignItems:'center',marginTop:20}}>
+                                <View style={{alignItems:'center',marginTop:getHeight(20)}}>
                                     <Image source={require('../images/header_img.png')} style={styles.header_img}/>
                                     <Text
-                                        style={{fontSize:16,color:'white',backgroundColor:'rgba(0,0,0,0)',marginTop:5}}>HI!万小颗</Text>
+                                        style={{fontSize:getHeight(16),color:'white',backgroundColor:'rgba(0,0,0,0)',marginTop:getHeight(5)}}>HI!万小颗</Text>
                                 </View>
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={()=>this.toPersonSafe()}>
-                                <View style={{height:50,paddingRight:13,paddingTop:14,alignItems:'flex-end',flex:1}}>
+                                <View style={{height:getHeight(50),paddingRight:getHeight(13),paddingTop:getHeight(14),alignItems:'flex-end',flex:1}}>
                                     <Image source={require('../images/setting.png')} style={styles.settingIcon}/>
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
 
                     </Image>
-                    <View style={{backgroundColor:'white',marginBottom:10}}>
+                    <View style={{backgroundColor:'white',marginBottom:getHeight(10)}}>
                         <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail('all')}>
                             <View
-                                style={{height:50,alignItems:'center',flexDirection:'row',borderBottomWidth:0.4,borderBottomColor:'#E5E5E5'}}>
+                                style={{height:getHeight(50),alignItems:'center',flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'#E5E5E5'}}>
                                 <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
                                     <Image source={require('../images/order_item.png')}
-                                           style={[styles.settingIcon,{marginLeft:18,marginRight:5}]}/>
-                                    <Text>全部订单</Text>
+                                           style={[styles.settingIcon,{marginLeft:getHeight(18),marginRight:getHeight(5)}]}/>
+                                    <Text style={{fontSize:getHeight(16)}}>全部订单</Text>
                                 </View>
                                 <View
                                     style={{flexDirection:'row',flex:1,justifyContent:'flex-end',alignItems:'center'}}>
                                     <Image source={require('../images/search_icon1.png')}
-                                           style={[styles.searchIcon,{marginLeft:18,marginRight:5}]}/>
-                                    <Text style={{color:'#C2C2C2'}}>查看全部订单</Text>
+                                           style={[styles.searchIcon,{marginLeft:getHeight(18),marginRight:getHeight(5)}]}/>
+                                    <Text style={{color:'#C2C2C2',fontSize:getHeight(14)}}>查看全部订单</Text>
                                     <Image source={require('../images/right_arrow.png')} style={[styles.right_arrow]}/>
                                 </View>
                             </View>
                         </TouchableWithoutFeedback>
-                        <View style={{flex:1,flexDirection:'row',height:78,}}>
+                        <View style={{flex:1,flexDirection:'row',height:getHeight(78),}}>
                             <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(100)}>
-                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:getHeight(17)}}>
                                     <Image source={require('../images/order_icon1.png')} style={styles.order_icon}/>
-                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待付款</Text>
+                                    <Text style={{color:'#696969',fontSize:getHeight(12),marginTop:getHeight(6)}}>待付款</Text>
                                     {this.state.dfk}
                                 </View>
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(200)}>
-                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:getHeight(17)}}>
                                     <Image source={require('../images/order_icon2.png')} style={styles.order_icon}/>
-                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待发货</Text>
+                                    <Text style={{color:'#696969',fontSize:getHeight(12),marginTop:getHeight(6)}}>待发货</Text>
                                     {this.state.dfh}
 
                                 </View>
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(300)}>
-                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:getHeight(17)}}>
                                     <Image source={require('../images/order_icon3.png')} style={styles.order_icon}/>
-                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>待收货</Text>
+                                    <Text style={{color:'#696969',fontSize:getHeight(12),marginTop:getHeight(6)}}>待收货</Text>
                                     {this.state.dsh}
                                 </View>
                             </TouchableWithoutFeedback>
                             <TouchableWithoutFeedback onPress={(num)=>this.toOrderDetail(400)}>
-                                <View style={{flex:1,alignItems:'center',paddingTop:17}}>
+                                <View style={{flex:1,alignItems:'center',paddingTop:getHeight(17)}}>
                                     <Image source={require('../images/order_icon4.png')} style={styles.order_icon}/>
-                                    <Text style={{color:'#696969',fontSize:12,marginTop:6}}>退换货/售后</Text>
+                                    <Text style={{color:'#696969',fontSize:getHeight(12),marginTop:getHeight(6)}}>退换货/售后</Text>
                                     {this.state.thh}
                                 </View>
                             </TouchableWithoutFeedback>
@@ -327,13 +281,13 @@ export default class Person extends Component {
                         <View style={styles.menuView}>
                             {this.state.catArray1.map(function (data, index) {
                                 return <View key={index}
-                                             style={{flex:1,height:110,borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
+                                             style={{flex:1,height:getHeight(110),borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
                             })}
                         </View>
                         <View style={[styles.menuView,styles.menuView2]}>
                             {this.state.catArray2.map(function (data, index) {
                                 return <View key={index}
-                                             style={{flex:1,height:110,borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
+                                             style={{flex:1,height:getHeight(110),borderRightWidth:0.5,borderRightColor:'#F3F3F3'}}>{data}</View>
                             })}
                         </View>
                     </View>
@@ -350,43 +304,25 @@ const styles = StyleSheet.create({
     },
     personHead: {
         flex: 1,
-        height: 238,
+        height: getHeight(238),
     },
     personHead_img: {
-        height: 208,
+        height: getHeight(208),
         width: Dimensions.get('window').width,
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        //resizeMode: 'stretch',
-    },
-    backIcon: {
-        width: 12,
-        height: 18,
-        resizeMode: 'stretch',
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
     },
     settingIcon: {
-        width: 20,
-        height: 20,
+        width: getHeight(20),
+        height: getHeight(20),
         resizeMode: 'stretch',
     },
     header_img: {
-        width: 120,
-        height: 120,
-        //resizeMode: 'stretch',
-    },
-    goods_view: {
-        width: (Dimensions.get('window').width) / 2 - 3,
-        backgroundColor: 'white',
-        marginBottom: 5,
-        shadowColor: "rgb(0,0,0)",
-        shadowOpacity: 0.1,
-        shadowRadius: 0,
-        shadowOffset: {
-            height: 0.5,
-            width: 0
-        }
+        width: getHeight(120),
+        height: getHeight(120),
+        resizeMode: 'stretch',
     },
     header_bottom: {
-        height: 60,
+        height: getHeight(60),
         backgroundColor: 'rgba(0,0,0,0.25)',
         justifyContent: 'flex-end',
         flexDirection: 'row'
@@ -400,41 +336,41 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     searchIcon: {
-        marginRight: 2,
-        width: 14,
-        height: 14,
+        marginRight: getHeight(2),
+        width: getHeight(14),
+        height: getHeight(14),
         resizeMode: 'stretch',
     },
     right_arrow: {
-        width: 8,
-        height: 10,
+        width: getHeight(8),
+        height: getHeight(10),
         resizeMode: 'stretch',
-        marginLeft: 4,
-        marginRight: 10,
+        marginLeft: getHeight(4),
+        marginRight: getHeight(10),
     },
     order_icon: {
-        width: 26,
-        height: 23,
+        width: getHeight(26),
+        height: getHeight(23),
         resizeMode: 'stretch'
     },
     bub: {
         position: 'absolute',
-        width: 15,
-        height: 15,
+        width: getHeight(15),
+        height: getHeight(15),
         backgroundColor: '#FD3824',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 15,
-        right: 25,
-        top: 10
+        right: getHeight(25),
+        top: getHeight(10)
     },
     quick_view: {
-        height: 220,
+        height: getHeight(220),
         backgroundColor: 'white',
     },
     menuView: {
         flexDirection: 'row',
-        height: 110,
+        height: getHeight(110),
         alignItems: 'center',
         borderBottomWidth: 0.5,
         borderBottomColor: '#E5E5E5'
@@ -448,21 +384,21 @@ const styles = StyleSheet.create({
     },
     cnxh_view: {
         alignItems: 'center',
-        height: 51,
+        height: getHeight(51),
         justifyContent: 'center'
     },
     cnxh_view_img: {
-        width: 96,
-        height: 20,
+        width: getHeight(96),
+        height: getHeight(20),
         resizeMode: 'stretch',
     },
     price: {
         color: '#FF0200',
-        fontSize: 18
+        fontSize: getHeight(18)
     },
     bprice: {
         color: '#BFBFBF',
-        fontSize: 12,
+        fontSize: getHeight(12),
         justifyContent: 'flex-end'
     },
 })

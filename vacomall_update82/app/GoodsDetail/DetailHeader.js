@@ -18,7 +18,7 @@ import {
     ToastAndroid
 }from 'react-native';
 import {CartPage,Login,API,NetService,Toast} from '../util/Path';
-
+import {getHeight} from '../util/response';
 export default class Header extends Component {
     toCart() {
         NetService.postFetchData(API.LOGINSTATE, "",(result)=>{
@@ -60,15 +60,15 @@ export default class Header extends Component {
                     <View style={{flex:2,justifyContent:'flex-start',alignItems:'center',flexDirection:'row'}}>
                         <Image source={require('../../images/back_icon.png')}
                            style={styles.backIcon}/>
-                        <Text style={{marginLeft:2,fontSize:16}}>返回</Text>
+                        <Text style={{marginLeft:getHeight(2),fontSize:getHeight(16)}}>返回</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
-                    <Text style={{color: '#3C3C3C',fontSize: 18}}>商品详情</Text>
+                    <Text style={{color: '#3C3C3C',fontSize: getHeight(18)}}>商品详情</Text>
                 </View>
                 <View style={{flex:2,flexDirection:'row',justifyContent:'flex-end'}}>
                     <TouchableWithoutFeedback onPress={()=>this.toCart()}>
-                        <View style={{flex:1,height:50,alignItems: 'flex-end',justifyContent: 'center',marginRight:15}}>
+                        <View style={{flex:1,height:getHeight(50),alignItems: 'flex-end',justifyContent: 'center',marginRight:getHeight(15)}}>
                             <Image source={require('../../images/black_cart.png')} style={styles.scanIcon}/>
                         </View>
                     </TouchableWithoutFeedback>
@@ -80,35 +80,30 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height:Platform.OS === 'ios' ? 64 : 40,
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height: Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:1,
-        borderBottomColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)',
+        borderBottomColor:'#d3d3d3',
         justifyContent:'center'
     },
-    logo: {
-        height: 25,
-        width: 64,
-        resizeMode: 'stretch'
 
-    },
     searchBox: {
-        height: 40,
+        height: getHeight(50),
         flexDirection: 'row',
         flex: 6,
         alignItems: 'center',
         justifyContent: 'center',
     },
     scanIcon: {
-        height: 23,
-        width: 26,
+        height: getHeight(23),
+        width: getHeight(26),
         resizeMode: 'stretch'
     },
     moreIcon:{
-        width: 20,
-        height: 5,
+        width: getHeight(20),
+        height: getHeight(5),
         resizeMode: 'stretch',
     },
     searchIcon: {
@@ -118,16 +113,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#00702d'
     },
     backIcon: {
-        width: 12,
-        height: 20,
+        width: getHeight(12),
+        height: getHeight(20),
         resizeMode: 'stretch',
-        marginLeft:9
-    },
-    inputText: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0)',
-        fontSize: 14,
-        width: 860,
-        color: 'white'
+        marginLeft:getHeight(9)
     }
 })

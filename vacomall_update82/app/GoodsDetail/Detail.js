@@ -31,7 +31,8 @@ import {
     Loaddingpage,
     DetailHeader
 } from '../util/Path';
-
+import {priceColor} from '../util/global';
+import {getHeight} from '../util/response';
 export default class GoodsDetail extends Component {
     // 构造
     constructor(props) {
@@ -56,8 +57,9 @@ export default class GoodsDetail extends Component {
     }
 
     componentDidMount() {
+        //+ this.props.id
         setTimeout(()=> {
-            NetService.postFetchData(API.DETAIL, 'id=' + this.props.id, (result)=> {
+            NetService.postFetchData(API.DETAIL, 'id=1e7eeb1a5ff041e29987eec72eeb3902', (result)=> {
                 if (result['success'] === false) {
                     if (result['result']['code'] === 550) {
                         this.setState({
@@ -111,45 +113,44 @@ export default class GoodsDetail extends Component {
         return (
             <View style={{flex: 1, backgroundColor: '#F4F4F4'}}>
                 <ScrollView
-                    endFillColor="red"
-                    style={{marginBottom: 49,}}
+                    style={{marginBottom: getHeight(49),}}
                     //scrollEventThrottle={1}
                     onContentSizeChange={(w, h)=>this._ContentSizeChange(w, h)}
                     onScroll={(event)=>this.handleScroll(event)}
                 >
                     <DetailSwiper swiperData={this.state.swiperData}/>
                     <View style={styles.topshadow}>
-                        <View style={{backgroundColor: 'white', padding: 10, marginBottom: 10, paddingBottom: 0}}>
+                        <View style={{backgroundColor: 'white', padding: getHeight(10), marginBottom: getHeight(10), paddingBottom: getHeight(11)}}>
                             <View style={styles.goods_name}>
                                 <View style={{flex: 8}}>
                                     <Text
                                         style={{
-                                            color: '#3C3C3C',
-                                            lineHeight: 20
+                                            color: priceColor,
+                                            fontSize:getHeight(14),
                                         }}>{this.state.details['GoodsItemTitle']}</Text>
                                 </View>
                                 <View style={{justifyContent: 'center', flex: 2, alignItems: 'center', opacity: 0}}>
                                     <Image source={require('../../images/share_icon.png')}
                                            style={styles.share_icon}/>
-                                    <Text style={{color: '#979797', fontSize: 12}}>分享</Text>
+                                    <Text style={{color: '#979797', fontSize: getHeight(12)}}>分享</Text>
                                 </View>
                             </View>
                             <View style={styles.price_view}>
                                 <View
                                     style={{flex: 1, flexDirection: 'row'}}>
                                     <View style={styles.price_con}>
-                                        <Text style={[styles.price, {fontSize: 16, marginTop: 3}]}>￥</Text>
+                                        <Text style={[styles.price, {fontSize: getHeight(16), marginTop: 3}]}>￥</Text>
                                         <Text
                                             style={[styles.price, {
-                                                fontSize: 22,
-                                                marginTop: -4
+                                                fontSize: getHeight(22),
+                                                marginTop: getHeight(-4)
                                             }]}>{this.state.price}</Text>
                                     </View>
                                     <View
                                         style={[styles.price_con, {
                                             flex: 1,
                                             justifyContent: 'flex-start',
-                                            marginLeft: 2
+                                            marginLeft: getHeight(2)
                                         }]}>
                                         <Text
                                             style={[styles.bef_text, styles.bef_price]}>市场价￥{this.state.details['GoodsItemTagPrice']}</Text>
@@ -158,10 +159,10 @@ export default class GoodsDetail extends Component {
 
                                 <View style={styles.sales}>
                                     <View style={styles.freight}><Text
-                                        style={{fontSize: 14, color: '#BFBFBF'}}>运费:免邮</Text></View>
-                                    <View style={[styles.freight, {alignItems: 'flex-end', marginRight: 5}]}><Text
+                                        style={{fontSize: getHeight(14), color: '#BFBFBF'}}>运费:免邮</Text></View>
+                                    <View style={[styles.freight, {alignItems: 'flex-end', marginRight: getHeight(5)}]}><Text
                                         style={{
-                                            fontSize: 14,
+                                            fontSize: getHeight(14),
                                             color: '#BFBFBF'
                                         }}>月销:{this.state.details['GoodsItemSales']}笔</Text></View>
                                 </View>
@@ -170,12 +171,12 @@ export default class GoodsDetail extends Component {
                         <View
                             style={{
                                 flexDirection: 'row',
-                                padding: 10,
-                                marginBottom: 10,
+                                padding: getHeight(10),
+                                marginBottom: getHeight(10),
                                 paddingBottom: 0,
                                 paddingTop: 0,
                                 backgroundColor: 'white',
-                                height: 44,
+                                height: getHeight(44),
                                 alignItems: 'center'
                             }}>
                             <View
@@ -185,12 +186,12 @@ export default class GoodsDetail extends Component {
                                 <Text style={styles.exp_text}>免运费</Text>
                             </View>
                             <View
-                                style={{flexDirection: 'row', alignItems: 'center', marginLeft: 30}}>
+                                style={{flexDirection: 'row', alignItems: 'center', marginLeft: getHeight(30)}}>
                                 <Image source={require('../../images/detail/right.png')}
                                        style={styles.exp_img}/>
                                 <Text style={styles.exp_text}>七天无理由退货</Text>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 30}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: getHeight(30)}}>
                                 <Image source={require('../../images/detail/right.png')}
                                        style={styles.exp_img}/>
                                 <Text style={styles.exp_text}>支持货到付款</Text>
@@ -201,13 +202,13 @@ export default class GoodsDetail extends Component {
                     <GoodsSpec _this2={this}/>
                     <View
                         style={{
-                            paddingLeft: 5,
+                            paddingLeft: getHeight(5),
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginTop: 25,
-                            marginBottom: 25
+                            marginTop: getHeight(25),
+                            marginBottom: getHeight(25)
                         }}>
-                        <Text style={{color: '#898989'}}>继续拖动,查看图文详情</Text>
+                        <Text style={{color: '#898989',fontSize:getHeight(14)}}>继续拖动,查看图文详情</Text>
                     </View>
                     {this.state.imgdetails}
                 </ScrollView>
@@ -215,7 +216,7 @@ export default class GoodsDetail extends Component {
                     <View
                         style={{
                             flexDirection: 'row',
-                            height: 49,
+                            height: getHeight(49),
                             backgroundColor: 'white',
                             position: 'absolute',
                             bottom: 0,
@@ -226,22 +227,22 @@ export default class GoodsDetail extends Component {
                         <View
                             style={[styles.bom, {
                                 flex: 1,
-                                paddingLeft: 10,
+                                paddingLeft: getHeight(10),
                                 flexDirection: 'row',
                                 justifyContent: 'flex-start',
                                 backgroundColor: 'white'
                             }]}>
-                            <Text style={{fontSize: 12}}>总价:</Text>
+                            <Text style={{fontSize: getHeight(12)}}>总价:</Text>
                             <Text style={[styles.price]}>￥</Text>
                             <Text
                                 style={[styles.price, {
-                                    fontSize: 18,
-                                    marginTop: -4
+                                    fontSize: getHeight(18),
+                                    marginTop: getHeight(-4)
                                 }]}>{(this.state.price * this.state.num).toFixed(2)}</Text>
                         </View>
                         <TouchableWithoutFeedback onPress={()=>this._addCart()}>
                             <View style={[styles.bom, {backgroundColor: '#16BD42'}]}>
-                                <Text style={{fontSize: 14, color: 'white'}}>加入购物车</Text>
+                                <Text style={{fontSize: getHeight(14), color: 'white'}}>加入购物车</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
@@ -290,27 +291,28 @@ export default class GoodsDetail extends Component {
 
 const styles = StyleSheet.create({
     price_view: {
-        height: 74
+        height: getHeight(74)
     },
     right_arrows: {
         resizeMode: 'stretch',
-        width: 10,
-        height: 15
+        width: getHeight(10),
+        height: getHeight(15)
     },
     goods_name: {
         flexDirection: 'row',
         borderBottomWidth: 0.5,
-        paddingBottom: 11,
-        borderBottomColor: '#E7E7E7'
+        paddingBottom: getHeight(11),
+        borderBottomColor: '#E7E7E7',
+        height:getHeight(59)
     },
 
     exp_img: {
         resizeMode: 'stretch',
-        width: 14,
-        height: 14
+        width: getHeight(14),
+        height: getHeight(14)
     },
     exp_text: {
-        fontSize: 12,
+        fontSize: getHeight(12),
         color: '#909090'
     },
     topshadow: {
@@ -323,24 +325,23 @@ const styles = StyleSheet.create({
         }
     },
     share_icon: {
-        width: 40,
-        height: 25,
-        resizeMode: 'stretch'
+        width: getHeight(40),
+        height: getHeight(25),
     },
     container: {
         backgroundColor: '#F4F4F4'
     },
     price_con: {
         flexDirection: 'row',
-        height: 30,
-        marginTop: 14
+        height: getHeight(30),
+        marginTop: getHeight(14)
     },
     price: {
         color: '#FD3824',
-        fontSize: 16
+        fontSize: getHeight(16)
     },
     bef_text: {
-        fontSize: 14,
+        fontSize: getHeight(14),
         color: '#BFBFBF'
     },
     bef_price: {
@@ -355,7 +356,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bom: {
-        width: 130,
+        width: getHeight(130),
         justifyContent: 'center',
         alignItems: 'center'
     },

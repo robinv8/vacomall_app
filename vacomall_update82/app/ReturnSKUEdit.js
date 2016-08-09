@@ -5,6 +5,7 @@
 import React,{
     Component,
 }from 'react';
+import {getHeight} from './util/response';
 import {
     View,
     StyleSheet,
@@ -90,48 +91,48 @@ export default class ReturnSKUEdit extends Component {
         return (
             <View style={{backgroundColor:'#FAFAFA',flex:1}}>
                 <ReturnSKUEditHeader navigator={this.props.navigator}/>
-                <View style={{paddingLeft:12,paddingRight:12,paddingTop:20,flex:1}}>
+                <View style={{paddingLeft:getHeight(12),paddingRight:getHeight(12),paddingTop:getHeight(20),flex:1}}>
                     <View style={styles.text_wrap}>
                         <View style={{flexDirection:'row',alignItems:'center'}}>
-                            <Text style={{color:'#FD3824',fontSize:18,marginTop:5}}>*</Text><Text
-                            style={{color:'#BFBFBF'}}>退货原因</Text>
+                            <Text style={{color:'#FD3824',fontSize:getHeight(18),marginTop:getHeight(5)}}>*</Text><Text
+                            style={{color:'#BFBFBF',fontSize:getHeight(14)}}>退货原因</Text>
                         </View>
                         <TouchableWithoutFeedback onPress={()=>this.picker.toggle()}>
-                            <View style={{marginLeft:12,flexDirection:'row',flex:1}}>
+                            <View style={{marginLeft:getHeight(12),flexDirection:'row',flex:1}}>
                                 <View>
-                                    <Text>{this.state.selectedOption}</Text>
+                                    <Text style={{fontSize:getHeight(14)}}>{this.state.selectedOption}</Text>
                                 </View>
-                                <View style={{alignItems:'flex-end',flex:1,marginRight:16,justifyContent:'center'}}>
-                                    <Image source={require('../images/down_icon.png')} style={{width:16,height:8.96}}/>
+                                <View style={{alignItems:'flex-end',flex:1,marginRight:getHeight(16),justifyContent:'center'}}>
+                                    <Image source={require('../images/down_icon.png')} style={{width:getHeight(16),height:getHeight(8.96)}}/>
                                 </View>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
                     <View style={styles.text_wrap}>
                         <View style={{flexDirection:'row',alignItems:'center'}}>
-                            <Text style={{color:'#FD3824',fontSize:18,marginTop:5,opacity:0}}>*</Text><Text
-                            style={{color:'#BFBFBF'}}>退货说明</Text>
+                            <Text style={{color:'#FD3824',fontSize:getHeight(18),marginTop:getHeight(5),opacity:0}}>*</Text><Text
+                            style={{color:'#BFBFBF',fontSize:getHeight(14)}}>退货说明</Text>
                         </View>
-                        <View style={{marginLeft:12,flexDirection:'row',flex:1}}>
+                        <View style={{marginLeft:getHeight(12),flexDirection:'row',flex:1}}>
                             <TextInput
                                 placeholder='最多200字'
                                 placeholderTextColor={'#898989'}
                                 onChangeText={(text)=>this._onChange(text)}
                                 underlineColorAndroid='transparent'
                                 value={this.state.text}
-                                style={{height:45,fontSize:14,flex:1}}
+                                style={{height:getHeight(45),fontSize:getHeight(14),flex:1,padding:0}}
                             />
                         </View>
                     </View>
                 </View>
-                <View style={{height:49,backgroundColor:'white',justifyContent:'center',alignItems:'center'}}>
+                <View style={{height:getHeight(49),backgroundColor:'white',justifyContent:'center',alignItems:'center'}}>
                     <TouchableWithoutFeedback onPress={()=>this.submitReturnSKU()}>
-                        <View style={[styles.btn,styles.btn1]}><Text style={{color:'white'}}>提交申请</Text></View>
+                        <View style={[styles.btn,styles.btn1]}><Text style={{color:'white',fontSize:getHeight(16)}}>提交申请</Text></View>
                     </TouchableWithoutFeedback>
                 </View>
-                <Picker style={{height: 300}}
+                <Picker style={{height: getHeight(300)}}
                         ref={picker => this.picker = picker}
-                        showDuration={300}
+                        showDuration={getHeight(300)}
                         showMask={true}
                         pickerCancelBtnText='取消'
                         pickerBtnText='完成'
@@ -146,19 +147,19 @@ export default class ReturnSKUEdit extends Component {
 
 const styles = StyleSheet.create({
     text_wrap: {
-        height: 45,
+        height: getHeight(45),
         borderWidth: 0.5,
         borderColor: '#DBDBDB',
         borderRadius: 5.57,
-        marginBottom: 20,
+        marginBottom: getHeight(20),
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 11,
+        paddingLeft: getHeight(11),
         backgroundColor: 'white'
     },
     btn: {
-        width: 90,
-        height: 32,
+        width: getHeight(90),
+        height: getHeight(32),
         borderWidth: 1,
         borderColor: '#898989',
         borderRadius: 5,
@@ -166,9 +167,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     btn1: {
-        marginLeft: 10,
+        marginLeft: getHeight(10),
         backgroundColor: '#16BD42',
         borderWidth: 0,
-        marginRight: 12,
+        marginRight: getHeight(12),
     },
 })

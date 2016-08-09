@@ -22,6 +22,8 @@ import {
     StatusBar,
     ScrollView
 } from 'react-native';
+import {priceColor} from './util/global';
+import {getHeight} from './util/response';
 import {Toast,LinearGradient,API,NetService,MainScreen} from './util/Path';
 var PPI = PixelRatio.get();
 export default class Login extends Component {
@@ -64,11 +66,11 @@ export default class Login extends Component {
                 pwd: pwd,
                 unameclear: <TouchableWithoutFeedback onPress={(flag)=>this._clear('uname')}>
                     <Image source={require('../images/login/clean.png')}
-                           style={{width:15,height:15,resizeMode:'stretch',marginLeft:8}}/>
+                           style={{width:getHeight(15),height:getHeight(15),marginLeft:getHeight(8)}}/>
                 </TouchableWithoutFeedback>,
                 pwdclear: <TouchableWithoutFeedback onPress={(flag)=>this._clear('pwd')}>
                     <Image source={require('../images/login/clean.png')}
-                           style={{width:15,height:15,resizeMode:'stretch',marginLeft:14}}/>
+                           style={{width:getHeight(15),height:getHeight(15),marginLeft:getHeight(14)}}/>
                 </TouchableWithoutFeedback>,
             });
             if (this.state.visibleFlag) {
@@ -76,7 +78,7 @@ export default class Login extends Component {
                     visibleView:null,
                     visible1View: <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
                         <Image source={require('../images/login/hidden_icon.png')}
-                               style={{width:20,height:12,resizeMode:'stretch',marginLeft:3}}/>
+                               style={{width:getHeight(20),height:getHeight(12),marginLeft:getHeight(3)}}/>
                     </TouchableWithoutFeedback>,
                 })
             } else {
@@ -84,9 +86,9 @@ export default class Login extends Component {
                     visible1View:null,
                     visibleView: <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
                         <View
-                            style={{width:30,height:32,position:'absolute',right:23,justifyContent:'center',alignItems:'center'}}>
+                            style={{width:getHeight(30),height:getHeight(32),position:'absolute',right:getHeight(23),justifyContent:'center',alignItems:'center'}}>
                             <Image source={require('../images/login/visibility1.png')}
-                                   style={{width:20,height:12,resizeMode:'stretch'}}/>
+                                   style={{width:getHeight(20),height:getHeight(12),resizeMode:'stretch'}}/>
                         </View>
                     </TouchableWithoutFeedback>
                 })
@@ -176,9 +178,9 @@ export default class Login extends Component {
                 visible1View:null,
                 visibleView: <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
                     <View
-                        style={{width:30,height:32,position:'absolute',right:23,justifyContent:'center',alignItems:'center'}}>
+                        style={{width:getHeight(30),height:getHeight(32),position:'absolute',right:getHeight(23),justifyContent:'center',alignItems:'center'}}>
                         <Image source={require('../images/login/visibility1.png')}
-                               style={{width:20,height:12,resizeMode:'stretch'}}/>
+                               style={{width:getHeight(20),height:getHeight(12),resizeMode:'stretch'}}/>
                     </View>
                 </TouchableWithoutFeedback>
             })
@@ -189,7 +191,7 @@ export default class Login extends Component {
                 visibleView:null,
                 visible1View: <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
                     <Image source={require('../images/login/hidden_icon.png')}
-                           style={{width:20,height:12,resizeMode:'stretch',marginLeft:3}}/>
+                           style={{width:getHeight(20),height:getHeight(12),marginLeft:getHeight(3)}}/>
                 </TouchableWithoutFeedback>,
 
             })
@@ -202,7 +204,7 @@ export default class Login extends Component {
                 this.setState({
                     unameclear: <TouchableWithoutFeedback onPress={(flag)=>this._clear('uname')}>
                         <Image source={require('../images/login/clean.png')}
-                               style={{width:15,height:15,resizeMode:'stretch',marginLeft:8}}/>
+                               style={{width:getHeight(15),height:getHeight(15),marginLeft:getHeight(8)}}/>
                     </TouchableWithoutFeedback>
                 })
             } else {
@@ -218,7 +220,7 @@ export default class Login extends Component {
                 this.setState({
                     pwdclear: <TouchableWithoutFeedback onPress={(flag)=>this._clear('pwd')}>
                         <Image source={require('../images/login/clean.png')}
-                               style={{width:15,height:15,resizeMode:'stretch',marginLeft:14}}/>
+                               style={{width:getHeight(15),height:getHeight(15),marginLeft:getHeight(14)}}/>
                     </TouchableWithoutFeedback>,
                 })
                 if (this.state.visibleFlag) {
@@ -226,7 +228,7 @@ export default class Login extends Component {
                         visibleView:null,
                         visible1View: <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
                             <Image source={require('../images/login/hidden_icon.png')}
-                                   style={{width:20,height:12,resizeMode:'stretch',marginLeft:3}}/>
+                                   style={{width:getHeight(20),height:getHeight(12),marginLeft:3}}/>
                         </TouchableWithoutFeedback>,
                     })
                 } else {
@@ -234,9 +236,9 @@ export default class Login extends Component {
                         visible1View:null,
                         visibleView: <TouchableWithoutFeedback onPress={(flag)=>this._visibleCut(this.state.visibleFlag)}>
                             <View
-                                style={{width:30,height:32,position:'absolute',right:23,justifyContent:'center',alignItems:'center'}}>
+                                style={{width:getHeight(30),height:getHeight(32),position:'absolute',right:getHeight(23),justifyContent:'center',alignItems:'center'}}>
                                 <Image source={require('../images/login/visibility1.png')}
-                                       style={{width:20,height:12,resizeMode:'stretch'}}/>
+                                       style={{width:getHeight(20),height:getHeight(12),resizeMode:'stretch'}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     })
@@ -305,23 +307,23 @@ export default class Login extends Component {
                     <View style={{alignItems:'flex-end',flex:1,}}>
                         <TouchableWithoutFeedback onPress={()=>this._close()}>
                             <View
-                                style={{marginRight:3,marginTop:Platform.OS === 'ios' ?19 : 0,justifyContent:'center',alignItems:'center',width:50,height:50}}>
+                                style={{marginRight:getHeight(3),marginTop:Platform.OS === 'ios' ?getHeight(19) : 0,justifyContent:'center',alignItems:'center',width:getHeight(50),height:getHeight(50)}}>
                                 <Image source={require('../images/login/login_close.png')}
-                                       style={{width:18,height:18,resizeMode:'stretch'}}/>
+                                       style={{width:getHeight(18),height:getHeight(18),resizeMode:'stretch'}}/>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
                 </Image>
-                <View style={{marginTop:20,height:36,flex:1}}>
-                    <View style={{flexDirection:'row',height:36,marginRight:38,marginTop:9}}>
+                <View style={{marginTop:getHeight(20),height:getHeight(36),flex:1}}>
+                    <View style={{flexDirection:'row',height:getHeight(36),marginRight:getHeight(38),marginTop:getHeight(9)}}>
                         <View style={{alignItems:'flex-end',flex:2,justifyContent:'center'}}>
                             <Image source={require('../images/login/uname.png')}
-                                   style={{height:36,width:36,resizeMode:'stretch'}}/>
+                                   style={{height:getHeight(36),width:getHeight(36),resizeMode:'stretch'}}/>
                         </View>
                         <View
-                            style={{flexDirection:'row',alignItems:'center',height:33,flex:9,borderBottomWidth:0.5,borderBottomColor:'#BBBBBB',marginLeft:8}}>
+                            style={{flexDirection:'row',alignItems:'center',height:getHeight(33),flex:9,borderBottomWidth:0.5,borderBottomColor:'#BBBBBB',marginLeft:getHeight(8)}}>
                             <TextInput
-                                style={{height: Platform.OS === 'ios' ?35 : 40,flex:1,fontSize:16,color:'#3B3B3B'}}
+                                style={{height: Platform.OS === 'ios' ?getHeight(35) : getHeight(40),flex:1,fontSize:getHeight(16),color:'#3B3B3B'}}
                                 placeholder='请输入账号'
                                 placeholderTextColor={'#d8d8d8'}
                                 onChangeText={(uname,flag)=>this._onChange(uname,'uname')}
@@ -333,15 +335,15 @@ export default class Login extends Component {
                         </View>
                     </View>
 
-                    <View style={{flexDirection:'row',height:36,marginTop:20,marginRight:38}}>
+                    <View style={{flexDirection:'row',height:getHeight(36),marginTop:getHeight(20),marginRight:getHeight(38)}}>
                         <View style={{alignItems:'flex-end',flex:2,justifyContent:'center'}}>
                             <Image source={require('../images/login/pwd.png')}
-                                   style={{height:36,width:36,resizeMode:'stretch'}}/>
+                                   style={{height:getHeight(36),width:getHeight(36),resizeMode:'stretch'}}/>
                         </View>
                         <View
-                            style={{flexDirection:'row',alignItems:'center',height:33,flex:9,borderBottomWidth:0.5,borderBottomColor:'#BBBBBB',marginLeft:8}}>
+                            style={{flexDirection:'row',alignItems:'center',height:getHeight(33),flex:9,borderBottomWidth:0.5,borderBottomColor:'#BBBBBB',marginLeft:getHeight(8)}}>
                             <TextInput
-                                style={{height: Platform.OS === 'ios' ?35 : 40,flex:1,fontSize:16,color:'#3B3B3B'}}
+                                style={{height: Platform.OS === 'ios' ?getHeight(35) : getHeight(40),flex:1,fontSize:getHeight(16),color:'#3B3B3B'}}
                                 placeholder='请输入密码'
                                 secureTextEntry={this.state.isShow}
                                 onChangeText={(pwd,flag) => this._onChange(pwd,'pwd')}
@@ -356,7 +358,7 @@ export default class Login extends Component {
                         </View>
                     </View>
 
-                    <View style={{alignItems:'center',marginTop:27}}>
+                    <View style={{alignItems:'center',marginTop:getHeight(27)}}>
                         <TouchableOpacity onPress={()=>this._login()}>
                             <LinearGradient colors={['#16BD42', '#16BD42', '#16BD42']}
                                             style={styles.linearGradient}>
@@ -366,7 +368,7 @@ export default class Login extends Component {
                             </LinearGradient>
                         </TouchableOpacity>
                     </View>
-                    <View style={{alignItems:'flex-end',marginTop:20,marginRight:40}}>
+                    <View style={{alignItems:'flex-end',marginTop:getHeight(20),marginRight:getHeight(40)}}>
                         <TouchableOpacity onPress={()=>{}}>
                             <Text style={{fontSize:14,color:'#BBBBBB',opacity:0}}>忘记密码?</Text>
                         </TouchableOpacity>
@@ -397,28 +399,28 @@ const styles = StyleSheet.create({
     },
     login_back: {
         width: Dimensions.get('window').width,
-        height: Platform.OS === 'ios' ? 228 : 200,
+        height: Platform.OS === 'ios' ? getHeight(228) : getHeight(200),
     },
     thirdparty_view: {
         alignItems: 'center',
-        width: 80
+        width: getHeight(80)
     },
     thirdparty: {
-        width: 45,
-        height: 45,
+        width: getHeight(45),
+        height: getHeight(45),
         resizeMode: 'stretch'
     },
     linearGradient: {
         flex: 1,
-        height: 46,
-        width: Dimensions.get('window').width - 58,
-        borderRadius: 20
+        height: getHeight(46),
+        width: getHeight(340),
+        borderRadius: getHeight(30)
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: getHeight(18),
         fontFamily: 'Gill Sans',
         textAlign: 'center',
-        margin: 10,
+        margin: getHeight(10),
         backgroundColor: 'transparent',
     },
 });

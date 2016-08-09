@@ -11,6 +11,7 @@ import {
     Dimensions
 }from 'react-native';
 import {Swiper} from '../util/Path';
+import {getHeight} from '../util/response';
 const {width,height}=Dimensions.get('window');
 export default class DetailSwiper extends Component{
     // 构造
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     },
     slide: {
         flex: 1,
-        height: 414,
+        height: width,
         resizeMode: 'stretch',
     },
 });

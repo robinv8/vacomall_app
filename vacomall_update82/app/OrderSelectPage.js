@@ -14,7 +14,8 @@ import {
     Platform,
     StatusBar
 } from 'react-native';
-import {ScrollableTabView,DefaultTabBar,OrderAll,OrderDFK,OrderDFH,OrderDSH,ReturnSKU} from './util/Path'
+import {ScrollableTabView,DefaultTabBar,OrderAll,OrderDFK,OrderDFH,OrderDSH,ReturnSKU} from './util/Path';
+import {getHeight} from './util/response';
 export default class OrderSelectPage extends Component {
     // 构造
     constructor(props) {
@@ -81,25 +82,25 @@ export default class OrderSelectPage extends Component {
                         barStyle="default"
                     />
                     <TouchableWithoutFeedback onPress={()=>this._back()}>
-                        <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                        <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
                             <Image source={require('../images/back_icon.png')}
                                    style={styles.backIcon}/>
                         </View>
                     </TouchableWithoutFeedback>
                     <View style={styles.searchBox}>
-                        <Text style={{color:'#3C3C3C',fontSize:18}}>
+                        <Text style={{color:'#3C3C3C',fontSize:getHeight(18)}}>
                             {this.state.orderStatus}
                         </Text>
                     </View>
                     <TouchableWithoutFeedback onPress={()=>{}}>
-                        <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center',opacity:0}}>
+                        <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center',opacity:0}}>
                             <Image source={require('../images/home_icon.png')}
                                    style={styles.scanIcon}/>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
                 <ScrollableTabView
-                    tabBarTextStyle={{fontSize:16,fontWeight:'100'}}
+                    tabBarTextStyle={{fontSize:getHeight(16),fontWeight:'100'}}
                     tabBarInactiveTextColor="#898989"
                     tabBarActiveTextColor='#000000'
                     tabBarUnderlineColor='#16BD42'
@@ -109,7 +110,7 @@ export default class OrderSelectPage extends Component {
                     locked={true}
                     onScroll={()=>this.scroll()}
                     onChangeTab={(index)=>this.onChangeTab(index)}
-                    renderTabBar={() => <DefaultTabBar underlineHeight={2} style={{borderBottomWidth:2,borderBottomColor:'#D2D2D2',height:60,paddingTop:10}}/>}>
+                    renderTabBar={() => <DefaultTabBar underlineHeight={2} style={{borderBottomWidth:2,borderBottomColor:'#D2D2D2',height:getHeight(60),paddingTop:getHeight(10)}}/>}>
                     <OrderAll tabLabel="全部" _this={this}/>
                     <OrderDFK tabLabel="待付款" _this={this}/>
                     <OrderDFH tabLabel="待发货" _this={this}/>
@@ -123,27 +124,27 @@ export default class OrderSelectPage extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height: Platform.OS === 'ios' ? 64 : 40,
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height: Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth: 0.5,
         borderBottomColor: '#D5D5D5'
     },
     searchBox: {
-        height: 28,
+        height: getHeight(28),
         flex: 6,
         justifyContent: 'center',
         alignItems: 'center',
     },
     scanIcon: {
-        height: 19,
-        width: 21,
+        height: getHeight(19),
+        width: getHeight(21),
         resizeMode: 'stretch'
     },
     backIcon: {
-        width: 14,
-        height: 20,
+        width: getHeight(14),
+        height: getHeight(20),
         resizeMode: 'stretch',
     },
 });

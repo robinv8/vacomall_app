@@ -13,7 +13,8 @@ import {
     Text,
     Platform
 } from 'react-native';
-import {NetService,API,Login} from '../util/Path'
+import {getHeight} from '../util/response';
+import {NetService,API,Login,Toast} from '../util/Path'
 export default class PersonInfo extends Component{
     // 构造
       constructor(props) {
@@ -62,56 +63,56 @@ export default class PersonInfo extends Component{
           <View style={{backgroundColor:'#F6F6F6',flex:1}}>
               <View style={styles.container}>
                   <TouchableWithoutFeedback onPress={()=>this._back()}>
-                      <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                      <View style={{flex:1,height:getHeight(getHeight),justifyContent:'center',alignItems:'center'}}>
                           <Image source={require('../../images/back_icon.png')}
                                  style={styles.backIcon}/>
                       </View>
                   </TouchableWithoutFeedback>
                   <View style={styles.searchBox}>
-                      <Text style={{color: '#3C3C3C',fontSize: 18}}>个人中心</Text>
+                      <Text style={{color: '#3C3C3C',fontSize: getHeight(18)}}>个人中心</Text>
                   </View>
                   <TouchableWithoutFeedback onPress={()=>{}}>
-                      <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
+                      <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
 
                       </View>
                   </TouchableWithoutFeedback>
               </View>
               <View>
-                  <View style={[styles.barwrap,{marginTop:12,paddingLeft:10,paddingRight:10,backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E2E2E2'}]}>
-                      <View style={[styles.barwrap,{height:95,flexDirection:'row',flex:1,alignItems:'center',}]}>
+                  <View style={[styles.barwrap,{marginTop:getHeight(12),paddingLeft:getHeight(10),paddingRight:getHeight(10),backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E2E2E2'}]}>
+                      <View style={[styles.barwrap,{height:getHeight(95),flexDirection:'row',flex:1,alignItems:'center',}]}>
                           <View style={{flexDirection:'row',alignItems:'center'}}>
-                              <Text style={{color:'#3C3C3C',fontSize:16}}>万颗头像</Text>
+                              <Text style={{color:'#3C3C3C',fontSize:getHeight(16)}}>万颗头像</Text>
                           </View>
                           <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
                               <Image source={require('../../images/person_header.png')} style={styles.person_header}/>
                               <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
                           </View>
                       </View>
-                      <View style={[styles.barwrap,{height:49,flexDirection:'row',alignItems:'center',}]}>
+                      <View style={[styles.barwrap,{height:getHeight(49),flexDirection:'row',alignItems:'center',}]}>
                           <View style={{flexDirection:'row',alignItems:'center'}}>
-                              <Text style={{color:'#3C3C3C',fontSize:16}}>账号名称</Text>
+                              <Text style={{color:'#3C3C3C',fontSize:getHeight(16)}}>账号名称</Text>
                           </View>
                           <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                              <Text style={{marginRight:12,color:'#3C3C3C',fontSize:16}}>{this.state.name}</Text>
+                              <Text style={{marginRight:getHeight(12),color:'#3C3C3C',fontSize:getHeight(16)}}>{this.state.name}</Text>
                               <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
                           </View>
                       </View>
-                      <View style={[styles.barwrap,{height:49,flexDirection:'row',alignItems:'center',borderBottomWidth:0}]}>
+                      <View style={[styles.barwrap,{height:getHeight(49),flexDirection:'row',alignItems:'center',borderBottomWidth:0}]}>
                           <View style={{flexDirection:'row',alignItems:'center'}}>
-                              <Text style={{color:'#3C3C3C',fontSize:16}}>手机号</Text>
+                              <Text style={{color:'#3C3C3C',fontSize:getHeight(16)}}>手机号</Text>
                           </View>
                           <View style={{flex:1,alignItems:'center',flexDirection:'row',justifyContent:'flex-end'}}>
-                              <Text style={{marginRight:12,color:'#3C3C3C',fontSize:16}}>{this.state.mobile}</Text>
+                              <Text style={{marginRight:getHeight(12),color:'#3C3C3C',fontSize:getHeight(16)}}>{this.state.mobile}</Text>
                               <Image source={require('../../images/right_arrows_icon.png')} style={styles.right_arrows}/>
                           </View>
                       </View>
                   </View>
-                  <View style={[styles.barwrap,{marginTop:20,height:49,flexDirection:'row',alignItems:'center',backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E2E2E2'}]}>
+                  <View style={[styles.barwrap,{marginTop:getHeight(20),height:getHeight(49),flexDirection:'row',alignItems:'center',backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#E2E2E2'}]}>
                       <View style={{flexDirection:'row',alignItems:'center'}}>
-                          <Text style={{marginLeft:10,color:'#BFBFBF',fontSize:16}}>收货地址</Text>
+                          <Text style={{marginLeft:getHeight(10),color:'#BFBFBF',fontSize:getHeight(16)}}>收货地址</Text>
                       </View>
-                      <View style={{flex:1,alignItems:'flex-end',marginRight:15}}>
-                          <Text style={{color:'#BFBFBF',fontSize:16}}>{this.state.address}</Text>
+                      <View style={{flex:1,alignItems:'flex-end',marginRight:getHeight(15)}}>
+                          <Text style={{color:'#BFBFBF',fontSize:getHeight(16)}}>{this.state.address}</Text>
                       </View>
                   </View>
               </View>
@@ -122,48 +123,25 @@ export default class PersonInfo extends Component{
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height:Platform.OS === 'ios' ? 64 : 40,
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height:Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:0.5,
         borderBottomColor:'#B2B2B2',
         justifyContent:'center'
     },
-    logo: {
-        height: 25,
-        width: 64,
-        resizeMode: 'stretch'
-    },
     searchBox: {
-        height: 40,
+        height: getHeight(50),
         flexDirection: 'row',
         flex: 6,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    scanIcon: {
-        height: 27,
-        width: 27,
-        resizeMode: 'stretch'
-    },
-    searchIcon: {
-        width: 20,
-        height: 20,
-        resizeMode: 'stretch',
-        backgroundColor: '#00702d'
-    },
     backIcon: {
-        width: 12,
-        height: 20,
+        width: getHeight(12),
+        height: getHeight(20),
         resizeMode: 'stretch',
-    },
-    inputText: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0)',
-        fontSize: 14,
-        width: 860,
-        color: 'white'
     },
     barwrap:{
         //backgroundColor:'white',
@@ -172,20 +150,20 @@ const styles = StyleSheet.create({
 
     },
     safe_icon:{
-        width:32,
-        height:32,
+        width:getHeight(32),
+        height:getHeight(32),
         resizeMode: 'stretch',
-        marginLeft:15
+        marginLeft:getHeight(15)
     },
     right_arrows:{
-        width:7.87,
-        height:14,
+        width:getHeight(7.87),
+        height:getHeight(14),
         resizeMode: 'stretch',
     },
     person_header:{
-        width:63,
-        height:65,
+        width:getHeight(63),
+        height:getHeight(65),
         resizeMode: 'stretch',
-        marginRight:12
+        marginRight:getHeight(12)
     }
 })

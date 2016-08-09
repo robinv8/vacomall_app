@@ -130,7 +130,7 @@ export default class MainScreen extends Component {
 
     render() {
         return (
-                <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} sceneStyle={{ paddingBottom:0}}>
+                <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} sceneStyle={{ paddingBottom:getHeight(49)}}>
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}
                                                                                   _this={this}/>)}
                     {this._renderTabItem(CHONGZHI_NORMAL, CHONGZHI_FOCUS, CHONGZHI, <ChongZhiPage
@@ -148,7 +148,7 @@ export default class MainScreen extends Component {
 const styles = StyleSheet.create({
     tab: {
         alignItems: 'center',
-        height:getHeight(49)
+        height:getHeight(49),
     },
     tabIcon: {
         width: getHeight(45),

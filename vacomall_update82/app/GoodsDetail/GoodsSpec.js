@@ -19,7 +19,8 @@ import {
     Navigator
 }from 'react-native';
 import {Toast, Login, API, NetService, md5} from '../util/Path';
-
+import {priceColor} from '../util/global';
+import {getHeight} from '../util/response';
 let secp = null, seacVueObj = [], specification = {}, detailThis, shadeThis;
 
 export default class GoodsSpec extends Component {
@@ -45,7 +46,7 @@ export default class GoodsSpec extends Component {
             <View>
                 <TouchableWithoutFeedback onPress={()=>shadeThis._shade()}>
                     <View
-                        style={{flexDirection:'row',padding:10,marginBottom:10,paddingBottom:0,paddingTop:0,backgroundColor:'white',height:44,alignItems:'center'}}>
+                        style={{flexDirection:'row',padding:getHeight(10),marginBottom:getHeight(10),paddingBottom:0,paddingTop:0,backgroundColor:'white',height:getHeight(44),alignItems:'center'}}>
                         <View style={{flexDirection:'row',flex:1,justifyContent:'flex-start'}}>
                             <Text style={styles.spec}>{this.state.spec}</Text>
                         </View>
@@ -123,9 +124,9 @@ export class Shade extends Component {
             });
             secpArray.push(<View key={index}
                                  style={styles.spec_view}>
-                    <View style={{flexDirection:'row',marginBottom:13}}>
-                        <Text style={{fontSize:14,color:'#3C3C3C'}}>{data['SpecificationName']}</Text><Text
-                        style={{fontSize:12,marginLeft:3,color:'#F08100',marginTop:1}}></Text>
+                    <View style={{flexDirection:'row',marginBottom:getHeight(13)}}>
+                        <Text style={{fontSize:getHeight(14),color:'#3C3C3C'}}>{data['SpecificationName']}</Text><Text
+                        style={{fontSize:getHeight(12),marginLeft:getHeight(3),color:'#F08100',marginTop:1}}></Text>
                     </View>
                     <View style={{flex:1,flexDirection:'row',flexWrap:'wrap'}}>
                         {specvueArray}
@@ -267,16 +268,16 @@ export class Shade extends Component {
                     <View style={[styles.info_view]}>
                         <View style={[styles.info_view1]}>
                             <View style={styles.info_viewText}>
-                                <View style={{flex:5,height:90}}>
+                                <View style={{flex:5,height:getHeight(90)}}>
                                     <View>
                                         <Text
-                                            style={{marginTop:21,color:'#3C3C3C',marginBottom:5}}>{detailThis.state.resultData['details']['GoodsItemTitle'].substring(0, 24)}</Text>
+                                            style={{marginTop:getHeight(21),color:'#3C3C3C',marginBottom:getHeight(5),fontSize:getHeight(14)}}>{detailThis.state.resultData['details']['GoodsItemTitle'].substring(0, 24)}</Text>
                                     </View>
                                     <View style={{flexDirection:'row'}}>
                                         <View style={styles.price_con}>
-                                            <Text style={[styles.price,{fontSize:16,marginTop:0}]}>￥</Text>
+                                            <Text style={[styles.price,{fontSize:getHeight(16),marginTop:0}]}>￥</Text>
                                             <Text
-                                                style={[styles.price,{fontSize: 20,marginTop:-4}]}>{detailThis.state.resultData['details']['GoodsItemSalePrice']}</Text>
+                                                style={[styles.price,{fontSize: getHeight(20),marginTop:getHeight(-4)}]}>{detailThis.state.resultData['details']['GoodsItemSalePrice']}</Text>
                                         </View>
                                         <View style={styles.price_con}>
                                             <Text
@@ -289,38 +290,38 @@ export class Shade extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View style={{flex:1,marginBottom:10,marginLeft:10,position:'relative'}}>
+                        <View style={{flex:1,marginBottom:getHeight(10),marginLeft:getHeight(10),position:'relative'}}>
                             <Image defaultSource={require('../../images/defaultImage.png')}
                                 source={{uri:detailThis.state.resultData['images'][0]['ImagePath']}}
                                    style={styles.shade_img}/>
                         </View>
-                        <View style={{position:'absolute',top:30,right:0}}>
+                        <View style={{position:'absolute',top:getHeight(30),right:0}}>
                             <TouchableWithoutFeedback onPress={()=>this.cancelshade()}>
                                 <Image source={require('../../images/close_icon.png')}
-                                       style={{width:20,height:20,marginTop:5,marginRight:6}}/>
+                                       style={{width:getHeight(20),height:getHeight(20),marginTop:getHeight(5),marginRight:getHeight(6)}}/>
                             </TouchableWithoutFeedback>
                         </View>
                     </View>
 
                     <ScrollView style={{height:Dimensions.get('window').height/2-100,backgroundColor:'white'}}>
                         <View>{this.state.specifications}</View>
-                        <View style={{padding:5,flexDirection:'row',alignItems:'center'}}>
-                            <View style={{marginBottom:10,marginLeft:10,marginRight:10}}>
-                                <View style={{flexDirection:'row',marginBottom:5}}>
-                                    <Text style={{fontSize:14,color:'#2F2F2F'}}>数量</Text>
+                        <View style={{padding:getHeight(5),flexDirection:'row',alignItems:'center'}}>
+                            <View style={{marginBottom:getHeight(10),marginLeft:getHeight(10),marginRight:getHeight(10)}}>
+                                <View style={{flexDirection:'row',marginBottom:getHeight(5)}}>
+                                    <Text style={{fontSize:getHeight(14),color:'#2F2F2F'}}>数量</Text>
                                 </View>
-                                <View style={{flexDirection:'row',width:110,height:35,backgroundColor:'#F5F5F5'}}>
+                                <View style={{flexDirection:'row',width:getHeight(110),height:getHeight(35),backgroundColor:'#F5F5F5'}}>
                                     <TouchableWithoutFeedback onPress={(flag)=>this._num('sub')}>
                                         <View
                                             style={styles.sub_view}>
                                             <Image source={require('../../images/sub.png')}
-                                                   style={{width:10,height:2,resizeMode:'stretch'}}/>
+                                                   style={{width:getHeight(10),height:getHeight(2),resizeMode:'stretch'}}/>
                                         </View>
                                     </TouchableWithoutFeedback>
                                     <View
                                         style={styles.input_view}>
                                         <TextInput
-                                            style={{flex:1,paddingLeft:5,paddingRight:5,textAlign:'center',fontSize:18,height:35,paddingTop:1}}
+                                            style={{flex:1,paddingLeft:getHeight(5),paddingRight:getHeight(5),textAlign:'center',fontSize:getHeight(18),height:getHeight(35),paddingTop:getHeight(1)}}
                                             keyboardType={'numeric'}
                                             onChangeText={(num)=>this._onChange(num)}
                                             underlineColorAndroid='transparent'
@@ -331,22 +332,22 @@ export class Shade extends Component {
                                         <View
                                             style={styles.sub_view}><Image
                                             source={require('../../images/add.png')}
-                                            style={{width:10,height:10,resizeMode:'stretch'}}/></View>
+                                            style={{width:getHeight(10),height:getHeight(10),resizeMode:'stretch'}}/></View>
                                     </TouchableWithoutFeedback>
                                 </View>
                             </View>
                             <View
-                                style={{height:35,justifyContent:'center',marginLeft:10,marginTop:Dimensions.ios==='ios'?5:10}}>
+                                style={{height:35,justifyContent:'center',marginLeft:getHeight(10),marginTop:Dimensions.ios==='ios'?getHeight(5):getHeight(10)}}>
                                 <Text
-                                    style={{fontSize:12,color:'#BFBFBF'}}>(库存{this.state.store}件)</Text>
+                                    style={{fontSize:getHeight(12),color:'#BFBFBF'}}>(库存{this.state.store}件)</Text>
                             </View>
                         </View>
                     </ScrollView>
                     <View style={{backgroundColor:'white'}}>
                         <TouchableWithoutFeedback onPress={()=>this._addCart()}>
                             <View
-                                style={{backgroundColor:'#16BD42',flex:1,height:46,justifyContent:'center',alignItems:'center',borderRadius:2,margin:12,marginBottom:9,}}>
-                                <Text style={{fontSize:18,color:'white'}}>完成</Text>
+                                style={{backgroundColor:'#16BD42',flex:1,height:getHeight(46),justifyContent:'center',alignItems:'center',borderRadius:2,margin:getHeight(12),marginBottom:getHeight(9),}}>
+                                <Text style={{fontSize:getHeight(18),color:'white'}}>完成</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
@@ -425,18 +426,18 @@ class Spec extends Component {
 }
 const styles = StyleSheet.create({
     spec_view: {
-        marginBottom: 10,
-        paddingBottom: 15,
+        marginBottom: getHeight(10),
+        paddingBottom: getHeight(15),
         borderBottomWidth: 0.5,
         borderBottomColor: '#E7E7E7',
-        marginTop: 14,
-        marginLeft: 10,
-        marginRight: 10
+        marginTop: getHeight(14),
+        marginLeft: getHeight(10),
+        marginRight: getHeight(10)
     },
     info_view: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        height: 129,
+        height: getHeight(129),
     },
     info_view1: {
         backgroundColor: 'rgba(255,255,255,1)',
@@ -449,18 +450,19 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         borderBottomColor: '#E7E7E7',
         flex: 1,
-        paddingLeft: 130,
+        paddingLeft: getHeight(130),
         justifyContent: 'flex-end',
-        paddingBottom: 16,
-        marginLeft: 10,
+        paddingBottom: getHeight(16),
+        marginLeft: getHeight(10),
         position: 'relative'
     },
     spec: {
-        color: '#3C3C3C'
+        color: '#3C3C3C',
+        fontSize:getHeight(14)
     },
     shade_img: {
-        width: 109,
-        height: 109,
+        width: getHeight(109),
+        height: getHeight(109),
         borderWidth: 0.5,
         borderColor: '#E7E7E7',
         borderRadius: 5,
@@ -472,11 +474,11 @@ const styles = StyleSheet.create({
     },
     price: {
         color: '#FD3824',
-        fontSize: 16
+        fontSize: getHeight(16)
     },
     bef_text: {
-        marginLeft: 6,
-        fontSize: 12,
+        marginLeft: getHeight(6),
+        fontSize: getHeight(12),
         color: '#BFBFBF'
     },
     bef_price: {
@@ -487,13 +489,13 @@ const styles = StyleSheet.create({
 
     },
     input_view: {
-        width: 40,
-        height: 35,
-        marginTop: Platform.OS === 'ios' ? 0 : 5
+        width: getHeight(40),
+        height: getHeight(35),
+        marginTop: Platform.OS === 'ios' ? 0 : getHeight(5)
     },
     sub_view: {
-        width: 35,
-        height: 35,
+        width: getHeight(35),
+        height: getHeight(35),
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -505,26 +507,26 @@ const styles = StyleSheet.create({
     },
     right_arrows: {
         resizeMode: 'stretch',
-        width: 10,
-        height: 15
+        width: getHeight(10),
+        height: getHeight(15)
     },
     goods_name: {
         flexDirection: 'row',
         borderBottomWidth: 1,
-        paddingBottom: 5,
+        paddingBottom: getHeight(5),
         borderBottomColor: '#E7E7E7'
     },
     specVue: {
-        padding: 8,
-        paddingTop: 4,
-        paddingBottom: 4,
-        borderRadius: 5.71,
+        padding: getHeight(5.5),
+        paddingTop: getHeight(6),
+        paddingBottom: getHeight(7),
+        borderRadius:5,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 23,
-        marginBottom: 10
+        marginRight: getHeight(10),
+        marginBottom: getHeight(10)
     },
     specVueText: {
-        fontSize: 12
+        fontSize: getHeight(12)
     }
 });

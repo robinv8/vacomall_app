@@ -18,6 +18,7 @@ import {
     Navigator,ScrollView
 } from 'react-native';
 import {API,NetService,Toast,Login,OrderList,Loaddingpage,Guess,MainScreen} from '../util/Path';
+import {getHeight} from '../util/response';
 export default class OrderAll extends Component {
     // 构造
       constructor(props) {
@@ -126,7 +127,7 @@ export default class OrderAll extends Component {
                 style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',flex:1}}>
                 <View style={{flexDirection:'row',alignItems: 'center',}}>
                     <Text
-                        style={{color:'#3C3C3C'}}>未查到相关订单!</Text>
+                        style={{color:'#3C3C3C',fontSize:getHeight(14)}}>未查到相关订单!</Text>
                 </View>
             </View>
         );

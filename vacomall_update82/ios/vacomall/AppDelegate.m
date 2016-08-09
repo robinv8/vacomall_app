@@ -10,9 +10,12 @@
 #import "AppDelegate.h"
 
 #import "RCTBundleURLProvider.h"
-#import "RCTRootView.h"
 
 #import "RCTWeChat.h"
+#import "RCTRootView.h"
+
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

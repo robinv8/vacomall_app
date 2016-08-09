@@ -19,6 +19,7 @@ import {
 }from 'react-native';
 import {LinearGradient, Toast, Login, API, NetService, WeChatPayIos, WeChatPayAndroid, ChongZhi,PaySuccess} from '../util/Path';
 
+import {getHeight} from '../util/response';
 
 let WeChatPay;
 export default class HuaFei extends Component {
@@ -153,27 +154,27 @@ export default class HuaFei extends Component {
                     {this.state.childShowView}
                 </View>
                 <View
-                    style={{height:38,backgroundColor:'white',justifyContent:'center',paddingLeft:10,borderBottomWidth:0.5,borderBottomColor:'#DFDFDF'}}>
-                    <Text style={{color:'#3C3C3C'}}>目前充值服务仅支持微信支付</Text>
+                    style={{height:getHeight(38),backgroundColor:'white',justifyContent:'center',paddingLeft:getHeight(10),borderBottomWidth:0.5,borderBottomColor:'#DFDFDF'}}>
+                    <Text style={{color:'#3C3C3C',fontSize:getHeight(14)}}>目前充值服务仅支持微信支付</Text>
                 </View>
                 <View
-                    style={{height:56,backgroundColor:'white',alignItems:'center',paddingLeft:10,flexDirection:'row',paddingRight:12,borderBottomWidth:0.5,borderBottomColor:'#E6E6E6'}}>
+                    style={{height:getHeight(56),backgroundColor:'white',alignItems:'center',paddingLeft:10,flexDirection:'row',paddingRight:12,borderBottomWidth:0.5,borderBottomColor:'#E6E6E6'}}>
                     <View style={{flexDirection:'row',flex:1,alignItems:'center'}}>
                         <Image source={require('../../images/wechat_icon.png')}
-                               style={{width:25,height: 25,resizeMode: 'stretch',marginRight:10}}
+                               style={{width:getHeight(25),height: getHeight(25),resizeMode: 'stretch',marginRight:getHeight(10)}}
                         />
-                        <Text>微信支付</Text>
+                        <Text style={{fontSize:getHeight(14)}}>微信支付</Text>
                     </View>
                     <View>
                         <Image source={require('../../images/right.png')}
-                               style={{width:18,height: 18,resizeMode: 'stretch'}}/>
+                               style={{width:getHeight(18),height: getHeight(18),resizeMode: 'stretch'}}/>
                     </View>
                 </View>
-                <View style={{alignItems:'center',marginTop:27}}>
+                <View style={{alignItems:'center',marginTop:getHeight(27)}}>
                     <TouchableWithoutFeedback onPress={()=>this.pay()}>
                         <LinearGradient colors={['#16BD42', '#16BD42', '#16BD42']} style={styles.linearGradient}>
                             <Text style={[styles.buttonText]}>
-                                立即支付 <Text style={{fontSize:14}}>(立省{this.state.reduce}元)</Text>
+                                立即支付 <Text style={{fontSize:getHeight(14)}}>(立省{this.state.reduce}元)</Text>
                             </Text>
                         </LinearGradient>
                     </TouchableWithoutFeedback>
@@ -192,9 +193,9 @@ class Child extends Component {
         this.state = {
             backgroundColor: 'white',
             beforeThis: null,
-            fontSize1: 16,
+            fontSize1: getHeight(16),
             color1: '#16BD42',
-            fontSize2: 10,
+            fontSize2: getHeight(12),
             color2: '#16BD42',
             Target: this.props.Target
         };
@@ -204,22 +205,22 @@ class Child extends Component {
         if (beforeThis !== null) {
             beforeThis.setState({
                 backgroundColor: 'white',
-                fontSize1: 16,
+                fontSize1: getHeight(16),
                 color1: '#16BD42',
-                fontSize2: 10,
+                fontSize2: getHeight(10),
                 color2: '#16BD42'
             });
         }
         this.setState({
             backgroundColor: '#16BD42',
-            fontSize1: 20,
+            fontSize1: getHeight(20),
             color1: '#FDFF00',
-            fontSize2: 12,
+            fontSize2: getHeight(12),
             color2: 'white',
 
         });
         this.props._this.setState({
-            reduce: (this.props.ItemPrice - this.props.ItemSalePrice).toFixed(2)
+            reduce:(this.props.ItemPrice-this.props.ItemSalePrice).toFixed(2)
         })
 
         beforeThis = this;
@@ -241,7 +242,7 @@ class Child extends Component {
 const styles = StyleSheet.create({
     child_view: {
         width: (Dimensions.get('window').width - 42) / 3,
-        height: 70,
+        height: getHeight(70),
         borderWidth: 1,
         borderColor: '#16BD42',
         borderRadius: 5,
@@ -250,29 +251,29 @@ const styles = StyleSheet.create({
     },
     child_con: {
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: getHeight(10),
         width: Dimensions.get('window').width - 22,
         flexWrap: 'wrap',
     },
     child: {
-        paddingLeft: 11,
-        paddingRight: 11,
-        paddingTop: 20,
-        paddingBottom: 10,
-        marginBottom: 21,
+        paddingLeft: getHeight(11),
+        paddingRight: getHeight(11),
+        paddingTop: getHeight(19.5),
+        paddingBottom: getHeight(10),
+        marginBottom: getHeight(20),
         backgroundColor: 'white'
     },
     linearGradient: {
         flex: 1,
-        height: 46,
-        width: Dimensions.get('window').width - 24,
+        height: getHeight(50),
+        width: getHeight(390),
         borderRadius: 5
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: getHeight(18),
         fontFamily: 'Gill Sans',
         textAlign: 'center',
-        margin: 10,
+        margin: getHeight(10),
         backgroundColor: 'transparent',
         color: 'white'
     },

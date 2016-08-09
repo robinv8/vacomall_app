@@ -12,6 +12,8 @@ import {
     TouchableWithoutFeedback,
     Dimensions,Text
 } from 'react-native';
+import {priceColor} from './util/global';
+import {getHeight} from './util/response';
 import {NetService,API,GoodsDetail} from './util/Path';
 let listFlag = 0;
 export default class Guess extends Component{
@@ -77,7 +79,7 @@ export default class Guess extends Component{
         };
         var listMarginRight = 0;
         if (listFlag % 2 === 0) {
-            listMarginRight = 5;
+            listMarginRight = getHeight(4);
         } else {
             listMarginRight = 0;
         }
@@ -89,19 +91,19 @@ export default class Guess extends Component{
                     <View
                         style={{alignItems: 'center',justifyContent: 'center',borderBottomWidth:1,borderBottomColor:'#F3F3F3'}}>
                         <Image source={{uri:gList['SpuDefaultImage']+'@h_300'}}
-                               style={{width: Dimensions.get('window').width/2-3,height: Dimensions.get('window').width/2-3}}/>
+                               style={{width: getHeight(205),height: getHeight(204.5)}}/>
                     </View>
-                    <View style={{marginLeft:7,marginRight:4}}>
-                        <View style={{marginBottom:1,height:32,paddingTop:5}}>
-                            <Text style={{fontSize:12,color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
+                    <View style={{marginLeft:getHeight(7),marginRight:getHeight(4)}}>
+                        <View style={{marginBottom:1,height:getHeight(32),paddingTop:getHeight(4)}}>
+                            <Text style={{fontSize:getHeight(12),color:'#3C3C3C'}}>{_textLength(gList['GoodsItemTitle'])}</Text>
                         </View>
                         <View style={{flex:1,flexDirection:'row'}}>
-                            <View style={{flex:1,marginBottom:5}}>
+                            <View style={{flex:1,marginBottom:getHeight(5)}}>
                                 <Text style={styles.price}><Text
-                                    style={{fontSize:12}}>￥</Text>{gList['GoodsItemSalePrice']}
+                                    style={{fontSize:getHeight(12)}}>￥</Text>{gList['GoodsItemSalePrice']}
                                 </Text>
                             </View>
-                            <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end',marginBottom:5}}>
+                            <View style={{flex:1,justifyContent:'flex-end',alignItems:'flex-end',marginBottom:getHeight(5)}}>
                                 <Text style={styles.bprice}>{gList['GoodsItemSales']}人已付款</Text>
                             </View>
                         </View>
@@ -113,7 +115,8 @@ export default class Guess extends Component{
 }
 const styles = StyleSheet.create({
     goods_view: {
-        width: (Dimensions.get('window').width) / 2 - 3,
+        width: getHeight(205),
+        height:getHeight(268),
         backgroundColor: 'white',
         marginBottom: 5,
         shadowColor: "rgb(0,0,0)",
@@ -130,22 +133,22 @@ const styles = StyleSheet.create({
     },
     cnxh_view: {
         alignItems: 'center',
-        marginTop:16,
-        marginBottom:16,
+        marginTop:getHeight(16),
+        marginBottom:getHeight(16),
         justifyContent: 'center'
     },
     cnxh_view_img: {
-        width: 96,
-        height: 20,
+        width: getHeight(96),
+        height: getHeight(20),
         resizeMode: 'stretch',
     },
     price: {
         color: '#FF0200',
-        fontSize: 18
+        fontSize: getHeight(18)
     },
     bprice: {
         color: '#BFBFBF',
-        fontSize: 12,
+        fontSize: getHeight(12),
         justifyContent: 'flex-end'
     },
 })

@@ -20,7 +20,8 @@ import {
     Navigator,Platform
 }from 'react-native'
 import {CartHeader, Login, API, NetService, Toast, OrderPage, GoodsDetail, ListViewRowEdit,MainScreen,Loaddingpage,Guess} from './util/Path';
-
+import {priceColor} from './util/global';
+import {getHeight} from './util/response';
 let cartThis = [];
 export default class CartPage extends Component {
     // 构造
@@ -107,8 +108,8 @@ export default class CartPage extends Component {
             }
             this.setState({
                 button: <TouchableWithoutFeedback onPress={()=>this._toOrder()}>
-                    <View style={[styles.bom,{width:110,backgroundColor:'#16BD42',justifyContent:'center'}]}>
-                        <Text style={{fontSize:14,color:'white'}}>结算({this.state.num})</Text>
+                    <View style={[styles.bom,{width:getHeight(110),backgroundColor:'#16BD42',justifyContent:'center'}]}>
+                        <Text style={{fontSize:getHeight(14),color:'white'}}>结算({this.state.num})</Text>
                     </View>
                 </TouchableWithoutFeedback>
             });
@@ -132,10 +133,10 @@ export default class CartPage extends Component {
                 checked: true,
                 editdata: <TouchableWithoutFeedback onPress={()=>this._checked()}>
                     <View
-                        style={{flexDirection:'row',alignItems:'center',height:40,paddingLeft:10,paddingRight:42}}>
+                        style={{flexDirection:'row',alignItems:'center',height:getHeight(40),paddingLeft:getHeight(10),paddingRight:getHeight(42)}}>
                         <Image source={require('../images/checked_icon.png')}
                                style={styles.check}/>
-                        <Text >全选</Text>
+                        <Text style={{fontSize:getHeight(16),color:'#3c3c3c'}}>全选</Text>
                     </View>
                 </TouchableWithoutFeedback>
             });
@@ -151,10 +152,10 @@ export default class CartPage extends Component {
                 checked: false,
                 editdata: <TouchableWithoutFeedback onPress={()=>this._checked()}>
                     <View
-                        style={{flexDirection:'row',alignItems:'center',height:40,paddingLeft:10,paddingRight:42}}>
+                        style={{flexDirection:'row',alignItems:'center',height:getHeight(40),paddingLeft:getHeight(10),paddingRight:getHeight(42)}}>
                         <Image source={require('../images/check_icon.png')}
                                style={styles.check}/>
-                        <Text >全选</Text>
+                        <Text style={{fontSize:getHeight(16),color:'#3c3c3c'}}>全选</Text>
                     </View>
                 </TouchableWithoutFeedback>
             });
@@ -212,8 +213,8 @@ export default class CartPage extends Component {
             opacity: 1,
             isedit: true,
             button: <TouchableWithoutFeedback onPress={()=>this._deletCate()}>
-                <View style={[styles.bom,{width:110,backgroundColor:'#FF9700',justifyContent:'center'}]}>
-                    <Text style={{fontSize:14,color:'white'}}>删除</Text>
+                <View style={[styles.bom,{width:getHeight(110),backgroundColor:'#FF9700',justifyContent:'center'}]}>
+                    <Text style={{fontSize:getHeight(14),color:'white'}}>删除</Text>
                 </View>
             </TouchableWithoutFeedback>,
         });
@@ -230,8 +231,8 @@ export default class CartPage extends Component {
             opacity: 0,
             isedit: true,
             button: <TouchableWithoutFeedback onPress={()=>this._toOrder()}>
-                <View style={[styles.bom,{width:110,backgroundColor:'#16BD42',justifyContent:'center'}]}>
-                    <Text style={{fontSize:14,color:'white'}}>结算({this.state.num})</Text>
+                <View style={[styles.bom,{width:getHeight(110),backgroundColor:'#16BD42',justifyContent:'center'}]}>
+                    <Text style={{fontSize:getHeight(14),color:'white'}}>结算({this.state.num})</Text>
                 </View>
             </TouchableWithoutFeedback>,
             editdata: null
@@ -287,13 +288,13 @@ export default class CartPage extends Component {
                             _editsubmit={()=>this._editsubmit()} tab={this.props.tab} topEvent={true}/>
                 <ScrollView
                     scrollsToTop={true}
-                    style={{marginBottom:49}}
+                    style={{marginBottom:getHeight(49)}}
                     removeClippedSubviews={true}>
                     <View style={{backgroundColor:'white'}}>
                         <TouchableWithoutFeedback onPress={()=>this._checked()}>
                             <View style={[styles.sty]}>
                                 <Image source={this.state.checkedImg}
-                                       style={[styles.check,{opacity:this.state.opacity}]}/><Text>万颗商城</Text>
+                                       style={[styles.check,{opacity:this.state.opacity}]}/><Text style={{fontSize:getHeight(14)}}>万颗商城</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
@@ -305,28 +306,28 @@ export default class CartPage extends Component {
                         renderRow={(gList)=>this.renderGList(gList)}
                     />
                     <View
-                        style={{flexDirection:'row',height: 49,backgroundColor:'white',justifyContent:'flex-end',alignItems:'center',paddingRight:15,borderBottomWidth:0.5,borderBottomColor:'#e2e2e2'}}>
-                        <Text>共计:<Text style={styles.price}>￥<Text
-                            style={{fontSize:18}}>{this.state.price}</Text></Text></Text>
+                        style={{flexDirection:'row',height: getHeight(49),backgroundColor:'white',justifyContent:'flex-end',alignItems:'center',paddingRight:getHeight(15),borderBottomWidth:0.5,borderBottomColor:'#e2e2e2'}}>
+                        <Text style={{fontSize:getHeight(14),color:'#3c3c3c'}}>共计:<Text style={styles.price}>￥<Text
+                            style={{fontSize:getHeight(18)}}>{this.state.price}</Text></Text></Text>
                     </View>
                 </ScrollView>
                 <View>
-                    <View style={{flexDirection:'row',height:49,backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)'}}>
+                    <View style={{flexDirection:'row',height:getHeight(49),backgroundColor:'white',position:'absolute',bottom:0,width:Dimensions.get('window').width,borderTopWidth:1,borderTopColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)'}}>
                         <View
-                            style={[styles.bom,{flex:2,flexDirection:'row', paddingLeft:10, paddingRight:10}]}>
+                            style={[styles.bom,{flex:2,flexDirection:'row', paddingLeft:getHeight(10), paddingRight:getHeight(10)}]}>
                             <View
-                                style={{opacity:this.state.opacity===0?1:0,flexDirection:'row',height:49,alignItems:'center',left:10,position:'absolute'}}>
-                                <Text style={{fontSize:12}}>总价:</Text>
+                                style={{opacity:this.state.opacity===0?1:0,flexDirection:'row',height:getHeight(49),alignItems:'center',left:getHeight(10),position:'absolute'}}>
+                                <Text style={{fontSize:getHeight(12)}}>总价:</Text>
                                 <Text style={[styles.price]}>￥</Text>
                                 <Text
-                                    style={[styles.price,{fontSize: 18,marginTop:-4}]}>{this.state.price}</Text>
+                                    style={[styles.price,{fontSize: getHeight(18),marginTop:getHeight(-4)}]}>{this.state.price}</Text>
                             </View>
                             <TouchableWithoutFeedback onPress={()=>this._checked()}>
                                 <View
-                                    style={{flexDirection:'row',alignItems:'center',height:40,paddingLeft:10,paddingRight:42,opacity:this.state.opacity}}>
+                                    style={{flexDirection:'row',alignItems:'center',height:getHeight(40),paddingLeft:getHeight(10),paddingRight:getHeight(42),opacity:this.state.opacity}}>
                                     <Image source={this.state.checkedImg}
                                            style={styles.check}/>
-                                    <Text >全选</Text>
+                                    <Text style={{fontSize:getHeight(16),color:'#3c3c3c'}}>全选</Text>
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
@@ -351,16 +352,16 @@ export default class CartPage extends Component {
             <ScrollView style={{flex:1,backgroundColor:'#F6F6F6'}}>
                 <CartHeader navigator={this.props.navigator} id={this.props.id} tab={this.props.tab} topEvent={false}/>
                 <View
-                    style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',height:350,marginTop:11}}>
+                    style={{justifyContent: 'center',alignItems: 'center',backgroundColor:'white',height:getHeight(350),marginTop:getHeight(11)}}>
                     <View style={{flexDirection:'row',alignItems: 'center',}}>
                         <Image source={require('../images/white_cart.png')}
-                               style={{width: 30,height:26,marginRight:15}}/><Text
-                        style={{color:'#3C3C3C'}}>购物车是空的,您可以</Text>
+                               style={{width: getHeight(30),height:getHeight(26),marginRight:getHeight(15)}}/><Text
+                        style={{color:'#3C3C3C',fontSize:getHeight(16)}}>购物车是空的,您可以</Text>
                     </View>
                     <TouchableWithoutFeedback onPress={()=>this.toHome()}>
                         <View
-                            style={{backgroundColor: '#FF9700',width:88,height:28,borderRadius:5,justifyContent: 'center',alignItems: 'center',marginTop:22}}>
-                            <Text style={{color:'white'}}>随便逛逛</Text>
+                            style={{backgroundColor: '#FF9700',width:getHeight(88),height:getHeight(28),borderRadius:5,justifyContent: 'center',alignItems: 'center',marginTop:getHeight(22)}}>
+                            <Text style={{color:'white',fontSize:getHeight(14)}}>随便逛逛</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -468,25 +469,25 @@ class CartList extends Component {
                     </TouchableWithoutFeedback>
                     <View style={{flexDirection:'row',flex:5}}>
                         <View
-                            style={{height:84,width:84,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
+                            style={{height:getHeight(84),width:getHeight(84),justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:'rgba(191,191,191,0.5)',borderRadius:3}}>
                             <Image source={{uri:this.props.gList['imgUrl']}}
-                                   style={{height:82,width:82,resizeMode:'stretch'}}/>
+                                   style={{height:getHeight(82),width:getHeight(82),resizeMode:'stretch'}}/>
                         </View>
-                        <View style={{flex:7,marginLeft:10}}>
+                        <View style={{flex:7,marginLeft:getHeight(10)}}>
                             <Text
-                                style={{color:'#898989',fontSize:14,height:63}}>{this.texthandle(this.props.gList['name'])}</Text>
+                                style={{color:'#898989',fontSize:getHeight(14),height:getHeight(63)}}>{this.texthandle(this.props.gList['name'])}</Text>
                             <Text
                                 style={{color:'#C8C8C8',fontSize:12}}>规格:{this.props.gList['skuSpecification'].substring(0, 30)}</Text>
                         </View>
                     </View>
 
-                    <View style={{flex:1,alignItems:'flex-end',paddingRight:2}}>
-                        <View style={{height:60}}>
-                            <Text style={{color:'#FF0200',fontSize:12}}>￥<Text
-                                style={{fontSize:18}}>{this.props.gList['price']}</Text></Text>
+                    <View style={{flex:1,alignItems:'flex-end',paddingRight:getHeight(2)}}>
+                        <View style={{height:getHeight(60)}}>
+                            <Text style={{color:'#FF0200',fontSize:getHeight(12)}}>￥<Text
+                                style={{fontSize:getHeight(18)}}>{this.props.gList['price']}</Text></Text>
                         </View>
                         <View>
-                            <Text style={{color:'#C8C8C8',fontSize:16}}>×{this.props.gList['buySum']}</Text>
+                            <Text style={{color:'#C8C8C8',fontSize:getHeight(16)}}>×{this.props.gList['buySum']}</Text>
                         </View>
                     </View>
                 </View>
@@ -497,44 +498,44 @@ class CartList extends Component {
 const styles = StyleSheet.create({
     goods_view: {
         backgroundColor: 'white',
-        height: 115,
+        height: getHeight(115),
         flex: 1
     },
     sty: {
         flexDirection: 'row',
-        height: 38,
+        height: getHeight(38),
         alignItems: 'center',
-        marginLeft: 10,
-        marginRight: 10,
+        marginLeft: getHeight(10),
+        marginRight: getHeight(10),
         borderBottomWidth: 0.5,
         borderBottomColor: 'rgba(191,191,191,0.5)'
     },
     goods_view_view: {
-        height: 115,
+        height: getHeight(115),
         flexDirection: 'row',
-        marginLeft: 10,
-        marginRight: 10,
+        marginLeft: getHeight(10),
+        marginRight: getHeight(10),
         borderBottomWidth: 0.5,
         borderBottomColor: 'rgba(191,191,191,0.5)',
-        paddingTop: 14,
-        paddingBottom: 16,
+        paddingTop: getHeight(14),
+        paddingBottom: getHeight(16),
         alignItems: 'center'
     },
     price: {
         color: '#FF0200',
-        fontSize: 12
+        fontSize: getHeight(12)
     },
     sort: {
         backgroundColor: '#efefef',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 0,
-        width: 100,
-        height: 30,
+        width: getHeight(100),
+        height: getHeight(30),
         borderRadius: 3
     },
     sortText: {
-        fontSize: 12
+        fontSize: getHeight(12)
     },
     bom: {
         justifyContent: 'flex-start',
@@ -542,21 +543,9 @@ const styles = StyleSheet.create({
 
     },
     check: {
-        width: 18,
-        height: 18,
-        marginRight: 7,
-    },
-    goods_view1: {
-        width: (Dimensions.get('window').width) / 2 - 3,
-        backgroundColor: 'white',
-        marginBottom: 5,
-        shadowColor: "rgb(0,0,0)",
-        shadowOpacity: 0.1,
-        shadowRadius: 0,
-        shadowOffset: {
-            height: 0.5,
-            width: 0
-        }
+        width: getHeight(18),
+        height: getHeight(18),
+        marginRight: getHeight(7)
     },
     listview: {
         flexDirection: 'row',
@@ -564,21 +553,21 @@ const styles = StyleSheet.create({
     },
     cnxh_view: {
         alignItems: 'center',
-        height: 40,
+        height: getHeight(40),
         justifyContent: 'center'
     },
     cnxh_view_img: {
-        width: 96,
-        height: 20,
+        width: getHeight(96),
+        height: getHeight(20),
         resizeMode: 'stretch',
     },
     price1: {
         color: '#FF0200',
-        fontSize: 18
+        fontSize: getHeight(18)
     },
     bprice: {
         color: '#BFBFBF',
-        fontSize: 12,
+        fontSize: getHeight(12),
         justifyContent: 'flex-end'
     },
 })

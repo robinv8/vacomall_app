@@ -17,7 +17,8 @@ import {
     Navigator,
     ToastAndroid
 }from 'react-native';
-import {Toast} from '../util/Path';
+import {priceColor} from '../util/global';
+import {getHeight} from '../util/response';
 export default class Header extends Component {
     // 构造
       constructor(props) {
@@ -26,8 +27,8 @@ export default class Header extends Component {
         this.state = {
             opacity:1,
             editState:<TouchableWithoutFeedback onPress={()=>this._edit()}>
-                <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#3C3C3C',fontSize: 16}}>编辑</Text>
+                <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'#3C3C3C',fontSize: getHeight(16)}}>编辑</Text>
                 </View>
             </TouchableWithoutFeedback>
         };
@@ -50,8 +51,8 @@ export default class Header extends Component {
         if(this.props.topEvent===false){
             this.setState({
                 editState:<TouchableWithoutFeedback onPress={()=>{}}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center',opacity:0}}>
-                        <Text style={{color:'#3C3C3C',fontSize: 16}}>完成</Text>
+                    <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center',opacity:0}}>
+                        <Text style={{color:'#3C3C3C',fontSize: getHeight(16)}}>完成</Text>
                     </View>
                 </TouchableWithoutFeedback>
             });
@@ -61,8 +62,8 @@ export default class Header extends Component {
     _editsubmit(){
         this.setState({
             editState:<TouchableWithoutFeedback onPress={()=>this._edit()}>
-                <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#3C3C3C',fontSize: 16}}>编辑</Text>
+                <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'#3C3C3C',fontSize: getHeight(16)}}>编辑</Text>
                 </View>
             </TouchableWithoutFeedback>
         });
@@ -71,8 +72,8 @@ export default class Header extends Component {
     _edit(){
         this.setState({
             editState:<TouchableWithoutFeedback onPress={()=>this._editsubmit()}>
-                <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#3C3C3C',fontSize: 16}}>完成</Text>
+                <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'#3C3C3C',fontSize: getHeight(16)}}>完成</Text>
                 </View>
             </TouchableWithoutFeedback>
         });
@@ -85,13 +86,13 @@ export default class Header extends Component {
                     barStyle="default"
                 />
                 <TouchableWithoutFeedback onPress={()=>this._back()}>
-                    <View style={{flex:1,height:50,justifyContent:'center',alignItems:'center',opacity:this.state.opacity}}>
+                    <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center',opacity:this.state.opacity}}>
                     <Image source={require('../../images/back_icon.png')}
                            style={styles.backIcon}/>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.searchBox}>
-                    <Text style={{color: '#3C3C3C',fontSize: 18}}>购物车</Text>
+                    <Text style={{color: '#3C3C3C',fontSize: getHeight(18)}}>购物车</Text>
                 </View>
                 {this.state.editState}
             </View>
@@ -101,48 +102,35 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        height:Platform.OS === 'ios' ? 64 : 40,
+        paddingTop: Platform.OS === 'ios' ? getHeight(20) : 0,
+        height:Platform.OS === 'ios' ? getHeight(64) : getHeight(50),
         backgroundColor: '#FAFAFA',
         alignItems: 'center',
         borderBottomWidth:1,
-        borderBottomColor:Platform.OS === 'ios'?'rgba(213,213,213,0.5)':'rgba(213,213,213,1)',
+        borderBottomColor:'#d3d3d3',
         justifyContent:'center'
     },
-    logo: {
-        height: 25,
-        width: 64,
-        resizeMode: 'stretch'
-
-    },
     searchBox: {
-        height: 40,
+        height: getHeight(50),
         flexDirection: 'row',
         flex: 6,
         alignItems: 'center',
         justifyContent: 'center',
     },
     scanIcon: {
-        height: 27,
-        width: 27,
+        height: getHeight(27),
+        width: getHeight(27),
         resizeMode: 'stretch'
     },
     searchIcon: {
-        width: 20,
-        height: 20,
+        width: getHeight(20),
+        height: getHeight(20),
         resizeMode: 'stretch',
         backgroundColor: '#00702d'
     },
     backIcon: {
-        width: 12,
-        height: 20,
+        width: getHeight(12),
+        height: getHeight(20),
         resizeMode: 'stretch',
-    },
-    inputText: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0)',
-        fontSize: 14,
-        width: 860,
-        color: 'white'
     }
 })
