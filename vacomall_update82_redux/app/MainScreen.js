@@ -17,8 +17,9 @@ import {
     Dimensions
 } from 'react-native';
 import {HomePage,ChongZhiPage,CartPage,Person,TabNavigator,Toast,CodePush} from './util/Path';
-import {endCutColor,cutColor,backgColor,priceColor} from './util/global';
 import {getHeight} from './util/response';
+import {connect} from 'react-redux';
+
 const HOME = 'home';
 const HOME_NORMAL = require('../images/tabs/home_normal.png');
 const HOME_FOCUS = require('../images/tabs/home_focus.png');
@@ -33,7 +34,7 @@ const PERSONAL_NORMAL = require('../images/tabs/personal_normal.png');
 const PERSONAL_FOCUS = require('../images/tabs/personal_focus.png');
 const {width,height}=Dimensions.get('window');
 
-export default class MainScreen extends Component {
+class MainScreen extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -156,3 +157,10 @@ const styles = StyleSheet.create({
         top:getHeight(6)
     }
 })
+function select(store) {
+    console.log(store);
+    return{
+        navigator:store
+    }
+}
+export default connect()(MainScreen)

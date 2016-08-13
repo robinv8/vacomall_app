@@ -22,12 +22,14 @@ import {
     ToastAndroid,
     Animated
 } from 'react-native';
+import {connect} from 'react-redux';
+
 import {HomeHeader, Swiper, MenuButton, GoodsDetail, ListPage, API, NetService} from './util/Path';
 import {endCutColor,cutColor,backgColor,priceColor} from './util/global';
 import {getHeight} from './util/response';
 var listFlag = 0;
 const {width, height}=Dimensions.get('window');
-export default class HomePage extends Component {
+class HomePage extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -654,3 +656,5 @@ const styles = StyleSheet.create({
         height: getHeight(20),
     }
 });
+
+export default connect()(HomePage)

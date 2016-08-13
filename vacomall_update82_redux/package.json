@@ -21,6 +21,12 @@
     "react-native-tab-navigator": "^0.3.2",
     "react-native-webintent": "^1.0.4",
     "react-native-wechat-android": "^2.0.1",
-    "react-native-wechat-ios": "^0.3.0"
+    "react-native-wechat-ios": "^0.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.3.1"
   }
 }
