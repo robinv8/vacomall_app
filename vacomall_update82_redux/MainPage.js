@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 
 
-import {MainScreen, IntroPage, Toast, API, NetService} from './app/util/Path';
+import {MainScreen, IntroPage, Toast, API, NetService,Login} from './app/util/Path';
 let defaultName = 'IntroPage';
 let defaultComponent = IntroPage;
 import Version from './app/Version';
@@ -37,12 +37,13 @@ export default class MainPage extends Component {
         this.state = {
             isload: false,
             isUpdate: false,
-            isUpdateStatus: null
+            isUpdateStatus: null,
         };
     }
 
 
     componentWillMount() {
+        console.disableYellowBox = true;
         NetService.getFetchData(API.UPDATEVERSION, (result)=> {
             console.log(Version + ':' + result['Ver'])
             if (Version !== result['Ver']) {
@@ -96,8 +97,8 @@ export default class MainPage extends Component {
         /*defaultName = 'IntroPage';
          defaultComponent = IntroPage;*/
         if (installed == Version) {
-            defaultName = 'MainScreen';
-            defaultComponent = MainScreen;
+            defaultName = 'Login';
+            defaultComponent = Login;
         } else {
             defaultName = 'IntroPage';
             defaultComponent = IntroPage;

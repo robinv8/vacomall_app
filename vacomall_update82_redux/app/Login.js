@@ -22,11 +22,12 @@ import {
     StatusBar,
     ScrollView
 } from 'react-native';
-import {priceColor} from './util/global';
+import {connect} from 'react-redux';
+import {logIn} from './actions/user';
 import {getHeight} from './util/response';
 import {Toast,LinearGradient,API,NetService,MainScreen} from './util/Path';
 var PPI = PixelRatio.get();
-export default class Login extends Component {
+class Login extends Component {
     // 构造
     constructor(props) {
         super(props);
@@ -107,12 +108,13 @@ export default class Login extends Component {
             Toast.show('密码不能为空!');
             return;
         }
-
-        NetService.postFetchData(API.LOGIN, 'uname=' + uname + '&pwd=' + pwd, (result)=>this._callback(result));
+        const {dispatch} = this.props;
+        dispatch(logIn(uname,pwd));
+        //NetService.postFetchData(API.LOGIN, 'uname=' + uname + '&pwd=' + pwd, (result)=>this._callback(result));
 
     }
 
-    _callback(result) {
+    /*_callback(result) {
         if (result['success'] === false) {
             Toast.show(result['result']['message']);
             return;
@@ -126,15 +128,15 @@ export default class Login extends Component {
                 isrefresh: true,
             })
         }
-    }
+    }*/
 
-    //进行储存数据_ONE
+    /*//进行储存数据_ONE
     async _saveValue_One(uname, pwd) {
         await AsyncStorage.setItem('uname', uname);
         await AsyncStorage.setItem('pwd', pwd);
         Toast.show('登录成功!');
         this.toPage();
-    }
+    }*/
 
 
     toPage() {
@@ -392,6 +394,13 @@ export default class Login extends Component {
         );
     }
 }
+function select(store) {
+    return{
+        isLoggedIn: store.userStore.isLoggedIn,
+        user: store.userStore.user,
+    }
+}
+export default connect()(Login);
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',

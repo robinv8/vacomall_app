@@ -2,48 +2,29 @@
  * Created by ren on 16/8/12.
  */
 'use strict';
-import { AlertIOS } from 'react-native';
 
 import * as TYPES from './types';
-
-// fake user data
-let testUser = {
-    'name': 'juju',
-    'age': '24',
-    'avatar': 'https://avatars1.githubusercontent.com/u/1439939?v=3&s=460'
-};
-
-// for skip user
-let skipUser = {
-    'name': 'guest',
-    'age': 20,
-    'avatar': 'https://avatars1.githubusercontent.com/u/1439939?v=3&s=460',
-};
-
+import {NetService,API} from '../util/Path';
+import {AsyncStorage} from 'react-native';
 // login
-export function logIn(opt){
+export function logIn(uname,pwd){
     return (dispatch) => {
         dispatch({'type': TYPES.LOGGED_DOING});
-        let inner_get = fetch('http://www.baidu.com')
-            .then((res)=>{
-                dispatch({'type': TYPES.LOGGED_IN, user: testUser});
-            }).catch((e)=>{
-                AlertIOS.alert(e.message);
-                dispatch({'type': TYPES.LOGGED_ERROR, error: e});
-            });
+        NetService.postFetchData(API.LOGIN, 'uname=' + uname + '&pwd=' + pwd, (result)=>{
+            if (result['success'] === false) {
+                dispatch({'type': TYPES.LOGGED_ERROR,e:result['result']['message']});
+                return;
+            }
+            _saveValue_One(uname, pwd);
+            dispatch({'type': TYPES.LOGGED_IN,uname:uname,pwd:pwd});
+        });
+        //进行储存数据_ONE
     }
 }
-
-
-
-// skip login
-export function skipLogin(){
-    return {
-        'type': TYPES.LOGGED_IN,
-        'user': skipUser,
-    }
+async function _saveValue_One(uname, pwd) {
+    await AsyncStorage.setItem('uname', uname);
+    await AsyncStorage.setItem('pwd', pwd);
 }
-
 
 // logout
 export function logOut(){
