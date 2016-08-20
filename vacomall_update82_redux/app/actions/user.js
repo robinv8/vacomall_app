@@ -4,7 +4,7 @@
 'use strict';
 
 import * as TYPES from './types';
-import {NetService,API} from '../util/Path';
+import {NetService,API} from '../pages/util/Path';
 import {AsyncStorage} from 'react-native';
 // login
 export function logIn(uname,pwd){
@@ -16,7 +16,7 @@ export function logIn(uname,pwd){
                 return;
             }
             _saveValue_One(uname, pwd);
-            dispatch({'type': TYPES.LOGGED_IN,uname:uname,pwd:pwd});
+            dispatch({'type': TYPES.LOGGED_IN,uname:uname});
         });
         //进行储存数据_ONE
     }

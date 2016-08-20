@@ -20,14 +20,18 @@ import {
 } from 'react-native';
 
 
-import {MainScreen, IntroPage, Toast, API, NetService,Login} from './app/util/Path';
-let defaultName = 'IntroPage';
-let defaultComponent = IntroPage;
-import Version from './app/Version';
-const {width, height}=Dimensions.get('window');
+import {MainScreen, IntroPage, Toast, API, NetService,Login} from './app/pages/util/Path';
+import * as launchImage from 'react-native-launch-image';
+import Version from './app/pages/Version';
 import WebIntent from 'react-native-webintent';
 import {Provider} from 'react-redux';
 import configureStore from './app/store/index';
+import Test1 from './app/test/Test1';
+let defaultName = 'IntroPage';
+let defaultComponent = IntroPage;
+
+const {width, height}=Dimensions.get('window');
+
 let store=configureStore();
 export default class MainPage extends Component {
     // 构造
@@ -43,6 +47,7 @@ export default class MainPage extends Component {
 
 
     componentWillMount() {
+        launchImage.hide();
         console.disableYellowBox = true;
         NetService.getFetchData(API.UPDATEVERSION, (result)=> {
             console.log(Version + ':' + result['Ver'])
@@ -97,8 +102,8 @@ export default class MainPage extends Component {
         /*defaultName = 'IntroPage';
          defaultComponent = IntroPage;*/
         if (installed == Version) {
-            defaultName = 'Login';
-            defaultComponent = Login;
+            defaultName = 'MainScreen';
+            defaultComponent = MainScreen;
         } else {
             defaultName = 'IntroPage';
             defaultComponent = IntroPage;
@@ -113,7 +118,7 @@ export default class MainPage extends Component {
         if (!this.state.isload) {
             return (
                 <View style={{position: 'absolute', width: width, height: height, top: 0, backgroundColor: 'white'}}>
-                    <Image source={require('./images/ad.png')}
+                    <Image source={require('./app/images/ad.png')}
                            style={{width: width, height: height - 20, resizeMode: 'stretch'}}
                            onError={(e)=> {
                                Toast.show(e.nativeEvent.error)

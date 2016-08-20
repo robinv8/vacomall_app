@@ -13,7 +13,7 @@
 
 #import "RCTWeChat.h"
 #import "RCTRootView.h"
-
+#import "RNLaunchImage.h"
 
 
 @implementation AppDelegate
@@ -35,6 +35,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [RNLaunchImage wait];
   return YES;
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url

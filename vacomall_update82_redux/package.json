@@ -11,12 +11,16 @@
     "react-native-app-intro": "^1.1.3",
     "react-native-barcodescanner": "^3.0.0",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-launch-image": "^1.0.2",
     "react-native-linear-gradient": "^1.5.9",
     "react-native-listview-row-edit": "^1.0.1",
+    "react-native-menu": "^0.20.1",
     "react-native-picker": "3.0.5",
     "react-native-root-toast": "^1.0.3",
     "react-native-scrollable-tab-view": "^0.5.3",
     "react-native-storage": "0.1.2",
+    "react-native-swipe-list-view": "^0.2.3",
+    "react-native-swipeout": "^2.0.12",
     "react-native-swiper2": "^2.0.6",
     "react-native-tab-navigator": "^0.3.2",
     "react-native-webintent": "^1.0.4",
@@ -27,6 +31,13 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
-    "redux-devtools": "^3.3.1"
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.3.17",
+    "babel-preset-es2015-loose": "^6.1.3",
+    "babel-preset-react": "6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11"
   }
 }

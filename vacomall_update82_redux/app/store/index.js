@@ -3,10 +3,9 @@
  */
 'use strict';
 
-import {applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, createStore,compose} from 'redux';
 import thunk from 'redux-thunk';
 import reducers from '../reducers';
-
 const logger = store => next => action => {
     if(typeof action === 'function') console.log('dispatching a function');
     else console.log('dispatching', action);
@@ -19,11 +18,10 @@ let middlewares = [
     logger,
     thunk
 ];
+const enhancer=compose(applyMiddleware(...middlewares))
 
-let createAppStore = applyMiddleware(...middlewares)(createStore);
-
-export default function configureStore(onComplete: ()=>void){
-    const store = createAppStore(reducers);
+export default function configureStore(initialState){
+    const store = createStore(reducers,initialState,enhancer);
 
     return store;
 }
