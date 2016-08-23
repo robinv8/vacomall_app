@@ -19,7 +19,7 @@ import {
     ToastAndroid
 }from 'react-native';
 import {connect} from 'react-redux';
-import {CateEdit,CateSubmit} from '../../actions/cart'
+import {CateEdit,CateSubmit} from '../../actions/cart';
 import {getHeight} from '../util/response';
 class CartHeader extends Component {
     // 构造

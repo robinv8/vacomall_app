@@ -4,9 +4,9 @@
 import {combineReducers} from 'redux';
 import userReducer from './user';
 import routeReducor from './route';
-import cartReducor from './cart';
+import {cateOper} from './cart';
 export default combineReducers({
     userStore:userReducer,
     routeStore:routeReducor,
-    cartStore:cartReducor
+    cartStore:cateOper
 })

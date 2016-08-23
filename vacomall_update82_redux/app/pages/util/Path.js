@@ -174,5 +174,5 @@ export {
     PersonSafe,
     PersonInfo,
     AbortVacomall,
-    Types,
+    Types
 };

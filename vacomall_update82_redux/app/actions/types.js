@@ -16,4 +16,3 @@ export const TO_NEXT_TYPE30 = 30;
 /*购物车*/
 export const CATE_EDIT='CATE_EDIT';
 export const CATE_SUBMIT='CATE_SUBMIT';
-

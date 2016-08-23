@@ -17,7 +17,8 @@ import {
     TouchableOpacity,
     TouchableWithoutFeedback,
     ToastAndroid,
-    Navigator, Platform
+    Navigator, Platform,
+    TextInput
 }from 'react-native'
 import {
     CartHeader,
@@ -41,26 +42,26 @@ class CartPage extends Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.ds=new ListView.DataSource({
+        this.ds = new ListView.DataSource({
             rowHasChanged: (row1, row2)=>row1 !== row2
         }),
-        this.state = {
-            gList: [],
-            loaded: false,
-            checked: false,
-            isNull: true,
-            checkedImg: require('../images/check_icon.png'),
-            price: '0',
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2)=>row1 !== row2
-            }),
-            opacity: 0,
-            isedit: false,
-            num: 0,
-            button: null,
-            editdata: null,
-            isrefresh: true
-        }
+            this.state = {
+                gList: [],
+                loaded: false,
+                checked: false,
+                isNull: true,
+                checkedImg: require('../images/check_icon.png'),
+                price: '0',
+                dataSource: new ListView.DataSource({
+                    rowHasChanged: (row1, row2)=>row1 !== row2
+                }),
+                opacity: 0,
+                isedit: false,
+                num: 0,
+                button: null,
+                editdata: null,
+                isrefresh: true
+            }
     }
 
     toHome() {
@@ -297,7 +298,7 @@ class CartPage extends Component {
         }
     }
 
-    deleteRow(data,secdId, rowId, rowMap) {
+    deleteRow(data, secdId, rowId, rowMap) {
         let id = data['id']
         if (id !== undefined) {
             NetService.postFetchData(API.DELETECART, 'id=' + id, (result)=> {
@@ -309,15 +310,16 @@ class CartPage extends Component {
                 rowMap[`${secdId}${rowId}`].closeRow();
                 const newData = [...this.state.gList];
                 newData.splice(rowId, 1);
-                if(newData.length===0){
+                if (newData.length === 0) {
                     this.setState({
-                        isNull:true
+                        isNull: true
                     })
                 }
                 this.setState({gList: newData});
             });
         }
     }
+
     render() {
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -353,7 +355,7 @@ class CartPage extends Component {
                         renderHiddenRow={ (data, secId, rowId, rowMap) => (
                             <View style={styles.rowBack}>
                                 <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnRight]}
-                                                  onPress={ _ => this.deleteRow(data,secId, rowId, rowMap) }>
+                                                  onPress={ _ => this.deleteRow(data, secId, rowId, rowMap) }>
                                     <Text style={styles.backTextWhite}>删除</Text>
                                     <Image source={require('../images/cart_delete.png')}
                                            style={{width: getHeight(20), height: getHeight(24)}}/>
@@ -563,11 +565,10 @@ class CartList extends Component {
 
     componentDidMount() {
         cartThis.push(this);
-        var _this = this;
         this.setState({
-            num: _this.props.gList['buySum'].toString(),
-            price: _this.props.gList['price'].toString(),
-            id: _this.props.gList['id'].toString()
+            num: this.props.gList['buySum'].toString(),
+            price: this.props.gList['price'].toString(),
+            id: this.props.gList['id'].toString()
         });
     }
 
@@ -584,6 +585,42 @@ class CartList extends Component {
         }
 
         return rtnText;
+    }
+
+    _onChange(num) {
+        var res = /^[0-9]*$/;
+        if (res.test(num) && num !== "") {
+            if (num.substring(0, 1) === "0") {
+                num = num.substring(1)
+            }
+            this.setState({
+                num: num
+            })
+        } else {
+            this.setState({
+                num: '1'
+            })
+        }
+    }
+
+    _num(flag) {
+        if (flag === 'add') {
+            let num = (parseInt(this.state.num) + 1).toString()
+            this.setState({
+                num: num
+            })
+        } else {
+            let num = "";
+            if (this.state.num === '1') {
+                num = this.state.num
+            } else {
+                num = (parseInt(this.state.num) - 1).toString()
+            }
+            this.setState({
+                num: num
+            })
+        }
+
     }
 
     render() {
@@ -621,7 +658,7 @@ class CartList extends Component {
                                 style={{
                                     color: '#C8C8C8',
                                     fontSize: 12,
-                                    width:0,height:0
+                                    width: 0, height: 0
                                 }}>规格:{this.props.gList['skuSpecification'].substring(0, 30)}</Text>
                             <TouchableWithoutFeedback>
                                 <View style={styles.editspec}>
@@ -629,11 +666,16 @@ class CartList extends Component {
                                         style={{
                                             color: '#3c3c3c',
                                             fontSize: 12,
-                                            width:getHeight(122.25),
-                                            flexWrap:'nowrap'
-                                        }}>规格:{this.props.gList['skuSpecification'].substring(0,7)}</Text>
-                                    <View style={{width:0.5,height:getHeight(22),backgroundColor:'rgba(191,191,191,0.5)'}}></View>
-                                    <Image source={require('../images/down_arrows_icon.png')} style={styles.down_arrows}/>
+                                            width: getHeight(122.25),
+                                            flexWrap: 'nowrap'
+                                        }}>规格:{this.props.gList['skuSpecification'].substring(0, 7)}</Text>
+                                    <View style={{
+                                        width: 0.5,
+                                        height: getHeight(22),
+                                        backgroundColor: 'rgba(191,191,191,0.5)'
+                                    }}/>
+                                    <Image source={require('../images/down_arrows_icon.png')}
+                                           style={styles.down_arrows}/>
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
@@ -648,30 +690,50 @@ class CartList extends Component {
                             <Text style={{
                                 color: '#C8C8C8',
                                 fontSize: getHeight(16),
-                                width:0,height:0
+                                width: 0, height: 0
                             }}>×{this.props.gList['buySum']}</Text>
                         </View>
-                        <View style={[styles.editspec,{width:getHeight(83),paddingLeft:0}]}>
+                        <View style={[styles.editspec, {width: getHeight(83), paddingLeft: 0}]}>
                             <TouchableWithoutFeedback onPress={(flag)=>this._num('sub')}>
                                 <View
                                     style={styles.sub_view}>
                                     <Image source={require('../images/black_sub_icon.png')}
-                                           style={{width:getHeight(11),height:getHeight(2),resizeMode:'stretch'}}/>
+                                           style={{width: getHeight(11), height: getHeight(2), resizeMode: 'stretch'}}/>
                                 </View>
                             </TouchableWithoutFeedback>
-                            <View style={{width:0.5,height:getHeight(22),backgroundColor:'rgba(191,191,191,0.5)'}}></View>
-                            <View style={{flex:3,alignItems:'center'}}>
-                                <Text style={{
-                                    color: '#3c3c3c',
-                                    fontSize: getHeight(16),
-                                }}>{this.props.gList['buySum']}</Text>
+                            <View style={{
+                                width: 0.5,
+                                height: getHeight(22),
+                                backgroundColor: 'rgba(191,191,191,0.5)'
+                            }}/>
+                            <View style={{flex: 3, alignItems: 'center'}}>
+                                <TextInput
+                                    style={{
+                                        color: '#3c3c3c',
+                                        fontSize: getHeight(16),
+                                        flex: 1,
+                                        textAlign: 'center'
+                                    }}
+                                    keyboardType={'numeric'}
+                                    onChangeText={(num)=>this._onChange(num)}
+                                    underlineColorAndroid='transparent'
+                                    value={this.state.num}/>
+
                             </View>
-                            <View style={{width:0.5,height:getHeight(22),backgroundColor:'rgba(191,191,191,0.5)'}}></View>
+                            <View style={{
+                                width: 0.5,
+                                height: getHeight(22),
+                                backgroundColor: 'rgba(191,191,191,0.5)'
+                            }}/>
                             <TouchableWithoutFeedback onPress={(flag)=>this._num('add')}>
                                 <View
                                     style={styles.sub_view}><Image
                                     source={require('../images/black_add_icon.png')}
-                                    style={{width:getHeight(11),height:getHeight(10),resizeMode:'stretch'}}/></View>
+                                    style={{
+                                        width: getHeight(11),
+                                        height: getHeight(10),
+                                        resizeMode: 'stretch'
+                                    }}/></View>
                             </TouchableWithoutFeedback>
                         </View>
                     </View>
@@ -785,28 +847,29 @@ const styles = StyleSheet.create({
         fontSize: getHeight(14),
         marginBottom: getHeight(6)
     },
-    editspec:{
-        paddingLeft:getHeight(5),
-        alignItems:'center',
-        width:getHeight(149),
-        height:getHeight(22),
-        borderRadius:5,
-        borderWidth:0.5,
+    editspec: {
+        paddingLeft: getHeight(5),
+        alignItems: 'center',
+        width: getHeight(149),
+        height: getHeight(22),
+        borderRadius: 5,
+        borderWidth: 0.5,
         borderColor: 'rgba(191,191,191,0.5)',
-        flexDirection:'row',
+        flexDirection: 'row',
     },
-    down_arrows:{
-        width:getHeight(8.94),
-        height:getHeight(4.83),
+    down_arrows: {
+        width: getHeight(8.94),
+        height: getHeight(4.83),
         resizeMode: 'stretch',
-        marginTop:getHeight(9.1),
-        marginRight:getHeight(6.15),
-        marginBottom:getHeight(8.07),
-        marginLeft:getHeight(4.65),
+        marginTop: getHeight(9.1),
+        marginRight: getHeight(6.15),
+        marginBottom: getHeight(8.07),
+        marginLeft: getHeight(4.65),
     },
     sub_view: {
-        flex:3,
+        flex: 3,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: getHeight(20)
     },
 })
