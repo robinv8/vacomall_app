@@ -36,7 +36,6 @@ import {
 import {connect} from 'react-redux';
 import {getHeight} from './util/response';
 import {SwipeListView, SwipeRow} from 'react-native-swipe-list-view';
-let cartThis = [];
 class CartPage extends Component {
     // 构造
     constructor(props) {
@@ -45,23 +44,24 @@ class CartPage extends Component {
         this.ds = new ListView.DataSource({
             rowHasChanged: (row1, row2)=>row1 !== row2
         }),
-            this.state = {
-                gList: [],
-                loaded: false,
-                checked: false,
-                isNull: true,
-                checkedImg: require('../images/check_icon.png'),
-                price: '0',
-                dataSource: new ListView.DataSource({
-                    rowHasChanged: (row1, row2)=>row1 !== row2
-                }),
-                opacity: 0,
-                isedit: false,
-                num: 0,
-                button: null,
-                editdata: null,
-                isrefresh: true
-            }
+            this.cartThis = []
+        this.state = {
+            gList: [],
+            loaded: false,
+            checked: false,
+            isNull: true,
+            checkedImg: require('../images/check_icon.png'),
+            price: '0',
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2)=>row1 !== row2
+            }),
+            opacity: 0,
+            isedit: false,
+            num: 0,
+            button: null,
+            editdata: null,
+            isrefresh: true
+        }
     }
 
     toHome() {
@@ -75,16 +75,12 @@ class CartPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        /*console.log(nextProps.active+' '+this.state.isrefresh)
-         if (nextProps.active&&this.state.isrefresh) {
-         this.componentDidMount(()=> {
-         this._editsubmit();
-         });
-         }*/
+        console.log(nextProps.active + ' ' + this.state.isrefresh)
+
     }
 
     componentDidMount(callback) {
-        cartThis = [];
+        this.cartThis = [];
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows([]),
         });
@@ -143,7 +139,7 @@ class CartPage extends Component {
         }
         var _this = this;
         if (this.state.checked === false) {
-            cartThis.forEach(function (_cartThis) {
+            this.cartThis.forEach(function (_cartThis) {
                 _cartThis.setState({
                     checkedImg: require('../images/checked_icon.png'),
                     checked: true
@@ -168,7 +164,7 @@ class CartPage extends Component {
                 </TouchableWithoutFeedback>
             });
         } else {
-            cartThis.forEach(function (_cartThis) {
+            this.cartThis.forEach(function (_cartThis) {
                 _cartThis.setState({
                     checkedImg: require('../images/check_icon.png'),
                     checked: false
@@ -246,7 +242,7 @@ class CartPage extends Component {
             opacity: 1,
             isedit: true,
         });
-        cartThis.forEach(function (_cartThis) {
+        this.cartThis.forEach(function (_cartThis) {
             _cartThis.setState({
                 opacity: 1,
                 isedit: true,
@@ -260,7 +256,7 @@ class CartPage extends Component {
             isedit: true,
             editdata: null
         });
-        cartThis.forEach(function (_cartThis) {
+        this.cartThis.forEach(function (_cartThis) {
             _cartThis.setState({
                 opacity: 0
             })
@@ -273,7 +269,7 @@ class CartPage extends Component {
 
     _deletCate() {
         var ids = "", flag = false;
-        cartThis.map(function (data) {
+        this.cartThis.map(function (data) {
             if (data.state.checked) {
                 ids += data.state.id + ',';
                 flag = true;
@@ -298,6 +294,14 @@ class CartPage extends Component {
         }
     }
 
+    /**
+     *
+     * @param data
+     * @param secdId
+     * @param rowId
+     * @param rowMap
+     * @description 删除购物车单条数据
+     */
     deleteRow(data, secdId, rowId, rowMap) {
         let id = data['id']
         if (id !== undefined) {
@@ -306,7 +310,6 @@ class CartPage extends Component {
                     Toast.show(result['result']['message']);
                     return;
                 }
-                //Toast.show(result['result']['message']);
                 rowMap[`${secdId}${rowId}`].closeRow();
                 const newData = [...this.state.gList];
                 newData.splice(rowId, 1);
@@ -315,7 +318,10 @@ class CartPage extends Component {
                         isNull: true
                     })
                 }
-                this.setState({gList: newData});
+                this.setState({
+                    gList: newData,
+                    num:this.state.num-1
+                });
             });
         }
     }
@@ -328,6 +334,12 @@ class CartPage extends Component {
             return this.isNull();
         }
         const {btn_text, backgroundColor}=this.props;
+        let showBtn;
+        if(btn_text==='结算'){
+            showBtn=btn_text+'('+this.state.num+')';
+        }else{
+            showBtn=btn_text;
+        }
         return (
             <View style={{flex: 1, backgroundColor: '#f4f4f4'}}>
                 <CartHeader navigator={this.props.navigator} _edit={()=>this._edit()}
@@ -377,7 +389,7 @@ class CartPage extends Component {
                             borderBottomColor: '#e2e2e2'
                         }}>
                         <Text style={{fontSize: getHeight(14), color: '#3c3c3c'}}>共计:<Text style={styles.price}>￥<Text
-                            style={{fontSize: getHeight(18)}}>{this.state.price}</Text></Text></Text>
+                            style={{fontSize: getHeight(18)}}>{parseInt(this.state.price).toFixed(2)}</Text></Text></Text>
                     </View>
                 </ScrollView>
                 <View>
@@ -407,13 +419,15 @@ class CartPage extends Component {
                                     left: getHeight(10),
                                     position: 'absolute'
                                 }}>
-                                <Text style={{fontSize: getHeight(12)}}>总价:</Text>
-                                <Text style={[styles.price]}>￥</Text>
+                                <Text style={{fontSize: getHeight(14)}}>总价:</Text>
+                                <Text style={[styles.price,{
+                                    marginTop:3
+                                }]}>￥</Text>
                                 <Text
                                     style={[styles.price, {
                                         fontSize: getHeight(18),
-                                        marginTop: getHeight(-4)
-                                    }]}>{this.state.price}</Text>
+                                        marginTop: getHeight(-2)
+                                    }]}>{parseInt(this.state.price).toFixed(2)}</Text>
                             </View>
                             <TouchableWithoutFeedback onPress={()=>this._checked()}>
                                 <View
@@ -421,7 +435,7 @@ class CartPage extends Component {
                                         flexDirection: 'row',
                                         alignItems: 'center',
                                         height: getHeight(40),
-                                        paddingLeft: getHeight(10),
+                                        left: getHeight(10),
                                         paddingRight: getHeight(42),
                                         opacity: this.state.opacity
                                     }}>
@@ -440,7 +454,7 @@ class CartPage extends Component {
                                 <Text style={{
                                     fontSize: getHeight(14),
                                     color: 'white'
-                                }}>{btn_text}({this.state.num})</Text>
+                                }}>{showBtn}</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
@@ -553,9 +567,9 @@ class CartList extends Component {
             })
         }
         var _this = this;
-        cartThis.map(function (data) {
+        this.props.This.cartThis.map((data)=> {
             if (!data.state.checked) {
-                _this.props.This.setState({
+                this.props.This.setState({
                     checkedImg: require('../images/check_icon.png'),
                     checked: false
                 })
@@ -564,7 +578,7 @@ class CartList extends Component {
     }
 
     componentDidMount() {
-        cartThis.push(this);
+        this.props.This.cartThis.push(this);
         this.setState({
             num: this.props.gList['buySum'].toString(),
             price: this.props.gList['price'].toString(),
@@ -604,23 +618,56 @@ class CartList extends Component {
     }
 
     _num(flag) {
+        let num = "";
         if (flag === 'add') {
-            let num = (parseInt(this.state.num) + 1).toString()
+            num = (parseInt(this.state.num) + 1).toString()
             this.setState({
                 num: num
+            });
+            this.props.This.setState({
+                price: (parseInt(this.props.This.state.price) + parseInt(this.state.price)).toFixed(2),
             })
+            this._addCart(1);
         } else {
-            let num = "";
             if (this.state.num === '1') {
                 num = this.state.num
+                this.props.This.setState({
+                    price: parseInt(this.props.This.state.price).toFixed(2),
+                })
             } else {
                 num = (parseInt(this.state.num) - 1).toString()
+                this.props.This.setState({
+                    price: (parseInt(this.props.This.state.price) - parseInt(this.state.price)).toFixed(2),
+                })
             }
             this.setState({
                 num: num
             })
+            this._addCart(1);
         }
 
+    }
+
+    _addCart(num) {
+        if (this.state.id === null) {
+            Toast.show('请选择商品规格!');
+        } else {
+            /*NetService.postFetchData(API.ADDCART, 'id=' + this.state.id + '&buySum=' + num, (result)=> {
+             if (result['success'] === false) {
+             Toast.show(result['result']['message']);
+             if (result['result']['code'] === 303) {
+             const {navigator}=detailThis.props.parentProps;
+             if (navigator) {
+             navigator.push({
+             component: Login,
+             sceneConfig: Navigator.SceneConfigs.FadeAndroid
+             })
+             }
+             }
+             return;
+             }
+             });*/
+        }
     }
 
     render() {
