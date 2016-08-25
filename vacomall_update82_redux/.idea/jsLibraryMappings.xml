@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{vacomall node_modules}" />
+    <file url="file://$PROJECT_DIR$" libraries="{vacomall_update82_redux/node_modules}" />
+    <file url="file://$PROJECT_DIR$/build/intermedia/ios/assets" libraries="{vacomall_update82_redux/build/intermedia/ios/assets/node_modules}" />
+    <file url="file://$PROJECT_DIR$/ios/build/Build/Products/Release-iphonesimulator/vacomall.app/assets" libraries="{vacomall_update82_redux/ios/build/Build/Products/Release-iphonesimulator/vacomall.app/assets/node_modules}" />
     <includedPredefinedLibrary name="ECMAScript 6" />
   </component>
 </project>
