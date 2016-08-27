@@ -43,7 +43,8 @@ class MainScreen extends Component {
             selectedTab: HOME,
             navigator: null,
             active: false,
-            beforeView: null
+            beforeView: null,
+            spec:null
         };
     }
 
@@ -131,6 +132,7 @@ class MainScreen extends Component {
 
     render() {
         return (
+            <View style={{flex:1}}>
                 <TabNavigator hidesTabTouch={false} tabBarStyle={styles.tab} sceneStyle={{ paddingBottom:getHeight(49)}}>
                     {this._renderTabItem(HOME_NORMAL, HOME_FOCUS, HOME, <HomePage navigator={this.props.navigator}
                                                                                   _this={this}/>)}
@@ -138,10 +140,12 @@ class MainScreen extends Component {
                         navigator={this.props.navigator}/>)}
                     {this._renderTabItem(CART_NORMAL, CART_FOCUS, CART, <CartPage navigator={this.props.navigator}
                                                                                   tab={true}
-                                                                                  active={this.state.active}/>)}
+                                                                                  active={this.state.active} rootThis={this}/>)}
                     {this._renderTabItem(PERSONAL_NORMAL, PERSONAL_FOCUS, PERSONAL, <Person
                         navigator={this.props.navigator} active={this.state.active}/>)}
                 </TabNavigator>
+                {this.state.spec}
+            </View>
         );
     }
 }

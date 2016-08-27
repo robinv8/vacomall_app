@@ -31,8 +31,9 @@ import {
     ListViewRowEdit,
     MainScreen,
     Loaddingpage,
-    Guess
+    Guess,
 } from './util/Path';
+import CartSpec from './Cart/CartSpec';
 import {connect} from 'react-redux';
 import {getHeight} from './util/response';
 import {SwipeListView, SwipeRow} from 'react-native-swipe-list-view';
@@ -43,8 +44,8 @@ class CartPage extends Component {
         // 初始状态
         this.ds = new ListView.DataSource({
             rowHasChanged: (row1, row2)=>row1 !== row2
-        }),
-            this.cartThis = []
+        });
+        this.cartThis = [];
         this.state = {
             gList: [],
             loaded: false,
@@ -60,7 +61,9 @@ class CartPage extends Component {
             num: 0,
             button: null,
             editdata: null,
-            isrefresh: true
+            isrefresh: false,
+            spec: null,
+            shadeThis: null
         }
     }
 
@@ -75,14 +78,26 @@ class CartPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.active + ' ' + this.state.isrefresh)
 
+        if (nextProps.active) {
+            this.setState({
+                gList:[]
+            })
+            this.componentDidMount()
+        }
     }
-
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextState.isrefresh){
+            this.setState({
+                gList:[]
+            })
+            this.componentDidMount()
+        }
+        return true;
+    }
     componentDidMount(callback) {
-        this.cartThis = [];
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows([]),
+            isrefresh:false,
         });
         NetService.postFetchData(API.GETCART, '', (result)=> {
             if (result['success'] === false) {
@@ -128,7 +143,7 @@ class CartPage extends Component {
                     }]}>
                         <Text style={{fontSize: getHeight(14), color: 'white'}}>结算({this.state.num})</Text>
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>,
             });
         });
     }
@@ -186,14 +201,17 @@ class CartPage extends Component {
                                style={styles.check}/>
                         <Text style={{fontSize: getHeight(16), color: '#3c3c3c'}}>全选</Text>
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>,
             });
         }
     }
 
     _toOrder() {
-        var _this = this;
-        if (this.state.gList.length === 0) {
+        this.setState({
+
+            gList:[]
+        });
+        /*if (this.state.gList.length === 0) {
             Toast.show('购物车数量为0,不能结算!');
             return;
         }
@@ -203,14 +221,14 @@ class CartPage extends Component {
                 return;
             }
 
-            const {navigator}=_this.props;
+            const {navigator}=this.props;
             if (navigator) {
                 navigator.push({
                     component: OrderPage,
                     sceneConfig: Navigator.SceneConfigs.FloatFromRight,
                 })
             }
-        });
+        });*/
     }
 
 
@@ -320,7 +338,7 @@ class CartPage extends Component {
                 }
                 this.setState({
                     gList: newData,
-                    num:this.state.num-1
+                    num: this.state.num - 1
                 });
             });
         }
@@ -335,10 +353,10 @@ class CartPage extends Component {
         }
         const {btn_text, backgroundColor}=this.props;
         let showBtn;
-        if(btn_text==='结算'){
-            showBtn=btn_text+'('+this.state.num+')';
-        }else{
-            showBtn=btn_text;
+        if (btn_text === '结算') {
+            showBtn = btn_text + '(' + this.state.num + ')';
+        } else {
+            showBtn = btn_text;
         }
         return (
             <View style={{flex: 1, backgroundColor: '#f4f4f4'}}>
@@ -407,7 +425,6 @@ class CartPage extends Component {
                             style={[styles.bom, {
                                 flex: 2,
                                 flexDirection: 'row',
-                                paddingLeft: getHeight(10),
                                 paddingRight: getHeight(10)
                             }]}>
                             <View
@@ -420,8 +437,8 @@ class CartPage extends Component {
                                     position: 'absolute'
                                 }}>
                                 <Text style={{fontSize: getHeight(14)}}>总价:</Text>
-                                <Text style={[styles.price,{
-                                    marginTop:3
+                                <Text style={[styles.price, {
+                                    marginTop: 3
                                 }]}>￥</Text>
                                 <Text
                                     style={[styles.price, {
@@ -459,6 +476,7 @@ class CartPage extends Component {
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
+                {this.state.spec}
             </View>
         )
     }
@@ -576,13 +594,14 @@ class CartList extends Component {
             }
         })
     }
-
     componentDidMount() {
+        this.specs = {}, this.specsUI = {};
         this.props.This.cartThis.push(this);
         this.setState({
             num: this.props.gList['buySum'].toString(),
             price: this.props.gList['price'].toString(),
-            id: this.props.gList['id'].toString()
+            id: this.props.gList['id'].toString(),
+            skuSpecification: this.props.gList['skuSpecification']
         });
     }
 
@@ -620,54 +639,111 @@ class CartList extends Component {
     _num(flag) {
         let num = "";
         if (flag === 'add') {
-            num = (parseInt(this.state.num) + 1).toString()
-            this.setState({
-                num: num
+            this._addCart(1, (result)=> {
+                if (result) {
+                    num = (parseInt(this.state.num) + 1).toString()
+                    this.setState({
+                        num: num
+                    });
+                    this.props.This.setState({
+                        price: (parseInt(this.props.This.state.price) + parseInt(this.state.price)).toFixed(2),
+                    })
+                }
             });
-            this.props.This.setState({
-                price: (parseInt(this.props.This.state.price) + parseInt(this.state.price)).toFixed(2),
-            })
-            this._addCart(1);
         } else {
-            if (this.state.num === '1') {
-                num = this.state.num
-                this.props.This.setState({
-                    price: parseInt(this.props.This.state.price).toFixed(2),
-                })
-            } else {
-                num = (parseInt(this.state.num) - 1).toString()
-                this.props.This.setState({
-                    price: (parseInt(this.props.This.state.price) - parseInt(this.state.price)).toFixed(2),
-                })
-            }
-            this.setState({
-                num: num
-            })
-            this._addCart(1);
+            this._addCart(-1, (result)=> {
+                if (result) {
+                    if (this.state.num === '1') {
+                        num = this.state.num
+                        this.props.This.setState({
+                            price: parseInt(this.props.This.state.price).toFixed(2),
+                        })
+                    } else {
+                        num = (parseInt(this.state.num) - 1).toString()
+                        this.props.This.setState({
+                            price: (parseInt(this.props.This.state.price) - parseInt(this.state.price)).toFixed(2),
+                        })
+                    }
+                    this.setState({
+                        num: num
+                    })
+                }
+            });
         }
-
     }
 
-    _addCart(num) {
-        if (this.state.id === null) {
-            Toast.show('请选择商品规格!');
+    /**
+     *
+     * @param num 商品数量
+     * @param callback 回调函数
+     * @private
+     * @description 修改购物车商品数量
+     */
+    _addCart(num, callback) {
+        let status = true
+        NetService.postFetchData(API.ADDCART, 'id=' + this.state.id + '&buySum=' + num, (result)=> {
+            if (result['success'] === false) {
+                Toast.show(result['result']['message']);
+                if (result['result']['code'] === 303) {
+                    const {navigator}=detailThis.props.parentProps;
+                    if (navigator) {
+                        navigator.push({
+                            component: Login,
+                            sceneConfig: Navigator.SceneConfigs.FadeAndroid
+                        })
+                    }
+                }
+                status = false;
+            } else {
+                status = true;
+            }
+            callback(status);
+        });
+    }
+
+    /**
+     * @description 修改商品规格
+     */
+    selectSpec() {
+        this.props.This.setState({
+            spec: null,
+            resultData: null
+        })
+        NetService.getFetchData(API.SELECTSPEC + '?id=' + this.state.id, (result)=> {
+            this.specs[this.state.id] = result;
+            this.editspec(result);
+        })
+    }
+
+    /**
+     *
+     * @param result
+     * @description 修改购物车商品规格
+     */
+    editspec(result) {
+        this.setState({
+            resultData: result
+        })
+        let rootThis = this.props.This.props.rootThis;
+        if (rootThis !== undefined) {
+            rootThis.setState({
+                spec: null,
+                shadeThis: null,
+                active:false
+            })
+            rootThis.setState({
+                spec: <CartSpec _this2={this}/>
+            })
         } else {
-            /*NetService.postFetchData(API.ADDCART, 'id=' + this.state.id + '&buySum=' + num, (result)=> {
-             if (result['success'] === false) {
-             Toast.show(result['result']['message']);
-             if (result['result']['code'] === 303) {
-             const {navigator}=detailThis.props.parentProps;
-             if (navigator) {
-             navigator.push({
-             component: Login,
-             sceneConfig: Navigator.SceneConfigs.FadeAndroid
-             })
-             }
-             }
-             return;
-             }
-             });*/
+            this.props.This.setState({
+                spec: null,
+                shadeThis: null
+            })
+            this.props.This.setState({
+                spec: <CartSpec _this2={this}/>
+            })
         }
+        //this.state.shadeThis._shade();
     }
 
     render() {
@@ -707,7 +783,7 @@ class CartList extends Component {
                                     fontSize: 12,
                                     width: 0, height: 0
                                 }}>规格:{this.props.gList['skuSpecification'].substring(0, 30)}</Text>
-                            <TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={()=>this.selectSpec()}>
                                 <View style={styles.editspec}>
                                     <Text
                                         style={{

@@ -41,7 +41,7 @@ export default class MainPage extends Component {
         this.state = {
             isload: false,
             isUpdate: false,
-            isUpdateStatus: null,
+            isUpdateStatus: null
         };
     }
 

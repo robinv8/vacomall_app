@@ -72,25 +72,7 @@ class CartHeader extends Component {
             return;
         }
     }
-    _editsubmit(){
-        /*this.setState({
-            editState:<TouchableWithoutFeedback onPress={()=>this._edit()}>
-                <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#3C3C3C',fontSize: getHeight(16)}}>编辑</Text>
-                </View>
-            </TouchableWithoutFeedback>
-        });*/
-        this.props._editsubmit()
-    }
     _edit(){
-        /*this.setState({
-            editState:<TouchableWithoutFeedback onPress={()=>this._editsubmit()}>
-                <View style={{flex:1,height:getHeight(50),justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#3C3C3C',fontSize: getHeight(16)}}>完成</Text>
-                </View>
-            </TouchableWithoutFeedback>
-        });
-        this.props._edit()*/
         const {dispatch,nextOper}=this.props;
         if(nextOper==='CATE_EDIT'){
             dispatch(CateEdit());

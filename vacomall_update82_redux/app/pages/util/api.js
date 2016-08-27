@@ -37,7 +37,8 @@ var API = {
     DELETERETURNSKU:API_ADDRESS +'me/returnsku/delete',
     CONFIRMRETURNSKU:API_ADDRESS+'me/returnsku/confirm',
     PERSONINFO: API_ADDRESS + 'me',
-    UPDATEVERSION:API_ADDRESS+'ver/get/new'
+    UPDATEVERSION:API_ADDRESS+'ver/get/new',
+    SELECTSPEC:API_ADDRESS+'goods/simpledetail'
 };
 
 module.exports = API;
